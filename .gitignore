@@ -1,2 +1,9 @@
 src/amiga.o src/lapi.o src/lauxlib.o src/lbaselib.o src/lcode.o src/lcorolib.o src/lctype.o src/ldblib.o src/ldebug.o src/ldo.o src/ldump.o src/lfunc.o src/lgc.o src/linit.o src/liolib.o src/llex.o src/lmathlib.o src/lmem.o src/loadlib.o src/lobject.o src/lopcodes.o src/loslib.o src/lparser.o src/lstate.o src/lstring.o src/lstrlib.o src/ltable.o src/ltablib.o src/ltm.o src/lua.o src/lundump.o src/lutf8lib.o src/lvm.o src/lzio.o
 *~
+src/*.o
+src/*.a
+./build.sh
+src/build.sh
+src/luac
+build.sh
+src/liblua.a

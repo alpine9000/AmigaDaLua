@@ -4,15 +4,15 @@
 # == CHANGE THE SETTINGS BELOW TO SUIT YOUR ENVIRONMENT =======================
 
 # Your platform. See PLATS for possible values.
-PLAT= guess
+PLAT= genertic
+COMPILER_PATH=/usr/local/amiga/bebbo/bin
+CC=$(COMPILER_PATH)/m68k-amigaos-gcc
+CFLAGS= -Os -Wall -Wextra -DLUA_COMPAT_5_3 $(SYSCFLAGS) $(MYCFLAGS) -std=gnu99 -noixemul -Wno-pointer-sign 
+LDFLAGS= $(SYSLDFLAGS) $(MYLDFLAGS) -noixemul -s
+LIBS=-lm $(SYSLIBS) $(MYLIBS)
 
-CC= /usr/local/amiga/bebbo/bin/m68k-amigaos-gcc -std=gnu99 -noixemul #-mcrt=clib2 #-nostdlib
-CFLAGS= -O2 -Wall -Wextra -DLUA_COMPAT_5_3 $(SYSCFLAGS) $(MYCFLAGS)
-LDFLAGS= $(SYSLDFLAGS) $(MYLDFLAGS)
-LIBS= -L/usr/local/amiga/bebbo/m68k-amigaos/libnix/lib/ -lm $(SYSLIBS) $(MYLIBS)
-
-AR= /usr/local/amiga/bebbo/bin/m68k-amigaos-ar rcu
-RANLIB= /usr/local/amiga/bebbo/bin/m68k-amigaos-ranlib
+AR= $(COMPILER_PATH)/m68k-amigaos-ar rcu
+RANLIB= $(COMPILER_PATH)/m68k-amigaos-ranlib
 RM= rm -f
 UNAME= uname
 
@@ -30,7 +30,7 @@ CMCFLAGS=
 
 # == END OF USER SETTINGS -- NO NEED TO CHANGE ANYTHING BELOW THIS LINE =======
 
-PLATS= generic #guess aix bsd c89 freebsd generic ios linux linux-readline macosx mingw posix solaris
+PLATS= generic guess aix bsd c89 freebsd generic ios linux linux-readline macosx mingw posix solaris
 
 LUA_A=	liblua.a
 CORE_O=	lapi.o lcode.o lctype.o ldebug.o ldo.o ldump.o lfunc.o lgc.o llex.o lmem.o lobject.o lopcodes.o lparser.o lstate.o lstring.o ltable.o ltm.o lundump.o lvm.o lzio.o
@@ -38,9 +38,9 @@ LIB_O=	lauxlib.o lbaselib.o lcorolib.o ldblib.o liolib.o lmathlib.o loadlib.o lo
 BASE_O= $(CORE_O) $(LIB_O) $(MYOBJS)
 
 LUA_T=	lua
-LUA_O=	lua.o #amiga.o
+LUA_O=	lua.o amiga.o
 
-LUAC_T=	#luac
+LUAC_T=	luac
 LUAC_O=	luac.o
 
 ALL_O= $(BASE_O) $(LUA_O) $(LUAC_O)
@@ -156,6 +156,8 @@ lparser.o:
 lcode.o:
 	$(CC) $(CFLAGS) $(CMCFLAGS) -c lcode.c
 
+_lua_gen.h: amiga.h lua_generate.py
+	python3 lua_generate.py amiga.h > _lua_gen.h
 # DO NOT DELETE
 
 lapi.o: lapi.c lprefix.h lua.h luaconf.h lapi.h llimits.h lstate.h \
@@ -221,6 +223,6 @@ lvm.o: lvm.c lprefix.h lua.h luaconf.h ldebug.h lstate.h lobject.h \
  ltable.h lvm.h ljumptab.h
 lzio.o: lzio.c lprefix.h lua.h luaconf.h llimits.h lmem.h lstate.h \
  lobject.h ltm.h lzio.h
-amiga.o: _lua_gen.h
+amiga.o: _lua_gen.h amiga.h
 
 # (end of Makefile)
