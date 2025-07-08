@@ -1,0 +1,11 @@
+#define __stdargs
+#include <sys/types.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <dos/dostags.h>
+#include <exec/execbase.h>
+#include <proto/dos.h>
+#include <proto/exec.h>
+#include <proto/socket.h>
+#include <proto/dos.h>
