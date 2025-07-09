@@ -25,10 +25,10 @@ DEFINE_CONFIGS = [
     "MEMF_PUBLIC", "MEMF_CLEAR", "MEMF_CHIP", "MEMF_FAST",
     "MODE_OLDFILE", "MODE_NEWFILE", "MODE_READWRITE",
     "DOSTRUE", "DOSFALSE",
-    "WA_Title","WA_Width","WA_Height","WA_Left","WA_Top","WA_CloseGadget","WA_DepthGadget","WA_DragBar","WA_Activate","WA_SmartRefresh",
-    "WA_IDCMP","WA_Gadgets","WA_PubScreen",
+    "WA_AutoAdjust", "WA_InnerHeight", "WA_Title","WA_Width","WA_Height","WA_Left","WA_Top","WA_CloseGadget","WA_DepthGadget","WA_DragBar",
+    "WA_Activate","WA_SmartRefresh",    "WA_IDCMP","WA_Gadgets","WA_PubScreen",
     "TAG_END",
-    "IDCMP_CLOSEWINDOW", "IDCMP_RAWKEY", "IDCMP_MOUSEMOVE", "IDCMP_REFRESHWINDOW", "BUTTONIDCMP",
+    "IDCMP_CLOSEWINDOW", "IDCMP_GADGETUP", "IDCMP_MOUSEMOVE", "IDCMP_RAWKEY","IDCMP_REFRESHWINDOW", "BUTTONIDCMP",
     "BUTTON_KIND",
 ]
 
@@ -43,12 +43,13 @@ FUNCTION_CONFIG = [
 
     "WaitPort","GetMsg", "ReplyMsg",
 
-    "LockPubScreen", "CloseWindow",
+    "LockPubScreen", "UnlockPubScreen", "CloseWindow",
     
     "TO_CONST_STRPTR", "TO_IntuiMessage",
     # GadTools
     #"GetVisualInfoA","CreateGadgetA",
     "CreateContext", "GT_RefreshWindow", "GT_GetIMsg", "GT_ReplyIMsg", "GT_BeginRefresh", "GT_EndRefresh",
+    "FreeGadgets", "FreeVisualInfo"
 ]
 
 
@@ -83,6 +84,7 @@ READ_TYPE_TO_LUA = {
     'char *': 'lua_pushstring',
     'void *': 'lua_pushlightuserdata',    
     'CONST_STRPTR': 'lua_pushstring',
+    'STRPTR': 'lua_pushstring',
     'APTR': 'lua_pushlightuserdata',
     'BPTR': 'lua_pushinteger',
     'LONG': 'lua_pushinteger',
@@ -108,6 +110,7 @@ WRITE_TYPE_FROM_LUA = {
     'char *': 'luaL_checkstring',
     'void *': 'lua_touserdata',
     'CONST_STRPTR': 'amiga_checkNullableString',
+    'STRPTR': 'amiga_checkNullableString',    
     'LONG': 'luaL_checkinteger',
     'BPTR': 'luaL_checkinteger',
     'APTR': 'lua_touserdata',
@@ -345,17 +348,20 @@ def generate_lua_newindex(struct_name, fields, functors):
             if base in TYPE_CONFIG:
                 if pointer_level == 0:
                     print(f"  if (strcmp(key, \"{name}\") == 0) {{")
+                    print(f"    // finder 0")
                     print(f"    {base} *val = *({base} **)luaL_checkudata(L, 3, \"{base}\");")
                     print(f"    obj->{name} = *val;")
                     print("    return 0;")
                     print("  }")
                 elif pointer_level == 1:
                     print(f"  if (strcmp(key, \"{name}\") == 0) {{")
-                    print(f"    obj->{name} = ({base} *)luaL_checkudata(L, 3, \"{base}\");")
+                    print(f"    // finder 1")                    
+                    print(f"    obj->{name} = *({base} **)luaL_checkudata(L, 3, \"{base}\");")
                     print("    return 0;")
                     print("  }")
                 elif pointer_level == 2:
                     print(f"  if (strcmp(key, \"{name}\") == 0) {{")
+                    print(f"    // finder 2")                    
                     print(f"    {base} *val = *({base} **)luaL_checkudata(L, 3, \"{base}\");")
                     print(f"    *obj->{name} = val;")
                     print("    return 0;")

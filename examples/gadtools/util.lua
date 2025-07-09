@@ -23,4 +23,5 @@ return {
     TagItem = TagItem,
     TagList = TagList,
     NewGadgetList = NewGadgetList,
+    GetGadget = GetGadget,
 }

@@ -455,6 +455,23 @@ _lua_LockPubScreen(lua_State* L)
 }
 
 static int
+_lua_UnlockPubScreen(lua_State* L)
+{
+  CONST_STRPTR name = amiga_checkNullableString(L, 1);
+  struct Screen * screen = _lua_gen_checkScreen(L, 2);
+  UnlockPubScreen(name, screen);
+  return 0;
+}
+
+static int
+_lua_FreeGadgets(lua_State* L)
+{
+  struct Gadget * gad = _lua_gen_checkGadget(L, 1);
+  FreeGadgets(gad);
+  return 0;
+}
+
+static int
 _lua_GT_GetIMsg(lua_State* L)
 {
   struct MsgPort * iport = _lua_gen_checkMsgPort(L, 1);
@@ -507,12 +524,21 @@ _lua_CreateContext(lua_State* L)
 }
 
 static int
+_lua_FreeVisualInfo(lua_State* L)
+{
+  APTR vi = lua_touserdata(L, 1);
+  FreeVisualInfo(vi);
+  return 0;
+}
+
+static int
 _lua_gen_Window_newindex(lua_State *L)
 {
   Window *obj = *(Window **)luaL_checkudata(L, 1, "Window");
   const char *key = luaL_checkstring(L, 2);
   if (strcmp(key, "NextWindow") == 0) {
-    obj->NextWindow = (Window *)luaL_checkudata(L, 3, "Window");
+    // finder 1
+    obj->NextWindow = *(Window **)luaL_checkudata(L, 3, "Window");
     return 0;
   }
   if (strcmp(key, "LeftEdge") == 0) {
@@ -559,12 +585,18 @@ _lua_gen_Window_newindex(lua_State *L)
     obj->Flags = (ULONG)luaL_checkinteger(L, 3);
     return 0;
   }
+  if (strcmp(key, "Title") == 0) {
+    obj->Title = (STRPTR)amiga_checkNullableString(L, 3);
+    return 0;
+  }
   if (strcmp(key, "FirstRequest") == 0) {
-    obj->FirstRequest = (Requester *)luaL_checkudata(L, 3, "Requester");
+    // finder 1
+    obj->FirstRequest = *(Requester **)luaL_checkudata(L, 3, "Requester");
     return 0;
   }
   if (strcmp(key, "DMRequest") == 0) {
-    obj->DMRequest = (Requester *)luaL_checkudata(L, 3, "Requester");
+    // finder 1
+    obj->DMRequest = *(Requester **)luaL_checkudata(L, 3, "Requester");
     return 0;
   }
   if (strcmp(key, "ReqCount") == 0) {
@@ -572,11 +604,13 @@ _lua_gen_Window_newindex(lua_State *L)
     return 0;
   }
   if (strcmp(key, "WScreen") == 0) {
-    obj->WScreen = (Screen *)luaL_checkudata(L, 3, "Screen");
+    // finder 1
+    obj->WScreen = *(Screen **)luaL_checkudata(L, 3, "Screen");
     return 0;
   }
   if (strcmp(key, "RPort") == 0) {
-    obj->RPort = (RastPort *)luaL_checkudata(L, 3, "RastPort");
+    // finder 1
+    obj->RPort = *(RastPort **)luaL_checkudata(L, 3, "RastPort");
     return 0;
   }
   if (strcmp(key, "BorderLeft") == 0) {
@@ -596,19 +630,23 @@ _lua_gen_Window_newindex(lua_State *L)
     return 0;
   }
   if (strcmp(key, "BorderRPort") == 0) {
-    obj->BorderRPort = (RastPort *)luaL_checkudata(L, 3, "RastPort");
+    // finder 1
+    obj->BorderRPort = *(RastPort **)luaL_checkudata(L, 3, "RastPort");
     return 0;
   }
   if (strcmp(key, "FirstGadget") == 0) {
-    obj->FirstGadget = (Gadget *)luaL_checkudata(L, 3, "Gadget");
+    // finder 1
+    obj->FirstGadget = *(Gadget **)luaL_checkudata(L, 3, "Gadget");
     return 0;
   }
   if (strcmp(key, "Parent") == 0) {
-    obj->Parent = (Window *)luaL_checkudata(L, 3, "Window");
+    // finder 1
+    obj->Parent = *(Window **)luaL_checkudata(L, 3, "Window");
     return 0;
   }
   if (strcmp(key, "Descendant") == 0) {
-    obj->Descendant = (Window *)luaL_checkudata(L, 3, "Window");
+    // finder 1
+    obj->Descendant = *(Window **)luaL_checkudata(L, 3, "Window");
     return 0;
   }
   if (strcmp(key, "PtrHeight") == 0) {
@@ -632,15 +670,18 @@ _lua_gen_Window_newindex(lua_State *L)
     return 0;
   }
   if (strcmp(key, "UserPort") == 0) {
-    obj->UserPort = (MsgPort *)luaL_checkudata(L, 3, "MsgPort");
+    // finder 1
+    obj->UserPort = *(MsgPort **)luaL_checkudata(L, 3, "MsgPort");
     return 0;
   }
   if (strcmp(key, "WindowPort") == 0) {
-    obj->WindowPort = (MsgPort *)luaL_checkudata(L, 3, "MsgPort");
+    // finder 1
+    obj->WindowPort = *(MsgPort **)luaL_checkudata(L, 3, "MsgPort");
     return 0;
   }
   if (strcmp(key, "MessageKey") == 0) {
-    obj->MessageKey = (IntuiMessage *)luaL_checkudata(L, 3, "IntuiMessage");
+    // finder 1
+    obj->MessageKey = *(IntuiMessage **)luaL_checkudata(L, 3, "IntuiMessage");
     return 0;
   }
   if (strcmp(key, "DetailPen") == 0) {
@@ -649,6 +690,10 @@ _lua_gen_Window_newindex(lua_State *L)
   }
   if (strcmp(key, "BlockPen") == 0) {
     obj->BlockPen = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ScreenTitle") == 0) {
+    obj->ScreenTitle = (STRPTR)amiga_checkNullableString(L, 3);
     return 0;
   }
   if (strcmp(key, "GZZMouseX") == 0) {
@@ -758,6 +803,10 @@ _lua_gen_Window_index(lua_State *L)
   }
   if (strcmp(key, "Flags") == 0) {
     lua_pushinteger(L, obj->Flags);
+    return 1;
+  }
+  if (strcmp(key, "Title") == 0) {
+    lua_pushstring(L, obj->Title);
     return 1;
   }
   if (strcmp(key, "FirstRequest") == 0) {
@@ -885,6 +934,10 @@ _lua_gen_Window_index(lua_State *L)
     lua_pushinteger(L, obj->BlockPen);
     return 1;
   }
+  if (strcmp(key, "ScreenTitle") == 0) {
+    lua_pushstring(L, obj->ScreenTitle);
+    return 1;
+  }
   if (strcmp(key, "GZZMouseX") == 0) {
     lua_pushinteger(L, obj->GZZMouseX);
     return 1;
@@ -936,68 +989,72 @@ _lua_gen_Window_install_keys(lua_State *L)
   lua_rawseti(L, -2, 11);
   lua_pushstring(L, "Flags");
   lua_rawseti(L, -2, 12);
-  lua_pushstring(L, "FirstRequest");
+  lua_pushstring(L, "Title");
   lua_rawseti(L, -2, 13);
-  lua_pushstring(L, "DMRequest");
+  lua_pushstring(L, "FirstRequest");
   lua_rawseti(L, -2, 14);
-  lua_pushstring(L, "ReqCount");
+  lua_pushstring(L, "DMRequest");
   lua_rawseti(L, -2, 15);
-  lua_pushstring(L, "WScreen");
+  lua_pushstring(L, "ReqCount");
   lua_rawseti(L, -2, 16);
-  lua_pushstring(L, "RPort");
+  lua_pushstring(L, "WScreen");
   lua_rawseti(L, -2, 17);
-  lua_pushstring(L, "BorderLeft");
+  lua_pushstring(L, "RPort");
   lua_rawseti(L, -2, 18);
-  lua_pushstring(L, "BorderTop");
+  lua_pushstring(L, "BorderLeft");
   lua_rawseti(L, -2, 19);
-  lua_pushstring(L, "BorderRight");
+  lua_pushstring(L, "BorderTop");
   lua_rawseti(L, -2, 20);
-  lua_pushstring(L, "BorderBottom");
+  lua_pushstring(L, "BorderRight");
   lua_rawseti(L, -2, 21);
-  lua_pushstring(L, "BorderRPort");
+  lua_pushstring(L, "BorderBottom");
   lua_rawseti(L, -2, 22);
-  lua_pushstring(L, "FirstGadget");
+  lua_pushstring(L, "BorderRPort");
   lua_rawseti(L, -2, 23);
-  lua_pushstring(L, "Parent");
+  lua_pushstring(L, "FirstGadget");
   lua_rawseti(L, -2, 24);
-  lua_pushstring(L, "Descendant");
+  lua_pushstring(L, "Parent");
   lua_rawseti(L, -2, 25);
-  lua_pushstring(L, "Pointer");
+  lua_pushstring(L, "Descendant");
   lua_rawseti(L, -2, 26);
-  lua_pushstring(L, "PtrHeight");
+  lua_pushstring(L, "Pointer");
   lua_rawseti(L, -2, 27);
-  lua_pushstring(L, "PtrWidth");
+  lua_pushstring(L, "PtrHeight");
   lua_rawseti(L, -2, 28);
-  lua_pushstring(L, "XOffset");
+  lua_pushstring(L, "PtrWidth");
   lua_rawseti(L, -2, 29);
-  lua_pushstring(L, "YOffset");
+  lua_pushstring(L, "XOffset");
   lua_rawseti(L, -2, 30);
-  lua_pushstring(L, "IDCMPFlags");
+  lua_pushstring(L, "YOffset");
   lua_rawseti(L, -2, 31);
-  lua_pushstring(L, "UserPort");
+  lua_pushstring(L, "IDCMPFlags");
   lua_rawseti(L, -2, 32);
-  lua_pushstring(L, "WindowPort");
+  lua_pushstring(L, "UserPort");
   lua_rawseti(L, -2, 33);
-  lua_pushstring(L, "MessageKey");
+  lua_pushstring(L, "WindowPort");
   lua_rawseti(L, -2, 34);
-  lua_pushstring(L, "DetailPen");
+  lua_pushstring(L, "MessageKey");
   lua_rawseti(L, -2, 35);
-  lua_pushstring(L, "BlockPen");
+  lua_pushstring(L, "DetailPen");
   lua_rawseti(L, -2, 36);
-  lua_pushstring(L, "GZZMouseX");
+  lua_pushstring(L, "BlockPen");
   lua_rawseti(L, -2, 37);
-  lua_pushstring(L, "GZZMouseY");
+  lua_pushstring(L, "ScreenTitle");
   lua_rawseti(L, -2, 38);
-  lua_pushstring(L, "GZZWidth");
+  lua_pushstring(L, "GZZMouseX");
   lua_rawseti(L, -2, 39);
-  lua_pushstring(L, "GZZHeight");
+  lua_pushstring(L, "GZZMouseY");
   lua_rawseti(L, -2, 40);
-  lua_pushstring(L, "ExtData");
+  lua_pushstring(L, "GZZWidth");
   lua_rawseti(L, -2, 41);
-  lua_pushstring(L, "UserData");
+  lua_pushstring(L, "GZZHeight");
   lua_rawseti(L, -2, 42);
-  lua_pushstring(L, "MoreFlags");
+  lua_pushstring(L, "ExtData");
   lua_rawseti(L, -2, 43);
+  lua_pushstring(L, "UserData");
+  lua_rawseti(L, -2, 44);
+  lua_pushstring(L, "MoreFlags");
+  lua_rawseti(L, -2, 45);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -1464,7 +1521,8 @@ _lua_gen_Message_newindex(lua_State *L)
   Message *obj = *(Message **)luaL_checkudata(L, 1, "Message");
   const char *key = luaL_checkstring(L, 2);
   if (strcmp(key, "mn_ReplyPort") == 0) {
-    obj->mn_ReplyPort = (MsgPort *)luaL_checkudata(L, 3, "MsgPort");
+    // finder 1
+    obj->mn_ReplyPort = *(MsgPort **)luaL_checkudata(L, 3, "MsgPort");
     return 0;
   }
   if (strcmp(key, "mn_Length") == 0) {
@@ -1556,6 +1614,7 @@ _lua_gen_IntuiMessage_newindex(lua_State *L)
   IntuiMessage *obj = *(IntuiMessage **)luaL_checkudata(L, 1, "IntuiMessage");
   const char *key = luaL_checkstring(L, 2);
   if (strcmp(key, "ExecMessage") == 0) {
+    // finder 0
     Message *val = *(Message **)luaL_checkudata(L, 3, "Message");
     obj->ExecMessage = *val;
     return 0;
@@ -1593,11 +1652,13 @@ _lua_gen_IntuiMessage_newindex(lua_State *L)
     return 0;
   }
   if (strcmp(key, "IDCMPWindow") == 0) {
-    obj->IDCMPWindow = (Window *)luaL_checkudata(L, 3, "Window");
+    // finder 1
+    obj->IDCMPWindow = *(Window **)luaL_checkudata(L, 3, "Window");
     return 0;
   }
   if (strcmp(key, "SpecialLink") == 0) {
-    obj->SpecialLink = (IntuiMessage *)luaL_checkudata(L, 3, "IntuiMessage");
+    // finder 1
+    obj->SpecialLink = *(IntuiMessage **)luaL_checkudata(L, 3, "IntuiMessage");
     return 0;
   }
   return 0;
@@ -1745,7 +1806,8 @@ _lua_gen_Gadget_newindex(lua_State *L)
   Gadget *obj = *(Gadget **)luaL_checkudata(L, 1, "Gadget");
   const char *key = luaL_checkstring(L, 2);
   if (strcmp(key, "NextGadget") == 0) {
-    obj->NextGadget = (Gadget *)luaL_checkudata(L, 3, "Gadget");
+    // finder 1
+    obj->NextGadget = *(Gadget **)luaL_checkudata(L, 3, "Gadget");
     return 0;
   }
   if (strcmp(key, "LeftEdge") == 0) {
@@ -1957,11 +2019,13 @@ _lua_gen_Screen_newindex(lua_State *L)
   Screen *obj = *(Screen **)luaL_checkudata(L, 1, "Screen");
   const char *key = luaL_checkstring(L, 2);
   if (strcmp(key, "NextScreen") == 0) {
-    obj->NextScreen = (Screen *)luaL_checkudata(L, 3, "Screen");
+    // finder 1
+    obj->NextScreen = *(Screen **)luaL_checkudata(L, 3, "Screen");
     return 0;
   }
   if (strcmp(key, "FirstWindow") == 0) {
-    obj->FirstWindow = (Window *)luaL_checkudata(L, 3, "Window");
+    // finder 1
+    obj->FirstWindow = *(Window **)luaL_checkudata(L, 3, "Window");
     return 0;
   }
   if (strcmp(key, "LeftEdge") == 0) {
@@ -1990,6 +2054,14 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "Flags") == 0) {
     obj->Flags = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Title") == 0) {
+    obj->Title = (STRPTR)amiga_checkNullableString(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "DefaultTitle") == 0) {
+    obj->DefaultTitle = (STRPTR)amiga_checkNullableString(L, 3);
     return 0;
   }
   if (strcmp(key, "BarHeight") == 0) {
@@ -2029,16 +2101,19 @@ _lua_gen_Screen_newindex(lua_State *L)
     return 0;
   }
   if (strcmp(key, "Font") == 0) {
-    obj->Font = (TextAttr *)luaL_checkudata(L, 3, "TextAttr");
+    // finder 1
+    obj->Font = *(TextAttr **)luaL_checkudata(L, 3, "TextAttr");
     return 0;
   }
   if (strcmp(key, "RastPort") == 0) {
+    // finder 0
     RastPort *val = *(RastPort **)luaL_checkudata(L, 3, "RastPort");
     obj->RastPort = *val;
     return 0;
   }
   if (strcmp(key, "FirstGadget") == 0) {
-    obj->FirstGadget = (Gadget *)luaL_checkudata(L, 3, "Gadget");
+    // finder 1
+    obj->FirstGadget = *(Gadget **)luaL_checkudata(L, 3, "Gadget");
     return 0;
   }
   if (strcmp(key, "DetailPen") == 0) {
@@ -2131,6 +2206,14 @@ _lua_gen_Screen_index(lua_State *L)
   }
   if (strcmp(key, "Flags") == 0) {
     lua_pushinteger(L, obj->Flags);
+    return 1;
+  }
+  if (strcmp(key, "Title") == 0) {
+    lua_pushstring(L, obj->Title);
+    return 1;
+  }
+  if (strcmp(key, "DefaultTitle") == 0) {
+    lua_pushstring(L, obj->DefaultTitle);
     return 1;
   }
   if (strcmp(key, "BarHeight") == 0) {
@@ -2227,40 +2310,44 @@ _lua_gen_Screen_install_keys(lua_State *L)
   lua_rawseti(L, -2, 8);
   lua_pushstring(L, "Flags");
   lua_rawseti(L, -2, 9);
-  lua_pushstring(L, "BarHeight");
+  lua_pushstring(L, "Title");
   lua_rawseti(L, -2, 10);
-  lua_pushstring(L, "BarVBorder");
+  lua_pushstring(L, "DefaultTitle");
   lua_rawseti(L, -2, 11);
-  lua_pushstring(L, "BarHBorder");
+  lua_pushstring(L, "BarHeight");
   lua_rawseti(L, -2, 12);
-  lua_pushstring(L, "MenuVBorder");
+  lua_pushstring(L, "BarVBorder");
   lua_rawseti(L, -2, 13);
-  lua_pushstring(L, "MenuHBorder");
+  lua_pushstring(L, "BarHBorder");
   lua_rawseti(L, -2, 14);
-  lua_pushstring(L, "WBorTop");
+  lua_pushstring(L, "MenuVBorder");
   lua_rawseti(L, -2, 15);
-  lua_pushstring(L, "WBorLeft");
+  lua_pushstring(L, "MenuHBorder");
   lua_rawseti(L, -2, 16);
-  lua_pushstring(L, "WBorRight");
+  lua_pushstring(L, "WBorTop");
   lua_rawseti(L, -2, 17);
-  lua_pushstring(L, "WBorBottom");
+  lua_pushstring(L, "WBorLeft");
   lua_rawseti(L, -2, 18);
-  lua_pushstring(L, "Font");
+  lua_pushstring(L, "WBorRight");
   lua_rawseti(L, -2, 19);
-  lua_pushstring(L, "RastPort");
+  lua_pushstring(L, "WBorBottom");
   lua_rawseti(L, -2, 20);
-  lua_pushstring(L, "FirstGadget");
+  lua_pushstring(L, "Font");
   lua_rawseti(L, -2, 21);
-  lua_pushstring(L, "DetailPen");
+  lua_pushstring(L, "RastPort");
   lua_rawseti(L, -2, 22);
-  lua_pushstring(L, "BlockPen");
+  lua_pushstring(L, "FirstGadget");
   lua_rawseti(L, -2, 23);
-  lua_pushstring(L, "SaveColor0");
+  lua_pushstring(L, "DetailPen");
   lua_rawseti(L, -2, 24);
-  lua_pushstring(L, "ExtData");
+  lua_pushstring(L, "BlockPen");
   lua_rawseti(L, -2, 25);
-  lua_pushstring(L, "UserData");
+  lua_pushstring(L, "SaveColor0");
   lua_rawseti(L, -2, 26);
+  lua_pushstring(L, "ExtData");
+  lua_rawseti(L, -2, 27);
+  lua_pushstring(L, "UserData");
+  lua_rawseti(L, -2, 28);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -2306,7 +2393,8 @@ _lua_gen_NewGadget_newindex(lua_State *L)
     return 0;
   }
   if (strcmp(key, "ng_TextAttr") == 0) {
-    obj->ng_TextAttr = (TextAttr *)luaL_checkudata(L, 3, "TextAttr");
+    // finder 1
+    obj->ng_TextAttr = *(TextAttr **)luaL_checkudata(L, 3, "TextAttr");
     return 0;
   }
   if (strcmp(key, "ng_GadgetID") == 0) {
@@ -2490,11 +2578,17 @@ _lua_gen_NewWindow_newindex(lua_State *L)
     return 0;
   }
   if (strcmp(key, "FirstGadget") == 0) {
-    obj->FirstGadget = (Gadget *)luaL_checkudata(L, 3, "Gadget");
+    // finder 1
+    obj->FirstGadget = *(Gadget **)luaL_checkudata(L, 3, "Gadget");
+    return 0;
+  }
+  if (strcmp(key, "Title") == 0) {
+    obj->Title = (STRPTR)amiga_checkNullableString(L, 3);
     return 0;
   }
   if (strcmp(key, "Screen") == 0) {
-    obj->Screen = (Screen *)luaL_checkudata(L, 3, "Screen");
+    // finder 1
+    obj->Screen = *(Screen **)luaL_checkudata(L, 3, "Screen");
     return 0;
   }
   if (strcmp(key, "MinWidth") == 0) {
@@ -2594,6 +2688,10 @@ _lua_gen_NewWindow_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "Title") == 0) {
+    lua_pushstring(L, obj->Title);
+    return 1;
+  }
   if (strcmp(key, "Screen") == 0) {
     Screen **ud = (Screen **)lua_newuserdata(L, sizeof(Screen *));
     *ud = (Screen*)obj->Screen;
@@ -2646,18 +2744,20 @@ _lua_gen_NewWindow_install_keys(lua_State *L)
   lua_rawseti(L, -2, 8);
   lua_pushstring(L, "FirstGadget");
   lua_rawseti(L, -2, 9);
-  lua_pushstring(L, "Screen");
+  lua_pushstring(L, "Title");
   lua_rawseti(L, -2, 10);
-  lua_pushstring(L, "MinWidth");
+  lua_pushstring(L, "Screen");
   lua_rawseti(L, -2, 11);
-  lua_pushstring(L, "MinHeight");
+  lua_pushstring(L, "MinWidth");
   lua_rawseti(L, -2, 12);
-  lua_pushstring(L, "MaxWidth");
+  lua_pushstring(L, "MinHeight");
   lua_rawseti(L, -2, 13);
-  lua_pushstring(L, "MaxHeight");
+  lua_pushstring(L, "MaxWidth");
   lua_rawseti(L, -2, 14);
-  lua_pushstring(L, "Type");
+  lua_pushstring(L, "MaxHeight");
   lua_rawseti(L, -2, 15);
+  lua_pushstring(L, "Type");
+  lua_rawseti(L, -2, 16);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -2683,7 +2783,8 @@ _lua_gen_Requester_newindex(lua_State *L)
   Requester *obj = *(Requester **)luaL_checkudata(L, 1, "Requester");
   const char *key = luaL_checkstring(L, 2);
   if (strcmp(key, "OlderRequest") == 0) {
-    obj->OlderRequest = (Requester *)luaL_checkudata(L, 3, "Requester");
+    // finder 1
+    obj->OlderRequest = *(Requester **)luaL_checkudata(L, 3, "Requester");
     return 0;
   }
   if (strcmp(key, "LeftEdge") == 0) {
@@ -2711,7 +2812,8 @@ _lua_gen_Requester_newindex(lua_State *L)
     return 0;
   }
   if (strcmp(key, "ReqGadget") == 0) {
-    obj->ReqGadget = (Gadget *)luaL_checkudata(L, 3, "Gadget");
+    // finder 1
+    obj->ReqGadget = *(Gadget **)luaL_checkudata(L, 3, "Gadget");
     return 0;
   }
   if (strcmp(key, "Flags") == 0) {
@@ -2723,7 +2825,8 @@ _lua_gen_Requester_newindex(lua_State *L)
     return 0;
   }
   if (strcmp(key, "RWindow") == 0) {
-    obj->RWindow = (Window *)luaL_checkudata(L, 3, "Window");
+    // finder 1
+    obj->RWindow = *(Window **)luaL_checkudata(L, 3, "Window");
     return 0;
   }
   return 0;
@@ -2870,6 +2973,10 @@ _lua_gen_TextAttr_newindex(lua_State *L)
 {
   TextAttr *obj = *(TextAttr **)luaL_checkudata(L, 1, "TextAttr");
   const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ta_Name") == 0) {
+    obj->ta_Name = (STRPTR)amiga_checkNullableString(L, 3);
+    return 0;
+  }
   if (strcmp(key, "ta_YSize") == 0) {
     obj->ta_YSize = (UWORD)luaL_checkinteger(L, 3);
     return 0;
@@ -2920,6 +3027,10 @@ _lua_gen_TextAttr_index(lua_State *L)
 {
   TextAttr *obj = *(TextAttr **)luaL_checkudata(L, 1, "TextAttr");
   const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ta_Name") == 0) {
+    lua_pushstring(L, obj->ta_Name);
+    return 1;
+  }
   if (strcmp(key, "ta_YSize") == 0) {
     lua_pushinteger(L, obj->ta_YSize);
     return 1;
@@ -2939,12 +3050,14 @@ static void
 _lua_gen_TextAttr_install_keys(lua_State *L)
 {
   lua_newtable(L);
-  lua_pushstring(L, "ta_YSize");
+  lua_pushstring(L, "ta_Name");
   lua_rawseti(L, -2, 1);
-  lua_pushstring(L, "ta_Style");
+  lua_pushstring(L, "ta_YSize");
   lua_rawseti(L, -2, 2);
-  lua_pushstring(L, "ta_Flags");
+  lua_pushstring(L, "ta_Style");
   lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "ta_Flags");
+  lua_rawseti(L, -2, 4);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -2970,7 +3083,8 @@ _lua_gen_GadgetPtr_newindex(lua_State *L)
   GadgetPtr *obj = *(GadgetPtr **)luaL_checkudata(L, 1, "GadgetPtr");
   const char *key = luaL_checkstring(L, 2);
   if (strcmp(key, "ptr") == 0) {
-    obj->ptr = (Gadget *)luaL_checkudata(L, 3, "Gadget");
+    // finder 1
+    obj->ptr = *(Gadget **)luaL_checkudata(L, 3, "Gadget");
     return 0;
   }
   return 0;
@@ -3087,6 +3201,10 @@ _lua_gen_install_defines(lua_State *L)
   lua_setglobal(L, "DOSTRUE");
   lua_pushinteger(L, DOSFALSE);
   lua_setglobal(L, "DOSFALSE");
+  lua_pushinteger(L, WA_AutoAdjust);
+  lua_setglobal(L, "WA_AutoAdjust");
+  lua_pushinteger(L, WA_InnerHeight);
+  lua_setglobal(L, "WA_InnerHeight");
   lua_pushinteger(L, WA_Title);
   lua_setglobal(L, "WA_Title");
   lua_pushinteger(L, WA_Width);
@@ -3117,10 +3235,12 @@ _lua_gen_install_defines(lua_State *L)
   lua_setglobal(L, "TAG_END");
   lua_pushinteger(L, IDCMP_CLOSEWINDOW);
   lua_setglobal(L, "IDCMP_CLOSEWINDOW");
-  lua_pushinteger(L, IDCMP_RAWKEY);
-  lua_setglobal(L, "IDCMP_RAWKEY");
+  lua_pushinteger(L, IDCMP_GADGETUP);
+  lua_setglobal(L, "IDCMP_GADGETUP");
   lua_pushinteger(L, IDCMP_MOUSEMOVE);
   lua_setglobal(L, "IDCMP_MOUSEMOVE");
+  lua_pushinteger(L, IDCMP_RAWKEY);
+  lua_setglobal(L, "IDCMP_RAWKEY");
   lua_pushinteger(L, IDCMP_REFRESHWINDOW);
   lua_setglobal(L, "IDCMP_REFRESHWINDOW");
   lua_pushinteger(L, BUTTONIDCMP);
@@ -3167,12 +3287,15 @@ _lua_gen_installGeneratedFunctions(lua_State *L)
   lua_register(L, "Move", _lua_Move);
   lua_register(L, "CloseWindow", _lua_CloseWindow);
   lua_register(L, "LockPubScreen", _lua_LockPubScreen);
+  lua_register(L, "UnlockPubScreen", _lua_UnlockPubScreen);
+  lua_register(L, "FreeGadgets", _lua_FreeGadgets);
   lua_register(L, "GT_GetIMsg", _lua_GT_GetIMsg);
   lua_register(L, "GT_ReplyIMsg", _lua_GT_ReplyIMsg);
   lua_register(L, "GT_RefreshWindow", _lua_GT_RefreshWindow);
   lua_register(L, "GT_BeginRefresh", _lua_GT_BeginRefresh);
   lua_register(L, "GT_EndRefresh", _lua_GT_EndRefresh);
   lua_register(L, "CreateContext", _lua_CreateContext);
+  lua_register(L, "FreeVisualInfo", _lua_FreeVisualInfo);
   lua_register(L, "TO_CONST_STRPTR", _lua_TO_CONST_STRPTR);
   lua_register(L, "TO_IntuiMessage", _lua_TO_IntuiMessage);
 }

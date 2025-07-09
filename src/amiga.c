@@ -171,7 +171,20 @@ _amiga_getPtr(lua_State* L)
   lua_pushinteger(L, (uintptr_t)*ptr);
   return 1;
 }
+
+int
+_amiga_getGadget(lua_State* L)
+{
+  void* raw = lua_touserdata(L, 1);
+  if (!raw) {
+    luaL_error(L, "expected lightuserdata");
+    return 0;
+  }
   
+  Gadget* ptr = (Gadget*)raw;
+  _lua_gen_pushGadget(L, ptr);
+  return 1;
+}
 
 void
 lua_install(lua_State* L)
@@ -181,6 +194,7 @@ lua_install(lua_State* L)
   lua_register(L, "GetVisualInfoA", _amiga_getVisualInfoA);
   lua_register(L, "CreateGadgetA", _amiga_createGadgetA);
   lua_register(L, "GetPtr", _amiga_getPtr);
+  lua_register(L, "GetGadget", _amiga_getGadget);
 }
 
 
