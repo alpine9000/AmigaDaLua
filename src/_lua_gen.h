@@ -546,10 +546,94 @@ _lua_UnlockPubScreen(lua_State* L)
 }
 
 static int
+_lua_OpenWindowTagList(lua_State* L)
+{
+  const struct NewWindow * newWindow = _lua_gen_checkNewWindow(L, 1);
+  struct TagItem* tagList = NULL;
+  if (!lua_isnoneornil(L, 2)) {
+    struct TagItem _tags[32];
+    _amiga_doTagList(L, _tags, countof(_tags), 2);
+    tagList = _tags;
+  }
+  struct Window * result = OpenWindowTagList(newWindow, tagList);
+  _lua_gen_pushWindow(L, result);
+  return 1;
+}
+
+static int
+_lua_OpenWindowTags(lua_State* L)
+{
+  const struct NewWindow * newWindow = _lua_gen_checkNewWindow(L, 1);
+  struct TagItem taglist[64];
+  _amiga_readVarTags(L, taglist, countof(taglist), 2);
+  struct Window * result = OpenWindowTagList(newWindow, taglist);
+  _lua_gen_pushWindow(L, result);
+  return 1;
+}
+
+static int
+_lua_CreateGadgetA(lua_State* L)
+{
+  ULONG kind = luaL_checkinteger(L, 1);
+  struct Gadget * gad = _lua_gen_checkGadget(L, 2);
+  struct NewGadget * ng = _lua_gen_checkNewGadget(L, 3);
+  struct TagItem* taglist = NULL;
+  if (!lua_isnoneornil(L, 4)) {
+    struct TagItem _tags[32];
+    _amiga_doTagList(L, _tags, countof(_tags), 4);
+    taglist = _tags;
+  }
+  struct Gadget * result = CreateGadgetA(kind, gad, ng, taglist);
+  _lua_gen_pushGadget(L, result);
+  return 1;
+}
+
+static int
+_lua_CreateGadget(lua_State* L)
+{
+  ULONG kind = luaL_checkinteger(L, 1);
+  struct Gadget * gad = _lua_gen_checkGadget(L, 2);
+  struct NewGadget * ng = _lua_gen_checkNewGadget(L, 3);
+  struct TagItem taglist[64];
+  _amiga_readVarTags(L, taglist, countof(taglist), 4);
+  struct Gadget * result = CreateGadgetA(kind, gad, ng, taglist);
+  _lua_gen_pushGadget(L, result);
+  return 1;
+}
+
+static int
 _lua_FreeGadgets(lua_State* L)
 {
   struct Gadget * gad = _lua_gen_checkGadget(L, 1);
   FreeGadgets(gad);
+  return 0;
+}
+
+static int
+_lua_GT_SetGadgetAttrsA(lua_State* L)
+{
+  struct Gadget * gad = _lua_gen_checkGadget(L, 1);
+  struct Window * win = _lua_gen_checkWindow(L, 2);
+  struct Requester * req = _lua_gen_checkRequester(L, 3);
+  struct TagItem* taglist = NULL;
+  if (!lua_isnoneornil(L, 4)) {
+    struct TagItem _tags[32];
+    _amiga_doTagList(L, _tags, countof(_tags), 4);
+    taglist = _tags;
+  }
+  GT_SetGadgetAttrsA(gad, win, req, taglist);
+  return 0;
+}
+
+static int
+_lua_GT_SetGadgetAttrs(lua_State* L)
+{
+  struct Gadget * gad = _lua_gen_checkGadget(L, 1);
+  struct Window * win = _lua_gen_checkWindow(L, 2);
+  struct Requester * req = _lua_gen_checkRequester(L, 3);
+  struct TagItem taglist[64];
+  _amiga_readVarTags(L, taglist, countof(taglist), 4);
+  GT_SetGadgetAttrsA(gad, win, req, taglist);
   return 0;
 }
 
@@ -602,6 +686,32 @@ _lua_CreateContext(lua_State* L)
   struct Gadget ** glistptr = amiga_checkGadgetPtr(L, 1);
   struct Gadget * result = CreateContext(glistptr);
   _lua_gen_pushGadget(L, result);
+  return 1;
+}
+
+static int
+_lua_GetVisualInfoA(lua_State* L)
+{
+  struct Screen * screen = _lua_gen_checkScreen(L, 1);
+  struct TagItem* taglist = NULL;
+  if (!lua_isnoneornil(L, 2)) {
+    struct TagItem _tags[32];
+    _amiga_doTagList(L, _tags, countof(_tags), 2);
+    taglist = _tags;
+  }
+  APTR result = GetVisualInfoA(screen, taglist);
+  lua_pushlightuserdata(L, result);
+  return 1;
+}
+
+static int
+_lua_GetVisualInfo(lua_State* L)
+{
+  struct Screen * screen = _lua_gen_checkScreen(L, 1);
+  struct TagItem taglist[64];
+  _amiga_readVarTags(L, taglist, countof(taglist), 2);
+  APTR result = GetVisualInfoA(screen, taglist);
+  lua_pushlightuserdata(L, result);
   return 1;
 }
 
@@ -3842,13 +3952,21 @@ _lua_gen_installGeneratedFunctions(lua_State *L)
   lua_register(L, "ActivateGadget", _lua_ActivateGadget);
   lua_register(L, "LockPubScreen", _lua_LockPubScreen);
   lua_register(L, "UnlockPubScreen", _lua_UnlockPubScreen);
+  lua_register(L, "OpenWindowTagList", _lua_OpenWindowTagList);
+  lua_register(L, "OpenWindowTags", _lua_OpenWindowTags);
+  lua_register(L, "CreateGadgetA", _lua_CreateGadgetA);
+  lua_register(L, "CreateGadget", _lua_CreateGadget);
   lua_register(L, "FreeGadgets", _lua_FreeGadgets);
+  lua_register(L, "GT_SetGadgetAttrsA", _lua_GT_SetGadgetAttrsA);
+  lua_register(L, "GT_SetGadgetAttrs", _lua_GT_SetGadgetAttrs);
   lua_register(L, "GT_GetIMsg", _lua_GT_GetIMsg);
   lua_register(L, "GT_ReplyIMsg", _lua_GT_ReplyIMsg);
   lua_register(L, "GT_RefreshWindow", _lua_GT_RefreshWindow);
   lua_register(L, "GT_BeginRefresh", _lua_GT_BeginRefresh);
   lua_register(L, "GT_EndRefresh", _lua_GT_EndRefresh);
   lua_register(L, "CreateContext", _lua_CreateContext);
+  lua_register(L, "GetVisualInfoA", _lua_GetVisualInfoA);
+  lua_register(L, "GetVisualInfo", _lua_GetVisualInfo);
   lua_register(L, "FreeVisualInfo", _lua_FreeVisualInfo);
   lua_register(L, "TO_CONST_STRPTR", _lua_TO_CONST_STRPTR);
   lua_register(L, "TO_IntuiMessage", _lua_TO_IntuiMessage);

@@ -49,16 +49,21 @@ FUNCTION_CONFIG = [
 
     "WaitPort","GetMsg", "ReplyMsg",
 
-    "LockPubScreen", "UnlockPubScreen", "CloseWindow", "OpenFont", "CloseFont", "__OpenFont",
+    "LockPubScreen", "UnlockPubScreen", "CloseWindow", "OpenFont", "CloseFont",
     
     "TO_CONST_STRPTR", "TO_IntuiMessage",
     # GadTools
-    #"GetVisualInfoA","CreateGadgetA",
     "CreateContext", "GT_RefreshWindow", "GT_GetIMsg", "GT_ReplyIMsg", "GT_BeginRefresh", "GT_EndRefresh",
-    "ActivateGadget", 
+    "ActivateGadget",
     "FreeGadgets", "FreeVisualInfo"
 ]
 
+TAGS_FUNCTION_CONFIG = [
+    { "name": "CreateGadget", "tagList": "CreateGadgetA"},
+    { "name": "OpenWindowTags", "tagList": "OpenWindowTagList"},
+    { "name": "GetVisualInfo", "tagList": "GetVisualInfoA"},
+    { "name": "GT_SetGadgetAttrs", "tagList": "GT_SetGadgetAttrsA"},    
+]
 
 FAKE_FUNCTION_CONFIG = [
 
@@ -678,6 +683,114 @@ def generate_lua_function(node, fake, isBool):
     print("}\n")
     functions.append(function_name)
 
+def generate_lua_tags_function(node):    
+    function_name = node.spelling
+    ret_type = node.result_type.spelling
+    #args = [(arg.spelling, arg.type.spelling) for arg in node.get_arguments()]
+    args = [(arg.spelling, arg.type.spelling) for arg in node.get_arguments() if "tag1Type" not in arg.spelling]
+
+    print("static int\n_lua_" + function_name + "(lua_State* L)\n{")
+
+    arg1 = "UNDEFINED"
+    count = 0
+    for i, arg in enumerate(node.get_arguments()):
+        count=count+1
+        sig = extract_function_pointer_signature(arg.type)
+        name = arg.spelling
+        ctype = arg.type.spelling
+        if i == 0:
+            arg1 = name        
+        if sig:
+            print(f"  int type = lua_type(L, {i+1});");            
+            print(f"  if (type == LUA_TNUMBER && lua_tointeger(L, {i+1}) == 0) {{")	
+            print(f"    {arg1}->lua.refs.{name} = LUA_NOREF;")
+            print(f"    {arg1}->_update = 0;")   
+            print(f"  }} else {{")
+            print(f"    luaL_checktype(L, {i+1}, LUA_TFUNCTION);")
+            print(f"    lua_pushvalue(L, {i+1});");
+            print(f"     {arg1}->lua.refs.{name} = luaL_ref(L, LUA_REGISTRYINDEX);")
+            print(f"     {arg1}->lua.luaStates.{name} = L;")            
+            print(f"     {arg1}->{name} = _lua_gen_thunk_object_t_{name};");
+            print(f"  }}")
+            args[i] = (f"{arg1}->{name}", args[i][1])
+        else:
+            if "tag1Type" in name:
+                count = count - 1
+                pass
+            else:
+                lua_func = get_lua_check(ctype)
+                print(f"  {ctype} {name} = {lua_func}(L, {i+1});")
+    call_args = ", ".join(name for name, _ in args)
+
+    print(f"  struct TagItem taglist[64];")
+    print(f"  _amiga_readVarTags(L, taglist, countof(taglist), {count+1});");
+
+    tag_list = next((entry["tagList"] for entry in TAGS_FUNCTION_CONFIG if entry["name"] == function_name), None)
+    
+    if ret_type == "void":
+        print(f"  {tag_list}({call_args}, taglist);")
+        print("  return 0;")
+    else:
+        print(f"  {ret_type} result = {tag_list}({call_args}, taglist);")        
+        print(f"  {get_lua_push(ret_type)}(L, result);")
+        print("  return 1;")
+    print("}\n")
+    functions.append(function_name)
+
+def generate_lua_taglist_function(node):    
+    function_name = node.spelling
+    ret_type = node.result_type.spelling
+    args = [(arg.spelling, arg.type.spelling) for arg in node.get_arguments()]
+
+    print("static int\n_lua_" + function_name + "(lua_State* L)\n{")
+
+    arg1 = "UNDEFINED"
+    count = 0
+    for i, arg in enumerate(node.get_arguments()):
+        count=count+1
+        sig = extract_function_pointer_signature(arg.type)
+        name = arg.spelling
+        ctype = arg.type.spelling
+        if i == 0:
+            arg1 = name        
+        if sig:
+            print(f"  int type = lua_type(L, {i+1});");            
+            print(f"  if (type == LUA_TNUMBER && lua_tointeger(L, {i+1}) == 0) {{")	
+            print(f"    {arg1}->lua.refs.{name} = LUA_NOREF;")
+            print(f"    {arg1}->_update = 0;")   
+            print(f"  }} else {{")
+            print(f"    luaL_checktype(L, {i+1}, LUA_TFUNCTION);")
+            print(f"    lua_pushvalue(L, {i+1});");
+            print(f"     {arg1}->lua.refs.{name} = luaL_ref(L, LUA_REGISTRYINDEX);")
+            print(f"     {arg1}->lua.luaStates.{name} = L;")            
+            print(f"     {arg1}->{name} = _lua_gen_thunk_object_t_{name};");
+            print(f"  }}")
+            args[i] = (f"{arg1}->{name}", args[i][1])
+        else:
+            lua_func = get_lua_check(ctype)
+            if "TagItem" in arg.type.spelling:
+                print(f"  struct TagItem* {name} = NULL;")
+                print(f"  if (!lua_isnoneornil(L, {i+1})) {{")
+                print(f"    struct TagItem _tags[32];")
+                print(f"    _amiga_doTagList(L, _tags, countof(_tags), {i+1});")
+                print(f"    {name} = _tags;")
+                print(f"  }}")
+            else:
+                print(f"  {ctype} {name} = {lua_func}(L, {i+1});")
+    call_args = ", ".join(name for name, _ in args)
+
+    if ret_type == "void":
+        print(f"  {function_name}({call_args});")
+        print("  return 0;")
+    else:
+        print(f"  {ret_type} result = {function_name}({call_args});")        
+        print(f"  {get_lua_push(ret_type)}(L, result);")
+        print("  return 1;")
+    print("}\n")
+    functions.append(function_name)
+
+    
+    
 def generate_lua_interface(spelling):
     if spelling in interfaces:
         return
@@ -723,6 +836,10 @@ def find_interfaces(cursor):
 def find_typedef_structs(cursor):
     for node in cursor.get_children():        
         if node.kind == clang.cindex.CursorKind.FUNCTION_DECL:
+            if any(entry["name"] == node.spelling for entry in TAGS_FUNCTION_CONFIG):
+                generate_lua_tags_function(node)
+            if any(entry["tagList"] == node.spelling for entry in TAGS_FUNCTION_CONFIG):
+                generate_lua_taglist_function(node)                
             if node.spelling in FUNCTION_CONFIG:
                 generate_lua_function(node, False, False)
             if node.spelling in FAKE_FUNCTION_CONFIG:
