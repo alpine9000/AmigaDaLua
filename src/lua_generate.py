@@ -2,7 +2,7 @@ import sys
 import clang.cindex
 import re
 
-TYPE_CONFIG = {
+TYPE_CONFIG = {    
     "Window": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
     "NewWindow": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},    
     "RastPort": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
@@ -10,6 +10,12 @@ TYPE_CONFIG = {
     "MsgPort": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
     "Message": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
     "IntuiMessage": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "Screen": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "NewGadget": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "Gadget": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "GadgetPtr": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "Requester": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "TextAttr": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},            
 }
 
 ENUM_CONFIG = []
@@ -20,9 +26,10 @@ DEFINE_CONFIGS = [
     "MODE_OLDFILE", "MODE_NEWFILE", "MODE_READWRITE",
     "DOSTRUE", "DOSFALSE",
     "WA_Title","WA_Width","WA_Height","WA_Left","WA_Top","WA_CloseGadget","WA_DepthGadget","WA_DragBar","WA_Activate","WA_SmartRefresh",
-    "WA_IDCMP",
+    "WA_IDCMP","WA_Gadgets","WA_PubScreen",
     "TAG_END",
-    "IDCMP_CLOSEWINDOW", "IDCMP_RAWKEY", "IDCMP_MOUSEMOVE"
+    "IDCMP_CLOSEWINDOW", "IDCMP_RAWKEY", "IDCMP_MOUSEMOVE", "IDCMP_REFRESHWINDOW", "BUTTONIDCMP",
+    "BUTTON_KIND",
 ]
 
 FUNCTION_CONFIG = [
@@ -36,9 +43,12 @@ FUNCTION_CONFIG = [
 
     "WaitPort","GetMsg", "ReplyMsg",
 
-    "CloseWindow",
+    "LockPubScreen", "CloseWindow",
     
     "TO_CONST_STRPTR", "TO_IntuiMessage",
+    # GadTools
+    #"GetVisualInfoA","CreateGadgetA",
+    "CreateContext", "GT_RefreshWindow", "GT_GetIMsg", "GT_ReplyIMsg", "GT_BeginRefresh", "GT_EndRefresh",
 ]
 
 
@@ -80,7 +90,8 @@ READ_TYPE_TO_LUA = {
     'BYTE': 'lua_pushinteger',
     'UBYTE': 'lua_pushinteger',
     'WORD': 'lua_pushinteger',
-    'UWORD': 'lua_pushinteger',        
+    'UWORD': 'lua_pushinteger',
+    'struct Gadget **': 'lua_pushGadgetPtr',
 }
 
 WRITE_TYPE_FROM_LUA = {
@@ -96,7 +107,7 @@ WRITE_TYPE_FROM_LUA = {
     'double': 'luaL_checknumber',
     'char *': 'luaL_checkstring',
     'void *': 'lua_touserdata',
-    'CONST_STRPTR': 'luaL_checkstring',
+    'CONST_STRPTR': 'amiga_checkNullableString',
     'LONG': 'luaL_checkinteger',
     'BPTR': 'luaL_checkinteger',
     'APTR': 'lua_touserdata',
@@ -105,7 +116,8 @@ WRITE_TYPE_FROM_LUA = {
     'BYTE': 'luaL_checkinteger',
     'UBYTE': 'luaL_checkinteger',
     'WORD': 'luaL_checkinteger',
-    'UWORD': 'luaL_checkinteger',    
+    'UWORD': 'luaL_checkinteger',
+    'struct Gadget **': 'amiga_checkGadgetPtr',    
 }
 
 metainstall_types = []
@@ -123,7 +135,7 @@ def parse_ctype(ctype):
     pointer_level = ctype.count('*')
     base = ctype.replace('*', '').strip()
     base = re.sub(r'\s+', ' ', base)  # normalize whitespace
-
+    base = base.replace('const', '').strip()
     # Map "struct foo" to "foo_t" if available
     if base.startswith("struct "):
         tag = base[len("struct "):]
@@ -216,7 +228,7 @@ def generate_lua_index(struct_name, fields, functors):
                 if pointer_level == 0:
                     print(f"  if (strcmp(key, \"{name}\") == 0) {{")
                     print(f"    {base} **ud = ({base} **)lua_newuserdata(L, sizeof({base} *));")
-                    print(f"    *ud = &obj->{name};")
+                    print(f"    *ud = ({base}*)&obj->{name};")
                     print(f"    luaL_getmetatable(L, \"{base}\");")
                     print("    lua_setmetatable(L, -2);")
                     print("    return 1;")
@@ -224,7 +236,7 @@ def generate_lua_index(struct_name, fields, functors):
                 elif pointer_level == 1:
                     print(f"  if (strcmp(key, \"{name}\") == 0) {{")
                     print(f"    {base} **ud = ({base} **)lua_newuserdata(L, sizeof({base} *));")
-                    print(f"    *ud = obj->{name};")
+                    print(f"    *ud = ({base}*)obj->{name};")
                     print(f"    luaL_getmetatable(L, \"{base}\");")
                     print("    lua_setmetatable(L, -2);")
                     print("    return 1;")
@@ -232,7 +244,7 @@ def generate_lua_index(struct_name, fields, functors):
                 elif pointer_level == 2:
                     print(f"  if (strcmp(key, \"{name}\") == 0 && obj->{name}) {{")
                     print(f"    {base} **ud = ({base} **)lua_newuserdata(L, sizeof({base} *));")
-                    print(f"    *ud = *obj->{name};")
+                    print(f"    *ud = ({base}*)*obj->{name};")
                     print(f"    luaL_getmetatable(L, \"{base}\");")
                     print("    lua_setmetatable(L, -2);")
                     print("    return 1;")
@@ -350,8 +362,38 @@ def generate_lua_newindex(struct_name, fields, functors):
                     print("  }")
 
     print("  return 0;")
-    print("}\n")
+    print("}\n\n")
 
+    print(f"static int")
+    print(f"_lua_{struct_name}_constructor(lua_State *L)")
+    print(f"{{")
+    print(f"  // Allocate pointer-to-{struct_name} in userdata")
+    print(f"  {struct_name} **objp = lua_newuserdata(L, sizeof({struct_name} *));")
+    print(f"  *objp = malloc(sizeof({struct_name}));")
+    print(f"  if (!*objp) return luaL_error(L, \"out of memory\");")
+    print(f"  memset(*objp, 0, sizeof({struct_name}));")
+    print()
+    print(f"  // Set metatable")
+    print(f"  luaL_getmetatable(L, \"{struct_name}\");")
+    print(f"  lua_setmetatable(L, -2);")
+    print()
+    print(f"  // If a table is passed, use __newindex to copy fields")
+    print(f"  if (lua_istable(L, 1)) {{")
+    print(f"    lua_insert(L, 1); // move userdata below table")
+    print(f"    lua_pushnil(L); // first key")
+    print(f"    while (lua_next(L, 2) != 0) {{")
+    print(f"      lua_pushvalue(L, -2); // copy key")
+    print(f"      lua_pushvalue(L, -2); // copy value")
+    print(f"      lua_settable(L, 1);   // userdata[key] = value (via __newindex)")
+    print(f"      lua_pop(L, 1); // pop original value, keep key")
+    print(f"    }}")
+    print(f"    lua_remove(L, 2); // remove table, leave userdata")
+    print(f"  }}")
+    print()
+    print(f"  return 1; // return userdata")
+    print(f"}}\n")
+    
+    
 def generate_functor_callers(node, fields, prefix):
     struct_name = node.spelling
     for name, ctype in fields:
@@ -419,7 +461,9 @@ def generate_metatable_installer(struct_name):
         print("    lua_setfield(L, -2, \"__index\");")
     if config.get("newindex"):
         print(f"    lua_pushcfunction(L, _lua_gen_{struct_name}_newindex);")
-        print("    lua_setfield(L, -2, \"__newindex\");")
+        print(f"    lua_setfield(L, -2, \"__newindex\");")
+        print(f"    lua_pushcfunction(L, _lua_{struct_name}_constructor);")
+        print(f"    lua_setglobal(L, \"{struct_name}\");")
     if config.get("keys"):
         print(f"    _lua_gen_{struct_name}_install_keys(L);")
     print(f"    lua_pushstring(L, \"{struct_name}\");");
@@ -530,7 +574,7 @@ def generate_lua_enum(node, underlying):
 
 def get_lua_check(ctype):
     for base in TYPE_CONFIG:
-        if f"struct {base} *" == ctype:
+        if f"struct {base} *" == ctype or f"const struct {base} *" == ctype or f"CONST struct {base} *" == ctype:
             return f"_lua_gen_check{base}"
     return WRITE_TYPE_FROM_LUA.get(ctype, f"error(3) - unsupported type {ctype}")
 
@@ -624,7 +668,7 @@ def generate_lua_interface(spelling):
         return
     else:
         interfaces.add(spelling)
-    print(f"void\n")
+    print(f"\nvoid")
     print(f"_lua_gen_push{spelling}(lua_State *L, struct {spelling}* obj)");
     print(f"{{")
     print(f"  if (obj) {{")
@@ -640,11 +684,15 @@ def generate_lua_interface(spelling):
     print(f"struct {spelling}*")
     print(f"_lua_gen_check{spelling}(lua_State* L, int stackIndex)")
     print(f"{{")
-    print(f"  struct {spelling} **ud = (struct {spelling} **)luaL_checkudata(L, stackIndex, \"{spelling}\");\n")
-    print(f"  if (!ud) {{")
-    print(f"    return 0;")
-    print(f"  }}")
-    print(f"  return *ud;")
+    print(f"   if (!lua_isnoneornil(L, stackIndex)) {{")
+    print(f"      struct {spelling} **ud = (struct {spelling} **)luaL_checkudata(L, stackIndex, \"{spelling}\");")
+    print(f"      if (!ud) {{")
+    print(f"        return 0;")
+    print(f"      }}")
+    print(f"      return *ud;")
+    print(f"   }} else {{")
+    print(f"      return 0;");
+    print(f"   }}")
     print(f"}}")
 
 def find_interfaces(cursor):    
@@ -732,7 +780,7 @@ def main():
     header = sys.argv[1]
     index = clang.cindex.Index.create()
     tu = index.parse(header, args=['-x', 'c', '-I/usr/local/amiga/bebbo/m68k-amigaos/sys-include/', '-I/usr/local/amiga/bebbo/m68k-amigaos/ndk-include'])
-    print("// generated with roid_lua_generate.py - run: python3 roid_lua_generate.py roid_lua_template.h > _lua_gen.h")
+    print("// generated with lua_generate.py - run: python3 lua_generate.py amiga.h > _lua_gen.h")
 
     find_interfaces(tu.cursor)
     find_typedef_structs(tu.cursor)

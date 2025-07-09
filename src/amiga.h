@@ -12,6 +12,7 @@
 #include <proto/graphics.h>
 #include <proto/exec.h>
 #include <proto/intuition.h>
+#include <proto/gadtools.h>
 #include <intuition/intuition.h>
 #include <intuition/screens.h>
 #include <intuition/intuitionbase.h>
@@ -21,15 +22,28 @@
 #include <exec/ports.h>
 #include <exec/execbase.h>
 #include <graphics/rastport.h>
+#include <libraries/gadtools.h>
 
 
 typedef struct Window Window;
 typedef struct RastPort RastPort;
-typedef struct Tagitem TagItem;
+typedef struct TagItem TagItem;
 typedef struct RastPort RastPort;
 typedef struct MsgPort MsgPort;
 typedef struct Message Message;
 typedef struct IntuiMessage IntuiMessage;
+typedef struct Gadget Gadget;
+typedef struct Screen Screen;
+typedef struct NewGadget NewGadget;
+typedef struct NewWindow NewWindow;
+typedef struct Requester Requester;
+typedef struct TextAttr TextAttr;
+
+struct GadgetPtr{
+    Gadget *ptr;
+};
+
+typedef struct GadgetPtr GadgetPtr;
 
 CONST_STRPTR TO_CONST_STRPTR(void* data)
 {
@@ -41,3 +55,10 @@ struct IntuiMessage* TO_IntuiMessage(struct Message* msg)
 {
   return (struct IntuiMessage*)msg;
 }
+
+
+struct Gadget **
+amiga_checkGadgetPtr(lua_State *L, int stackIndex);
+
+const char *
+amiga_checkNullableString(lua_State *L, int stackIndex);

@@ -1,6 +1,6 @@
-// generated with roid_lua_generate.py - run: python3 roid_lua_generate.py roid_lua_template.h > _lua_gen.h
-void
+// generated with lua_generate.py - run: python3 lua_generate.py amiga.h > _lua_gen.h
 
+void
 _lua_gen_pushWindow(lua_State *L, struct Window* obj)
 {
   if (obj) {
@@ -16,15 +16,18 @@ _lua_gen_pushWindow(lua_State *L, struct Window* obj)
 struct Window*
 _lua_gen_checkWindow(lua_State* L, int stackIndex)
 {
-  struct Window **ud = (struct Window **)luaL_checkudata(L, stackIndex, "Window");
-
-  if (!ud) {
-    return 0;
-  }
-  return *ud;
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct Window **ud = (struct Window **)luaL_checkudata(L, stackIndex, "Window");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
 }
-void
 
+void
 _lua_gen_pushRastPort(lua_State *L, struct RastPort* obj)
 {
   if (obj) {
@@ -40,15 +43,45 @@ _lua_gen_pushRastPort(lua_State *L, struct RastPort* obj)
 struct RastPort*
 _lua_gen_checkRastPort(lua_State* L, int stackIndex)
 {
-  struct RastPort **ud = (struct RastPort **)luaL_checkudata(L, stackIndex, "RastPort");
-
-  if (!ud) {
-    return 0;
-  }
-  return *ud;
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct RastPort **ud = (struct RastPort **)luaL_checkudata(L, stackIndex, "RastPort");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
 }
-void
 
+void
+_lua_gen_pushTagItem(lua_State *L, struct TagItem* obj)
+{
+  if (obj) {
+    struct TagItem **ud = (struct TagItem **)lua_newuserdata(L, sizeof(struct TagItem *));
+    *ud = obj;
+    luaL_getmetatable(L, "TagItem");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct TagItem*
+_lua_gen_checkTagItem(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct TagItem **ud = (struct TagItem **)luaL_checkudata(L, stackIndex, "TagItem");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
 _lua_gen_pushMsgPort(lua_State *L, struct MsgPort* obj)
 {
   if (obj) {
@@ -64,15 +97,18 @@ _lua_gen_pushMsgPort(lua_State *L, struct MsgPort* obj)
 struct MsgPort*
 _lua_gen_checkMsgPort(lua_State* L, int stackIndex)
 {
-  struct MsgPort **ud = (struct MsgPort **)luaL_checkudata(L, stackIndex, "MsgPort");
-
-  if (!ud) {
-    return 0;
-  }
-  return *ud;
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct MsgPort **ud = (struct MsgPort **)luaL_checkudata(L, stackIndex, "MsgPort");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
 }
-void
 
+void
 _lua_gen_pushMessage(lua_State *L, struct Message* obj)
 {
   if (obj) {
@@ -88,15 +124,18 @@ _lua_gen_pushMessage(lua_State *L, struct Message* obj)
 struct Message*
 _lua_gen_checkMessage(lua_State* L, int stackIndex)
 {
-  struct Message **ud = (struct Message **)luaL_checkudata(L, stackIndex, "Message");
-
-  if (!ud) {
-    return 0;
-  }
-  return *ud;
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct Message **ud = (struct Message **)luaL_checkudata(L, stackIndex, "Message");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
 }
-void
 
+void
 _lua_gen_pushIntuiMessage(lua_State *L, struct IntuiMessage* obj)
 {
   if (obj) {
@@ -112,17 +151,209 @@ _lua_gen_pushIntuiMessage(lua_State *L, struct IntuiMessage* obj)
 struct IntuiMessage*
 _lua_gen_checkIntuiMessage(lua_State* L, int stackIndex)
 {
-  struct IntuiMessage **ud = (struct IntuiMessage **)luaL_checkudata(L, stackIndex, "IntuiMessage");
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct IntuiMessage **ud = (struct IntuiMessage **)luaL_checkudata(L, stackIndex, "IntuiMessage");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
 
-  if (!ud) {
-    return 0;
+void
+_lua_gen_pushGadget(lua_State *L, struct Gadget* obj)
+{
+  if (obj) {
+    struct Gadget **ud = (struct Gadget **)lua_newuserdata(L, sizeof(struct Gadget *));
+    *ud = obj;
+    luaL_getmetatable(L, "Gadget");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
   }
-  return *ud;
+}
+
+struct Gadget*
+_lua_gen_checkGadget(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct Gadget **ud = (struct Gadget **)luaL_checkudata(L, stackIndex, "Gadget");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushScreen(lua_State *L, struct Screen* obj)
+{
+  if (obj) {
+    struct Screen **ud = (struct Screen **)lua_newuserdata(L, sizeof(struct Screen *));
+    *ud = obj;
+    luaL_getmetatable(L, "Screen");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct Screen*
+_lua_gen_checkScreen(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct Screen **ud = (struct Screen **)luaL_checkudata(L, stackIndex, "Screen");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushNewGadget(lua_State *L, struct NewGadget* obj)
+{
+  if (obj) {
+    struct NewGadget **ud = (struct NewGadget **)lua_newuserdata(L, sizeof(struct NewGadget *));
+    *ud = obj;
+    luaL_getmetatable(L, "NewGadget");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct NewGadget*
+_lua_gen_checkNewGadget(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct NewGadget **ud = (struct NewGadget **)luaL_checkudata(L, stackIndex, "NewGadget");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushNewWindow(lua_State *L, struct NewWindow* obj)
+{
+  if (obj) {
+    struct NewWindow **ud = (struct NewWindow **)lua_newuserdata(L, sizeof(struct NewWindow *));
+    *ud = obj;
+    luaL_getmetatable(L, "NewWindow");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct NewWindow*
+_lua_gen_checkNewWindow(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct NewWindow **ud = (struct NewWindow **)luaL_checkudata(L, stackIndex, "NewWindow");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushRequester(lua_State *L, struct Requester* obj)
+{
+  if (obj) {
+    struct Requester **ud = (struct Requester **)lua_newuserdata(L, sizeof(struct Requester *));
+    *ud = obj;
+    luaL_getmetatable(L, "Requester");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct Requester*
+_lua_gen_checkRequester(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct Requester **ud = (struct Requester **)luaL_checkudata(L, stackIndex, "Requester");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushTextAttr(lua_State *L, struct TextAttr* obj)
+{
+  if (obj) {
+    struct TextAttr **ud = (struct TextAttr **)lua_newuserdata(L, sizeof(struct TextAttr *));
+    *ud = obj;
+    luaL_getmetatable(L, "TextAttr");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct TextAttr*
+_lua_gen_checkTextAttr(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct TextAttr **ud = (struct TextAttr **)luaL_checkudata(L, stackIndex, "TextAttr");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushGadgetPtr(lua_State *L, struct GadgetPtr* obj)
+{
+  if (obj) {
+    struct GadgetPtr **ud = (struct GadgetPtr **)lua_newuserdata(L, sizeof(struct GadgetPtr *));
+    *ud = obj;
+    luaL_getmetatable(L, "GadgetPtr");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct GadgetPtr*
+_lua_gen_checkGadgetPtr(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct GadgetPtr **ud = (struct GadgetPtr **)luaL_checkudata(L, stackIndex, "GadgetPtr");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
 }
 static int
 _lua_Open(lua_State* L)
 {
-  CONST_STRPTR name = luaL_checkstring(L, 1);
+  CONST_STRPTR name = amiga_checkNullableString(L, 1);
   LONG accessMode = luaL_checkinteger(L, 2);
   BPTR result = Open(name, accessMode);
   lua_pushinteger(L, result);
@@ -143,7 +374,7 @@ _lua_Read(lua_State* L)
 static int
 _lua_PutStr(lua_State* L)
 {
-  CONST_STRPTR str = luaL_checkstring(L, 1);
+  CONST_STRPTR str = amiga_checkNullableString(L, 1);
   LONG result = PutStr(str);
   lua_pushinteger(L, result);
   return 1;
@@ -189,7 +420,7 @@ static int
 _lua_Text(lua_State* L)
 {
   struct RastPort * rp = _lua_gen_checkRastPort(L, 1);
-  CONST_STRPTR string = luaL_checkstring(L, 2);
+  CONST_STRPTR string = amiga_checkNullableString(L, 2);
   ULONG count = luaL_checkinteger(L, 3);
   LONG result = Text(rp, string, count);
   lua_pushinteger(L, result);
@@ -212,6 +443,67 @@ _lua_CloseWindow(lua_State* L)
   struct Window * window = _lua_gen_checkWindow(L, 1);
   CloseWindow(window);
   return 0;
+}
+
+static int
+_lua_LockPubScreen(lua_State* L)
+{
+  CONST_STRPTR name = amiga_checkNullableString(L, 1);
+  struct Screen * result = LockPubScreen(name);
+  _lua_gen_pushScreen(L, result);
+  return 1;
+}
+
+static int
+_lua_GT_GetIMsg(lua_State* L)
+{
+  struct MsgPort * iport = _lua_gen_checkMsgPort(L, 1);
+  struct IntuiMessage * result = GT_GetIMsg(iport);
+  _lua_gen_pushIntuiMessage(L, result);
+  return 1;
+}
+
+static int
+_lua_GT_ReplyIMsg(lua_State* L)
+{
+  struct IntuiMessage * imsg = _lua_gen_checkIntuiMessage(L, 1);
+  GT_ReplyIMsg(imsg);
+  return 0;
+}
+
+static int
+_lua_GT_RefreshWindow(lua_State* L)
+{
+  struct Window * win = _lua_gen_checkWindow(L, 1);
+  struct Requester * req = _lua_gen_checkRequester(L, 2);
+  GT_RefreshWindow(win, req);
+  return 0;
+}
+
+static int
+_lua_GT_BeginRefresh(lua_State* L)
+{
+  struct Window * win = _lua_gen_checkWindow(L, 1);
+  GT_BeginRefresh(win);
+  return 0;
+}
+
+static int
+_lua_GT_EndRefresh(lua_State* L)
+{
+  struct Window * win = _lua_gen_checkWindow(L, 1);
+  LONG complete = luaL_checkinteger(L, 2);
+  GT_EndRefresh(win, complete);
+  return 0;
+}
+
+static int
+_lua_CreateContext(lua_State* L)
+{
+  struct Gadget ** glistptr = amiga_checkGadgetPtr(L, 1);
+  struct Gadget * result = CreateContext(glistptr);
+  _lua_gen_pushGadget(L, result);
+  return 1;
 }
 
 static int
@@ -267,8 +559,20 @@ _lua_gen_Window_newindex(lua_State *L)
     obj->Flags = (ULONG)luaL_checkinteger(L, 3);
     return 0;
   }
+  if (strcmp(key, "FirstRequest") == 0) {
+    obj->FirstRequest = (Requester *)luaL_checkudata(L, 3, "Requester");
+    return 0;
+  }
+  if (strcmp(key, "DMRequest") == 0) {
+    obj->DMRequest = (Requester *)luaL_checkudata(L, 3, "Requester");
+    return 0;
+  }
   if (strcmp(key, "ReqCount") == 0) {
     obj->ReqCount = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "WScreen") == 0) {
+    obj->WScreen = (Screen *)luaL_checkudata(L, 3, "Screen");
     return 0;
   }
   if (strcmp(key, "RPort") == 0) {
@@ -293,6 +597,10 @@ _lua_gen_Window_newindex(lua_State *L)
   }
   if (strcmp(key, "BorderRPort") == 0) {
     obj->BorderRPort = (RastPort *)luaL_checkudata(L, 3, "RastPort");
+    return 0;
+  }
+  if (strcmp(key, "FirstGadget") == 0) {
+    obj->FirstGadget = (Gadget *)luaL_checkudata(L, 3, "Gadget");
     return 0;
   }
   if (strcmp(key, "Parent") == 0) {
@@ -366,6 +674,36 @@ _lua_gen_Window_newindex(lua_State *L)
   return 0;
 }
 
+
+static int
+_lua_Window_constructor(lua_State *L)
+{
+  // Allocate pointer-to-Window in userdata
+  Window **objp = lua_newuserdata(L, sizeof(Window *));
+  *objp = malloc(sizeof(Window));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(Window));
+
+  // Set metatable
+  luaL_getmetatable(L, "Window");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
 static int
 _lua_gen_Window_index(lua_State *L)
 {
@@ -373,7 +711,7 @@ _lua_gen_Window_index(lua_State *L)
   const char *key = luaL_checkstring(L, 2);
   if (strcmp(key, "NextWindow") == 0) {
     Window **ud = (Window **)lua_newuserdata(L, sizeof(Window *));
-    *ud = obj->NextWindow;
+    *ud = (Window*)obj->NextWindow;
     luaL_getmetatable(L, "Window");
     lua_setmetatable(L, -2);
     return 1;
@@ -422,13 +760,34 @@ _lua_gen_Window_index(lua_State *L)
     lua_pushinteger(L, obj->Flags);
     return 1;
   }
+  if (strcmp(key, "FirstRequest") == 0) {
+    Requester **ud = (Requester **)lua_newuserdata(L, sizeof(Requester *));
+    *ud = (Requester*)obj->FirstRequest;
+    luaL_getmetatable(L, "Requester");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "DMRequest") == 0) {
+    Requester **ud = (Requester **)lua_newuserdata(L, sizeof(Requester *));
+    *ud = (Requester*)obj->DMRequest;
+    luaL_getmetatable(L, "Requester");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
   if (strcmp(key, "ReqCount") == 0) {
     lua_pushinteger(L, obj->ReqCount);
     return 1;
   }
+  if (strcmp(key, "WScreen") == 0) {
+    Screen **ud = (Screen **)lua_newuserdata(L, sizeof(Screen *));
+    *ud = (Screen*)obj->WScreen;
+    luaL_getmetatable(L, "Screen");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
   if (strcmp(key, "RPort") == 0) {
     RastPort **ud = (RastPort **)lua_newuserdata(L, sizeof(RastPort *));
-    *ud = obj->RPort;
+    *ud = (RastPort*)obj->RPort;
     luaL_getmetatable(L, "RastPort");
     lua_setmetatable(L, -2);
     return 1;
@@ -451,21 +810,28 @@ _lua_gen_Window_index(lua_State *L)
   }
   if (strcmp(key, "BorderRPort") == 0) {
     RastPort **ud = (RastPort **)lua_newuserdata(L, sizeof(RastPort *));
-    *ud = obj->BorderRPort;
+    *ud = (RastPort*)obj->BorderRPort;
     luaL_getmetatable(L, "RastPort");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "FirstGadget") == 0) {
+    Gadget **ud = (Gadget **)lua_newuserdata(L, sizeof(Gadget *));
+    *ud = (Gadget*)obj->FirstGadget;
+    luaL_getmetatable(L, "Gadget");
     lua_setmetatable(L, -2);
     return 1;
   }
   if (strcmp(key, "Parent") == 0) {
     Window **ud = (Window **)lua_newuserdata(L, sizeof(Window *));
-    *ud = obj->Parent;
+    *ud = (Window*)obj->Parent;
     luaL_getmetatable(L, "Window");
     lua_setmetatable(L, -2);
     return 1;
   }
   if (strcmp(key, "Descendant") == 0) {
     Window **ud = (Window **)lua_newuserdata(L, sizeof(Window *));
-    *ud = obj->Descendant;
+    *ud = (Window*)obj->Descendant;
     luaL_getmetatable(L, "Window");
     lua_setmetatable(L, -2);
     return 1;
@@ -492,21 +858,21 @@ _lua_gen_Window_index(lua_State *L)
   }
   if (strcmp(key, "UserPort") == 0) {
     MsgPort **ud = (MsgPort **)lua_newuserdata(L, sizeof(MsgPort *));
-    *ud = obj->UserPort;
+    *ud = (MsgPort*)obj->UserPort;
     luaL_getmetatable(L, "MsgPort");
     lua_setmetatable(L, -2);
     return 1;
   }
   if (strcmp(key, "WindowPort") == 0) {
     MsgPort **ud = (MsgPort **)lua_newuserdata(L, sizeof(MsgPort *));
-    *ud = obj->WindowPort;
+    *ud = (MsgPort*)obj->WindowPort;
     luaL_getmetatable(L, "MsgPort");
     lua_setmetatable(L, -2);
     return 1;
   }
   if (strcmp(key, "MessageKey") == 0) {
     IntuiMessage **ud = (IntuiMessage **)lua_newuserdata(L, sizeof(IntuiMessage *));
-    *ud = obj->MessageKey;
+    *ud = (IntuiMessage*)obj->MessageKey;
     luaL_getmetatable(L, "IntuiMessage");
     lua_setmetatable(L, -2);
     return 1;
@@ -570,60 +936,68 @@ _lua_gen_Window_install_keys(lua_State *L)
   lua_rawseti(L, -2, 11);
   lua_pushstring(L, "Flags");
   lua_rawseti(L, -2, 12);
-  lua_pushstring(L, "ReqCount");
+  lua_pushstring(L, "FirstRequest");
   lua_rawseti(L, -2, 13);
-  lua_pushstring(L, "RPort");
+  lua_pushstring(L, "DMRequest");
   lua_rawseti(L, -2, 14);
-  lua_pushstring(L, "BorderLeft");
+  lua_pushstring(L, "ReqCount");
   lua_rawseti(L, -2, 15);
-  lua_pushstring(L, "BorderTop");
+  lua_pushstring(L, "WScreen");
   lua_rawseti(L, -2, 16);
-  lua_pushstring(L, "BorderRight");
+  lua_pushstring(L, "RPort");
   lua_rawseti(L, -2, 17);
-  lua_pushstring(L, "BorderBottom");
+  lua_pushstring(L, "BorderLeft");
   lua_rawseti(L, -2, 18);
-  lua_pushstring(L, "BorderRPort");
+  lua_pushstring(L, "BorderTop");
   lua_rawseti(L, -2, 19);
-  lua_pushstring(L, "Parent");
+  lua_pushstring(L, "BorderRight");
   lua_rawseti(L, -2, 20);
-  lua_pushstring(L, "Descendant");
+  lua_pushstring(L, "BorderBottom");
   lua_rawseti(L, -2, 21);
-  lua_pushstring(L, "Pointer");
+  lua_pushstring(L, "BorderRPort");
   lua_rawseti(L, -2, 22);
-  lua_pushstring(L, "PtrHeight");
+  lua_pushstring(L, "FirstGadget");
   lua_rawseti(L, -2, 23);
-  lua_pushstring(L, "PtrWidth");
+  lua_pushstring(L, "Parent");
   lua_rawseti(L, -2, 24);
-  lua_pushstring(L, "XOffset");
+  lua_pushstring(L, "Descendant");
   lua_rawseti(L, -2, 25);
-  lua_pushstring(L, "YOffset");
+  lua_pushstring(L, "Pointer");
   lua_rawseti(L, -2, 26);
-  lua_pushstring(L, "IDCMPFlags");
+  lua_pushstring(L, "PtrHeight");
   lua_rawseti(L, -2, 27);
-  lua_pushstring(L, "UserPort");
+  lua_pushstring(L, "PtrWidth");
   lua_rawseti(L, -2, 28);
-  lua_pushstring(L, "WindowPort");
+  lua_pushstring(L, "XOffset");
   lua_rawseti(L, -2, 29);
-  lua_pushstring(L, "MessageKey");
+  lua_pushstring(L, "YOffset");
   lua_rawseti(L, -2, 30);
-  lua_pushstring(L, "DetailPen");
+  lua_pushstring(L, "IDCMPFlags");
   lua_rawseti(L, -2, 31);
-  lua_pushstring(L, "BlockPen");
+  lua_pushstring(L, "UserPort");
   lua_rawseti(L, -2, 32);
-  lua_pushstring(L, "GZZMouseX");
+  lua_pushstring(L, "WindowPort");
   lua_rawseti(L, -2, 33);
-  lua_pushstring(L, "GZZMouseY");
+  lua_pushstring(L, "MessageKey");
   lua_rawseti(L, -2, 34);
-  lua_pushstring(L, "GZZWidth");
+  lua_pushstring(L, "DetailPen");
   lua_rawseti(L, -2, 35);
-  lua_pushstring(L, "GZZHeight");
+  lua_pushstring(L, "BlockPen");
   lua_rawseti(L, -2, 36);
-  lua_pushstring(L, "ExtData");
+  lua_pushstring(L, "GZZMouseX");
   lua_rawseti(L, -2, 37);
-  lua_pushstring(L, "UserData");
+  lua_pushstring(L, "GZZMouseY");
   lua_rawseti(L, -2, 38);
-  lua_pushstring(L, "MoreFlags");
+  lua_pushstring(L, "GZZWidth");
   lua_rawseti(L, -2, 39);
+  lua_pushstring(L, "GZZHeight");
+  lua_rawseti(L, -2, 40);
+  lua_pushstring(L, "ExtData");
+  lua_rawseti(L, -2, 41);
+  lua_pushstring(L, "UserData");
+  lua_rawseti(L, -2, 42);
+  lua_pushstring(L, "MoreFlags");
+  lua_rawseti(L, -2, 43);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -634,6 +1008,8 @@ _lua_gen_install_meta_Window(lua_State *L) {
     lua_setfield(L, -2, "__index");
     lua_pushcfunction(L, _lua_gen_Window_newindex);
     lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_Window_constructor);
+    lua_setglobal(L, "Window");
     _lua_gen_Window_install_keys(L);
     lua_pushstring(L, "Window");
     lua_setfield(L, -2, "__name");
@@ -727,6 +1103,36 @@ _lua_gen_RastPort_newindex(lua_State *L)
     return 0;
   }
   return 0;
+}
+
+
+static int
+_lua_RastPort_constructor(lua_State *L)
+{
+  // Allocate pointer-to-RastPort in userdata
+  RastPort **objp = lua_newuserdata(L, sizeof(RastPort *));
+  *objp = malloc(sizeof(RastPort));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(RastPort));
+
+  // Set metatable
+  luaL_getmetatable(L, "RastPort");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
 }
 
 static int
@@ -875,8 +1281,89 @@ _lua_gen_install_meta_RastPort(lua_State *L) {
     lua_setfield(L, -2, "__index");
     lua_pushcfunction(L, _lua_gen_RastPort_newindex);
     lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_RastPort_constructor);
+    lua_setglobal(L, "RastPort");
     _lua_gen_RastPort_install_keys(L);
     lua_pushstring(L, "RastPort");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_TagItem_newindex(lua_State *L)
+{
+  TagItem *obj = *(TagItem **)luaL_checkudata(L, 1, "TagItem");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ti_Data") == 0) {
+    obj->ti_Data = (ULONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_TagItem_constructor(lua_State *L)
+{
+  // Allocate pointer-to-TagItem in userdata
+  TagItem **objp = lua_newuserdata(L, sizeof(TagItem *));
+  *objp = malloc(sizeof(TagItem));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(TagItem));
+
+  // Set metatable
+  luaL_getmetatable(L, "TagItem");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_TagItem_index(lua_State *L)
+{
+  TagItem *obj = *(TagItem **)luaL_checkudata(L, 1, "TagItem");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ti_Data") == 0) {
+    lua_pushinteger(L, obj->ti_Data);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_TagItem_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "ti_Data");
+  lua_rawseti(L, -2, 1);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_TagItem(lua_State *L) {
+  if (luaL_newmetatable(L, "TagItem")) {
+    lua_pushcfunction(L, _lua_gen_TagItem_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_TagItem_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_TagItem_constructor);
+    lua_setglobal(L, "TagItem");
+    _lua_gen_TagItem_install_keys(L);
+    lua_pushstring(L, "TagItem");
     lua_setfield(L, -2, "__name");
   }
   lua_pop(L, 1);
@@ -896,6 +1383,36 @@ _lua_gen_MsgPort_newindex(lua_State *L)
     return 0;
   }
   return 0;
+}
+
+
+static int
+_lua_MsgPort_constructor(lua_State *L)
+{
+  // Allocate pointer-to-MsgPort in userdata
+  MsgPort **objp = lua_newuserdata(L, sizeof(MsgPort *));
+  *objp = malloc(sizeof(MsgPort));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(MsgPort));
+
+  // Set metatable
+  luaL_getmetatable(L, "MsgPort");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
 }
 
 static int
@@ -932,6 +1449,8 @@ _lua_gen_install_meta_MsgPort(lua_State *L) {
     lua_setfield(L, -2, "__index");
     lua_pushcfunction(L, _lua_gen_MsgPort_newindex);
     lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_MsgPort_constructor);
+    lua_setglobal(L, "MsgPort");
     _lua_gen_MsgPort_install_keys(L);
     lua_pushstring(L, "MsgPort");
     lua_setfield(L, -2, "__name");
@@ -955,6 +1474,36 @@ _lua_gen_Message_newindex(lua_State *L)
   return 0;
 }
 
+
+static int
+_lua_Message_constructor(lua_State *L)
+{
+  // Allocate pointer-to-Message in userdata
+  Message **objp = lua_newuserdata(L, sizeof(Message *));
+  *objp = malloc(sizeof(Message));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(Message));
+
+  // Set metatable
+  luaL_getmetatable(L, "Message");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
 static int
 _lua_gen_Message_index(lua_State *L)
 {
@@ -962,7 +1511,7 @@ _lua_gen_Message_index(lua_State *L)
   const char *key = luaL_checkstring(L, 2);
   if (strcmp(key, "mn_ReplyPort") == 0) {
     MsgPort **ud = (MsgPort **)lua_newuserdata(L, sizeof(MsgPort *));
-    *ud = obj->mn_ReplyPort;
+    *ud = (MsgPort*)obj->mn_ReplyPort;
     luaL_getmetatable(L, "MsgPort");
     lua_setmetatable(L, -2);
     return 1;
@@ -992,6 +1541,8 @@ _lua_gen_install_meta_Message(lua_State *L) {
     lua_setfield(L, -2, "__index");
     lua_pushcfunction(L, _lua_gen_Message_newindex);
     lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_Message_constructor);
+    lua_setglobal(L, "Message");
     _lua_gen_Message_install_keys(L);
     lua_pushstring(L, "Message");
     lua_setfield(L, -2, "__name");
@@ -1052,6 +1603,36 @@ _lua_gen_IntuiMessage_newindex(lua_State *L)
   return 0;
 }
 
+
+static int
+_lua_IntuiMessage_constructor(lua_State *L)
+{
+  // Allocate pointer-to-IntuiMessage in userdata
+  IntuiMessage **objp = lua_newuserdata(L, sizeof(IntuiMessage *));
+  *objp = malloc(sizeof(IntuiMessage));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(IntuiMessage));
+
+  // Set metatable
+  luaL_getmetatable(L, "IntuiMessage");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
 static int
 _lua_gen_IntuiMessage_index(lua_State *L)
 {
@@ -1059,7 +1640,7 @@ _lua_gen_IntuiMessage_index(lua_State *L)
   const char *key = luaL_checkstring(L, 2);
   if (strcmp(key, "ExecMessage") == 0) {
     Message **ud = (Message **)lua_newuserdata(L, sizeof(Message *));
-    *ud = &obj->ExecMessage;
+    *ud = (Message*)&obj->ExecMessage;
     luaL_getmetatable(L, "Message");
     lua_setmetatable(L, -2);
     return 1;
@@ -1098,14 +1679,14 @@ _lua_gen_IntuiMessage_index(lua_State *L)
   }
   if (strcmp(key, "IDCMPWindow") == 0) {
     Window **ud = (Window **)lua_newuserdata(L, sizeof(Window *));
-    *ud = obj->IDCMPWindow;
+    *ud = (Window*)obj->IDCMPWindow;
     luaL_getmetatable(L, "Window");
     lua_setmetatable(L, -2);
     return 1;
   }
   if (strcmp(key, "SpecialLink") == 0) {
     IntuiMessage **ud = (IntuiMessage **)lua_newuserdata(L, sizeof(IntuiMessage *));
-    *ud = obj->SpecialLink;
+    *ud = (IntuiMessage*)obj->SpecialLink;
     luaL_getmetatable(L, "IntuiMessage");
     lua_setmetatable(L, -2);
     return 1;
@@ -1149,8 +1730,1317 @@ _lua_gen_install_meta_IntuiMessage(lua_State *L) {
     lua_setfield(L, -2, "__index");
     lua_pushcfunction(L, _lua_gen_IntuiMessage_newindex);
     lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_IntuiMessage_constructor);
+    lua_setglobal(L, "IntuiMessage");
     _lua_gen_IntuiMessage_install_keys(L);
     lua_pushstring(L, "IntuiMessage");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_Gadget_newindex(lua_State *L)
+{
+  Gadget *obj = *(Gadget **)luaL_checkudata(L, 1, "Gadget");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "NextGadget") == 0) {
+    obj->NextGadget = (Gadget *)luaL_checkudata(L, 3, "Gadget");
+    return 0;
+  }
+  if (strcmp(key, "LeftEdge") == 0) {
+    obj->LeftEdge = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "TopEdge") == 0) {
+    obj->TopEdge = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Width") == 0) {
+    obj->Width = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Height") == 0) {
+    obj->Height = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Flags") == 0) {
+    obj->Flags = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Activation") == 0) {
+    obj->Activation = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "GadgetType") == 0) {
+    obj->GadgetType = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "GadgetRender") == 0) {
+    obj->GadgetRender = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "SelectRender") == 0) {
+    obj->SelectRender = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "MutualExclude") == 0) {
+    obj->MutualExclude = (LONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "SpecialInfo") == 0) {
+    obj->SpecialInfo = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "GadgetID") == 0) {
+    obj->GadgetID = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "UserData") == 0) {
+    obj->UserData = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_Gadget_constructor(lua_State *L)
+{
+  // Allocate pointer-to-Gadget in userdata
+  Gadget **objp = lua_newuserdata(L, sizeof(Gadget *));
+  *objp = malloc(sizeof(Gadget));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(Gadget));
+
+  // Set metatable
+  luaL_getmetatable(L, "Gadget");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_Gadget_index(lua_State *L)
+{
+  Gadget *obj = *(Gadget **)luaL_checkudata(L, 1, "Gadget");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "NextGadget") == 0) {
+    Gadget **ud = (Gadget **)lua_newuserdata(L, sizeof(Gadget *));
+    *ud = (Gadget*)obj->NextGadget;
+    luaL_getmetatable(L, "Gadget");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "LeftEdge") == 0) {
+    lua_pushinteger(L, obj->LeftEdge);
+    return 1;
+  }
+  if (strcmp(key, "TopEdge") == 0) {
+    lua_pushinteger(L, obj->TopEdge);
+    return 1;
+  }
+  if (strcmp(key, "Width") == 0) {
+    lua_pushinteger(L, obj->Width);
+    return 1;
+  }
+  if (strcmp(key, "Height") == 0) {
+    lua_pushinteger(L, obj->Height);
+    return 1;
+  }
+  if (strcmp(key, "Flags") == 0) {
+    lua_pushinteger(L, obj->Flags);
+    return 1;
+  }
+  if (strcmp(key, "Activation") == 0) {
+    lua_pushinteger(L, obj->Activation);
+    return 1;
+  }
+  if (strcmp(key, "GadgetType") == 0) {
+    lua_pushinteger(L, obj->GadgetType);
+    return 1;
+  }
+  if (strcmp(key, "GadgetRender") == 0) {
+    lua_pushlightuserdata(L, obj->GadgetRender);
+    return 1;
+  }
+  if (strcmp(key, "SelectRender") == 0) {
+    lua_pushlightuserdata(L, obj->SelectRender);
+    return 1;
+  }
+  if (strcmp(key, "MutualExclude") == 0) {
+    lua_pushinteger(L, obj->MutualExclude);
+    return 1;
+  }
+  if (strcmp(key, "SpecialInfo") == 0) {
+    lua_pushlightuserdata(L, obj->SpecialInfo);
+    return 1;
+  }
+  if (strcmp(key, "GadgetID") == 0) {
+    lua_pushinteger(L, obj->GadgetID);
+    return 1;
+  }
+  if (strcmp(key, "UserData") == 0) {
+    lua_pushlightuserdata(L, obj->UserData);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_Gadget_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "NextGadget");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "LeftEdge");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "TopEdge");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "Width");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "Height");
+  lua_rawseti(L, -2, 5);
+  lua_pushstring(L, "Flags");
+  lua_rawseti(L, -2, 6);
+  lua_pushstring(L, "Activation");
+  lua_rawseti(L, -2, 7);
+  lua_pushstring(L, "GadgetType");
+  lua_rawseti(L, -2, 8);
+  lua_pushstring(L, "GadgetRender");
+  lua_rawseti(L, -2, 9);
+  lua_pushstring(L, "SelectRender");
+  lua_rawseti(L, -2, 10);
+  lua_pushstring(L, "MutualExclude");
+  lua_rawseti(L, -2, 11);
+  lua_pushstring(L, "SpecialInfo");
+  lua_rawseti(L, -2, 12);
+  lua_pushstring(L, "GadgetID");
+  lua_rawseti(L, -2, 13);
+  lua_pushstring(L, "UserData");
+  lua_rawseti(L, -2, 14);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_Gadget(lua_State *L) {
+  if (luaL_newmetatable(L, "Gadget")) {
+    lua_pushcfunction(L, _lua_gen_Gadget_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_Gadget_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_Gadget_constructor);
+    lua_setglobal(L, "Gadget");
+    _lua_gen_Gadget_install_keys(L);
+    lua_pushstring(L, "Gadget");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_Screen_newindex(lua_State *L)
+{
+  Screen *obj = *(Screen **)luaL_checkudata(L, 1, "Screen");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "NextScreen") == 0) {
+    obj->NextScreen = (Screen *)luaL_checkudata(L, 3, "Screen");
+    return 0;
+  }
+  if (strcmp(key, "FirstWindow") == 0) {
+    obj->FirstWindow = (Window *)luaL_checkudata(L, 3, "Window");
+    return 0;
+  }
+  if (strcmp(key, "LeftEdge") == 0) {
+    obj->LeftEdge = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "TopEdge") == 0) {
+    obj->TopEdge = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Width") == 0) {
+    obj->Width = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Height") == 0) {
+    obj->Height = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "MouseY") == 0) {
+    obj->MouseY = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "MouseX") == 0) {
+    obj->MouseX = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Flags") == 0) {
+    obj->Flags = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "BarHeight") == 0) {
+    obj->BarHeight = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "BarVBorder") == 0) {
+    obj->BarVBorder = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "BarHBorder") == 0) {
+    obj->BarHBorder = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "MenuVBorder") == 0) {
+    obj->MenuVBorder = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "MenuHBorder") == 0) {
+    obj->MenuHBorder = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "WBorTop") == 0) {
+    obj->WBorTop = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "WBorLeft") == 0) {
+    obj->WBorLeft = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "WBorRight") == 0) {
+    obj->WBorRight = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "WBorBottom") == 0) {
+    obj->WBorBottom = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Font") == 0) {
+    obj->Font = (TextAttr *)luaL_checkudata(L, 3, "TextAttr");
+    return 0;
+  }
+  if (strcmp(key, "RastPort") == 0) {
+    RastPort *val = *(RastPort **)luaL_checkudata(L, 3, "RastPort");
+    obj->RastPort = *val;
+    return 0;
+  }
+  if (strcmp(key, "FirstGadget") == 0) {
+    obj->FirstGadget = (Gadget *)luaL_checkudata(L, 3, "Gadget");
+    return 0;
+  }
+  if (strcmp(key, "DetailPen") == 0) {
+    obj->DetailPen = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "BlockPen") == 0) {
+    obj->BlockPen = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "SaveColor0") == 0) {
+    obj->SaveColor0 = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_Screen_constructor(lua_State *L)
+{
+  // Allocate pointer-to-Screen in userdata
+  Screen **objp = lua_newuserdata(L, sizeof(Screen *));
+  *objp = malloc(sizeof(Screen));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(Screen));
+
+  // Set metatable
+  luaL_getmetatable(L, "Screen");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_Screen_index(lua_State *L)
+{
+  Screen *obj = *(Screen **)luaL_checkudata(L, 1, "Screen");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "NextScreen") == 0) {
+    Screen **ud = (Screen **)lua_newuserdata(L, sizeof(Screen *));
+    *ud = (Screen*)obj->NextScreen;
+    luaL_getmetatable(L, "Screen");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "FirstWindow") == 0) {
+    Window **ud = (Window **)lua_newuserdata(L, sizeof(Window *));
+    *ud = (Window*)obj->FirstWindow;
+    luaL_getmetatable(L, "Window");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "LeftEdge") == 0) {
+    lua_pushinteger(L, obj->LeftEdge);
+    return 1;
+  }
+  if (strcmp(key, "TopEdge") == 0) {
+    lua_pushinteger(L, obj->TopEdge);
+    return 1;
+  }
+  if (strcmp(key, "Width") == 0) {
+    lua_pushinteger(L, obj->Width);
+    return 1;
+  }
+  if (strcmp(key, "Height") == 0) {
+    lua_pushinteger(L, obj->Height);
+    return 1;
+  }
+  if (strcmp(key, "MouseY") == 0) {
+    lua_pushinteger(L, obj->MouseY);
+    return 1;
+  }
+  if (strcmp(key, "MouseX") == 0) {
+    lua_pushinteger(L, obj->MouseX);
+    return 1;
+  }
+  if (strcmp(key, "Flags") == 0) {
+    lua_pushinteger(L, obj->Flags);
+    return 1;
+  }
+  if (strcmp(key, "BarHeight") == 0) {
+    lua_pushinteger(L, obj->BarHeight);
+    return 1;
+  }
+  if (strcmp(key, "BarVBorder") == 0) {
+    lua_pushinteger(L, obj->BarVBorder);
+    return 1;
+  }
+  if (strcmp(key, "BarHBorder") == 0) {
+    lua_pushinteger(L, obj->BarHBorder);
+    return 1;
+  }
+  if (strcmp(key, "MenuVBorder") == 0) {
+    lua_pushinteger(L, obj->MenuVBorder);
+    return 1;
+  }
+  if (strcmp(key, "MenuHBorder") == 0) {
+    lua_pushinteger(L, obj->MenuHBorder);
+    return 1;
+  }
+  if (strcmp(key, "WBorTop") == 0) {
+    lua_pushinteger(L, obj->WBorTop);
+    return 1;
+  }
+  if (strcmp(key, "WBorLeft") == 0) {
+    lua_pushinteger(L, obj->WBorLeft);
+    return 1;
+  }
+  if (strcmp(key, "WBorRight") == 0) {
+    lua_pushinteger(L, obj->WBorRight);
+    return 1;
+  }
+  if (strcmp(key, "WBorBottom") == 0) {
+    lua_pushinteger(L, obj->WBorBottom);
+    return 1;
+  }
+  if (strcmp(key, "Font") == 0) {
+    TextAttr **ud = (TextAttr **)lua_newuserdata(L, sizeof(TextAttr *));
+    *ud = (TextAttr*)obj->Font;
+    luaL_getmetatable(L, "TextAttr");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "RastPort") == 0) {
+    RastPort **ud = (RastPort **)lua_newuserdata(L, sizeof(RastPort *));
+    *ud = (RastPort*)&obj->RastPort;
+    luaL_getmetatable(L, "RastPort");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "FirstGadget") == 0) {
+    Gadget **ud = (Gadget **)lua_newuserdata(L, sizeof(Gadget *));
+    *ud = (Gadget*)obj->FirstGadget;
+    luaL_getmetatable(L, "Gadget");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "DetailPen") == 0) {
+    lua_pushinteger(L, obj->DetailPen);
+    return 1;
+  }
+  if (strcmp(key, "BlockPen") == 0) {
+    lua_pushinteger(L, obj->BlockPen);
+    return 1;
+  }
+  if (strcmp(key, "SaveColor0") == 0) {
+    lua_pushinteger(L, obj->SaveColor0);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_Screen_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "NextScreen");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "FirstWindow");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "LeftEdge");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "TopEdge");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "Width");
+  lua_rawseti(L, -2, 5);
+  lua_pushstring(L, "Height");
+  lua_rawseti(L, -2, 6);
+  lua_pushstring(L, "MouseY");
+  lua_rawseti(L, -2, 7);
+  lua_pushstring(L, "MouseX");
+  lua_rawseti(L, -2, 8);
+  lua_pushstring(L, "Flags");
+  lua_rawseti(L, -2, 9);
+  lua_pushstring(L, "BarHeight");
+  lua_rawseti(L, -2, 10);
+  lua_pushstring(L, "BarVBorder");
+  lua_rawseti(L, -2, 11);
+  lua_pushstring(L, "BarHBorder");
+  lua_rawseti(L, -2, 12);
+  lua_pushstring(L, "MenuVBorder");
+  lua_rawseti(L, -2, 13);
+  lua_pushstring(L, "MenuHBorder");
+  lua_rawseti(L, -2, 14);
+  lua_pushstring(L, "WBorTop");
+  lua_rawseti(L, -2, 15);
+  lua_pushstring(L, "WBorLeft");
+  lua_rawseti(L, -2, 16);
+  lua_pushstring(L, "WBorRight");
+  lua_rawseti(L, -2, 17);
+  lua_pushstring(L, "WBorBottom");
+  lua_rawseti(L, -2, 18);
+  lua_pushstring(L, "Font");
+  lua_rawseti(L, -2, 19);
+  lua_pushstring(L, "RastPort");
+  lua_rawseti(L, -2, 20);
+  lua_pushstring(L, "FirstGadget");
+  lua_rawseti(L, -2, 21);
+  lua_pushstring(L, "DetailPen");
+  lua_rawseti(L, -2, 22);
+  lua_pushstring(L, "BlockPen");
+  lua_rawseti(L, -2, 23);
+  lua_pushstring(L, "SaveColor0");
+  lua_rawseti(L, -2, 24);
+  lua_pushstring(L, "ExtData");
+  lua_rawseti(L, -2, 25);
+  lua_pushstring(L, "UserData");
+  lua_rawseti(L, -2, 26);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_Screen(lua_State *L) {
+  if (luaL_newmetatable(L, "Screen")) {
+    lua_pushcfunction(L, _lua_gen_Screen_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_Screen_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_Screen_constructor);
+    lua_setglobal(L, "Screen");
+    _lua_gen_Screen_install_keys(L);
+    lua_pushstring(L, "Screen");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_NewGadget_newindex(lua_State *L)
+{
+  NewGadget *obj = *(NewGadget **)luaL_checkudata(L, 1, "NewGadget");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ng_LeftEdge") == 0) {
+    obj->ng_LeftEdge = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ng_TopEdge") == 0) {
+    obj->ng_TopEdge = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ng_Width") == 0) {
+    obj->ng_Width = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ng_Height") == 0) {
+    obj->ng_Height = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ng_GadgetText") == 0) {
+    obj->ng_GadgetText = (CONST_STRPTR)amiga_checkNullableString(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ng_TextAttr") == 0) {
+    obj->ng_TextAttr = (TextAttr *)luaL_checkudata(L, 3, "TextAttr");
+    return 0;
+  }
+  if (strcmp(key, "ng_GadgetID") == 0) {
+    obj->ng_GadgetID = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ng_Flags") == 0) {
+    obj->ng_Flags = (ULONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ng_VisualInfo") == 0) {
+    obj->ng_VisualInfo = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ng_UserData") == 0) {
+    obj->ng_UserData = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_NewGadget_constructor(lua_State *L)
+{
+  // Allocate pointer-to-NewGadget in userdata
+  NewGadget **objp = lua_newuserdata(L, sizeof(NewGadget *));
+  *objp = malloc(sizeof(NewGadget));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(NewGadget));
+
+  // Set metatable
+  luaL_getmetatable(L, "NewGadget");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_NewGadget_index(lua_State *L)
+{
+  NewGadget *obj = *(NewGadget **)luaL_checkudata(L, 1, "NewGadget");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ng_LeftEdge") == 0) {
+    lua_pushinteger(L, obj->ng_LeftEdge);
+    return 1;
+  }
+  if (strcmp(key, "ng_TopEdge") == 0) {
+    lua_pushinteger(L, obj->ng_TopEdge);
+    return 1;
+  }
+  if (strcmp(key, "ng_Width") == 0) {
+    lua_pushinteger(L, obj->ng_Width);
+    return 1;
+  }
+  if (strcmp(key, "ng_Height") == 0) {
+    lua_pushinteger(L, obj->ng_Height);
+    return 1;
+  }
+  if (strcmp(key, "ng_GadgetText") == 0) {
+    lua_pushstring(L, obj->ng_GadgetText);
+    return 1;
+  }
+  if (strcmp(key, "ng_TextAttr") == 0) {
+    TextAttr **ud = (TextAttr **)lua_newuserdata(L, sizeof(TextAttr *));
+    *ud = (TextAttr*)obj->ng_TextAttr;
+    luaL_getmetatable(L, "TextAttr");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "ng_GadgetID") == 0) {
+    lua_pushinteger(L, obj->ng_GadgetID);
+    return 1;
+  }
+  if (strcmp(key, "ng_Flags") == 0) {
+    lua_pushinteger(L, obj->ng_Flags);
+    return 1;
+  }
+  if (strcmp(key, "ng_VisualInfo") == 0) {
+    lua_pushlightuserdata(L, obj->ng_VisualInfo);
+    return 1;
+  }
+  if (strcmp(key, "ng_UserData") == 0) {
+    lua_pushlightuserdata(L, obj->ng_UserData);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_NewGadget_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "ng_LeftEdge");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "ng_TopEdge");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "ng_Width");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "ng_Height");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "ng_GadgetText");
+  lua_rawseti(L, -2, 5);
+  lua_pushstring(L, "ng_TextAttr");
+  lua_rawseti(L, -2, 6);
+  lua_pushstring(L, "ng_GadgetID");
+  lua_rawseti(L, -2, 7);
+  lua_pushstring(L, "ng_Flags");
+  lua_rawseti(L, -2, 8);
+  lua_pushstring(L, "ng_VisualInfo");
+  lua_rawseti(L, -2, 9);
+  lua_pushstring(L, "ng_UserData");
+  lua_rawseti(L, -2, 10);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_NewGadget(lua_State *L) {
+  if (luaL_newmetatable(L, "NewGadget")) {
+    lua_pushcfunction(L, _lua_gen_NewGadget_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_NewGadget_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_NewGadget_constructor);
+    lua_setglobal(L, "NewGadget");
+    _lua_gen_NewGadget_install_keys(L);
+    lua_pushstring(L, "NewGadget");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_NewWindow_newindex(lua_State *L)
+{
+  NewWindow *obj = *(NewWindow **)luaL_checkudata(L, 1, "NewWindow");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "LeftEdge") == 0) {
+    obj->LeftEdge = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "TopEdge") == 0) {
+    obj->TopEdge = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Width") == 0) {
+    obj->Width = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Height") == 0) {
+    obj->Height = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "DetailPen") == 0) {
+    obj->DetailPen = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "BlockPen") == 0) {
+    obj->BlockPen = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "IDCMPFlags") == 0) {
+    obj->IDCMPFlags = (ULONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Flags") == 0) {
+    obj->Flags = (ULONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "FirstGadget") == 0) {
+    obj->FirstGadget = (Gadget *)luaL_checkudata(L, 3, "Gadget");
+    return 0;
+  }
+  if (strcmp(key, "Screen") == 0) {
+    obj->Screen = (Screen *)luaL_checkudata(L, 3, "Screen");
+    return 0;
+  }
+  if (strcmp(key, "MinWidth") == 0) {
+    obj->MinWidth = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "MinHeight") == 0) {
+    obj->MinHeight = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "MaxWidth") == 0) {
+    obj->MaxWidth = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "MaxHeight") == 0) {
+    obj->MaxHeight = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Type") == 0) {
+    obj->Type = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_NewWindow_constructor(lua_State *L)
+{
+  // Allocate pointer-to-NewWindow in userdata
+  NewWindow **objp = lua_newuserdata(L, sizeof(NewWindow *));
+  *objp = malloc(sizeof(NewWindow));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(NewWindow));
+
+  // Set metatable
+  luaL_getmetatable(L, "NewWindow");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_NewWindow_index(lua_State *L)
+{
+  NewWindow *obj = *(NewWindow **)luaL_checkudata(L, 1, "NewWindow");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "LeftEdge") == 0) {
+    lua_pushinteger(L, obj->LeftEdge);
+    return 1;
+  }
+  if (strcmp(key, "TopEdge") == 0) {
+    lua_pushinteger(L, obj->TopEdge);
+    return 1;
+  }
+  if (strcmp(key, "Width") == 0) {
+    lua_pushinteger(L, obj->Width);
+    return 1;
+  }
+  if (strcmp(key, "Height") == 0) {
+    lua_pushinteger(L, obj->Height);
+    return 1;
+  }
+  if (strcmp(key, "DetailPen") == 0) {
+    lua_pushinteger(L, obj->DetailPen);
+    return 1;
+  }
+  if (strcmp(key, "BlockPen") == 0) {
+    lua_pushinteger(L, obj->BlockPen);
+    return 1;
+  }
+  if (strcmp(key, "IDCMPFlags") == 0) {
+    lua_pushinteger(L, obj->IDCMPFlags);
+    return 1;
+  }
+  if (strcmp(key, "Flags") == 0) {
+    lua_pushinteger(L, obj->Flags);
+    return 1;
+  }
+  if (strcmp(key, "FirstGadget") == 0) {
+    Gadget **ud = (Gadget **)lua_newuserdata(L, sizeof(Gadget *));
+    *ud = (Gadget*)obj->FirstGadget;
+    luaL_getmetatable(L, "Gadget");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "Screen") == 0) {
+    Screen **ud = (Screen **)lua_newuserdata(L, sizeof(Screen *));
+    *ud = (Screen*)obj->Screen;
+    luaL_getmetatable(L, "Screen");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "MinWidth") == 0) {
+    lua_pushinteger(L, obj->MinWidth);
+    return 1;
+  }
+  if (strcmp(key, "MinHeight") == 0) {
+    lua_pushinteger(L, obj->MinHeight);
+    return 1;
+  }
+  if (strcmp(key, "MaxWidth") == 0) {
+    lua_pushinteger(L, obj->MaxWidth);
+    return 1;
+  }
+  if (strcmp(key, "MaxHeight") == 0) {
+    lua_pushinteger(L, obj->MaxHeight);
+    return 1;
+  }
+  if (strcmp(key, "Type") == 0) {
+    lua_pushinteger(L, obj->Type);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_NewWindow_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "LeftEdge");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "TopEdge");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "Width");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "Height");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "DetailPen");
+  lua_rawseti(L, -2, 5);
+  lua_pushstring(L, "BlockPen");
+  lua_rawseti(L, -2, 6);
+  lua_pushstring(L, "IDCMPFlags");
+  lua_rawseti(L, -2, 7);
+  lua_pushstring(L, "Flags");
+  lua_rawseti(L, -2, 8);
+  lua_pushstring(L, "FirstGadget");
+  lua_rawseti(L, -2, 9);
+  lua_pushstring(L, "Screen");
+  lua_rawseti(L, -2, 10);
+  lua_pushstring(L, "MinWidth");
+  lua_rawseti(L, -2, 11);
+  lua_pushstring(L, "MinHeight");
+  lua_rawseti(L, -2, 12);
+  lua_pushstring(L, "MaxWidth");
+  lua_rawseti(L, -2, 13);
+  lua_pushstring(L, "MaxHeight");
+  lua_rawseti(L, -2, 14);
+  lua_pushstring(L, "Type");
+  lua_rawseti(L, -2, 15);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_NewWindow(lua_State *L) {
+  if (luaL_newmetatable(L, "NewWindow")) {
+    lua_pushcfunction(L, _lua_gen_NewWindow_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_NewWindow_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_NewWindow_constructor);
+    lua_setglobal(L, "NewWindow");
+    _lua_gen_NewWindow_install_keys(L);
+    lua_pushstring(L, "NewWindow");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_Requester_newindex(lua_State *L)
+{
+  Requester *obj = *(Requester **)luaL_checkudata(L, 1, "Requester");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "OlderRequest") == 0) {
+    obj->OlderRequest = (Requester *)luaL_checkudata(L, 3, "Requester");
+    return 0;
+  }
+  if (strcmp(key, "LeftEdge") == 0) {
+    obj->LeftEdge = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "TopEdge") == 0) {
+    obj->TopEdge = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Width") == 0) {
+    obj->Width = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Height") == 0) {
+    obj->Height = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "RelLeft") == 0) {
+    obj->RelLeft = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "RelTop") == 0) {
+    obj->RelTop = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ReqGadget") == 0) {
+    obj->ReqGadget = (Gadget *)luaL_checkudata(L, 3, "Gadget");
+    return 0;
+  }
+  if (strcmp(key, "Flags") == 0) {
+    obj->Flags = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "BackFill") == 0) {
+    obj->BackFill = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "RWindow") == 0) {
+    obj->RWindow = (Window *)luaL_checkudata(L, 3, "Window");
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_Requester_constructor(lua_State *L)
+{
+  // Allocate pointer-to-Requester in userdata
+  Requester **objp = lua_newuserdata(L, sizeof(Requester *));
+  *objp = malloc(sizeof(Requester));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(Requester));
+
+  // Set metatable
+  luaL_getmetatable(L, "Requester");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_Requester_index(lua_State *L)
+{
+  Requester *obj = *(Requester **)luaL_checkudata(L, 1, "Requester");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "OlderRequest") == 0) {
+    Requester **ud = (Requester **)lua_newuserdata(L, sizeof(Requester *));
+    *ud = (Requester*)obj->OlderRequest;
+    luaL_getmetatable(L, "Requester");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "LeftEdge") == 0) {
+    lua_pushinteger(L, obj->LeftEdge);
+    return 1;
+  }
+  if (strcmp(key, "TopEdge") == 0) {
+    lua_pushinteger(L, obj->TopEdge);
+    return 1;
+  }
+  if (strcmp(key, "Width") == 0) {
+    lua_pushinteger(L, obj->Width);
+    return 1;
+  }
+  if (strcmp(key, "Height") == 0) {
+    lua_pushinteger(L, obj->Height);
+    return 1;
+  }
+  if (strcmp(key, "RelLeft") == 0) {
+    lua_pushinteger(L, obj->RelLeft);
+    return 1;
+  }
+  if (strcmp(key, "RelTop") == 0) {
+    lua_pushinteger(L, obj->RelTop);
+    return 1;
+  }
+  if (strcmp(key, "ReqGadget") == 0) {
+    Gadget **ud = (Gadget **)lua_newuserdata(L, sizeof(Gadget *));
+    *ud = (Gadget*)obj->ReqGadget;
+    luaL_getmetatable(L, "Gadget");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "Flags") == 0) {
+    lua_pushinteger(L, obj->Flags);
+    return 1;
+  }
+  if (strcmp(key, "BackFill") == 0) {
+    lua_pushinteger(L, obj->BackFill);
+    return 1;
+  }
+  if (strcmp(key, "RWindow") == 0) {
+    Window **ud = (Window **)lua_newuserdata(L, sizeof(Window *));
+    *ud = (Window*)obj->RWindow;
+    luaL_getmetatable(L, "Window");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_Requester_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "OlderRequest");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "LeftEdge");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "TopEdge");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "Width");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "Height");
+  lua_rawseti(L, -2, 5);
+  lua_pushstring(L, "RelLeft");
+  lua_rawseti(L, -2, 6);
+  lua_pushstring(L, "RelTop");
+  lua_rawseti(L, -2, 7);
+  lua_pushstring(L, "ReqGadget");
+  lua_rawseti(L, -2, 8);
+  lua_pushstring(L, "Flags");
+  lua_rawseti(L, -2, 9);
+  lua_pushstring(L, "BackFill");
+  lua_rawseti(L, -2, 10);
+  lua_pushstring(L, "RWindow");
+  lua_rawseti(L, -2, 11);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_Requester(lua_State *L) {
+  if (luaL_newmetatable(L, "Requester")) {
+    lua_pushcfunction(L, _lua_gen_Requester_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_Requester_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_Requester_constructor);
+    lua_setglobal(L, "Requester");
+    _lua_gen_Requester_install_keys(L);
+    lua_pushstring(L, "Requester");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_TextAttr_newindex(lua_State *L)
+{
+  TextAttr *obj = *(TextAttr **)luaL_checkudata(L, 1, "TextAttr");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ta_YSize") == 0) {
+    obj->ta_YSize = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ta_Style") == 0) {
+    obj->ta_Style = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ta_Flags") == 0) {
+    obj->ta_Flags = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_TextAttr_constructor(lua_State *L)
+{
+  // Allocate pointer-to-TextAttr in userdata
+  TextAttr **objp = lua_newuserdata(L, sizeof(TextAttr *));
+  *objp = malloc(sizeof(TextAttr));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(TextAttr));
+
+  // Set metatable
+  luaL_getmetatable(L, "TextAttr");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_TextAttr_index(lua_State *L)
+{
+  TextAttr *obj = *(TextAttr **)luaL_checkudata(L, 1, "TextAttr");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ta_YSize") == 0) {
+    lua_pushinteger(L, obj->ta_YSize);
+    return 1;
+  }
+  if (strcmp(key, "ta_Style") == 0) {
+    lua_pushinteger(L, obj->ta_Style);
+    return 1;
+  }
+  if (strcmp(key, "ta_Flags") == 0) {
+    lua_pushinteger(L, obj->ta_Flags);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_TextAttr_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "ta_YSize");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "ta_Style");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "ta_Flags");
+  lua_rawseti(L, -2, 3);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_TextAttr(lua_State *L) {
+  if (luaL_newmetatable(L, "TextAttr")) {
+    lua_pushcfunction(L, _lua_gen_TextAttr_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_TextAttr_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_TextAttr_constructor);
+    lua_setglobal(L, "TextAttr");
+    _lua_gen_TextAttr_install_keys(L);
+    lua_pushstring(L, "TextAttr");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_GadgetPtr_newindex(lua_State *L)
+{
+  GadgetPtr *obj = *(GadgetPtr **)luaL_checkudata(L, 1, "GadgetPtr");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ptr") == 0) {
+    obj->ptr = (Gadget *)luaL_checkudata(L, 3, "Gadget");
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_GadgetPtr_constructor(lua_State *L)
+{
+  // Allocate pointer-to-GadgetPtr in userdata
+  GadgetPtr **objp = lua_newuserdata(L, sizeof(GadgetPtr *));
+  *objp = malloc(sizeof(GadgetPtr));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(GadgetPtr));
+
+  // Set metatable
+  luaL_getmetatable(L, "GadgetPtr");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_GadgetPtr_index(lua_State *L)
+{
+  GadgetPtr *obj = *(GadgetPtr **)luaL_checkudata(L, 1, "GadgetPtr");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ptr") == 0) {
+    Gadget **ud = (Gadget **)lua_newuserdata(L, sizeof(Gadget *));
+    *ud = (Gadget*)obj->ptr;
+    luaL_getmetatable(L, "Gadget");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_GadgetPtr_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "ptr");
+  lua_rawseti(L, -2, 1);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_GadgetPtr(lua_State *L) {
+  if (luaL_newmetatable(L, "GadgetPtr")) {
+    lua_pushcfunction(L, _lua_gen_GadgetPtr_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_GadgetPtr_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_GadgetPtr_constructor);
+    lua_setglobal(L, "GadgetPtr");
+    _lua_gen_GadgetPtr_install_keys(L);
+    lua_pushstring(L, "GadgetPtr");
     lua_setfield(L, -2, "__name");
   }
   lua_pop(L, 1);
@@ -1219,6 +3109,10 @@ _lua_gen_install_defines(lua_State *L)
   lua_setglobal(L, "WA_SmartRefresh");
   lua_pushinteger(L, WA_IDCMP);
   lua_setglobal(L, "WA_IDCMP");
+  lua_pushinteger(L, WA_Gadgets);
+  lua_setglobal(L, "WA_Gadgets");
+  lua_pushinteger(L, WA_PubScreen);
+  lua_setglobal(L, "WA_PubScreen");
   lua_pushinteger(L, TAG_END);
   lua_setglobal(L, "TAG_END");
   lua_pushinteger(L, IDCMP_CLOSEWINDOW);
@@ -1227,6 +3121,12 @@ _lua_gen_install_defines(lua_State *L)
   lua_setglobal(L, "IDCMP_RAWKEY");
   lua_pushinteger(L, IDCMP_MOUSEMOVE);
   lua_setglobal(L, "IDCMP_MOUSEMOVE");
+  lua_pushinteger(L, IDCMP_REFRESHWINDOW);
+  lua_setglobal(L, "IDCMP_REFRESHWINDOW");
+  lua_pushinteger(L, BUTTONIDCMP);
+  lua_setglobal(L, "BUTTONIDCMP");
+  lua_pushinteger(L, BUTTON_KIND);
+  lua_setglobal(L, "BUTTON_KIND");
 }
 
 static void
@@ -1234,9 +3134,17 @@ _lua_gen_installGeneratedMetaTables(lua_State *L)
 {
   _lua_gen_install_meta_Window(L);
   _lua_gen_install_meta_RastPort(L);
+  _lua_gen_install_meta_TagItem(L);
   _lua_gen_install_meta_MsgPort(L);
   _lua_gen_install_meta_Message(L);
   _lua_gen_install_meta_IntuiMessage(L);
+  _lua_gen_install_meta_Gadget(L);
+  _lua_gen_install_meta_Screen(L);
+  _lua_gen_install_meta_NewGadget(L);
+  _lua_gen_install_meta_NewWindow(L);
+  _lua_gen_install_meta_Requester(L);
+  _lua_gen_install_meta_TextAttr(L);
+  _lua_gen_install_meta_GadgetPtr(L);
 }
 
 static void
@@ -1258,6 +3166,13 @@ _lua_gen_installGeneratedFunctions(lua_State *L)
   lua_register(L, "Text", _lua_Text);
   lua_register(L, "Move", _lua_Move);
   lua_register(L, "CloseWindow", _lua_CloseWindow);
+  lua_register(L, "LockPubScreen", _lua_LockPubScreen);
+  lua_register(L, "GT_GetIMsg", _lua_GT_GetIMsg);
+  lua_register(L, "GT_ReplyIMsg", _lua_GT_ReplyIMsg);
+  lua_register(L, "GT_RefreshWindow", _lua_GT_RefreshWindow);
+  lua_register(L, "GT_BeginRefresh", _lua_GT_BeginRefresh);
+  lua_register(L, "GT_EndRefresh", _lua_GT_EndRefresh);
+  lua_register(L, "CreateContext", _lua_CreateContext);
   lua_register(L, "TO_CONST_STRPTR", _lua_TO_CONST_STRPTR);
   lua_register(L, "TO_IntuiMessage", _lua_TO_IntuiMessage);
 }
