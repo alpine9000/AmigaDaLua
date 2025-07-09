@@ -277,8 +277,8 @@ _amiga_createGadget(lua_State *L)
   
   struct TagItem taglist[64];
   _amiga_readVarTags(L, taglist, countof(taglist), 4);  
+
   struct Gadget *result = CreateGadgetA(kind, gadPtr, ngPtr, taglist);
-  printf("CreateGadgetA: result = %x\n", (uint32_t) result);
   _lua_gen_pushGadget(L, result);
   return 1; 
 }
