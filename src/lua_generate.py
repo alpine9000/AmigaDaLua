@@ -15,7 +15,9 @@ TYPE_CONFIG = {
     "Gadget": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
     "GadgetPtr": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
     "Requester": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
-    "TextAttr": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},            
+    "TextAttr": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "StringInfo": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "TextFont":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
 }
 
 ENUM_CONFIG = []
@@ -26,10 +28,14 @@ DEFINE_CONFIGS = [
     "MODE_OLDFILE", "MODE_NEWFILE", "MODE_READWRITE",
     "DOSTRUE", "DOSFALSE",
     "WA_AutoAdjust", "WA_InnerHeight", "WA_Title","WA_Width","WA_Height","WA_Left","WA_Top","WA_CloseGadget","WA_DepthGadget","WA_DragBar",
-    "WA_Activate","WA_SmartRefresh",    "WA_IDCMP","WA_Gadgets","WA_PubScreen",
+    "WA_Activate","WA_SmartRefresh", "WA_MinHeight", "WA_MinWidth", "WA_SizeGadget", "WA_IDCMP","WA_Gadgets","WA_PubScreen","WA_SimpleRefresh",
     "TAG_END",
-    "IDCMP_CLOSEWINDOW", "IDCMP_GADGETUP", "IDCMP_MOUSEMOVE", "IDCMP_RAWKEY","IDCMP_REFRESHWINDOW", "BUTTONIDCMP",
-    "BUTTON_KIND",
+    "IDCMP_CLOSEWINDOW", "IDCMP_GADGETUP", "IDCMP_MOUSEMOVE", "IDCMP_RAWKEY","IDCMP_REFRESHWINDOW", "IDCMP_VANILLAKEY",
+    "BUTTONIDCMP", "SLIDERIDCMP", "STRINGIDCMP",
+    "BUTTON_KIND", "SLIDER_KIND", "STRING_KIND",
+    "NG_HIGHLABEL",
+    "GTSL_Min", "GTSL_Max", "GTSL_Level", "GTSL_LevelFormat", "GTSL_MaxLevelLen", "GT_Underscore",
+    "GTST_String", "GTST_MaxChars", 
 ]
 
 FUNCTION_CONFIG = [
@@ -43,12 +49,13 @@ FUNCTION_CONFIG = [
 
     "WaitPort","GetMsg", "ReplyMsg",
 
-    "LockPubScreen", "UnlockPubScreen", "CloseWindow",
+    "LockPubScreen", "UnlockPubScreen", "CloseWindow", "OpenFont", "CloseFont", "__OpenFont",
     
     "TO_CONST_STRPTR", "TO_IntuiMessage",
     # GadTools
     #"GetVisualInfoA","CreateGadgetA",
     "CreateContext", "GT_RefreshWindow", "GT_GetIMsg", "GT_ReplyIMsg", "GT_BeginRefresh", "GT_EndRefresh",
+    "ActivateGadget", 
     "FreeGadgets", "FreeVisualInfo"
 ]
 
@@ -93,6 +100,7 @@ READ_TYPE_TO_LUA = {
     'UBYTE': 'lua_pushinteger',
     'WORD': 'lua_pushinteger',
     'UWORD': 'lua_pushinteger',
+    'BOOL': 'lua_pushboolean',
     'struct Gadget **': 'lua_pushGadgetPtr',
 }
 
@@ -120,6 +128,7 @@ WRITE_TYPE_FROM_LUA = {
     'UBYTE': 'luaL_checkinteger',
     'WORD': 'luaL_checkinteger',
     'UWORD': 'luaL_checkinteger',
+    'BOOL': 'luaL_checkboolean',    
     'struct Gadget **': 'amiga_checkGadgetPtr',    
 }
 

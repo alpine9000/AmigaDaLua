@@ -92,7 +92,7 @@ function process_window_events(mywin)
       while not terminated and imsg do
 	 -- GT_ReplyIMsg() at end of loop 
 	 if imsg.Class == IDCMP_GADGETUP then -- Buttons only report GADGETUP 
-	    gad = GetGadget(imsg.IAddress);	    
+	    gad = GetGadget(imsg.IAddress)
 	    if gad and gad.GadgetID == MYGAD_BUTTON then
 	       print("Button was pressed")
 	    end	 

@@ -38,6 +38,8 @@ typedef struct NewGadget NewGadget;
 typedef struct NewWindow NewWindow;
 typedef struct Requester Requester;
 typedef struct TextAttr TextAttr;
+typedef struct StringInfo StringInfo;
+typedef struct TextFont TextFont;
 
 struct GadgetPtr{
     Gadget *ptr;

@@ -325,6 +325,60 @@ _lua_gen_checkTextAttr(lua_State* L, int stackIndex)
 }
 
 void
+_lua_gen_pushStringInfo(lua_State *L, struct StringInfo* obj)
+{
+  if (obj) {
+    struct StringInfo **ud = (struct StringInfo **)lua_newuserdata(L, sizeof(struct StringInfo *));
+    *ud = obj;
+    luaL_getmetatable(L, "StringInfo");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct StringInfo*
+_lua_gen_checkStringInfo(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct StringInfo **ud = (struct StringInfo **)luaL_checkudata(L, stackIndex, "StringInfo");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushTextFont(lua_State *L, struct TextFont* obj)
+{
+  if (obj) {
+    struct TextFont **ud = (struct TextFont **)lua_newuserdata(L, sizeof(struct TextFont *));
+    *ud = obj;
+    luaL_getmetatable(L, "TextFont");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct TextFont*
+_lua_gen_checkTextFont(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct TextFont **ud = (struct TextFont **)luaL_checkudata(L, stackIndex, "TextFont");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
 _lua_gen_pushGadgetPtr(lua_State *L, struct GadgetPtr* obj)
 {
   if (obj) {
@@ -428,6 +482,23 @@ _lua_Text(lua_State* L)
 }
 
 static int
+_lua_OpenFont(lua_State* L)
+{
+  const struct TextAttr * textAttr = _lua_gen_checkTextAttr(L, 1);
+  struct TextFont * result = OpenFont(textAttr);
+  _lua_gen_pushTextFont(L, result);
+  return 1;
+}
+
+static int
+_lua_CloseFont(lua_State* L)
+{
+  struct TextFont * textFont = _lua_gen_checkTextFont(L, 1);
+  CloseFont(textFont);
+  return 0;
+}
+
+static int
 _lua_Move(lua_State* L)
 {
   struct RastPort * rp = _lua_gen_checkRastPort(L, 1);
@@ -443,6 +514,17 @@ _lua_CloseWindow(lua_State* L)
   struct Window * window = _lua_gen_checkWindow(L, 1);
   CloseWindow(window);
   return 0;
+}
+
+static int
+_lua_ActivateGadget(lua_State* L)
+{
+  struct Gadget * gadgets = _lua_gen_checkGadget(L, 1);
+  struct Window * window = _lua_gen_checkWindow(L, 2);
+  struct Requester * requester = _lua_gen_checkRequester(L, 3);
+  BOOL result = ActivateGadget(gadgets, window, requester);
+  lua_pushboolean(L, result);
+  return 1;
 }
 
 static int
@@ -712,6 +794,11 @@ _lua_gen_Window_newindex(lua_State *L)
     obj->GZZHeight = (WORD)luaL_checkinteger(L, 3);
     return 0;
   }
+  if (strcmp(key, "IFont") == 0) {
+    // finder 1
+    obj->IFont = *(TextFont **)luaL_checkudata(L, 3, "TextFont");
+    return 0;
+  }
   if (strcmp(key, "MoreFlags") == 0) {
     obj->MoreFlags = (ULONG)luaL_checkinteger(L, 3);
     return 0;
@@ -954,6 +1041,13 @@ _lua_gen_Window_index(lua_State *L)
     lua_pushinteger(L, obj->GZZHeight);
     return 1;
   }
+  if (strcmp(key, "IFont") == 0) {
+    TextFont **ud = (TextFont **)lua_newuserdata(L, sizeof(TextFont *));
+    *ud = (TextFont*)obj->IFont;
+    luaL_getmetatable(L, "TextFont");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
   if (strcmp(key, "MoreFlags") == 0) {
     lua_pushinteger(L, obj->MoreFlags);
     return 1;
@@ -1053,8 +1147,10 @@ _lua_gen_Window_install_keys(lua_State *L)
   lua_rawseti(L, -2, 43);
   lua_pushstring(L, "UserData");
   lua_rawseti(L, -2, 44);
-  lua_pushstring(L, "MoreFlags");
+  lua_pushstring(L, "IFont");
   lua_rawseti(L, -2, 45);
+  lua_pushstring(L, "MoreFlags");
+  lua_rawseti(L, -2, 46);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -1133,6 +1229,11 @@ _lua_gen_RastPort_newindex(lua_State *L)
   }
   if (strcmp(key, "PenHeight") == 0) {
     obj->PenHeight = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Font") == 0) {
+    // finder 1
+    obj->Font = *(TextFont **)luaL_checkudata(L, 3, "TextFont");
     return 0;
   }
   if (strcmp(key, "AlgoStyle") == 0) {
@@ -1253,6 +1354,13 @@ _lua_gen_RastPort_index(lua_State *L)
     lua_pushinteger(L, obj->PenHeight);
     return 1;
   }
+  if (strcmp(key, "Font") == 0) {
+    TextFont **ud = (TextFont **)lua_newuserdata(L, sizeof(TextFont *));
+    *ud = (TextFont*)obj->Font;
+    luaL_getmetatable(L, "TextFont");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
   if (strcmp(key, "AlgoStyle") == 0) {
     lua_pushinteger(L, obj->AlgoStyle);
     return 1;
@@ -1314,20 +1422,22 @@ _lua_gen_RastPort_install_keys(lua_State *L)
   lua_rawseti(L, -2, 14);
   lua_pushstring(L, "PenHeight");
   lua_rawseti(L, -2, 15);
-  lua_pushstring(L, "AlgoStyle");
+  lua_pushstring(L, "Font");
   lua_rawseti(L, -2, 16);
-  lua_pushstring(L, "TxFlags");
+  lua_pushstring(L, "AlgoStyle");
   lua_rawseti(L, -2, 17);
-  lua_pushstring(L, "TxHeight");
+  lua_pushstring(L, "TxFlags");
   lua_rawseti(L, -2, 18);
-  lua_pushstring(L, "TxWidth");
+  lua_pushstring(L, "TxHeight");
   lua_rawseti(L, -2, 19);
-  lua_pushstring(L, "TxBaseline");
+  lua_pushstring(L, "TxWidth");
   lua_rawseti(L, -2, 20);
-  lua_pushstring(L, "TxSpacing");
+  lua_pushstring(L, "TxBaseline");
   lua_rawseti(L, -2, 21);
-  lua_pushstring(L, "RP_User");
+  lua_pushstring(L, "TxSpacing");
   lua_rawseti(L, -2, 22);
+  lua_pushstring(L, "RP_User");
+  lua_rawseti(L, -2, 23);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -3078,6 +3188,409 @@ _lua_gen_install_meta_TextAttr(lua_State *L) {
 }
 
 static int
+_lua_gen_StringInfo_newindex(lua_State *L)
+{
+  StringInfo *obj = *(StringInfo **)luaL_checkudata(L, 1, "StringInfo");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "Buffer") == 0) {
+    obj->Buffer = (STRPTR)amiga_checkNullableString(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "UndoBuffer") == 0) {
+    obj->UndoBuffer = (STRPTR)amiga_checkNullableString(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "BufferPos") == 0) {
+    obj->BufferPos = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "MaxChars") == 0) {
+    obj->MaxChars = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "DispPos") == 0) {
+    obj->DispPos = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "UndoPos") == 0) {
+    obj->UndoPos = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "NumChars") == 0) {
+    obj->NumChars = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "DispCount") == 0) {
+    obj->DispCount = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "CLeft") == 0) {
+    obj->CLeft = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "CTop") == 0) {
+    obj->CTop = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "LongInt") == 0) {
+    obj->LongInt = (LONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_StringInfo_constructor(lua_State *L)
+{
+  // Allocate pointer-to-StringInfo in userdata
+  StringInfo **objp = lua_newuserdata(L, sizeof(StringInfo *));
+  *objp = malloc(sizeof(StringInfo));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(StringInfo));
+
+  // Set metatable
+  luaL_getmetatable(L, "StringInfo");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_StringInfo_index(lua_State *L)
+{
+  StringInfo *obj = *(StringInfo **)luaL_checkudata(L, 1, "StringInfo");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "Buffer") == 0) {
+    lua_pushstring(L, obj->Buffer);
+    return 1;
+  }
+  if (strcmp(key, "UndoBuffer") == 0) {
+    lua_pushstring(L, obj->UndoBuffer);
+    return 1;
+  }
+  if (strcmp(key, "BufferPos") == 0) {
+    lua_pushinteger(L, obj->BufferPos);
+    return 1;
+  }
+  if (strcmp(key, "MaxChars") == 0) {
+    lua_pushinteger(L, obj->MaxChars);
+    return 1;
+  }
+  if (strcmp(key, "DispPos") == 0) {
+    lua_pushinteger(L, obj->DispPos);
+    return 1;
+  }
+  if (strcmp(key, "UndoPos") == 0) {
+    lua_pushinteger(L, obj->UndoPos);
+    return 1;
+  }
+  if (strcmp(key, "NumChars") == 0) {
+    lua_pushinteger(L, obj->NumChars);
+    return 1;
+  }
+  if (strcmp(key, "DispCount") == 0) {
+    lua_pushinteger(L, obj->DispCount);
+    return 1;
+  }
+  if (strcmp(key, "CLeft") == 0) {
+    lua_pushinteger(L, obj->CLeft);
+    return 1;
+  }
+  if (strcmp(key, "CTop") == 0) {
+    lua_pushinteger(L, obj->CTop);
+    return 1;
+  }
+  if (strcmp(key, "LongInt") == 0) {
+    lua_pushinteger(L, obj->LongInt);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_StringInfo_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "Buffer");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "UndoBuffer");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "BufferPos");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "MaxChars");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "DispPos");
+  lua_rawseti(L, -2, 5);
+  lua_pushstring(L, "UndoPos");
+  lua_rawseti(L, -2, 6);
+  lua_pushstring(L, "NumChars");
+  lua_rawseti(L, -2, 7);
+  lua_pushstring(L, "DispCount");
+  lua_rawseti(L, -2, 8);
+  lua_pushstring(L, "CLeft");
+  lua_rawseti(L, -2, 9);
+  lua_pushstring(L, "CTop");
+  lua_rawseti(L, -2, 10);
+  lua_pushstring(L, "LongInt");
+  lua_rawseti(L, -2, 11);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_StringInfo(lua_State *L) {
+  if (luaL_newmetatable(L, "StringInfo")) {
+    lua_pushcfunction(L, _lua_gen_StringInfo_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_StringInfo_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_StringInfo_constructor);
+    lua_setglobal(L, "StringInfo");
+    _lua_gen_StringInfo_install_keys(L);
+    lua_pushstring(L, "StringInfo");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_TextFont_newindex(lua_State *L)
+{
+  TextFont *obj = *(TextFont **)luaL_checkudata(L, 1, "TextFont");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "tf_Message") == 0) {
+    // finder 0
+    Message *val = *(Message **)luaL_checkudata(L, 3, "Message");
+    obj->tf_Message = *val;
+    return 0;
+  }
+  if (strcmp(key, "tf_YSize") == 0) {
+    obj->tf_YSize = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tf_Style") == 0) {
+    obj->tf_Style = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tf_Flags") == 0) {
+    obj->tf_Flags = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tf_XSize") == 0) {
+    obj->tf_XSize = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tf_Baseline") == 0) {
+    obj->tf_Baseline = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tf_BoldSmear") == 0) {
+    obj->tf_BoldSmear = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tf_Accessors") == 0) {
+    obj->tf_Accessors = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tf_LoChar") == 0) {
+    obj->tf_LoChar = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tf_HiChar") == 0) {
+    obj->tf_HiChar = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tf_CharData") == 0) {
+    obj->tf_CharData = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tf_Modulo") == 0) {
+    obj->tf_Modulo = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tf_CharLoc") == 0) {
+    obj->tf_CharLoc = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tf_CharSpace") == 0) {
+    obj->tf_CharSpace = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tf_CharKern") == 0) {
+    obj->tf_CharKern = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_TextFont_constructor(lua_State *L)
+{
+  // Allocate pointer-to-TextFont in userdata
+  TextFont **objp = lua_newuserdata(L, sizeof(TextFont *));
+  *objp = malloc(sizeof(TextFont));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(TextFont));
+
+  // Set metatable
+  luaL_getmetatable(L, "TextFont");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_TextFont_index(lua_State *L)
+{
+  TextFont *obj = *(TextFont **)luaL_checkudata(L, 1, "TextFont");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "tf_Message") == 0) {
+    Message **ud = (Message **)lua_newuserdata(L, sizeof(Message *));
+    *ud = (Message*)&obj->tf_Message;
+    luaL_getmetatable(L, "Message");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "tf_YSize") == 0) {
+    lua_pushinteger(L, obj->tf_YSize);
+    return 1;
+  }
+  if (strcmp(key, "tf_Style") == 0) {
+    lua_pushinteger(L, obj->tf_Style);
+    return 1;
+  }
+  if (strcmp(key, "tf_Flags") == 0) {
+    lua_pushinteger(L, obj->tf_Flags);
+    return 1;
+  }
+  if (strcmp(key, "tf_XSize") == 0) {
+    lua_pushinteger(L, obj->tf_XSize);
+    return 1;
+  }
+  if (strcmp(key, "tf_Baseline") == 0) {
+    lua_pushinteger(L, obj->tf_Baseline);
+    return 1;
+  }
+  if (strcmp(key, "tf_BoldSmear") == 0) {
+    lua_pushinteger(L, obj->tf_BoldSmear);
+    return 1;
+  }
+  if (strcmp(key, "tf_Accessors") == 0) {
+    lua_pushinteger(L, obj->tf_Accessors);
+    return 1;
+  }
+  if (strcmp(key, "tf_LoChar") == 0) {
+    lua_pushinteger(L, obj->tf_LoChar);
+    return 1;
+  }
+  if (strcmp(key, "tf_HiChar") == 0) {
+    lua_pushinteger(L, obj->tf_HiChar);
+    return 1;
+  }
+  if (strcmp(key, "tf_CharData") == 0) {
+    lua_pushlightuserdata(L, obj->tf_CharData);
+    return 1;
+  }
+  if (strcmp(key, "tf_Modulo") == 0) {
+    lua_pushinteger(L, obj->tf_Modulo);
+    return 1;
+  }
+  if (strcmp(key, "tf_CharLoc") == 0) {
+    lua_pushlightuserdata(L, obj->tf_CharLoc);
+    return 1;
+  }
+  if (strcmp(key, "tf_CharSpace") == 0) {
+    lua_pushlightuserdata(L, obj->tf_CharSpace);
+    return 1;
+  }
+  if (strcmp(key, "tf_CharKern") == 0) {
+    lua_pushlightuserdata(L, obj->tf_CharKern);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_TextFont_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "tf_Message");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "tf_YSize");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "tf_Style");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "tf_Flags");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "tf_XSize");
+  lua_rawseti(L, -2, 5);
+  lua_pushstring(L, "tf_Baseline");
+  lua_rawseti(L, -2, 6);
+  lua_pushstring(L, "tf_BoldSmear");
+  lua_rawseti(L, -2, 7);
+  lua_pushstring(L, "tf_Accessors");
+  lua_rawseti(L, -2, 8);
+  lua_pushstring(L, "tf_LoChar");
+  lua_rawseti(L, -2, 9);
+  lua_pushstring(L, "tf_HiChar");
+  lua_rawseti(L, -2, 10);
+  lua_pushstring(L, "tf_CharData");
+  lua_rawseti(L, -2, 11);
+  lua_pushstring(L, "tf_Modulo");
+  lua_rawseti(L, -2, 12);
+  lua_pushstring(L, "tf_CharLoc");
+  lua_rawseti(L, -2, 13);
+  lua_pushstring(L, "tf_CharSpace");
+  lua_rawseti(L, -2, 14);
+  lua_pushstring(L, "tf_CharKern");
+  lua_rawseti(L, -2, 15);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_TextFont(lua_State *L) {
+  if (luaL_newmetatable(L, "TextFont")) {
+    lua_pushcfunction(L, _lua_gen_TextFont_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_TextFont_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_TextFont_constructor);
+    lua_setglobal(L, "TextFont");
+    _lua_gen_TextFont_install_keys(L);
+    lua_pushstring(L, "TextFont");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
 _lua_gen_GadgetPtr_newindex(lua_State *L)
 {
   GadgetPtr *obj = *(GadgetPtr **)luaL_checkudata(L, 1, "GadgetPtr");
@@ -3225,12 +3738,20 @@ _lua_gen_install_defines(lua_State *L)
   lua_setglobal(L, "WA_Activate");
   lua_pushinteger(L, WA_SmartRefresh);
   lua_setglobal(L, "WA_SmartRefresh");
+  lua_pushinteger(L, WA_MinHeight);
+  lua_setglobal(L, "WA_MinHeight");
+  lua_pushinteger(L, WA_MinWidth);
+  lua_setglobal(L, "WA_MinWidth");
+  lua_pushinteger(L, WA_SizeGadget);
+  lua_setglobal(L, "WA_SizeGadget");
   lua_pushinteger(L, WA_IDCMP);
   lua_setglobal(L, "WA_IDCMP");
   lua_pushinteger(L, WA_Gadgets);
   lua_setglobal(L, "WA_Gadgets");
   lua_pushinteger(L, WA_PubScreen);
   lua_setglobal(L, "WA_PubScreen");
+  lua_pushinteger(L, WA_SimpleRefresh);
+  lua_setglobal(L, "WA_SimpleRefresh");
   lua_pushinteger(L, TAG_END);
   lua_setglobal(L, "TAG_END");
   lua_pushinteger(L, IDCMP_CLOSEWINDOW);
@@ -3243,10 +3764,38 @@ _lua_gen_install_defines(lua_State *L)
   lua_setglobal(L, "IDCMP_RAWKEY");
   lua_pushinteger(L, IDCMP_REFRESHWINDOW);
   lua_setglobal(L, "IDCMP_REFRESHWINDOW");
+  lua_pushinteger(L, IDCMP_VANILLAKEY);
+  lua_setglobal(L, "IDCMP_VANILLAKEY");
   lua_pushinteger(L, BUTTONIDCMP);
   lua_setglobal(L, "BUTTONIDCMP");
+  lua_pushinteger(L, SLIDERIDCMP);
+  lua_setglobal(L, "SLIDERIDCMP");
+  lua_pushinteger(L, STRINGIDCMP);
+  lua_setglobal(L, "STRINGIDCMP");
   lua_pushinteger(L, BUTTON_KIND);
   lua_setglobal(L, "BUTTON_KIND");
+  lua_pushinteger(L, SLIDER_KIND);
+  lua_setglobal(L, "SLIDER_KIND");
+  lua_pushinteger(L, STRING_KIND);
+  lua_setglobal(L, "STRING_KIND");
+  lua_pushinteger(L, NG_HIGHLABEL);
+  lua_setglobal(L, "NG_HIGHLABEL");
+  lua_pushinteger(L, GTSL_Min);
+  lua_setglobal(L, "GTSL_Min");
+  lua_pushinteger(L, GTSL_Max);
+  lua_setglobal(L, "GTSL_Max");
+  lua_pushinteger(L, GTSL_Level);
+  lua_setglobal(L, "GTSL_Level");
+  lua_pushinteger(L, GTSL_LevelFormat);
+  lua_setglobal(L, "GTSL_LevelFormat");
+  lua_pushinteger(L, GTSL_MaxLevelLen);
+  lua_setglobal(L, "GTSL_MaxLevelLen");
+  lua_pushinteger(L, GT_Underscore);
+  lua_setglobal(L, "GT_Underscore");
+  lua_pushinteger(L, GTST_String);
+  lua_setglobal(L, "GTST_String");
+  lua_pushinteger(L, GTST_MaxChars);
+  lua_setglobal(L, "GTST_MaxChars");
 }
 
 static void
@@ -3264,6 +3813,8 @@ _lua_gen_installGeneratedMetaTables(lua_State *L)
   _lua_gen_install_meta_NewWindow(L);
   _lua_gen_install_meta_Requester(L);
   _lua_gen_install_meta_TextAttr(L);
+  _lua_gen_install_meta_StringInfo(L);
+  _lua_gen_install_meta_TextFont(L);
   _lua_gen_install_meta_GadgetPtr(L);
 }
 
@@ -3284,8 +3835,11 @@ _lua_gen_installGeneratedFunctions(lua_State *L)
   lua_register(L, "ReplyMsg", _lua_ReplyMsg);
   lua_register(L, "WaitPort", _lua_WaitPort);
   lua_register(L, "Text", _lua_Text);
+  lua_register(L, "OpenFont", _lua_OpenFont);
+  lua_register(L, "CloseFont", _lua_CloseFont);
   lua_register(L, "Move", _lua_Move);
   lua_register(L, "CloseWindow", _lua_CloseWindow);
+  lua_register(L, "ActivateGadget", _lua_ActivateGadget);
   lua_register(L, "LockPubScreen", _lua_LockPubScreen);
   lua_register(L, "UnlockPubScreen", _lua_UnlockPubScreen);
   lua_register(L, "FreeGadgets", _lua_FreeGadgets);

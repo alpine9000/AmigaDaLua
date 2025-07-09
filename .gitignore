@@ -8,3 +8,4 @@ src/luac
 build.sh
 src/liblua.a
 src/lua
+a.out
