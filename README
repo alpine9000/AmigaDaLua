@@ -1,5 +1,11 @@
 
-This is Lua 5.4.8, released on 21 May 2025.
+This is AmigaDaLua based on Lua 5.4.8.
+
+This fork has (some) Amiga NDK bindings such that
+you can write Amiga programs in Lua.
+
+NOTE: This is incomplete and not really usable for
+anything for the time being.
 
 For installation instructions, license details, and
 further information about Lua, see doc/readme.html.
