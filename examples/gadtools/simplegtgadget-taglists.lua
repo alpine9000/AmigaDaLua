@@ -6,6 +6,9 @@ print("Simple GadTools Gadget Example - see http://amigadev.elowar.com/read/ADCD
 --
 -- Simple example of a GadTools gadget.
 
+package.path = "?.lua;" .. package.path 
+local Util = require("util")
+
 -- Gadget defines of our choosing, to be used as GadgetID's.
 local MYGAD_BUTTON = 4
 
@@ -23,14 +26,16 @@ local Topaz80 = TextAttr {
 function gadtoolsWindow()
    local mysc = LockPubScreen(nil)
    local mywin
-   local glist = NewGadgetList()
+   local glist = Util.NewGadgetList()
    local gad
    local ng
    local vi
    
    if mysc then
-      vi = GetVisualInfo(mysc)
+      local viTags = Util.TagList {}
+      vi = GetVisualInfoA(mysc, viTags)
       if vi then
+	 local buttonTags = Util.TagList {}
 	 -- GadTools gadgets require this step to be taken 
 	 gad = CreateContext(glist)
 
@@ -47,22 +52,25 @@ function gadtoolsWindow()
 	    ng_Flags      = 0,   
 	 }
 	 
-	 gad = CreateGadget(BUTTON_KIND, gad, ng)	 
+	 gad = CreateGadgetA(BUTTON_KIND, gad, ng, buttonTags)
 
 	 if gad then 
-	    mywin = OpenWindowTags(nil,
-				   WA_Title, "GadTools Gadget Demo (Lua)",
-				   WA_Gadgets, GetPtr(gad), -- We need to pass the raw C pointer
-				   WA_Width, 400,
-				   WA_InnerHeight, 100,
-				   WA_AutoAdjust, true,
-				   WA_DragBar, true,
-				   WA_DepthGadget, true,
-				   WA_CloseGadget, true,
-				   WA_Activate, true,
-				   WA_PubScreen, GetPtr(mysc), -- We need to pass the raw C pointer
-				   WA_IDCMP, IDCMP_CLOSEWINDOW|IDCMP_REFRESHWINDOW|BUTTONIDCMP)
-	    	 
+	    local tags = Util.TagList {
+	       WA_Title = "GadTools Gadget Demo (Lua)",
+	       WA_Gadgets = GetPtr(gad),   
+	       WA_Width = 400,
+	       WA_InnerHeight = 100,
+	       WA_AutoAdjust = true,
+	       WA_DragBar = true,
+	       WA_DepthGadget = true,
+	       WA_CloseGadget = true,
+	       WA_Activate = true,
+	       WA_PubScreen = GetPtr(mysc),
+	       WA_IDCMP = IDCMP_CLOSEWINDOW|IDCMP_REFRESHWINDOW|BUTTONIDCMP,
+	    }
+	    
+	    mywin = OpenWindowTagList(nil, tags)
+	 
 	    if mywin then
 	       GT_RefreshWindow(mywin, nil);
 	       process_window_events(mywin)
@@ -92,7 +100,7 @@ function process_window_events(mywin)
       while not terminated and imsg do
 	 -- GT_ReplyIMsg() at end of loop 
 	 if imsg.Class == IDCMP_GADGETUP then -- Buttons only report GADGETUP 
-	    gad = GetGadget(imsg.IAddress);	    
+	    gad = Util.GetGadget(imsg.IAddress);	    
 	    if gad and gad.GadgetID == MYGAD_BUTTON then
 	       print("Button was pressed")
 	    end	 

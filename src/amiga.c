@@ -90,6 +90,66 @@ _amiga_openWindowTagList(lua_State* L)
   return 1;
 }
 
+
+static int
+_amiga_openWindowTags(lua_State *L)
+{
+  struct NewWindow *nw = NULL;
+  if (!lua_isnoneornil(L, 1)) {
+    nw = _lua_gen_checkNewWindow(L, 1);
+  }
+  
+  int nargs = lua_gettop(L);
+  if ((nargs - 1) % 2 != 0) {
+    return luaL_error(L, "Expected even number of tag-value arguments");
+  }
+  
+  struct TagItem taglist[64];
+  int tag_count = 0;
+  
+  for (int i = 2; i <= nargs; i += 2) {
+    if (tag_count >= 63) {
+      return luaL_error(L, "Too many tag arguments");
+    }
+    
+    // Tag ID (unsigned integer)
+    uint32_t tag = (uint32_t)luaL_checkinteger(L, i);
+    
+    // Tag value
+    uint32_t value;
+    if (lua_isboolean(L, i + 1)) {
+      value = lua_toboolean(L, i + 1) ? 1 : 0;
+    } else if (lua_isnumber(L, i + 1)) {
+      value = (uint32_t)lua_tointeger(L, i + 1);
+    } else if (lua_isstring(L, i +1)) {
+      value = (uint32_t)lua_tolstring(L, i + 1, NULL);
+    } else {
+      return luaL_error(L, "Invalid tag value at argument %d", i + 1);
+    }
+    
+    taglist[tag_count].ti_Tag = tag;
+    taglist[tag_count].ti_Data = value;
+    tag_count++;
+  }
+  
+  // Add TAG_END
+  taglist[tag_count].ti_Tag = TAG_END;
+  taglist[tag_count].ti_Data = 0;
+  
+  struct Window *win = OpenWindowTagList(nw, taglist);
+  if (!win) {
+    lua_pushnil(L);
+    return 1;
+  }
+  
+  struct Window **ud = lua_newuserdata(L, sizeof(struct Window *));
+  *ud = win;
+  luaL_getmetatable(L, "Window");
+  lua_setmetatable(L, -2);
+  return 1;
+}
+
+
 static int
 _amiga_getVisualInfoA(lua_State* L)
 {
@@ -107,6 +167,61 @@ _amiga_getVisualInfoA(lua_State* L)
   lua_pushlightuserdata(L, result);
   return 1;
 }
+
+static int
+_amiga_getVisualInfo(lua_State *L)
+{
+  struct Screen * screen = NULL;
+  if (!lua_isnoneornil(L, 1)) {
+    screen = _lua_gen_checkScreen(L, 1);      
+  }
+  
+  int nargs = lua_gettop(L);
+  if ((nargs - 1) % 2 != 0) {
+    return luaL_error(L, "Expected even number of tag-value arguments after screen");
+  }
+  
+  struct TagItem taglist[64];
+  int tag_count = 0;
+  
+  for (int i = 2; i <= nargs; i += 2) {
+    if (tag_count >= 63) {
+            return luaL_error(L, "Too many tag arguments");
+    }
+    
+    uint32_t tag = (uint32_t)luaL_checkinteger(L, i);
+    uintptr_t value;
+    
+    switch (lua_type(L, i + 1)) {
+    case LUA_TBOOLEAN:
+      value = lua_toboolean(L, i + 1) ? 1 : 0;
+      break;
+    case LUA_TNUMBER:
+      value = (uintptr_t)lua_tointeger(L, i + 1);
+      break;
+    case LUA_TSTRING:
+      value = (uintptr_t)lua_tolstring(L, i + 1, NULL);
+      break;
+    case LUA_TLIGHTUSERDATA:
+      value = (uintptr_t)lua_touserdata(L, i + 1);
+      break;
+    default:
+      return luaL_error(L, "Invalid tag value type at argument %d", i + 1);
+    }
+    
+    taglist[tag_count].ti_Tag = tag;
+    taglist[tag_count].ti_Data = (uint32_t)value;
+    tag_count++;
+  }
+  
+  taglist[tag_count].ti_Tag = TAG_END;
+  taglist[tag_count].ti_Data = 0;
+
+  APTR result = GetVisualInfoA(screen, taglist);
+  lua_pushlightuserdata(L, result);
+  return 1;
+}
+
 
 static int
 _amiga_createGadgetA(lua_State* L)
@@ -130,6 +245,65 @@ _amiga_createGadgetA(lua_State* L)
   _lua_gen_pushGadget(L, result);
   return 1;
 }
+
+static int
+_amiga_createGadget(lua_State *L)
+{
+  uint32_t kind = (uint32_t)luaL_checkinteger(L, 1);
+
+  struct Gadget * gadPtr = NULL;
+  if (!lua_isnoneornil(L, 2)) {  
+    gadPtr = _lua_gen_checkGadget(L, 2);
+  }
+
+  struct NewGadget * ngPtr = _lua_gen_checkNewGadget(L, 3);
+  
+  int nargs = lua_gettop(L);
+  if ((nargs - 3) % 2 != 0) {
+    return luaL_error(L, "Expected even number of tag-value arguments after argument 3");
+  }
+  
+  struct TagItem taglist[64];
+  int tag_count = 0;
+  
+  for (int i = 4; i <= nargs; i += 2) {
+    if (tag_count >= 63) {
+      return luaL_error(L, "Too many tag arguments");
+    }
+    
+    uint32_t tag = (uint32_t)luaL_checkinteger(L, i);
+    uintptr_t value;
+    
+    switch (lua_type(L, i + 1)) {
+    case LUA_TBOOLEAN:
+      value = lua_toboolean(L, i + 1) ? 1 : 0;
+      break;
+    case LUA_TNUMBER:
+      value = (uintptr_t)lua_tointeger(L, i + 1);
+      break;
+    case LUA_TSTRING:
+      value = (uintptr_t)lua_tolstring(L, i + 1, NULL);
+      break;
+    case LUA_TLIGHTUSERDATA:
+      value = (uintptr_t)lua_touserdata(L, i + 1);
+      break;
+    default:
+      return luaL_error(L, "Invalid tag value type at argument %d", i + 1);
+    }
+    
+    taglist[tag_count].ti_Tag = tag;
+    taglist[tag_count].ti_Data = (uint32_t)value;
+    tag_count++;
+  }
+  
+  taglist[tag_count].ti_Tag = TAG_END;
+  taglist[tag_count].ti_Data = 0;
+  
+  struct Gadget *result = CreateGadgetA(kind, gadPtr, ngPtr, taglist);
+  _lua_gen_pushGadget(L, result);
+  return 1; 
+}
+
 
 static int
 _amiga_newGadgetPtr(lua_State *L)
@@ -190,9 +364,12 @@ void
 lua_install(lua_State* L)
 {
   lua_register(L, "OpenWindowTagList", _amiga_openWindowTagList);
+  lua_register(L, "OpenWindowTags", _amiga_openWindowTags);
   lua_register(L, "NewGadgetList", _amiga_newGadgetPtr);
+  lua_register(L, "GetVisualInfo", _amiga_getVisualInfo);  
   lua_register(L, "GetVisualInfoA", _amiga_getVisualInfoA);
   lua_register(L, "CreateGadgetA", _amiga_createGadgetA);
+  lua_register(L, "CreateGadget", _amiga_createGadget);  
   lua_register(L, "GetPtr", _amiga_getPtr);
   lua_register(L, "GetGadget", _amiga_getGadget);
 }
