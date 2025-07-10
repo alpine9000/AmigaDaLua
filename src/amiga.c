@@ -131,8 +131,8 @@ _amiga_doTagList(lua_State* L, struct TagItem* tags, uint16_t maxTags, uint16_t 
 static int
 _amiga_newGadgetPtr(lua_State *L)
 {
-  struct GadgetPtr **gp = lua_newuserdata(L, sizeof(struct GadgetPtr*));
-  *gp = malloc(sizeof(struct GadgetPtr *));
+  GadgetPtr **gp = lua_newuserdata(L, sizeof(GadgetPtr*));
+  *gp = malloc(sizeof(GadgetPtr *));
   (*gp)->ptr = 0;
   luaL_getmetatable(L, "GadgetPtr");
   lua_setmetatable(L, -2);
@@ -162,7 +162,7 @@ amiga_checkNullableString(lua_State *L, int stackIndex)
 struct Gadget**
 amiga_checkGadgetPtr(lua_State* L, int stackIndex)
 {
-  struct GadgetPtr **ud = (struct GadgetPtr **)luaL_checkudata(L, stackIndex, "GadgetPtr");
+  GadgetPtr **ud = (GadgetPtr **)luaL_checkudata(L, stackIndex, "GadgetPtr");
 
   if (!ud) {
     return 0;

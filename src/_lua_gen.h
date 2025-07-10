@@ -1621,10 +1621,10 @@ _lua_gen_checkScreenBuffer(lua_State* L, int stackIndex)
 }
 
 void
-_lua_gen_pushGadgetPtr(lua_State *L, struct GadgetPtr* obj)
+_lua_gen_pushGadgetPtr(lua_State *L, GadgetPtr* obj)
 {
   if (obj) {
-    struct GadgetPtr **ud = (struct GadgetPtr **)lua_newuserdata(L, sizeof(struct GadgetPtr *));
+    GadgetPtr **ud = (GadgetPtr **)lua_newuserdata(L, sizeof(GadgetPtr *));
     *ud = obj;
     luaL_getmetatable(L, "GadgetPtr");
     lua_setmetatable(L, -2);
@@ -1633,11 +1633,11 @@ _lua_gen_pushGadgetPtr(lua_State *L, struct GadgetPtr* obj)
   }
 }
 
-struct GadgetPtr*
+GadgetPtr*
 _lua_gen_checkGadgetPtr(lua_State* L, int stackIndex)
 {
    if (!lua_isnoneornil(L, stackIndex)) {
-      struct GadgetPtr **ud = (struct GadgetPtr **)luaL_checkudata(L, stackIndex, "GadgetPtr");
+      GadgetPtr **ud = (GadgetPtr **)luaL_checkudata(L, stackIndex, "GadgetPtr");
       if (!ud) {
         return 0;
       }
@@ -15266,7 +15266,7 @@ _lua_GT_GetGadgetAttrs(lua_State* L)
 static int
 _lua_gen_GadgetPtr_newindex(lua_State *L)
 {
-  struct GadgetPtr *obj = *(struct GadgetPtr **)luaL_checkudata(L, 1, "GadgetPtr");
+  GadgetPtr *obj = *(GadgetPtr **)luaL_checkudata(L, 1, "GadgetPtr");
   const char *key = luaL_checkstring(L, 2);
   if (strcmp(key, "ptr") == 0) {
     // finder 1
@@ -15280,11 +15280,11 @@ _lua_gen_GadgetPtr_newindex(lua_State *L)
 static int
 _lua_GadgetPtr_constructor(lua_State *L)
 {
-  // Allocate pointer-to-struct GadgetPtr in userdata
-  struct GadgetPtr **objp = lua_newuserdata(L, sizeof(struct GadgetPtr *));
-  *objp = malloc(sizeof(struct GadgetPtr));
+  // Allocate pointer-to-GadgetPtr in userdata
+  GadgetPtr **objp = lua_newuserdata(L, sizeof(GadgetPtr *));
+  *objp = malloc(sizeof(GadgetPtr));
   if (!*objp) return luaL_error(L, "out of memory");
-  memset(*objp, 0, sizeof(struct GadgetPtr));
+  memset(*objp, 0, sizeof(GadgetPtr));
 
   // Set metatable
   luaL_getmetatable(L, "GadgetPtr");
@@ -15309,7 +15309,7 @@ _lua_GadgetPtr_constructor(lua_State *L)
 static int
 _lua_gen_GadgetPtr_index(lua_State *L)
 {
-  struct GadgetPtr *obj = *(struct GadgetPtr **)luaL_checkudata(L, 1, "GadgetPtr");
+  GadgetPtr *obj = *(GadgetPtr **)luaL_checkudata(L, 1, "GadgetPtr");
   const char *key = luaL_checkstring(L, 2);
   if (strcmp(key, "ptr") == 0) {
     struct Gadget **ud = (struct Gadget **)lua_newuserdata(L, sizeof(struct Gadget *));

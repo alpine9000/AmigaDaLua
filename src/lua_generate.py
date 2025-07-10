@@ -4,7 +4,7 @@ import re
 
 TYPE_CONFIG = {
     #AmigaDaLua custom types
-    "GadgetPtr": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "GadgetPtr": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
 
     #Dos
     "FileInfoBlock": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
@@ -910,17 +910,22 @@ def generate_lua_taglist_function(node):
 
     
     
-def generate_lua_interface(spelling):
+def generate_lua_interface(node, spelling):
     if spelling in interfaces:
         return
     else:
         interfaces.add(spelling)
-   
+
+    prefix = "struct "
+    #if node.kind == clang.cindex.CursorKind.TYPEDEF_DECL:    
+    if not TYPE_CONFIG[spelling].get("struct"):        
+        prefix = ""
+        
     print(f"\nvoid")
-    print(f"_lua_gen_push{spelling}(lua_State *L, struct {spelling}* obj)");
+    print(f"_lua_gen_push{spelling}(lua_State *L, {prefix}{spelling}* obj)");
     print(f"{{")
     print(f"  if (obj) {{")
-    print(f"    struct {spelling} **ud = (struct {spelling} **)lua_newuserdata(L, sizeof(struct {spelling} *));")
+    print(f"    {prefix}{spelling} **ud = ({prefix}{spelling} **)lua_newuserdata(L, sizeof({prefix}{spelling} *));")
     print(f"    *ud = obj;")
     print(f"    luaL_getmetatable(L, \"{spelling}\");")
     print(f"    lua_setmetatable(L, -2);")
@@ -929,11 +934,11 @@ def generate_lua_interface(spelling):
     print(f"  }}")
     print(f"}}\n")
 
-    print(f"struct {spelling}*")
+    print(f"{prefix}{spelling}*")
     print(f"_lua_gen_check{spelling}(lua_State* L, int stackIndex)")
     print(f"{{")
     print(f"   if (!lua_isnoneornil(L, stackIndex)) {{")
-    print(f"      struct {spelling} **ud = (struct {spelling} **)luaL_checkudata(L, stackIndex, \"{spelling}\");")
+    print(f"      {prefix}{spelling} **ud = ({prefix}{spelling} **)luaL_checkudata(L, stackIndex, \"{spelling}\");")
     print(f"      if (!ud) {{")
     print(f"        return 0;")
     print(f"      }}")
@@ -950,14 +955,14 @@ def find_interfaces(cursor):
                 struct_def = node.underlying_typedef_type.get_declaration()
                 config = TYPE_CONFIG[node.spelling]
                 if config.get("interface") and config.get("struct"):
-                    generate_lua_interface(node.spelling)
+                    generate_lua_interface(node, node.spelling)
         if node.kind == clang.cindex.CursorKind.TYPEDEF_DECL:
             if node.spelling in TYPE_CONFIG:
                 struct_def = node.underlying_typedef_type.get_declaration()
                 if struct_def.kind == clang.cindex.CursorKind.STRUCT_DECL and struct_def.is_definition():
                     config = TYPE_CONFIG[node.spelling]
                     if config.get("interface"):
-                        generate_lua_interface(node.spelling)
+                        generate_lua_interface(node, node.spelling)
 
 def find_typedef_structs(cursor):
     for node in cursor.get_children():        

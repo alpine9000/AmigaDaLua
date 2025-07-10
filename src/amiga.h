@@ -24,9 +24,9 @@
 #include <graphics/rastport.h>
 #include <libraries/gadtools.h>
 
-struct GadgetPtr {
+typedef struct {
   struct Gadget *ptr;
-};
+} GadgetPtr;
 
 CONST_STRPTR TO_CONST_STRPTR(void* data)
 {
