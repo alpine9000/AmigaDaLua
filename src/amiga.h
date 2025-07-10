@@ -24,7 +24,24 @@
 #include <graphics/rastport.h>
 #include <libraries/gadtools.h>
 
+// Exec
+typedef struct Resident Resident;
+typedef struct Interrupt Interrupt;
+typedef struct MemHeader MemHeader;
+typedef struct MemList MemList;
+typedef struct Node Node;
+typedef struct MinList MinList;
+typedef struct MaxList MaxList;
+typedef struct MinNode MinNode;
+typedef struct Task Task;
+typedef struct Library Library;
+typedef struct Device Device;
+typedef struct IORequest IORequest;
+typedef struct SignalSemaphore SignalSemaphore;
+typedef struct SemaphoreMessage SemaphoreMessage;
+typedef struct StackSwapStruct StackSwapStruct;
 
+// TODO
 typedef struct Window Window;
 typedef struct RastPort RastPort;
 typedef struct TagItem TagItem;

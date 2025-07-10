@@ -9,7 +9,22 @@ TYPE_CONFIG = {
     #Exec
     "Message": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
     "MsgPort": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
-    "List": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},    
+    "List": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "Resident": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "Interrupt": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "MemHeader": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "MemList":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "Node":   {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "MinList":   {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "MaxList":   {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "MinNode":   {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "Task":    {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "Library": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "Device":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "IORequest": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "SignalSemaphore": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "SemaphoreMessage": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "StackSwapStruct":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
 
     #Utility
     "TagItem": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
@@ -82,13 +97,14 @@ FUNCTION_CONFIG = [
 
     "Move","Text",
 
-    "WaitPort","GetMsg", "ReplyMsg",
-
     "LockPubScreen", "UnlockPubScreen", "CloseWindow", "OpenFont", "CloseFont",
     
     "TO_CONST_STRPTR", "TO_IntuiMessage",
-    
-    #gadtools_lib.sfd
+
+    #exec_lib.sfd
+    "AbortIO", "AddDevice", "AddHead", "AddHeadMinList", "AddIntServer", "AddLibrary", "AddMemHandler", "AddPort", "AddResource", "AddSemaphore", "AddTail", "AddTailMinList", "AddTask", "Alert", "AllocAbs", "AllocEntry", "AllocMem", "AllocPooled", "AllocSignal", "AllocTrap", "AllocVec", "Allocate", "AttemptSemaphore", "AttemptSemaphoreShared", "AvailMem", "CacheClearE", "CacheClearU", "CacheControl", "CachePostDMA", "CachePreDMA", "Cause", "CheckIO", "CloseDevice", "CloseLibrary", "ColdReboot", "CopyMem", "CopyMemQuick", "CreateIORequest", "CreateMsgPort", "CreatePool", "Debug", "DeleteIORequest", "DeleteMsgPort", "DeletePool", "Disable", "Dispatch", "DoIO", "Enable", "Enqueue", "Exception", "ExecObsolete1", "ExecObsolete2", "ExecObsolete3", "ExecObsolete4", "ExecReserved04", "ExecReserved05", "ExecReserved06", "ExecReserved08", "ExecReserved10", "ExecReserved11", "ExecReserved12", "ExecReserved20", "ExecReserved21", "ExecReserved22", "ExecReserved23", "ExecReserved24", "ExecReserved25", "ExecReserved26", "ExecReserved27", "ExecReserved28", "ExecReserved29", "ExecReserved30", "ExitIntr", "FindName", "FindPort", "FindResident", "FindSemaphore", "FindTask", "Forbid", "FreeEntry", "FreeMem", "FreePooled", "FreeSignal", "FreeTrap", "FreeVec", "GetCC", "GetMsg", "InitCode", "InitResident", "InitSemaphore", "InitStruct", "NewMinList", "ObtainQuickVector", "ObtainSemaphore", "ObtainSemaphoreList", "ObtainSemaphoreShared", "OldOpenLibrary", "OpenLibrary", "OpenResource", "Permit", "Procure", "PutMsg", "RawIOInit", "RawMayGetChar", "RawPutChar", "ReadGayle", "ReleaseSemaphore", "ReleaseSemaphoreList", "RemDevice", "RemHead", "RemHeadMinList", "RemIntServer", "RemLibrary", "RemMemHandler", "RemPort", "RemResource", "RemSemaphore", "RemTail", "RemTailMinList", "RemTask", "Remove", "RemoveMinNode", "ReplyMsg", "Reschedule", "Schedule", "SendIO", "SetExcept", "SetSR", "SetSignal", "SetTaskPri", "Signal", "StackSwap", "SumKickData", "SumLibrary", "SuperState", "Switch", "TaggedOpenLibrary", "TypeOfMem", "UserState", "Vacate", "Wait", "WaitIO", "WaitPort",
+
+     #gadtools_lib.sfd
     "CreateContext", "FreeGadgets", "FreeMenus", "FreeVisualInfo", "GTReserved2", "GTReserved3", "GTReserved4", "GTReserved5", "GT_BeginRefresh", "GT_EndRefresh", "GT_FilterIMsg", "GT_GetIMsg", "GT_PostFilterIMsg", "GT_RefreshWindow", "GT_ReplyIMsg",
 
     #intuition_lib.sfd

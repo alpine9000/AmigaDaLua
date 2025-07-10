@@ -1,6 +1,384 @@
 // generated with lua_generate.py - run: python3 lua_generate.py amiga.h > _lua_gen.h
 
 void
+_lua_gen_pushResident(lua_State *L, struct Resident* obj)
+{
+  if (obj) {
+    struct Resident **ud = (struct Resident **)lua_newuserdata(L, sizeof(struct Resident *));
+    *ud = obj;
+    luaL_getmetatable(L, "Resident");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct Resident*
+_lua_gen_checkResident(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct Resident **ud = (struct Resident **)luaL_checkudata(L, stackIndex, "Resident");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushInterrupt(lua_State *L, struct Interrupt* obj)
+{
+  if (obj) {
+    struct Interrupt **ud = (struct Interrupt **)lua_newuserdata(L, sizeof(struct Interrupt *));
+    *ud = obj;
+    luaL_getmetatable(L, "Interrupt");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct Interrupt*
+_lua_gen_checkInterrupt(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct Interrupt **ud = (struct Interrupt **)luaL_checkudata(L, stackIndex, "Interrupt");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushMemHeader(lua_State *L, struct MemHeader* obj)
+{
+  if (obj) {
+    struct MemHeader **ud = (struct MemHeader **)lua_newuserdata(L, sizeof(struct MemHeader *));
+    *ud = obj;
+    luaL_getmetatable(L, "MemHeader");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct MemHeader*
+_lua_gen_checkMemHeader(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct MemHeader **ud = (struct MemHeader **)luaL_checkudata(L, stackIndex, "MemHeader");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushMemList(lua_State *L, struct MemList* obj)
+{
+  if (obj) {
+    struct MemList **ud = (struct MemList **)lua_newuserdata(L, sizeof(struct MemList *));
+    *ud = obj;
+    luaL_getmetatable(L, "MemList");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct MemList*
+_lua_gen_checkMemList(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct MemList **ud = (struct MemList **)luaL_checkudata(L, stackIndex, "MemList");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushNode(lua_State *L, struct Node* obj)
+{
+  if (obj) {
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = obj;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct Node*
+_lua_gen_checkNode(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct Node **ud = (struct Node **)luaL_checkudata(L, stackIndex, "Node");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushMinList(lua_State *L, struct MinList* obj)
+{
+  if (obj) {
+    struct MinList **ud = (struct MinList **)lua_newuserdata(L, sizeof(struct MinList *));
+    *ud = obj;
+    luaL_getmetatable(L, "MinList");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct MinList*
+_lua_gen_checkMinList(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct MinList **ud = (struct MinList **)luaL_checkudata(L, stackIndex, "MinList");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushMinNode(lua_State *L, struct MinNode* obj)
+{
+  if (obj) {
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = obj;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct MinNode*
+_lua_gen_checkMinNode(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct MinNode **ud = (struct MinNode **)luaL_checkudata(L, stackIndex, "MinNode");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushTask(lua_State *L, struct Task* obj)
+{
+  if (obj) {
+    struct Task **ud = (struct Task **)lua_newuserdata(L, sizeof(struct Task *));
+    *ud = obj;
+    luaL_getmetatable(L, "Task");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct Task*
+_lua_gen_checkTask(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct Task **ud = (struct Task **)luaL_checkudata(L, stackIndex, "Task");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushLibrary(lua_State *L, struct Library* obj)
+{
+  if (obj) {
+    struct Library **ud = (struct Library **)lua_newuserdata(L, sizeof(struct Library *));
+    *ud = obj;
+    luaL_getmetatable(L, "Library");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct Library*
+_lua_gen_checkLibrary(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct Library **ud = (struct Library **)luaL_checkudata(L, stackIndex, "Library");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushDevice(lua_State *L, struct Device* obj)
+{
+  if (obj) {
+    struct Device **ud = (struct Device **)lua_newuserdata(L, sizeof(struct Device *));
+    *ud = obj;
+    luaL_getmetatable(L, "Device");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct Device*
+_lua_gen_checkDevice(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct Device **ud = (struct Device **)luaL_checkudata(L, stackIndex, "Device");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushIORequest(lua_State *L, struct IORequest* obj)
+{
+  if (obj) {
+    struct IORequest **ud = (struct IORequest **)lua_newuserdata(L, sizeof(struct IORequest *));
+    *ud = obj;
+    luaL_getmetatable(L, "IORequest");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct IORequest*
+_lua_gen_checkIORequest(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct IORequest **ud = (struct IORequest **)luaL_checkudata(L, stackIndex, "IORequest");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushSignalSemaphore(lua_State *L, struct SignalSemaphore* obj)
+{
+  if (obj) {
+    struct SignalSemaphore **ud = (struct SignalSemaphore **)lua_newuserdata(L, sizeof(struct SignalSemaphore *));
+    *ud = obj;
+    luaL_getmetatable(L, "SignalSemaphore");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct SignalSemaphore*
+_lua_gen_checkSignalSemaphore(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct SignalSemaphore **ud = (struct SignalSemaphore **)luaL_checkudata(L, stackIndex, "SignalSemaphore");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushSemaphoreMessage(lua_State *L, struct SemaphoreMessage* obj)
+{
+  if (obj) {
+    struct SemaphoreMessage **ud = (struct SemaphoreMessage **)lua_newuserdata(L, sizeof(struct SemaphoreMessage *));
+    *ud = obj;
+    luaL_getmetatable(L, "SemaphoreMessage");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct SemaphoreMessage*
+_lua_gen_checkSemaphoreMessage(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct SemaphoreMessage **ud = (struct SemaphoreMessage **)luaL_checkudata(L, stackIndex, "SemaphoreMessage");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushStackSwapStruct(lua_State *L, struct StackSwapStruct* obj)
+{
+  if (obj) {
+    struct StackSwapStruct **ud = (struct StackSwapStruct **)lua_newuserdata(L, sizeof(struct StackSwapStruct *));
+    *ud = obj;
+    luaL_getmetatable(L, "StackSwapStruct");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct StackSwapStruct*
+_lua_gen_checkStackSwapStruct(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct StackSwapStruct **ud = (struct StackSwapStruct **)luaL_checkudata(L, stackIndex, "StackSwapStruct");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
 _lua_gen_pushWindow(lua_State *L, struct Window* obj)
 {
   if (obj) {
@@ -897,6 +1275,167 @@ _lua_PutStr(lua_State* L)
 }
 
 static int
+_lua_InitCode(lua_State* L)
+{
+  (void)L;
+  ULONG startClass = luaL_checkinteger(L, 1);
+  ULONG version = luaL_checkinteger(L, 2);
+  InitCode(startClass, version);
+  return 0;
+}
+
+static int
+_lua_InitStruct(lua_State* L)
+{
+  (void)L;
+  CONST_APTR initTable = lua_touserdata(L, 1);
+  APTR memory = lua_touserdata(L, 2);
+  ULONG size = luaL_checkinteger(L, 3);
+  InitStruct(initTable, memory, size);
+  return 0;
+}
+
+static int
+_lua_FindResident(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  struct Resident * result = FindResident(name);
+  _lua_gen_pushResident(L, result);
+  return 1;
+}
+
+static int
+_lua_InitResident(lua_State* L)
+{
+  (void)L;
+  const struct Resident * resident = _lua_gen_checkResident(L, 1);
+  ULONG segList = luaL_checkinteger(L, 2);
+  APTR result = InitResident(resident, segList);
+  lua_pushlightuserdata(L, result);
+  return 1;
+}
+
+static int
+_lua_Alert(lua_State* L)
+{
+  (void)L;
+  ULONG alertNum = luaL_checkinteger(L, 1);
+  Alert(alertNum);
+  return 0;
+}
+
+static int
+_lua_Debug(lua_State* L)
+{
+  (void)L;
+  ULONG flags = luaL_checkinteger(L, 1);
+  Debug(flags);
+  return 0;
+}
+
+static int
+_lua_Disable(lua_State* L)
+{
+  (void)L;
+  Disable();
+  return 0;
+}
+
+static int
+_lua_Enable(lua_State* L)
+{
+  (void)L;
+  Enable();
+  return 0;
+}
+
+static int
+_lua_Forbid(lua_State* L)
+{
+  (void)L;
+  Forbid();
+  return 0;
+}
+
+static int
+_lua_Permit(lua_State* L)
+{
+  (void)L;
+  Permit();
+  return 0;
+}
+
+static int
+_lua_SetSR(lua_State* L)
+{
+  (void)L;
+  ULONG newSR = luaL_checkinteger(L, 1);
+  ULONG mask = luaL_checkinteger(L, 2);
+  ULONG result = SetSR(newSR, mask);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_SuperState(lua_State* L)
+{
+  (void)L;
+  APTR result = SuperState();
+  lua_pushlightuserdata(L, result);
+  return 1;
+}
+
+static int
+_lua_UserState(lua_State* L)
+{
+  (void)L;
+  APTR sysStack = lua_touserdata(L, 1);
+  UserState(sysStack);
+  return 0;
+}
+
+static int
+_lua_AddIntServer(lua_State* L)
+{
+  (void)L;
+  LONG intNumber = luaL_checkinteger(L, 1);
+  struct Interrupt * interrupt = _lua_gen_checkInterrupt(L, 2);
+  AddIntServer(intNumber, interrupt);
+  return 0;
+}
+
+static int
+_lua_RemIntServer(lua_State* L)
+{
+  (void)L;
+  LONG intNumber = luaL_checkinteger(L, 1);
+  struct Interrupt * interrupt = _lua_gen_checkInterrupt(L, 2);
+  RemIntServer(intNumber, interrupt);
+  return 0;
+}
+
+static int
+_lua_Cause(lua_State* L)
+{
+  (void)L;
+  const struct Interrupt * interrupt = _lua_gen_checkInterrupt(L, 1);
+  Cause(interrupt);
+  return 0;
+}
+
+static int
+_lua_Allocate(lua_State* L)
+{
+  (void)L;
+  struct MemHeader * freeList = _lua_gen_checkMemHeader(L, 1);
+  ULONG byteSize = luaL_checkinteger(L, 2);
+  APTR result = Allocate(freeList, byteSize);
+  lua_pushlightuserdata(L, result);
+  return 1;
+}
+
+static int
 _lua_AllocMem(lua_State* L)
 {
   (void)L;
@@ -905,6 +1444,325 @@ _lua_AllocMem(lua_State* L)
   APTR result = AllocMem(byteSize, requirements);
   lua_pushlightuserdata(L, result);
   return 1;
+}
+
+static int
+_lua_AllocAbs(lua_State* L)
+{
+  (void)L;
+  ULONG byteSize = luaL_checkinteger(L, 1);
+  APTR location = lua_touserdata(L, 2);
+  APTR result = AllocAbs(byteSize, location);
+  lua_pushlightuserdata(L, result);
+  return 1;
+}
+
+static int
+_lua_FreeMem(lua_State* L)
+{
+  (void)L;
+  APTR memoryBlock = lua_touserdata(L, 1);
+  ULONG byteSize = luaL_checkinteger(L, 2);
+  FreeMem(memoryBlock, byteSize);
+  return 0;
+}
+
+static int
+_lua_AvailMem(lua_State* L)
+{
+  (void)L;
+  ULONG requirements = luaL_checkinteger(L, 1);
+  ULONG result = AvailMem(requirements);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_AllocEntry(lua_State* L)
+{
+  (void)L;
+  const struct MemList * entry = _lua_gen_checkMemList(L, 1);
+  struct MemList * result = AllocEntry(entry);
+  _lua_gen_pushMemList(L, result);
+  return 1;
+}
+
+static int
+_lua_FreeEntry(lua_State* L)
+{
+  (void)L;
+  struct MemList * entry = _lua_gen_checkMemList(L, 1);
+  FreeEntry(entry);
+  return 0;
+}
+
+static int
+_lua_AddHead(lua_State* L)
+{
+  (void)L;
+  struct List * list = _lua_gen_checkList(L, 1);
+  struct Node * node = _lua_gen_checkNode(L, 2);
+  AddHead(list, node);
+  return 0;
+}
+
+static int
+_lua_AddHeadMinList(lua_State* L)
+{
+  (void)L;
+  struct MinList * minlist = _lua_gen_checkMinList(L, 1);
+  struct MinNode * minnode = _lua_gen_checkMinNode(L, 2);
+  AddHeadMinList(minlist, minnode);
+  return 0;
+}
+
+static int
+_lua_AddTail(lua_State* L)
+{
+  (void)L;
+  struct List * list = _lua_gen_checkList(L, 1);
+  struct Node * node = _lua_gen_checkNode(L, 2);
+  AddTail(list, node);
+  return 0;
+}
+
+static int
+_lua_AddTailMinList(lua_State* L)
+{
+  (void)L;
+  struct MinList * minlist = _lua_gen_checkMinList(L, 1);
+  struct MinNode * minnode = _lua_gen_checkMinNode(L, 2);
+  AddTailMinList(minlist, minnode);
+  return 0;
+}
+
+static int
+_lua_Remove(lua_State* L)
+{
+  (void)L;
+  struct Node * node = _lua_gen_checkNode(L, 1);
+  Remove(node);
+  return 0;
+}
+
+static int
+_lua_RemoveMinNode(lua_State* L)
+{
+  (void)L;
+  struct MinNode * minnode = _lua_gen_checkMinNode(L, 1);
+  RemoveMinNode(minnode);
+  return 0;
+}
+
+static int
+_lua_RemHead(lua_State* L)
+{
+  (void)L;
+  struct List * list = _lua_gen_checkList(L, 1);
+  struct Node * result = RemHead(list);
+  _lua_gen_pushNode(L, result);
+  return 1;
+}
+
+static int
+_lua_RemHeadMinList(lua_State* L)
+{
+  (void)L;
+  struct MinList * minlist = _lua_gen_checkMinList(L, 1);
+  struct MinNode * result = RemHeadMinList(minlist);
+  _lua_gen_pushMinNode(L, result);
+  return 1;
+}
+
+static int
+_lua_RemTail(lua_State* L)
+{
+  (void)L;
+  struct List * list = _lua_gen_checkList(L, 1);
+  struct Node * result = RemTail(list);
+  _lua_gen_pushNode(L, result);
+  return 1;
+}
+
+static int
+_lua_RemTailMinList(lua_State* L)
+{
+  (void)L;
+  struct MinList * minlist = _lua_gen_checkMinList(L, 1);
+  struct MinNode * result = RemTailMinList(minlist);
+  _lua_gen_pushMinNode(L, result);
+  return 1;
+}
+
+static int
+_lua_Enqueue(lua_State* L)
+{
+  (void)L;
+  struct List * list = _lua_gen_checkList(L, 1);
+  struct Node * node = _lua_gen_checkNode(L, 2);
+  Enqueue(list, node);
+  return 0;
+}
+
+static int
+_lua_FindName(lua_State* L)
+{
+  (void)L;
+  struct List * list = _lua_gen_checkList(L, 1);
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 2);
+  struct Node * result = FindName(list, name);
+  _lua_gen_pushNode(L, result);
+  return 1;
+}
+
+static int
+_lua_AddTask(lua_State* L)
+{
+  (void)L;
+  struct Task * task = _lua_gen_checkTask(L, 1);
+  APTR initPC = lua_touserdata(L, 2);
+  APTR finalPC = lua_touserdata(L, 3);
+  APTR result = AddTask(task, initPC, finalPC);
+  lua_pushlightuserdata(L, result);
+  return 1;
+}
+
+static int
+_lua_RemTask(lua_State* L)
+{
+  (void)L;
+  struct Task * task = _lua_gen_checkTask(L, 1);
+  RemTask(task);
+  return 0;
+}
+
+static int
+_lua_FindTask(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  struct Task * result = FindTask(name);
+  _lua_gen_pushTask(L, result);
+  return 1;
+}
+
+static int
+_lua_SetTaskPri(lua_State* L)
+{
+  (void)L;
+  struct Task * task = _lua_gen_checkTask(L, 1);
+  LONG priority = luaL_checkinteger(L, 2);
+  BYTE result = SetTaskPri(task, priority);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_SetSignal(lua_State* L)
+{
+  (void)L;
+  ULONG newSignals = luaL_checkinteger(L, 1);
+  ULONG signalSet = luaL_checkinteger(L, 2);
+  ULONG result = SetSignal(newSignals, signalSet);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_SetExcept(lua_State* L)
+{
+  (void)L;
+  ULONG newSignals = luaL_checkinteger(L, 1);
+  ULONG signalSet = luaL_checkinteger(L, 2);
+  ULONG result = SetExcept(newSignals, signalSet);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_Wait(lua_State* L)
+{
+  (void)L;
+  ULONG signalSet = luaL_checkinteger(L, 1);
+  ULONG result = Wait(signalSet);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_Signal(lua_State* L)
+{
+  (void)L;
+  struct Task * task = _lua_gen_checkTask(L, 1);
+  ULONG signalSet = luaL_checkinteger(L, 2);
+  Signal(task, signalSet);
+  return 0;
+}
+
+static int
+_lua_AllocSignal(lua_State* L)
+{
+  (void)L;
+  LONG signalNum = luaL_checkinteger(L, 1);
+  BYTE result = AllocSignal(signalNum);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_FreeSignal(lua_State* L)
+{
+  (void)L;
+  LONG signalNum = luaL_checkinteger(L, 1);
+  FreeSignal(signalNum);
+  return 0;
+}
+
+static int
+_lua_AllocTrap(lua_State* L)
+{
+  (void)L;
+  LONG trapNum = luaL_checkinteger(L, 1);
+  LONG result = AllocTrap(trapNum);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_FreeTrap(lua_State* L)
+{
+  (void)L;
+  LONG trapNum = luaL_checkinteger(L, 1);
+  FreeTrap(trapNum);
+  return 0;
+}
+
+static int
+_lua_AddPort(lua_State* L)
+{
+  (void)L;
+  struct MsgPort * port = _lua_gen_checkMsgPort(L, 1);
+  AddPort(port);
+  return 0;
+}
+
+static int
+_lua_RemPort(lua_State* L)
+{
+  (void)L;
+  struct MsgPort * port = _lua_gen_checkMsgPort(L, 1);
+  RemPort(port);
+  return 0;
+}
+
+static int
+_lua_PutMsg(lua_State* L)
+{
+  (void)L;
+  struct MsgPort * port = _lua_gen_checkMsgPort(L, 1);
+  struct Message * message = _lua_gen_checkMessage(L, 2);
+  PutMsg(port, message);
+  return 0;
 }
 
 static int
@@ -934,6 +1792,557 @@ _lua_WaitPort(lua_State* L)
   struct Message * result = WaitPort(port);
   _lua_gen_pushMessage(L, result);
   return 1;
+}
+
+static int
+_lua_FindPort(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  struct MsgPort * result = FindPort(name);
+  _lua_gen_pushMsgPort(L, result);
+  return 1;
+}
+
+static int
+_lua_AddLibrary(lua_State* L)
+{
+  (void)L;
+  struct Library * library = _lua_gen_checkLibrary(L, 1);
+  AddLibrary(library);
+  return 0;
+}
+
+static int
+_lua_RemLibrary(lua_State* L)
+{
+  (void)L;
+  struct Library * library = _lua_gen_checkLibrary(L, 1);
+  RemLibrary(library);
+  return 0;
+}
+
+static int
+_lua_OldOpenLibrary(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR libName = amiga_checkConstNullableString(L, 1);
+  struct Library * result = OldOpenLibrary(libName);
+  _lua_gen_pushLibrary(L, result);
+  return 1;
+}
+
+static int
+_lua_CloseLibrary(lua_State* L)
+{
+  (void)L;
+  struct Library * library = _lua_gen_checkLibrary(L, 1);
+  CloseLibrary(library);
+  return 0;
+}
+
+static int
+_lua_SumLibrary(lua_State* L)
+{
+  (void)L;
+  struct Library * library = _lua_gen_checkLibrary(L, 1);
+  SumLibrary(library);
+  return 0;
+}
+
+static int
+_lua_AddDevice(lua_State* L)
+{
+  (void)L;
+  struct Device * device = _lua_gen_checkDevice(L, 1);
+  AddDevice(device);
+  return 0;
+}
+
+static int
+_lua_RemDevice(lua_State* L)
+{
+  (void)L;
+  struct Device * device = _lua_gen_checkDevice(L, 1);
+  RemDevice(device);
+  return 0;
+}
+
+static int
+_lua_CloseDevice(lua_State* L)
+{
+  (void)L;
+  struct IORequest * ioRequest = _lua_gen_checkIORequest(L, 1);
+  CloseDevice(ioRequest);
+  return 0;
+}
+
+static int
+_lua_DoIO(lua_State* L)
+{
+  (void)L;
+  struct IORequest * ioRequest = _lua_gen_checkIORequest(L, 1);
+  BYTE result = DoIO(ioRequest);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_SendIO(lua_State* L)
+{
+  (void)L;
+  struct IORequest * ioRequest = _lua_gen_checkIORequest(L, 1);
+  SendIO(ioRequest);
+  return 0;
+}
+
+static int
+_lua_CheckIO(lua_State* L)
+{
+  (void)L;
+  const struct IORequest * ioRequest = _lua_gen_checkIORequest(L, 1);
+  struct IORequest * result = CheckIO(ioRequest);
+  _lua_gen_pushIORequest(L, result);
+  return 1;
+}
+
+static int
+_lua_WaitIO(lua_State* L)
+{
+  (void)L;
+  struct IORequest * ioRequest = _lua_gen_checkIORequest(L, 1);
+  BYTE result = WaitIO(ioRequest);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_AbortIO(lua_State* L)
+{
+  (void)L;
+  struct IORequest * ioRequest = _lua_gen_checkIORequest(L, 1);
+  AbortIO(ioRequest);
+  return 0;
+}
+
+static int
+_lua_AddResource(lua_State* L)
+{
+  (void)L;
+  APTR resource = lua_touserdata(L, 1);
+  AddResource(resource);
+  return 0;
+}
+
+static int
+_lua_RemResource(lua_State* L)
+{
+  (void)L;
+  APTR resource = lua_touserdata(L, 1);
+  RemResource(resource);
+  return 0;
+}
+
+static int
+_lua_OpenResource(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR resName = amiga_checkConstNullableString(L, 1);
+  APTR result = OpenResource(resName);
+  lua_pushlightuserdata(L, result);
+  return 1;
+}
+
+static int
+_lua_GetCC(lua_State* L)
+{
+  (void)L;
+  ULONG result = GetCC();
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_TypeOfMem(lua_State* L)
+{
+  (void)L;
+  CONST_APTR address = lua_touserdata(L, 1);
+  ULONG result = TypeOfMem(address);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_Procure(lua_State* L)
+{
+  (void)L;
+  struct SignalSemaphore * sigSem = _lua_gen_checkSignalSemaphore(L, 1);
+  struct SemaphoreMessage * bidMsg = _lua_gen_checkSemaphoreMessage(L, 2);
+  ULONG result = Procure(sigSem, bidMsg);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_Vacate(lua_State* L)
+{
+  (void)L;
+  struct SignalSemaphore * sigSem = _lua_gen_checkSignalSemaphore(L, 1);
+  struct SemaphoreMessage * bidMsg = _lua_gen_checkSemaphoreMessage(L, 2);
+  Vacate(sigSem, bidMsg);
+  return 0;
+}
+
+static int
+_lua_OpenLibrary(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR libName = amiga_checkConstNullableString(L, 1);
+  ULONG version = luaL_checkinteger(L, 2);
+  struct Library * result = OpenLibrary(libName, version);
+  _lua_gen_pushLibrary(L, result);
+  return 1;
+}
+
+static int
+_lua_InitSemaphore(lua_State* L)
+{
+  (void)L;
+  struct SignalSemaphore * sigSem = _lua_gen_checkSignalSemaphore(L, 1);
+  InitSemaphore(sigSem);
+  return 0;
+}
+
+static int
+_lua_ObtainSemaphore(lua_State* L)
+{
+  (void)L;
+  struct SignalSemaphore * sigSem = _lua_gen_checkSignalSemaphore(L, 1);
+  ObtainSemaphore(sigSem);
+  return 0;
+}
+
+static int
+_lua_ReleaseSemaphore(lua_State* L)
+{
+  (void)L;
+  struct SignalSemaphore * sigSem = _lua_gen_checkSignalSemaphore(L, 1);
+  ReleaseSemaphore(sigSem);
+  return 0;
+}
+
+static int
+_lua_AttemptSemaphore(lua_State* L)
+{
+  (void)L;
+  struct SignalSemaphore * sigSem = _lua_gen_checkSignalSemaphore(L, 1);
+  ULONG result = AttemptSemaphore(sigSem);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_ObtainSemaphoreList(lua_State* L)
+{
+  (void)L;
+  struct List * sigSem = _lua_gen_checkList(L, 1);
+  ObtainSemaphoreList(sigSem);
+  return 0;
+}
+
+static int
+_lua_ReleaseSemaphoreList(lua_State* L)
+{
+  (void)L;
+  struct List * sigSem = _lua_gen_checkList(L, 1);
+  ReleaseSemaphoreList(sigSem);
+  return 0;
+}
+
+static int
+_lua_FindSemaphore(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  struct SignalSemaphore * result = FindSemaphore(name);
+  _lua_gen_pushSignalSemaphore(L, result);
+  return 1;
+}
+
+static int
+_lua_AddSemaphore(lua_State* L)
+{
+  (void)L;
+  struct SignalSemaphore * sigSem = _lua_gen_checkSignalSemaphore(L, 1);
+  AddSemaphore(sigSem);
+  return 0;
+}
+
+static int
+_lua_RemSemaphore(lua_State* L)
+{
+  (void)L;
+  struct SignalSemaphore * sigSem = _lua_gen_checkSignalSemaphore(L, 1);
+  RemSemaphore(sigSem);
+  return 0;
+}
+
+static int
+_lua_SumKickData(lua_State* L)
+{
+  (void)L;
+  ULONG result = SumKickData();
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_CopyMem(lua_State* L)
+{
+  (void)L;
+  CONST_APTR source = lua_touserdata(L, 1);
+  APTR dest = lua_touserdata(L, 2);
+  ULONG size = luaL_checkinteger(L, 3);
+  CopyMem(source, dest, size);
+  return 0;
+}
+
+static int
+_lua_CopyMemQuick(lua_State* L)
+{
+  (void)L;
+  CONST_APTR source = lua_touserdata(L, 1);
+  APTR dest = lua_touserdata(L, 2);
+  ULONG size = luaL_checkinteger(L, 3);
+  CopyMemQuick(source, dest, size);
+  return 0;
+}
+
+static int
+_lua_CacheClearU(lua_State* L)
+{
+  (void)L;
+  CacheClearU();
+  return 0;
+}
+
+static int
+_lua_CacheClearE(lua_State* L)
+{
+  (void)L;
+  APTR address = lua_touserdata(L, 1);
+  ULONG length = luaL_checkinteger(L, 2);
+  ULONG caches = luaL_checkinteger(L, 3);
+  CacheClearE(address, length, caches);
+  return 0;
+}
+
+static int
+_lua_CacheControl(lua_State* L)
+{
+  (void)L;
+  ULONG cacheBits = luaL_checkinteger(L, 1);
+  ULONG cacheMask = luaL_checkinteger(L, 2);
+  ULONG result = CacheControl(cacheBits, cacheMask);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_CreateIORequest(lua_State* L)
+{
+  (void)L;
+  struct MsgPort * port = _lua_gen_checkMsgPort(L, 1);
+  ULONG size = luaL_checkinteger(L, 2);
+  APTR result = CreateIORequest(port, size);
+  lua_pushlightuserdata(L, result);
+  return 1;
+}
+
+static int
+_lua_DeleteIORequest(lua_State* L)
+{
+  (void)L;
+  APTR iorequest = lua_touserdata(L, 1);
+  DeleteIORequest(iorequest);
+  return 0;
+}
+
+static int
+_lua_CreateMsgPort(lua_State* L)
+{
+  (void)L;
+  struct MsgPort * result = CreateMsgPort();
+  _lua_gen_pushMsgPort(L, result);
+  return 1;
+}
+
+static int
+_lua_DeleteMsgPort(lua_State* L)
+{
+  (void)L;
+  struct MsgPort * port = _lua_gen_checkMsgPort(L, 1);
+  DeleteMsgPort(port);
+  return 0;
+}
+
+static int
+_lua_ObtainSemaphoreShared(lua_State* L)
+{
+  (void)L;
+  struct SignalSemaphore * sigSem = _lua_gen_checkSignalSemaphore(L, 1);
+  ObtainSemaphoreShared(sigSem);
+  return 0;
+}
+
+static int
+_lua_AllocVec(lua_State* L)
+{
+  (void)L;
+  ULONG byteSize = luaL_checkinteger(L, 1);
+  ULONG requirements = luaL_checkinteger(L, 2);
+  APTR result = AllocVec(byteSize, requirements);
+  lua_pushlightuserdata(L, result);
+  return 1;
+}
+
+static int
+_lua_FreeVec(lua_State* L)
+{
+  (void)L;
+  APTR memoryBlock = lua_touserdata(L, 1);
+  FreeVec(memoryBlock);
+  return 0;
+}
+
+static int
+_lua_CreatePool(lua_State* L)
+{
+  (void)L;
+  ULONG requirements = luaL_checkinteger(L, 1);
+  ULONG puddleSize = luaL_checkinteger(L, 2);
+  ULONG threshSize = luaL_checkinteger(L, 3);
+  APTR result = CreatePool(requirements, puddleSize, threshSize);
+  lua_pushlightuserdata(L, result);
+  return 1;
+}
+
+static int
+_lua_DeletePool(lua_State* L)
+{
+  (void)L;
+  APTR poolHeader = lua_touserdata(L, 1);
+  DeletePool(poolHeader);
+  return 0;
+}
+
+static int
+_lua_AllocPooled(lua_State* L)
+{
+  (void)L;
+  APTR poolHeader = lua_touserdata(L, 1);
+  ULONG memSize = luaL_checkinteger(L, 2);
+  APTR result = AllocPooled(poolHeader, memSize);
+  lua_pushlightuserdata(L, result);
+  return 1;
+}
+
+static int
+_lua_FreePooled(lua_State* L)
+{
+  (void)L;
+  APTR poolHeader = lua_touserdata(L, 1);
+  APTR memory = lua_touserdata(L, 2);
+  ULONG memSize = luaL_checkinteger(L, 3);
+  FreePooled(poolHeader, memory, memSize);
+  return 0;
+}
+
+static int
+_lua_AttemptSemaphoreShared(lua_State* L)
+{
+  (void)L;
+  struct SignalSemaphore * sigSem = _lua_gen_checkSignalSemaphore(L, 1);
+  ULONG result = AttemptSemaphoreShared(sigSem);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_ColdReboot(lua_State* L)
+{
+  (void)L;
+  ColdReboot();
+  return 0;
+}
+
+static int
+_lua_StackSwap(lua_State* L)
+{
+  (void)L;
+  struct StackSwapStruct * newStack = _lua_gen_checkStackSwapStruct(L, 1);
+  StackSwap(newStack);
+  return 0;
+}
+
+static int
+_lua_CachePreDMA(lua_State* L)
+{
+  (void)L;
+  CONST_APTR address = lua_touserdata(L, 1);
+  ULONG * length = lua_touserdata(L, 2);
+  ULONG flags = luaL_checkinteger(L, 3);
+  APTR result = CachePreDMA(address, length, flags);
+  lua_pushlightuserdata(L, result);
+  return 1;
+}
+
+static int
+_lua_CachePostDMA(lua_State* L)
+{
+  (void)L;
+  CONST_APTR address = lua_touserdata(L, 1);
+  ULONG * length = lua_touserdata(L, 2);
+  ULONG flags = luaL_checkinteger(L, 3);
+  CachePostDMA(address, length, flags);
+  return 0;
+}
+
+static int
+_lua_AddMemHandler(lua_State* L)
+{
+  (void)L;
+  struct Interrupt * memhand = _lua_gen_checkInterrupt(L, 1);
+  AddMemHandler(memhand);
+  return 0;
+}
+
+static int
+_lua_RemMemHandler(lua_State* L)
+{
+  (void)L;
+  struct Interrupt * memhand = _lua_gen_checkInterrupt(L, 1);
+  RemMemHandler(memhand);
+  return 0;
+}
+
+static int
+_lua_ObtainQuickVector(lua_State* L)
+{
+  (void)L;
+  APTR interruptCode = lua_touserdata(L, 1);
+  ULONG result = ObtainQuickVector(interruptCode);
+  lua_pushinteger(L, result);
+  return 1;
+}
+
+static int
+_lua_NewMinList(lua_State* L)
+{
+  (void)L;
+  struct MinList * minlist = _lua_gen_checkMinList(L, 1);
+  NewMinList(minlist);
+  return 0;
 }
 
 static int
@@ -2267,6 +3676,1797 @@ _lua_GT_GetGadgetAttrs(lua_State* L)
 }
 
 static int
+_lua_gen_Resident_newindex(lua_State *L)
+{
+  Resident *obj = *(Resident **)luaL_checkudata(L, 1, "Resident");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "rt_MatchWord") == 0) {
+    obj->rt_MatchWord = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "rt_MatchTag") == 0) {
+    // finder 1
+    obj->rt_MatchTag = *(Resident **)luaL_checkudata(L, 3, "Resident");
+    return 0;
+  }
+  if (strcmp(key, "rt_EndSkip") == 0) {
+    obj->rt_EndSkip = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "rt_Flags") == 0) {
+    obj->rt_Flags = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "rt_Version") == 0) {
+    obj->rt_Version = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "rt_Type") == 0) {
+    obj->rt_Type = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "rt_Pri") == 0) {
+    obj->rt_Pri = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "rt_Init") == 0) {
+    obj->rt_Init = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_Resident_constructor(lua_State *L)
+{
+  // Allocate pointer-to-Resident in userdata
+  Resident **objp = lua_newuserdata(L, sizeof(Resident *));
+  *objp = malloc(sizeof(Resident));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(Resident));
+
+  // Set metatable
+  luaL_getmetatable(L, "Resident");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_Resident_index(lua_State *L)
+{
+  Resident *obj = *(Resident **)luaL_checkudata(L, 1, "Resident");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "rt_MatchWord") == 0) {
+    lua_pushinteger(L, obj->rt_MatchWord);
+    return 1;
+  }
+  if (strcmp(key, "rt_MatchTag") == 0) {
+    Resident **ud = (Resident **)lua_newuserdata(L, sizeof(Resident *));
+    *ud = (Resident*)obj->rt_MatchTag;
+    luaL_getmetatable(L, "Resident");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "rt_EndSkip") == 0) {
+    lua_pushlightuserdata(L, obj->rt_EndSkip);
+    return 1;
+  }
+  if (strcmp(key, "rt_Flags") == 0) {
+    lua_pushinteger(L, obj->rt_Flags);
+    return 1;
+  }
+  if (strcmp(key, "rt_Version") == 0) {
+    lua_pushinteger(L, obj->rt_Version);
+    return 1;
+  }
+  if (strcmp(key, "rt_Type") == 0) {
+    lua_pushinteger(L, obj->rt_Type);
+    return 1;
+  }
+  if (strcmp(key, "rt_Pri") == 0) {
+    lua_pushinteger(L, obj->rt_Pri);
+    return 1;
+  }
+  if (strcmp(key, "rt_Init") == 0) {
+    lua_pushlightuserdata(L, obj->rt_Init);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_Resident_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "rt_MatchWord");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "rt_MatchTag");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "rt_EndSkip");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "rt_Flags");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "rt_Version");
+  lua_rawseti(L, -2, 5);
+  lua_pushstring(L, "rt_Type");
+  lua_rawseti(L, -2, 6);
+  lua_pushstring(L, "rt_Pri");
+  lua_rawseti(L, -2, 7);
+  lua_pushstring(L, "rt_Init");
+  lua_rawseti(L, -2, 8);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_Resident(lua_State *L) {
+  if (luaL_newmetatable(L, "Resident")) {
+    lua_pushcfunction(L, _lua_gen_Resident_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_Resident_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_Resident_constructor);
+    lua_setglobal(L, "Resident");
+    _lua_gen_Resident_install_keys(L);
+    lua_pushstring(L, "Resident");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_Interrupt_newindex(lua_State *L)
+{
+  Interrupt *obj = *(Interrupt **)luaL_checkudata(L, 1, "Interrupt");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "is_Node") == 0) {
+    // finder 0
+    Node *val = *(Node **)luaL_checkudata(L, 3, "Node");
+    obj->is_Node = *val;
+    return 0;
+  }
+  if (strcmp(key, "is_Data") == 0) {
+    obj->is_Data = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_Interrupt_constructor(lua_State *L)
+{
+  // Allocate pointer-to-Interrupt in userdata
+  Interrupt **objp = lua_newuserdata(L, sizeof(Interrupt *));
+  *objp = malloc(sizeof(Interrupt));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(Interrupt));
+
+  // Set metatable
+  luaL_getmetatable(L, "Interrupt");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_Interrupt_index(lua_State *L)
+{
+  Interrupt *obj = *(Interrupt **)luaL_checkudata(L, 1, "Interrupt");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "is_Node") == 0) {
+    Node **ud = (Node **)lua_newuserdata(L, sizeof(Node *));
+    *ud = (Node*)&obj->is_Node;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "is_Data") == 0) {
+    lua_pushlightuserdata(L, obj->is_Data);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_Interrupt_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "is_Node");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "is_Data");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "is_Code");
+  lua_rawseti(L, -2, 3);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_Interrupt(lua_State *L) {
+  if (luaL_newmetatable(L, "Interrupt")) {
+    lua_pushcfunction(L, _lua_gen_Interrupt_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_Interrupt_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_Interrupt_constructor);
+    lua_setglobal(L, "Interrupt");
+    _lua_gen_Interrupt_install_keys(L);
+    lua_pushstring(L, "Interrupt");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_MemHeader_newindex(lua_State *L)
+{
+  MemHeader *obj = *(MemHeader **)luaL_checkudata(L, 1, "MemHeader");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "mh_Node") == 0) {
+    // finder 0
+    Node *val = *(Node **)luaL_checkudata(L, 3, "Node");
+    obj->mh_Node = *val;
+    return 0;
+  }
+  if (strcmp(key, "mh_Attributes") == 0) {
+    obj->mh_Attributes = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "mh_Lower") == 0) {
+    obj->mh_Lower = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "mh_Upper") == 0) {
+    obj->mh_Upper = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "mh_Free") == 0) {
+    obj->mh_Free = (ULONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_MemHeader_constructor(lua_State *L)
+{
+  // Allocate pointer-to-MemHeader in userdata
+  MemHeader **objp = lua_newuserdata(L, sizeof(MemHeader *));
+  *objp = malloc(sizeof(MemHeader));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(MemHeader));
+
+  // Set metatable
+  luaL_getmetatable(L, "MemHeader");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_MemHeader_index(lua_State *L)
+{
+  MemHeader *obj = *(MemHeader **)luaL_checkudata(L, 1, "MemHeader");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "mh_Node") == 0) {
+    Node **ud = (Node **)lua_newuserdata(L, sizeof(Node *));
+    *ud = (Node*)&obj->mh_Node;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "mh_Attributes") == 0) {
+    lua_pushinteger(L, obj->mh_Attributes);
+    return 1;
+  }
+  if (strcmp(key, "mh_Lower") == 0) {
+    lua_pushlightuserdata(L, obj->mh_Lower);
+    return 1;
+  }
+  if (strcmp(key, "mh_Upper") == 0) {
+    lua_pushlightuserdata(L, obj->mh_Upper);
+    return 1;
+  }
+  if (strcmp(key, "mh_Free") == 0) {
+    lua_pushinteger(L, obj->mh_Free);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_MemHeader_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "mh_Node");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "mh_Attributes");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "mh_Lower");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "mh_Upper");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "mh_Free");
+  lua_rawseti(L, -2, 5);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_MemHeader(lua_State *L) {
+  if (luaL_newmetatable(L, "MemHeader")) {
+    lua_pushcfunction(L, _lua_gen_MemHeader_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_MemHeader_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_MemHeader_constructor);
+    lua_setglobal(L, "MemHeader");
+    _lua_gen_MemHeader_install_keys(L);
+    lua_pushstring(L, "MemHeader");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_MemList_newindex(lua_State *L)
+{
+  MemList *obj = *(MemList **)luaL_checkudata(L, 1, "MemList");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ml_Node") == 0) {
+    // finder 0
+    Node *val = *(Node **)luaL_checkudata(L, 3, "Node");
+    obj->ml_Node = *val;
+    return 0;
+  }
+  if (strcmp(key, "ml_NumEntries") == 0) {
+    obj->ml_NumEntries = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_MemList_constructor(lua_State *L)
+{
+  // Allocate pointer-to-MemList in userdata
+  MemList **objp = lua_newuserdata(L, sizeof(MemList *));
+  *objp = malloc(sizeof(MemList));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(MemList));
+
+  // Set metatable
+  luaL_getmetatable(L, "MemList");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_MemList_index(lua_State *L)
+{
+  MemList *obj = *(MemList **)luaL_checkudata(L, 1, "MemList");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ml_Node") == 0) {
+    Node **ud = (Node **)lua_newuserdata(L, sizeof(Node *));
+    *ud = (Node*)&obj->ml_Node;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "ml_NumEntries") == 0) {
+    lua_pushinteger(L, obj->ml_NumEntries);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_MemList_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "ml_Node");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "ml_NumEntries");
+  lua_rawseti(L, -2, 2);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_MemList(lua_State *L) {
+  if (luaL_newmetatable(L, "MemList")) {
+    lua_pushcfunction(L, _lua_gen_MemList_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_MemList_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_MemList_constructor);
+    lua_setglobal(L, "MemList");
+    _lua_gen_MemList_install_keys(L);
+    lua_pushstring(L, "MemList");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_Node_newindex(lua_State *L)
+{
+  Node *obj = *(Node **)luaL_checkudata(L, 1, "Node");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ln_Succ") == 0) {
+    // finder 1
+    obj->ln_Succ = *(Node **)luaL_checkudata(L, 3, "Node");
+    return 0;
+  }
+  if (strcmp(key, "ln_Pred") == 0) {
+    // finder 1
+    obj->ln_Pred = *(Node **)luaL_checkudata(L, 3, "Node");
+    return 0;
+  }
+  if (strcmp(key, "ln_Type") == 0) {
+    obj->ln_Type = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ln_Pri") == 0) {
+    obj->ln_Pri = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_Node_constructor(lua_State *L)
+{
+  // Allocate pointer-to-Node in userdata
+  Node **objp = lua_newuserdata(L, sizeof(Node *));
+  *objp = malloc(sizeof(Node));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(Node));
+
+  // Set metatable
+  luaL_getmetatable(L, "Node");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_Node_index(lua_State *L)
+{
+  Node *obj = *(Node **)luaL_checkudata(L, 1, "Node");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ln_Succ") == 0) {
+    Node **ud = (Node **)lua_newuserdata(L, sizeof(Node *));
+    *ud = (Node*)obj->ln_Succ;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "ln_Pred") == 0) {
+    Node **ud = (Node **)lua_newuserdata(L, sizeof(Node *));
+    *ud = (Node*)obj->ln_Pred;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "ln_Type") == 0) {
+    lua_pushinteger(L, obj->ln_Type);
+    return 1;
+  }
+  if (strcmp(key, "ln_Pri") == 0) {
+    lua_pushinteger(L, obj->ln_Pri);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_Node_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "ln_Succ");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "ln_Pred");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "ln_Type");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "ln_Pri");
+  lua_rawseti(L, -2, 4);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_Node(lua_State *L) {
+  if (luaL_newmetatable(L, "Node")) {
+    lua_pushcfunction(L, _lua_gen_Node_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_Node_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_Node_constructor);
+    lua_setglobal(L, "Node");
+    _lua_gen_Node_install_keys(L);
+    lua_pushstring(L, "Node");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_MinList_newindex(lua_State *L)
+{
+  MinList *obj = *(MinList **)luaL_checkudata(L, 1, "MinList");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "mlh_Head") == 0) {
+    // finder 1
+    obj->mlh_Head = *(MinNode **)luaL_checkudata(L, 3, "MinNode");
+    return 0;
+  }
+  if (strcmp(key, "mlh_Tail") == 0) {
+    // finder 1
+    obj->mlh_Tail = *(MinNode **)luaL_checkudata(L, 3, "MinNode");
+    return 0;
+  }
+  if (strcmp(key, "mlh_TailPred") == 0) {
+    // finder 1
+    obj->mlh_TailPred = *(MinNode **)luaL_checkudata(L, 3, "MinNode");
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_MinList_constructor(lua_State *L)
+{
+  // Allocate pointer-to-MinList in userdata
+  MinList **objp = lua_newuserdata(L, sizeof(MinList *));
+  *objp = malloc(sizeof(MinList));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(MinList));
+
+  // Set metatable
+  luaL_getmetatable(L, "MinList");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_MinList_index(lua_State *L)
+{
+  MinList *obj = *(MinList **)luaL_checkudata(L, 1, "MinList");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "mlh_Head") == 0) {
+    MinNode **ud = (MinNode **)lua_newuserdata(L, sizeof(MinNode *));
+    *ud = (MinNode*)obj->mlh_Head;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "mlh_Tail") == 0) {
+    MinNode **ud = (MinNode **)lua_newuserdata(L, sizeof(MinNode *));
+    *ud = (MinNode*)obj->mlh_Tail;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "mlh_TailPred") == 0) {
+    MinNode **ud = (MinNode **)lua_newuserdata(L, sizeof(MinNode *));
+    *ud = (MinNode*)obj->mlh_TailPred;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_MinList_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "mlh_Head");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "mlh_Tail");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "mlh_TailPred");
+  lua_rawseti(L, -2, 3);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_MinList(lua_State *L) {
+  if (luaL_newmetatable(L, "MinList")) {
+    lua_pushcfunction(L, _lua_gen_MinList_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_MinList_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_MinList_constructor);
+    lua_setglobal(L, "MinList");
+    _lua_gen_MinList_install_keys(L);
+    lua_pushstring(L, "MinList");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_MinNode_newindex(lua_State *L)
+{
+  MinNode *obj = *(MinNode **)luaL_checkudata(L, 1, "MinNode");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "mln_Succ") == 0) {
+    // finder 1
+    obj->mln_Succ = *(MinNode **)luaL_checkudata(L, 3, "MinNode");
+    return 0;
+  }
+  if (strcmp(key, "mln_Pred") == 0) {
+    // finder 1
+    obj->mln_Pred = *(MinNode **)luaL_checkudata(L, 3, "MinNode");
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_MinNode_constructor(lua_State *L)
+{
+  // Allocate pointer-to-MinNode in userdata
+  MinNode **objp = lua_newuserdata(L, sizeof(MinNode *));
+  *objp = malloc(sizeof(MinNode));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(MinNode));
+
+  // Set metatable
+  luaL_getmetatable(L, "MinNode");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_MinNode_index(lua_State *L)
+{
+  MinNode *obj = *(MinNode **)luaL_checkudata(L, 1, "MinNode");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "mln_Succ") == 0) {
+    MinNode **ud = (MinNode **)lua_newuserdata(L, sizeof(MinNode *));
+    *ud = (MinNode*)obj->mln_Succ;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "mln_Pred") == 0) {
+    MinNode **ud = (MinNode **)lua_newuserdata(L, sizeof(MinNode *));
+    *ud = (MinNode*)obj->mln_Pred;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_MinNode_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "mln_Succ");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "mln_Pred");
+  lua_rawseti(L, -2, 2);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_MinNode(lua_State *L) {
+  if (luaL_newmetatable(L, "MinNode")) {
+    lua_pushcfunction(L, _lua_gen_MinNode_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_MinNode_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_MinNode_constructor);
+    lua_setglobal(L, "MinNode");
+    _lua_gen_MinNode_install_keys(L);
+    lua_pushstring(L, "MinNode");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_Task_newindex(lua_State *L)
+{
+  Task *obj = *(Task **)luaL_checkudata(L, 1, "Task");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "tc_Node") == 0) {
+    // finder 0
+    Node *val = *(Node **)luaL_checkudata(L, 3, "Node");
+    obj->tc_Node = *val;
+    return 0;
+  }
+  if (strcmp(key, "tc_Flags") == 0) {
+    obj->tc_Flags = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_State") == 0) {
+    obj->tc_State = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_IDNestCnt") == 0) {
+    obj->tc_IDNestCnt = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_TDNestCnt") == 0) {
+    obj->tc_TDNestCnt = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_SigAlloc") == 0) {
+    obj->tc_SigAlloc = (ULONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_SigWait") == 0) {
+    obj->tc_SigWait = (ULONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_SigRecvd") == 0) {
+    obj->tc_SigRecvd = (ULONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_SigExcept") == 0) {
+    obj->tc_SigExcept = (ULONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_TrapAlloc") == 0) {
+    obj->tc_TrapAlloc = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_TrapAble") == 0) {
+    obj->tc_TrapAble = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_ExceptData") == 0) {
+    obj->tc_ExceptData = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_ExceptCode") == 0) {
+    obj->tc_ExceptCode = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_TrapData") == 0) {
+    obj->tc_TrapData = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_TrapCode") == 0) {
+    obj->tc_TrapCode = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_SPReg") == 0) {
+    obj->tc_SPReg = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_SPLower") == 0) {
+    obj->tc_SPLower = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_SPUpper") == 0) {
+    obj->tc_SPUpper = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "tc_MemEntry") == 0) {
+    // finder 0
+    List *val = *(List **)luaL_checkudata(L, 3, "List");
+    obj->tc_MemEntry = *val;
+    return 0;
+  }
+  if (strcmp(key, "tc_UserData") == 0) {
+    obj->tc_UserData = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_Task_constructor(lua_State *L)
+{
+  // Allocate pointer-to-Task in userdata
+  Task **objp = lua_newuserdata(L, sizeof(Task *));
+  *objp = malloc(sizeof(Task));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(Task));
+
+  // Set metatable
+  luaL_getmetatable(L, "Task");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_Task_index(lua_State *L)
+{
+  Task *obj = *(Task **)luaL_checkudata(L, 1, "Task");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "tc_Node") == 0) {
+    Node **ud = (Node **)lua_newuserdata(L, sizeof(Node *));
+    *ud = (Node*)&obj->tc_Node;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "tc_Flags") == 0) {
+    lua_pushinteger(L, obj->tc_Flags);
+    return 1;
+  }
+  if (strcmp(key, "tc_State") == 0) {
+    lua_pushinteger(L, obj->tc_State);
+    return 1;
+  }
+  if (strcmp(key, "tc_IDNestCnt") == 0) {
+    lua_pushinteger(L, obj->tc_IDNestCnt);
+    return 1;
+  }
+  if (strcmp(key, "tc_TDNestCnt") == 0) {
+    lua_pushinteger(L, obj->tc_TDNestCnt);
+    return 1;
+  }
+  if (strcmp(key, "tc_SigAlloc") == 0) {
+    lua_pushinteger(L, obj->tc_SigAlloc);
+    return 1;
+  }
+  if (strcmp(key, "tc_SigWait") == 0) {
+    lua_pushinteger(L, obj->tc_SigWait);
+    return 1;
+  }
+  if (strcmp(key, "tc_SigRecvd") == 0) {
+    lua_pushinteger(L, obj->tc_SigRecvd);
+    return 1;
+  }
+  if (strcmp(key, "tc_SigExcept") == 0) {
+    lua_pushinteger(L, obj->tc_SigExcept);
+    return 1;
+  }
+  if (strcmp(key, "tc_TrapAlloc") == 0) {
+    lua_pushinteger(L, obj->tc_TrapAlloc);
+    return 1;
+  }
+  if (strcmp(key, "tc_TrapAble") == 0) {
+    lua_pushinteger(L, obj->tc_TrapAble);
+    return 1;
+  }
+  if (strcmp(key, "tc_ExceptData") == 0) {
+    lua_pushlightuserdata(L, obj->tc_ExceptData);
+    return 1;
+  }
+  if (strcmp(key, "tc_ExceptCode") == 0) {
+    lua_pushlightuserdata(L, obj->tc_ExceptCode);
+    return 1;
+  }
+  if (strcmp(key, "tc_TrapData") == 0) {
+    lua_pushlightuserdata(L, obj->tc_TrapData);
+    return 1;
+  }
+  if (strcmp(key, "tc_TrapCode") == 0) {
+    lua_pushlightuserdata(L, obj->tc_TrapCode);
+    return 1;
+  }
+  if (strcmp(key, "tc_SPReg") == 0) {
+    lua_pushlightuserdata(L, obj->tc_SPReg);
+    return 1;
+  }
+  if (strcmp(key, "tc_SPLower") == 0) {
+    lua_pushlightuserdata(L, obj->tc_SPLower);
+    return 1;
+  }
+  if (strcmp(key, "tc_SPUpper") == 0) {
+    lua_pushlightuserdata(L, obj->tc_SPUpper);
+    return 1;
+  }
+  if (strcmp(key, "tc_MemEntry") == 0) {
+    List **ud = (List **)lua_newuserdata(L, sizeof(List *));
+    *ud = (List*)&obj->tc_MemEntry;
+    luaL_getmetatable(L, "List");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "tc_UserData") == 0) {
+    lua_pushlightuserdata(L, obj->tc_UserData);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_Task_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "tc_Node");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "tc_Flags");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "tc_State");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "tc_IDNestCnt");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "tc_TDNestCnt");
+  lua_rawseti(L, -2, 5);
+  lua_pushstring(L, "tc_SigAlloc");
+  lua_rawseti(L, -2, 6);
+  lua_pushstring(L, "tc_SigWait");
+  lua_rawseti(L, -2, 7);
+  lua_pushstring(L, "tc_SigRecvd");
+  lua_rawseti(L, -2, 8);
+  lua_pushstring(L, "tc_SigExcept");
+  lua_rawseti(L, -2, 9);
+  lua_pushstring(L, "tc_TrapAlloc");
+  lua_rawseti(L, -2, 10);
+  lua_pushstring(L, "tc_TrapAble");
+  lua_rawseti(L, -2, 11);
+  lua_pushstring(L, "tc_ExceptData");
+  lua_rawseti(L, -2, 12);
+  lua_pushstring(L, "tc_ExceptCode");
+  lua_rawseti(L, -2, 13);
+  lua_pushstring(L, "tc_TrapData");
+  lua_rawseti(L, -2, 14);
+  lua_pushstring(L, "tc_TrapCode");
+  lua_rawseti(L, -2, 15);
+  lua_pushstring(L, "tc_SPReg");
+  lua_rawseti(L, -2, 16);
+  lua_pushstring(L, "tc_SPLower");
+  lua_rawseti(L, -2, 17);
+  lua_pushstring(L, "tc_SPUpper");
+  lua_rawseti(L, -2, 18);
+  lua_pushstring(L, "tc_Switch");
+  lua_rawseti(L, -2, 19);
+  lua_pushstring(L, "tc_Launch");
+  lua_rawseti(L, -2, 20);
+  lua_pushstring(L, "tc_MemEntry");
+  lua_rawseti(L, -2, 21);
+  lua_pushstring(L, "tc_UserData");
+  lua_rawseti(L, -2, 22);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_Task(lua_State *L) {
+  if (luaL_newmetatable(L, "Task")) {
+    lua_pushcfunction(L, _lua_gen_Task_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_Task_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_Task_constructor);
+    lua_setglobal(L, "Task");
+    _lua_gen_Task_install_keys(L);
+    lua_pushstring(L, "Task");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_Library_newindex(lua_State *L)
+{
+  Library *obj = *(Library **)luaL_checkudata(L, 1, "Library");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "lib_Node") == 0) {
+    // finder 0
+    Node *val = *(Node **)luaL_checkudata(L, 3, "Node");
+    obj->lib_Node = *val;
+    return 0;
+  }
+  if (strcmp(key, "lib_Flags") == 0) {
+    obj->lib_Flags = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "lib_pad") == 0) {
+    obj->lib_pad = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "lib_NegSize") == 0) {
+    obj->lib_NegSize = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "lib_PosSize") == 0) {
+    obj->lib_PosSize = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "lib_Version") == 0) {
+    obj->lib_Version = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "lib_Revision") == 0) {
+    obj->lib_Revision = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "lib_IdString") == 0) {
+    obj->lib_IdString = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "lib_Sum") == 0) {
+    obj->lib_Sum = (ULONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "lib_OpenCnt") == 0) {
+    obj->lib_OpenCnt = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_Library_constructor(lua_State *L)
+{
+  // Allocate pointer-to-Library in userdata
+  Library **objp = lua_newuserdata(L, sizeof(Library *));
+  *objp = malloc(sizeof(Library));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(Library));
+
+  // Set metatable
+  luaL_getmetatable(L, "Library");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_Library_index(lua_State *L)
+{
+  Library *obj = *(Library **)luaL_checkudata(L, 1, "Library");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "lib_Node") == 0) {
+    Node **ud = (Node **)lua_newuserdata(L, sizeof(Node *));
+    *ud = (Node*)&obj->lib_Node;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "lib_Flags") == 0) {
+    lua_pushinteger(L, obj->lib_Flags);
+    return 1;
+  }
+  if (strcmp(key, "lib_pad") == 0) {
+    lua_pushinteger(L, obj->lib_pad);
+    return 1;
+  }
+  if (strcmp(key, "lib_NegSize") == 0) {
+    lua_pushinteger(L, obj->lib_NegSize);
+    return 1;
+  }
+  if (strcmp(key, "lib_PosSize") == 0) {
+    lua_pushinteger(L, obj->lib_PosSize);
+    return 1;
+  }
+  if (strcmp(key, "lib_Version") == 0) {
+    lua_pushinteger(L, obj->lib_Version);
+    return 1;
+  }
+  if (strcmp(key, "lib_Revision") == 0) {
+    lua_pushinteger(L, obj->lib_Revision);
+    return 1;
+  }
+  if (strcmp(key, "lib_IdString") == 0) {
+    lua_pushlightuserdata(L, obj->lib_IdString);
+    return 1;
+  }
+  if (strcmp(key, "lib_Sum") == 0) {
+    lua_pushinteger(L, obj->lib_Sum);
+    return 1;
+  }
+  if (strcmp(key, "lib_OpenCnt") == 0) {
+    lua_pushinteger(L, obj->lib_OpenCnt);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_Library_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "lib_Node");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "lib_Flags");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "lib_pad");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "lib_NegSize");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "lib_PosSize");
+  lua_rawseti(L, -2, 5);
+  lua_pushstring(L, "lib_Version");
+  lua_rawseti(L, -2, 6);
+  lua_pushstring(L, "lib_Revision");
+  lua_rawseti(L, -2, 7);
+  lua_pushstring(L, "lib_IdString");
+  lua_rawseti(L, -2, 8);
+  lua_pushstring(L, "lib_Sum");
+  lua_rawseti(L, -2, 9);
+  lua_pushstring(L, "lib_OpenCnt");
+  lua_rawseti(L, -2, 10);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_Library(lua_State *L) {
+  if (luaL_newmetatable(L, "Library")) {
+    lua_pushcfunction(L, _lua_gen_Library_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_Library_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_Library_constructor);
+    lua_setglobal(L, "Library");
+    _lua_gen_Library_install_keys(L);
+    lua_pushstring(L, "Library");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_Device_newindex(lua_State *L)
+{
+  Device *obj = *(Device **)luaL_checkudata(L, 1, "Device");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "dd_Library") == 0) {
+    // finder 0
+    Library *val = *(Library **)luaL_checkudata(L, 3, "Library");
+    obj->dd_Library = *val;
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_Device_constructor(lua_State *L)
+{
+  // Allocate pointer-to-Device in userdata
+  Device **objp = lua_newuserdata(L, sizeof(Device *));
+  *objp = malloc(sizeof(Device));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(Device));
+
+  // Set metatable
+  luaL_getmetatable(L, "Device");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_Device_index(lua_State *L)
+{
+  Device *obj = *(Device **)luaL_checkudata(L, 1, "Device");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "dd_Library") == 0) {
+    Library **ud = (Library **)lua_newuserdata(L, sizeof(Library *));
+    *ud = (Library*)&obj->dd_Library;
+    luaL_getmetatable(L, "Library");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_Device_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "dd_Library");
+  lua_rawseti(L, -2, 1);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_Device(lua_State *L) {
+  if (luaL_newmetatable(L, "Device")) {
+    lua_pushcfunction(L, _lua_gen_Device_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_Device_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_Device_constructor);
+    lua_setglobal(L, "Device");
+    _lua_gen_Device_install_keys(L);
+    lua_pushstring(L, "Device");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_IORequest_newindex(lua_State *L)
+{
+  IORequest *obj = *(IORequest **)luaL_checkudata(L, 1, "IORequest");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "io_Message") == 0) {
+    // finder 0
+    Message *val = *(Message **)luaL_checkudata(L, 3, "Message");
+    obj->io_Message = *val;
+    return 0;
+  }
+  if (strcmp(key, "io_Device") == 0) {
+    // finder 1
+    obj->io_Device = *(Device **)luaL_checkudata(L, 3, "Device");
+    return 0;
+  }
+  if (strcmp(key, "io_Command") == 0) {
+    obj->io_Command = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "io_Flags") == 0) {
+    obj->io_Flags = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "io_Error") == 0) {
+    obj->io_Error = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_IORequest_constructor(lua_State *L)
+{
+  // Allocate pointer-to-IORequest in userdata
+  IORequest **objp = lua_newuserdata(L, sizeof(IORequest *));
+  *objp = malloc(sizeof(IORequest));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(IORequest));
+
+  // Set metatable
+  luaL_getmetatable(L, "IORequest");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_IORequest_index(lua_State *L)
+{
+  IORequest *obj = *(IORequest **)luaL_checkudata(L, 1, "IORequest");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "io_Message") == 0) {
+    Message **ud = (Message **)lua_newuserdata(L, sizeof(Message *));
+    *ud = (Message*)&obj->io_Message;
+    luaL_getmetatable(L, "Message");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "io_Device") == 0) {
+    Device **ud = (Device **)lua_newuserdata(L, sizeof(Device *));
+    *ud = (Device*)obj->io_Device;
+    luaL_getmetatable(L, "Device");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "io_Command") == 0) {
+    lua_pushinteger(L, obj->io_Command);
+    return 1;
+  }
+  if (strcmp(key, "io_Flags") == 0) {
+    lua_pushinteger(L, obj->io_Flags);
+    return 1;
+  }
+  if (strcmp(key, "io_Error") == 0) {
+    lua_pushinteger(L, obj->io_Error);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_IORequest_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "io_Message");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "io_Device");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "io_Command");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "io_Flags");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "io_Error");
+  lua_rawseti(L, -2, 5);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_IORequest(lua_State *L) {
+  if (luaL_newmetatable(L, "IORequest")) {
+    lua_pushcfunction(L, _lua_gen_IORequest_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_IORequest_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_IORequest_constructor);
+    lua_setglobal(L, "IORequest");
+    _lua_gen_IORequest_install_keys(L);
+    lua_pushstring(L, "IORequest");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_SignalSemaphore_newindex(lua_State *L)
+{
+  SignalSemaphore *obj = *(SignalSemaphore **)luaL_checkudata(L, 1, "SignalSemaphore");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ss_Link") == 0) {
+    // finder 0
+    Node *val = *(Node **)luaL_checkudata(L, 3, "Node");
+    obj->ss_Link = *val;
+    return 0;
+  }
+  if (strcmp(key, "ss_NestCount") == 0) {
+    obj->ss_NestCount = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ss_WaitQueue") == 0) {
+    // finder 0
+    MinList *val = *(MinList **)luaL_checkudata(L, 3, "MinList");
+    obj->ss_WaitQueue = *val;
+    return 0;
+  }
+  if (strcmp(key, "ss_Owner") == 0) {
+    // finder 1
+    obj->ss_Owner = *(Task **)luaL_checkudata(L, 3, "Task");
+    return 0;
+  }
+  if (strcmp(key, "ss_QueueCount") == 0) {
+    obj->ss_QueueCount = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_SignalSemaphore_constructor(lua_State *L)
+{
+  // Allocate pointer-to-SignalSemaphore in userdata
+  SignalSemaphore **objp = lua_newuserdata(L, sizeof(SignalSemaphore *));
+  *objp = malloc(sizeof(SignalSemaphore));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(SignalSemaphore));
+
+  // Set metatable
+  luaL_getmetatable(L, "SignalSemaphore");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_SignalSemaphore_index(lua_State *L)
+{
+  SignalSemaphore *obj = *(SignalSemaphore **)luaL_checkudata(L, 1, "SignalSemaphore");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ss_Link") == 0) {
+    Node **ud = (Node **)lua_newuserdata(L, sizeof(Node *));
+    *ud = (Node*)&obj->ss_Link;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "ss_NestCount") == 0) {
+    lua_pushinteger(L, obj->ss_NestCount);
+    return 1;
+  }
+  if (strcmp(key, "ss_WaitQueue") == 0) {
+    MinList **ud = (MinList **)lua_newuserdata(L, sizeof(MinList *));
+    *ud = (MinList*)&obj->ss_WaitQueue;
+    luaL_getmetatable(L, "MinList");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "ss_Owner") == 0) {
+    Task **ud = (Task **)lua_newuserdata(L, sizeof(Task *));
+    *ud = (Task*)obj->ss_Owner;
+    luaL_getmetatable(L, "Task");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "ss_QueueCount") == 0) {
+    lua_pushinteger(L, obj->ss_QueueCount);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_SignalSemaphore_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "ss_Link");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "ss_NestCount");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "ss_WaitQueue");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "ss_Owner");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "ss_QueueCount");
+  lua_rawseti(L, -2, 5);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_SignalSemaphore(lua_State *L) {
+  if (luaL_newmetatable(L, "SignalSemaphore")) {
+    lua_pushcfunction(L, _lua_gen_SignalSemaphore_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_SignalSemaphore_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_SignalSemaphore_constructor);
+    lua_setglobal(L, "SignalSemaphore");
+    _lua_gen_SignalSemaphore_install_keys(L);
+    lua_pushstring(L, "SignalSemaphore");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_SemaphoreMessage_newindex(lua_State *L)
+{
+  SemaphoreMessage *obj = *(SemaphoreMessage **)luaL_checkudata(L, 1, "SemaphoreMessage");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ssm_Message") == 0) {
+    // finder 0
+    Message *val = *(Message **)luaL_checkudata(L, 3, "Message");
+    obj->ssm_Message = *val;
+    return 0;
+  }
+  if (strcmp(key, "ssm_Semaphore") == 0) {
+    // finder 1
+    obj->ssm_Semaphore = *(SignalSemaphore **)luaL_checkudata(L, 3, "SignalSemaphore");
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_SemaphoreMessage_constructor(lua_State *L)
+{
+  // Allocate pointer-to-SemaphoreMessage in userdata
+  SemaphoreMessage **objp = lua_newuserdata(L, sizeof(SemaphoreMessage *));
+  *objp = malloc(sizeof(SemaphoreMessage));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(SemaphoreMessage));
+
+  // Set metatable
+  luaL_getmetatable(L, "SemaphoreMessage");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_SemaphoreMessage_index(lua_State *L)
+{
+  SemaphoreMessage *obj = *(SemaphoreMessage **)luaL_checkudata(L, 1, "SemaphoreMessage");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "ssm_Message") == 0) {
+    Message **ud = (Message **)lua_newuserdata(L, sizeof(Message *));
+    *ud = (Message*)&obj->ssm_Message;
+    luaL_getmetatable(L, "Message");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "ssm_Semaphore") == 0) {
+    SignalSemaphore **ud = (SignalSemaphore **)lua_newuserdata(L, sizeof(SignalSemaphore *));
+    *ud = (SignalSemaphore*)obj->ssm_Semaphore;
+    luaL_getmetatable(L, "SignalSemaphore");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_SemaphoreMessage_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "ssm_Message");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "ssm_Semaphore");
+  lua_rawseti(L, -2, 2);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_SemaphoreMessage(lua_State *L) {
+  if (luaL_newmetatable(L, "SemaphoreMessage")) {
+    lua_pushcfunction(L, _lua_gen_SemaphoreMessage_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_SemaphoreMessage_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_SemaphoreMessage_constructor);
+    lua_setglobal(L, "SemaphoreMessage");
+    _lua_gen_SemaphoreMessage_install_keys(L);
+    lua_pushstring(L, "SemaphoreMessage");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_StackSwapStruct_newindex(lua_State *L)
+{
+  StackSwapStruct *obj = *(StackSwapStruct **)luaL_checkudata(L, 1, "StackSwapStruct");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "stk_Lower") == 0) {
+    obj->stk_Lower = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "stk_Upper") == 0) {
+    obj->stk_Upper = (ULONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "stk_Pointer") == 0) {
+    obj->stk_Pointer = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_StackSwapStruct_constructor(lua_State *L)
+{
+  // Allocate pointer-to-StackSwapStruct in userdata
+  StackSwapStruct **objp = lua_newuserdata(L, sizeof(StackSwapStruct *));
+  *objp = malloc(sizeof(StackSwapStruct));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(StackSwapStruct));
+
+  // Set metatable
+  luaL_getmetatable(L, "StackSwapStruct");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_StackSwapStruct_index(lua_State *L)
+{
+  StackSwapStruct *obj = *(StackSwapStruct **)luaL_checkudata(L, 1, "StackSwapStruct");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "stk_Lower") == 0) {
+    lua_pushlightuserdata(L, obj->stk_Lower);
+    return 1;
+  }
+  if (strcmp(key, "stk_Upper") == 0) {
+    lua_pushinteger(L, obj->stk_Upper);
+    return 1;
+  }
+  if (strcmp(key, "stk_Pointer") == 0) {
+    lua_pushlightuserdata(L, obj->stk_Pointer);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_StackSwapStruct_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "stk_Lower");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "stk_Upper");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "stk_Pointer");
+  lua_rawseti(L, -2, 3);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_StackSwapStruct(lua_State *L) {
+  if (luaL_newmetatable(L, "StackSwapStruct")) {
+    lua_pushcfunction(L, _lua_gen_StackSwapStruct_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_StackSwapStruct_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_StackSwapStruct_constructor);
+    lua_setglobal(L, "StackSwapStruct");
+    _lua_gen_StackSwapStruct_install_keys(L);
+    lua_pushstring(L, "StackSwapStruct");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
 _lua_gen_Window_newindex(lua_State *L)
 {
   Window *obj = *(Window **)luaL_checkudata(L, 1, "Window");
@@ -3236,6 +6436,12 @@ _lua_gen_MsgPort_newindex(lua_State *L)
 {
   MsgPort *obj = *(MsgPort **)luaL_checkudata(L, 1, "MsgPort");
   const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "mp_Node") == 0) {
+    // finder 0
+    Node *val = *(Node **)luaL_checkudata(L, 3, "Node");
+    obj->mp_Node = *val;
+    return 0;
+  }
   if (strcmp(key, "mp_Flags") == 0) {
     obj->mp_Flags = (UBYTE)luaL_checkinteger(L, 3);
     return 0;
@@ -3288,6 +6494,13 @@ _lua_gen_MsgPort_index(lua_State *L)
 {
   MsgPort *obj = *(MsgPort **)luaL_checkudata(L, 1, "MsgPort");
   const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "mp_Node") == 0) {
+    Node **ud = (Node **)lua_newuserdata(L, sizeof(Node *));
+    *ud = (Node*)&obj->mp_Node;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
   if (strcmp(key, "mp_Flags") == 0) {
     lua_pushinteger(L, obj->mp_Flags);
     return 1;
@@ -3310,12 +6523,14 @@ static void
 _lua_gen_MsgPort_install_keys(lua_State *L)
 {
   lua_newtable(L);
-  lua_pushstring(L, "mp_Flags");
+  lua_pushstring(L, "mp_Node");
   lua_rawseti(L, -2, 1);
-  lua_pushstring(L, "mp_SigBit");
+  lua_pushstring(L, "mp_Flags");
   lua_rawseti(L, -2, 2);
-  lua_pushstring(L, "mp_MsgList");
+  lua_pushstring(L, "mp_SigBit");
   lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "mp_MsgList");
+  lua_rawseti(L, -2, 4);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -3340,6 +6555,12 @@ _lua_gen_Message_newindex(lua_State *L)
 {
   Message *obj = *(Message **)luaL_checkudata(L, 1, "Message");
   const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "mn_Node") == 0) {
+    // finder 0
+    Node *val = *(Node **)luaL_checkudata(L, 3, "Node");
+    obj->mn_Node = *val;
+    return 0;
+  }
   if (strcmp(key, "mn_ReplyPort") == 0) {
     // finder 1
     obj->mn_ReplyPort = *(MsgPort **)luaL_checkudata(L, 3, "MsgPort");
@@ -3387,6 +6608,13 @@ _lua_gen_Message_index(lua_State *L)
 {
   Message *obj = *(Message **)luaL_checkudata(L, 1, "Message");
   const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "mn_Node") == 0) {
+    Node **ud = (Node **)lua_newuserdata(L, sizeof(Node *));
+    *ud = (Node*)&obj->mn_Node;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
   if (strcmp(key, "mn_ReplyPort") == 0) {
     MsgPort **ud = (MsgPort **)lua_newuserdata(L, sizeof(MsgPort *));
     *ud = (MsgPort*)obj->mn_ReplyPort;
@@ -3405,10 +6633,12 @@ static void
 _lua_gen_Message_install_keys(lua_State *L)
 {
   lua_newtable(L);
-  lua_pushstring(L, "mn_ReplyPort");
+  lua_pushstring(L, "mn_Node");
   lua_rawseti(L, -2, 1);
-  lua_pushstring(L, "mn_Length");
+  lua_pushstring(L, "mn_ReplyPort");
   lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "mn_Length");
+  lua_rawseti(L, -2, 3);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -4659,6 +7889,12 @@ _lua_gen_Hook_newindex(lua_State *L)
 {
   Hook *obj = *(Hook **)luaL_checkudata(L, 1, "Hook");
   const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "h_MinNode") == 0) {
+    // finder 0
+    MinNode *val = *(MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->h_MinNode = *val;
+    return 0;
+  }
   if (strcmp(key, "h_Data") == 0) {
     obj->h_Data = (APTR)lua_touserdata(L, 3);
     return 0;
@@ -4701,6 +7937,13 @@ _lua_gen_Hook_index(lua_State *L)
 {
   Hook *obj = *(Hook **)luaL_checkudata(L, 1, "Hook");
   const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "h_MinNode") == 0) {
+    MinNode **ud = (MinNode **)lua_newuserdata(L, sizeof(MinNode *));
+    *ud = (MinNode*)&obj->h_MinNode;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
   if (strcmp(key, "h_Data") == 0) {
     lua_pushlightuserdata(L, obj->h_Data);
     return 1;
@@ -4712,12 +7955,14 @@ static void
 _lua_gen_Hook_install_keys(lua_State *L)
 {
   lua_newtable(L);
-  lua_pushstring(L, "h_Entry");
+  lua_pushstring(L, "h_MinNode");
   lua_rawseti(L, -2, 1);
-  lua_pushstring(L, "h_SubEntry");
+  lua_pushstring(L, "h_Entry");
   lua_rawseti(L, -2, 2);
-  lua_pushstring(L, "h_Data");
+  lua_pushstring(L, "h_SubEntry");
   lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "h_Data");
+  lua_rawseti(L, -2, 4);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -4742,6 +7987,21 @@ _lua_gen_List_newindex(lua_State *L)
 {
   List *obj = *(List **)luaL_checkudata(L, 1, "List");
   const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "lh_Head") == 0) {
+    // finder 1
+    obj->lh_Head = *(Node **)luaL_checkudata(L, 3, "Node");
+    return 0;
+  }
+  if (strcmp(key, "lh_Tail") == 0) {
+    // finder 1
+    obj->lh_Tail = *(Node **)luaL_checkudata(L, 3, "Node");
+    return 0;
+  }
+  if (strcmp(key, "lh_TailPred") == 0) {
+    // finder 1
+    obj->lh_TailPred = *(Node **)luaL_checkudata(L, 3, "Node");
+    return 0;
+  }
   if (strcmp(key, "lh_Type") == 0) {
     obj->lh_Type = (UBYTE)luaL_checkinteger(L, 3);
     return 0;
@@ -4788,6 +8048,27 @@ _lua_gen_List_index(lua_State *L)
 {
   List *obj = *(List **)luaL_checkudata(L, 1, "List");
   const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "lh_Head") == 0) {
+    Node **ud = (Node **)lua_newuserdata(L, sizeof(Node *));
+    *ud = (Node*)obj->lh_Head;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "lh_Tail") == 0) {
+    Node **ud = (Node **)lua_newuserdata(L, sizeof(Node *));
+    *ud = (Node*)obj->lh_Tail;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "lh_TailPred") == 0) {
+    Node **ud = (Node **)lua_newuserdata(L, sizeof(Node *));
+    *ud = (Node*)obj->lh_TailPred;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
   if (strcmp(key, "lh_Type") == 0) {
     lua_pushinteger(L, obj->lh_Type);
     return 1;
@@ -4803,10 +8084,16 @@ static void
 _lua_gen_List_install_keys(lua_State *L)
 {
   lua_newtable(L);
-  lua_pushstring(L, "lh_Type");
+  lua_pushstring(L, "lh_Head");
   lua_rawseti(L, -2, 1);
-  lua_pushstring(L, "l_pad");
+  lua_pushstring(L, "lh_Tail");
   lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "lh_TailPred");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "lh_Type");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "l_pad");
+  lua_rawseti(L, -2, 5);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -8583,6 +11870,20 @@ _lua_gen_install_defines(lua_State *L)
 static void
 _lua_gen_installGeneratedMetaTables(lua_State *L)
 {
+  _lua_gen_install_meta_Resident(L);
+  _lua_gen_install_meta_Interrupt(L);
+  _lua_gen_install_meta_MemHeader(L);
+  _lua_gen_install_meta_MemList(L);
+  _lua_gen_install_meta_Node(L);
+  _lua_gen_install_meta_MinList(L);
+  _lua_gen_install_meta_MinNode(L);
+  _lua_gen_install_meta_Task(L);
+  _lua_gen_install_meta_Library(L);
+  _lua_gen_install_meta_Device(L);
+  _lua_gen_install_meta_IORequest(L);
+  _lua_gen_install_meta_SignalSemaphore(L);
+  _lua_gen_install_meta_SemaphoreMessage(L);
+  _lua_gen_install_meta_StackSwapStruct(L);
   _lua_gen_install_meta_Window(L);
   _lua_gen_install_meta_RastPort(L);
   _lua_gen_install_meta_TagItem(L);
@@ -8629,10 +11930,116 @@ _lua_gen_installGeneratedFunctions(lua_State *L)
   lua_register(L, "Open", _lua_Open);
   lua_register(L, "Read", _lua_Read);
   lua_register(L, "PutStr", _lua_PutStr);
+  lua_register(L, "InitCode", _lua_InitCode);
+  lua_register(L, "InitStruct", _lua_InitStruct);
+  lua_register(L, "FindResident", _lua_FindResident);
+  lua_register(L, "InitResident", _lua_InitResident);
+  lua_register(L, "Alert", _lua_Alert);
+  lua_register(L, "Debug", _lua_Debug);
+  lua_register(L, "Disable", _lua_Disable);
+  lua_register(L, "Enable", _lua_Enable);
+  lua_register(L, "Forbid", _lua_Forbid);
+  lua_register(L, "Permit", _lua_Permit);
+  lua_register(L, "SetSR", _lua_SetSR);
+  lua_register(L, "SuperState", _lua_SuperState);
+  lua_register(L, "UserState", _lua_UserState);
+  lua_register(L, "AddIntServer", _lua_AddIntServer);
+  lua_register(L, "RemIntServer", _lua_RemIntServer);
+  lua_register(L, "Cause", _lua_Cause);
+  lua_register(L, "Allocate", _lua_Allocate);
   lua_register(L, "AllocMem", _lua_AllocMem);
+  lua_register(L, "AllocAbs", _lua_AllocAbs);
+  lua_register(L, "FreeMem", _lua_FreeMem);
+  lua_register(L, "AvailMem", _lua_AvailMem);
+  lua_register(L, "AllocEntry", _lua_AllocEntry);
+  lua_register(L, "FreeEntry", _lua_FreeEntry);
+  lua_register(L, "AddHead", _lua_AddHead);
+  lua_register(L, "AddHeadMinList", _lua_AddHeadMinList);
+  lua_register(L, "AddTail", _lua_AddTail);
+  lua_register(L, "AddTailMinList", _lua_AddTailMinList);
+  lua_register(L, "Remove", _lua_Remove);
+  lua_register(L, "RemoveMinNode", _lua_RemoveMinNode);
+  lua_register(L, "RemHead", _lua_RemHead);
+  lua_register(L, "RemHeadMinList", _lua_RemHeadMinList);
+  lua_register(L, "RemTail", _lua_RemTail);
+  lua_register(L, "RemTailMinList", _lua_RemTailMinList);
+  lua_register(L, "Enqueue", _lua_Enqueue);
+  lua_register(L, "FindName", _lua_FindName);
+  lua_register(L, "AddTask", _lua_AddTask);
+  lua_register(L, "RemTask", _lua_RemTask);
+  lua_register(L, "FindTask", _lua_FindTask);
+  lua_register(L, "SetTaskPri", _lua_SetTaskPri);
+  lua_register(L, "SetSignal", _lua_SetSignal);
+  lua_register(L, "SetExcept", _lua_SetExcept);
+  lua_register(L, "Wait", _lua_Wait);
+  lua_register(L, "Signal", _lua_Signal);
+  lua_register(L, "AllocSignal", _lua_AllocSignal);
+  lua_register(L, "FreeSignal", _lua_FreeSignal);
+  lua_register(L, "AllocTrap", _lua_AllocTrap);
+  lua_register(L, "FreeTrap", _lua_FreeTrap);
+  lua_register(L, "AddPort", _lua_AddPort);
+  lua_register(L, "RemPort", _lua_RemPort);
+  lua_register(L, "PutMsg", _lua_PutMsg);
   lua_register(L, "GetMsg", _lua_GetMsg);
   lua_register(L, "ReplyMsg", _lua_ReplyMsg);
   lua_register(L, "WaitPort", _lua_WaitPort);
+  lua_register(L, "FindPort", _lua_FindPort);
+  lua_register(L, "AddLibrary", _lua_AddLibrary);
+  lua_register(L, "RemLibrary", _lua_RemLibrary);
+  lua_register(L, "OldOpenLibrary", _lua_OldOpenLibrary);
+  lua_register(L, "CloseLibrary", _lua_CloseLibrary);
+  lua_register(L, "SumLibrary", _lua_SumLibrary);
+  lua_register(L, "AddDevice", _lua_AddDevice);
+  lua_register(L, "RemDevice", _lua_RemDevice);
+  lua_register(L, "CloseDevice", _lua_CloseDevice);
+  lua_register(L, "DoIO", _lua_DoIO);
+  lua_register(L, "SendIO", _lua_SendIO);
+  lua_register(L, "CheckIO", _lua_CheckIO);
+  lua_register(L, "WaitIO", _lua_WaitIO);
+  lua_register(L, "AbortIO", _lua_AbortIO);
+  lua_register(L, "AddResource", _lua_AddResource);
+  lua_register(L, "RemResource", _lua_RemResource);
+  lua_register(L, "OpenResource", _lua_OpenResource);
+  lua_register(L, "GetCC", _lua_GetCC);
+  lua_register(L, "TypeOfMem", _lua_TypeOfMem);
+  lua_register(L, "Procure", _lua_Procure);
+  lua_register(L, "Vacate", _lua_Vacate);
+  lua_register(L, "OpenLibrary", _lua_OpenLibrary);
+  lua_register(L, "InitSemaphore", _lua_InitSemaphore);
+  lua_register(L, "ObtainSemaphore", _lua_ObtainSemaphore);
+  lua_register(L, "ReleaseSemaphore", _lua_ReleaseSemaphore);
+  lua_register(L, "AttemptSemaphore", _lua_AttemptSemaphore);
+  lua_register(L, "ObtainSemaphoreList", _lua_ObtainSemaphoreList);
+  lua_register(L, "ReleaseSemaphoreList", _lua_ReleaseSemaphoreList);
+  lua_register(L, "FindSemaphore", _lua_FindSemaphore);
+  lua_register(L, "AddSemaphore", _lua_AddSemaphore);
+  lua_register(L, "RemSemaphore", _lua_RemSemaphore);
+  lua_register(L, "SumKickData", _lua_SumKickData);
+  lua_register(L, "CopyMem", _lua_CopyMem);
+  lua_register(L, "CopyMemQuick", _lua_CopyMemQuick);
+  lua_register(L, "CacheClearU", _lua_CacheClearU);
+  lua_register(L, "CacheClearE", _lua_CacheClearE);
+  lua_register(L, "CacheControl", _lua_CacheControl);
+  lua_register(L, "CreateIORequest", _lua_CreateIORequest);
+  lua_register(L, "DeleteIORequest", _lua_DeleteIORequest);
+  lua_register(L, "CreateMsgPort", _lua_CreateMsgPort);
+  lua_register(L, "DeleteMsgPort", _lua_DeleteMsgPort);
+  lua_register(L, "ObtainSemaphoreShared", _lua_ObtainSemaphoreShared);
+  lua_register(L, "AllocVec", _lua_AllocVec);
+  lua_register(L, "FreeVec", _lua_FreeVec);
+  lua_register(L, "CreatePool", _lua_CreatePool);
+  lua_register(L, "DeletePool", _lua_DeletePool);
+  lua_register(L, "AllocPooled", _lua_AllocPooled);
+  lua_register(L, "FreePooled", _lua_FreePooled);
+  lua_register(L, "AttemptSemaphoreShared", _lua_AttemptSemaphoreShared);
+  lua_register(L, "ColdReboot", _lua_ColdReboot);
+  lua_register(L, "StackSwap", _lua_StackSwap);
+  lua_register(L, "CachePreDMA", _lua_CachePreDMA);
+  lua_register(L, "CachePostDMA", _lua_CachePostDMA);
+  lua_register(L, "AddMemHandler", _lua_AddMemHandler);
+  lua_register(L, "RemMemHandler", _lua_RemMemHandler);
+  lua_register(L, "ObtainQuickVector", _lua_ObtainQuickVector);
+  lua_register(L, "NewMinList", _lua_NewMinList);
   lua_register(L, "Text", _lua_Text);
   lua_register(L, "OpenFont", _lua_OpenFont);
   lua_register(L, "CloseFont", _lua_CloseFont);
