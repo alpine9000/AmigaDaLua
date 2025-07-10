@@ -2,22 +2,50 @@ import sys
 import clang.cindex
 import re
 
-TYPE_CONFIG = {    
+TYPE_CONFIG = {
+    #AmigaDaLua custom types
+    "GadgetPtr": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    
+    #Exec
+    "Message": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "MsgPort": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "List": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},    
+
+    #Utility
+    "TagItem": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "Hook": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},    
+    
+    #Intuition
     "Window": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
     "NewWindow": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},    
     "RastPort": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
-    "TagItem": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
-    "MsgPort": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
-    "Message": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
     "IntuiMessage": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "View": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "ViewPort": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "IntuiText": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
     "Screen": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
-    "NewGadget": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
-    "Gadget": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
-    "GadgetPtr": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
-    "Requester": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
-    "TextAttr": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "NewScreen": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "IClass": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "DrawInfo": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "ScreenBuffer": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "GadgetInfo": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "Image":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
     "StringInfo": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
-    "TextFont":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "TextAttr": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "TextFont":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},    
+    "Gadget": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "Requester": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "Menu":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "MenuItem":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "BitMap":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "DBufInfo":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},    
+    
+    #GadTools
+    "NewGadget": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "NewMenu":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+
+    #Devices
+    "InputEvent": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
 }
 
 ENUM_CONFIG = []
@@ -27,15 +55,22 @@ DEFINE_CONFIGS = [
     "MEMF_PUBLIC", "MEMF_CLEAR", "MEMF_CHIP", "MEMF_FAST",
     "MODE_OLDFILE", "MODE_NEWFILE", "MODE_READWRITE",
     "DOSTRUE", "DOSFALSE",
-    "WA_AutoAdjust", "WA_InnerHeight", "WA_Title","WA_Width","WA_Height","WA_Left","WA_Top","WA_CloseGadget","WA_DepthGadget","WA_DragBar",
-    "WA_Activate","WA_SmartRefresh", "WA_MinHeight", "WA_MinWidth", "WA_SizeGadget", "WA_IDCMP","WA_Gadgets","WA_PubScreen","WA_SimpleRefresh",
-    "TAG_END",
-    "IDCMP_CLOSEWINDOW", "IDCMP_GADGETUP", "IDCMP_MOUSEMOVE", "IDCMP_RAWKEY","IDCMP_REFRESHWINDOW", "IDCMP_VANILLAKEY",
-    "BUTTONIDCMP", "SLIDERIDCMP", "STRINGIDCMP",
-    "BUTTON_KIND", "SLIDER_KIND", "STRING_KIND",
-    "NG_HIGHLABEL",
-    "GTSL_Min", "GTSL_Max", "GTSL_Level", "GTSL_LevelFormat", "GTSL_MaxLevelLen", "GT_Underscore",
-    "GTST_String", "GTST_MaxChars", 
+    
+    "WA_Left","WA_Top","WA_Width","WA_Height","WA_DetailPen","WA_BlockPen","WA_IDCMP","WA_Flags","WA_Gadgets","WA_Checkmark","WA_Title",
+    "WA_ScreenTitle","WA_CustomScreen","WA_SuperBitMap","WA_MinWidth","WA_MinHeight","WA_MaxWidth","WA_MaxHeight","WA_InnerWidth","WA_InnerHeight",
+    "WA_PubScreenName","WA_PubScreen","WA_PubScreenFallBack","WA_WindowName","WA_Colors","WA_Zoom","WA_MouseQueue","WA_BackFill","WA_RptQueue",
+    "WA_SizeGadget","WA_DragBar","WA_DepthGadget","WA_CloseGadget","WA_Backdrop","WA_ReportMouse","WA_NoCareRefresh","WA_Borderless","WA_Activate",
+    "WA_RMBTrap","WA_WBenchWindow","WA_SimpleRefresh","WA_SmartRefresh","WA_SizeBRight","WA_SizeBBottom","WA_AutoAdjust","WA_GimmeZeroZero",
+    "WA_MenuHelp","WA_NewLookMenus","WA_AmigaKey","WA_NotifyDepth","WA_Pointer","WA_BusyPointer","WA_PointerDelay","WA_TabletMessages",
+    "WA_HelpGroup","WA_HelpGroupWindow","WA_Hidden","WA_PointerType","WA_IconifyGadget", "TAG_END",
+    
+    "IDCMP_SIZEVERIFY","IDCMP_NEWSIZE","IDCMP_REFRESHWINDOW","IDCMP_MOUSEBUTTONS","IDCMP_MOUSEMOVE","IDCMP_GADGETDOWN","IDCMP_GADGETUP",
+    "IDCMP_REQSET","IDCMP_MENUPICK","IDCMP_CLOSEWINDOW","IDCMP_RAWKEY","IDCMP_REQVERIFY","IDCMP_REQCLEAR","IDCMP_MENUVERIFY","IDCMP_NEWPREFS",
+    "IDCMP_DISKINSERTED","IDCMP_DISKREMOVED","IDCMP_WBENCHMESSAGE","IDCMP_ACTIVEWINDOW","IDCMP_INACTIVEWINDOW","IDCMP_DELTAMOVE","IDCMP_VANILLAKEY",
+    "IDCMP_INTUITICKS","IDCMP_IDCMPUPDATE","IDCMP_MENUHELP","IDCMP_CHANGEWINDOW","IDCMP_GADGETHELP","IDCMP_EXTENDEDMOUSE","IDCMP_LONELYMESSAGE",
+
+    #gadtools.h
+    "GENERIC_KIND","BUTTON_KIND","CHECKBOX_KIND","INTEGER_KIND","LISTVIEW_KIND","MX_KIND","NUMBER_KIND","CYCLE_KIND","PALETTE_KIND","SCROLLER_KIND","SLIDER_KIND","STRING_KIND","TEXT_KIND","NUM_KINDS","ARROWIDCMP","BUTTONIDCMP","CHECKBOXIDCMP","INTEGERIDCMP","LISTVIEWIDCMP","MXIDCMP","NUMBERIDCMP","CYCLEIDCMP","PALETTEIDCMP","SCROLLERIDCMP","SLIDERIDCMP","STRINGIDCMP","TEXTIDCMP","PLACETEXT_LEFT","PLACETEXT_RIGHT","PLACETEXT_ABOVE","PLACETEXT_BELOW","PLACETEXT_IN","NG_HIGHLABEL","NG_GRIDLAYOUT","MENU_IMAGE","NM_TITLE","NM_ITEM","NM_SUB","IM_ITEM","IM_SUB","NM_END","NM_IGNORE","NM_BARLABEL","NM_MENUDISABLED","NM_ITEMDISABLED","NM_COMMANDSTRING","NM_FLAGMASK","NM_FLAGMASK_V39","GTMENU_TRIMMED","GTMENU_INVALID","GTMENU_NOMEM","MX_WIDTH","MX_HEIGHT","CHECKBOX_WIDTH","CHECKBOX_HEIGHT","GT_TagBase","GTVI_NewWindow","GTVI_NWTags","GT_Private0","GTCB_Checked","GTLV_Top","GTLV_Labels","GTLV_ReadOnly","GTLV_ScrollWidth","GTMX_Labels","GTMX_Active","GTTX_Text","GTTX_CopyText","GTNM_Number","GTCY_Labels","GTCY_Active","GTPA_Depth","GTPA_Color","GTPA_ColorOffset","GTPA_IndicatorWidth","GTPA_IndicatorHeight","GTSC_Top","GTSC_Total","GTSC_Visible","GTSC_Overlap","GTSL_Min","GTSL_Max","GTSL_Level","GTSL_MaxLevelLen","GTSL_LevelFormat","GTSL_LevelPlace","GTSL_DispFunc","GTST_String","GTST_MaxChars","GTIN_Number","GTIN_MaxChars","GTMN_TextAttr","GTMN_FrontPen","GTBB_Recessed","GT_VisualInfo","GTLV_ShowSelected","GTLV_Selected","GT_Reserved1","GTTX_Border","GTNM_Border","GTSC_Arrows","GTMN_Menu","GTMX_Spacing","GTMN_FullMenu","GTMN_SecondaryError","GT_Underscore","GTST_EditHook","GTIN_EditHook","GTMN_Checkmark","GTMN_AmigaKey","GTMN_NewLookMenus","GTCB_Scaled","GTMX_Scaled","GTPA_NumColors","GTMX_TitlePlace","GTTX_FrontPen","GTTX_BackPen","GTTX_Justification","GTNM_FrontPen","GTNM_BackPen","GTNM_Justification","GTNM_Format","GTNM_MaxNumberLen","GTBB_FrameType","GTLV_MakeVisible","GTLV_ItemHeight","GTSL_MaxPixelLen","GTSL_Justification","GTPA_ColorTable","GTLV_CallBack","GTLV_MaxPen","GTTX_Clipped","GTNM_Clipped","GTBB_reserved1","GTMN_reserved1","GTLV_Total","GTLV_Visible","GTBB_Scale","GTBB_Headline","GTBB_HeadlinePen","GTBB_HeadlineFont","GTVI_LeftBorder","GTVI_TopBorder","GTVI_AlignRight","GTVI_AlignBottom","GTVI_MinFontWidth","GTVI_MinFontHeight","GTMX_ScaledSpacing","GT_Reserved0","GTJ_LEFT","GTJ_RIGHT","GTJ_CENTER","BBFT_BUTTON","BBFT_RIDGE","BBFT_ICONDROPBOX","BBFT_DISPLAY","BBFT_CTXTFRAME","INTERWIDTH","INTERHEIGHT","NWAY_KIND","NWAYIDCMP","GTNW_Labels","GTNW_Active","GADTOOLBIT","GADTOOLMASK","LV_DRAW","LVCB_OK","LVCB_UNKNOWN","LVR_NORMAL","LVR_SELECTED","LVR_NORMALDISABLED","LVR_SELECTEDDISABLED"
 ]
 
 FUNCTION_CONFIG = [
@@ -52,17 +87,37 @@ FUNCTION_CONFIG = [
     "LockPubScreen", "UnlockPubScreen", "CloseWindow", "OpenFont", "CloseFont",
     
     "TO_CONST_STRPTR", "TO_IntuiMessage",
-    # GadTools
-    "CreateContext", "GT_RefreshWindow", "GT_GetIMsg", "GT_ReplyIMsg", "GT_BeginRefresh", "GT_EndRefresh",
-    "ActivateGadget",
-    "FreeGadgets", "FreeVisualInfo"
+    
+    #gadtools_lib.sfd
+    "CreateContext", "FreeGadgets", "FreeMenus", "FreeVisualInfo", "GTReserved2", "GTReserved3", "GTReserved4", "GTReserved5", "GT_BeginRefresh", "GT_EndRefresh", "GT_FilterIMsg", "GT_GetIMsg", "GT_PostFilterIMsg", "GT_RefreshWindow", "GT_ReplyIMsg",
+
+    #intuition_lib.sfd
+    "ActivateWindow", "AddClass", "AlohaWorkbench", "BeginRefresh", "ChangeScreenBuffer", "ClearDMRequest", "ClearMenuStrip", "ClearPointer", "CloseScreen", "CloseWindow", "CloseWorkBench", "CurrentTime", "DisplayAlert", "DisplayBeep", "DisposeObject", "EndRefresh", "EndRequest", "FindClass", "FreeClass", "FreeScreenBuffer", "FreeSysRequest", "GetAttr", "GetDefaultPubScreen", "GetScreenDrawInfo", "HelpControl", "HideWindow", "InitRequester", "IntuiTextLength", "Intuition", "ItemAddress", "LendMenus", "LockIBase", "LockPubScreen", "LockPubScreenList", "MakeScreen", "ModifyIDCMP", "MoveScreen", "MoveWindow", "NextObject", "NextPubScreen", "ObtainGIRPort", "OffMenu", "OnMenu", "OpenIntuition", "OpenScreen", "OpenWindow", "OpenWorkBench", "PointInImage", "PubScreenStatus", "RefreshWindowFrame", "ReleaseGIRPort", "RemakeDisplay", "RemoveClass", "RemoveGadget", "ReportMouse", "ReportMouse1", "Request", "ResetMenuStrip", "RethinkDisplay", "ScreenDepth", "ScreenToBack", "ScreenToFront", "SetDMRequest", "SetDefaultPubScreen", "SetEditHook", "SetIPrefs", "SetMenuStrip", "SetMouseQueue", "SetPubScreenModes", "ShowTitle", "ShowWindow", "SizeWindow", "TimedDisplayAlert", "UnlockIBase", "UnlockPubScreen", "UnlockPubScreenList", "ViewAddress", "ViewPortAddress", "WBenchToBack", "WBenchToFront", "WindowToBack", "WindowToFront", "ZipWindow", "lockPubClass", "unlockPubClass",
+    # not working yet - "FreeRemember",
 ]
 
 TAGS_FUNCTION_CONFIG = [
     { "name": "CreateGadget", "tagList": "CreateGadgetA"},
     { "name": "OpenWindowTags", "tagList": "OpenWindowTagList"},
     { "name": "GetVisualInfo", "tagList": "GetVisualInfoA"},
-    { "name": "GT_SetGadgetAttrs", "tagList": "GT_SetGadgetAttrsA"},    
+    { "name": "GT_SetGadgetAttrs", "tagList": "GT_SetGadgetAttrsA"},
+
+     #gadtools_lib.sfd
+     { "name": "CreateGadget", "tagList": "CreateGadgetA" },
+     { "name": "CreateMenus", "tagList": "CreateMenusA" },
+     { "name": "DrawBevelBox", "tagList": "DrawBevelBoxA" },
+     { "name": "GT_GetGadgetAttrs", "tagList": "GT_GetGadgetAttrsA" },
+     { "name": "GT_SetGadgetAttrs", "tagList": "GT_SetGadgetAttrsA" },
+     { "name": "GetVisualInfo", "tagList": "GetVisualInfoA" },
+     { "name": "LayoutMenuItems", "tagList": "LayoutMenuItemsA" },
+     { "name": "LayoutMenus", "tagList": "LayoutMenusA" },
+     { "name": "ScaleGadgetRect", "tagList": "ScaleGadgetRectA" },
+     { "name": "SetDesignFont", "tagList": "SetDesignFontA" },
+
+     #intuition_lib.sfd     
+     { "name": "IntuitionControl", "tagList": "IntuitionControlA" },
+     { "name": "SetAttrs", "tagList": "SetAttrsA" },
+     { "name": "SetWindowPointer", "tagList": "SetWindowPointerA" }
 ]
 
 FAKE_FUNCTION_CONFIG = [
@@ -98,9 +153,11 @@ READ_TYPE_TO_LUA = {
     'CONST_STRPTR': 'lua_pushstring',
     'STRPTR': 'lua_pushstring',
     'APTR': 'lua_pushlightuserdata',
+    'CONST_APTR': 'lua_pushlightuserdata',
     'BPTR': 'lua_pushinteger',
     'LONG': 'lua_pushinteger',
     'ULONG': 'lua_pushinteger',
+    'ULONG *': 'lua_pushlightuserdata',
     'BYTE': 'lua_pushinteger',
     'UBYTE': 'lua_pushinteger',
     'WORD': 'lua_pushinteger',
@@ -122,13 +179,15 @@ WRITE_TYPE_FROM_LUA = {
     'double': 'luaL_checknumber',
     'char *': 'luaL_checkstring',
     'void *': 'lua_touserdata',
-    'CONST_STRPTR': 'amiga_checkNullableString',
+    'CONST_STRPTR': 'amiga_checkConstNullableString',
     'STRPTR': 'amiga_checkNullableString',    
     'LONG': 'luaL_checkinteger',
     'BPTR': 'luaL_checkinteger',
     'APTR': 'lua_touserdata',
+    'CONST_APTR': 'lua_touserdata',    
     'LONG': 'luaL_checkinteger',
     'ULONG': 'luaL_checkinteger',
+    'ULONG *': 'lua_touserdata',    
     'BYTE': 'luaL_checkinteger',
     'UBYTE': 'luaL_checkinteger',
     'WORD': 'luaL_checkinteger',
@@ -640,7 +699,7 @@ def generate_lua_function(node, fake, isBool):
     args = [(arg.spelling, arg.type.spelling) for arg in node.get_arguments()]
 
     print("static int\n_lua_" + function_name + "(lua_State* L)\n{")
-
+    print("  (void)L;")
     arg1 = "UNDEFINED"
     for i, arg in enumerate(node.get_arguments()):
         sig = extract_function_pointer_signature(arg.type)
@@ -687,7 +746,7 @@ def generate_lua_tags_function(node):
     function_name = node.spelling
     ret_type = node.result_type.spelling
     #args = [(arg.spelling, arg.type.spelling) for arg in node.get_arguments()]
-    args = [(arg.spelling, arg.type.spelling) for arg in node.get_arguments() if "tag1Type" not in arg.spelling]
+    args = [(arg.spelling, arg.type.spelling) for arg in node.get_arguments() if "tag1" not in arg.spelling]
 
     print("static int\n_lua_" + function_name + "(lua_State* L)\n{")
 
@@ -714,7 +773,7 @@ def generate_lua_tags_function(node):
             print(f"  }}")
             args[i] = (f"{arg1}->{name}", args[i][1])
         else:
-            if "tag1Type" in name:
+            if "tag1" in name:
                 count = count - 1
                 pass
             else:

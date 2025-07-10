@@ -8,6 +8,9 @@ _amiga_readVarTags(lua_State* L, TagItem* taglist, int maxTags, int argNum);
 static int
 _amiga_doTagList(lua_State* L, struct TagItem* tags, uint16_t maxTags, uint16_t argNumber);
 
+#undef NM_BARLABEL
+#define NM_BARLABEL ((uint32_t)(STRPTR)-1)
+
 #include "_lua_gen.h"
 
 static int
@@ -137,11 +140,21 @@ _amiga_newGadgetPtr(lua_State *L)
 }
 
 const char *
-amiga_checkNullableString(lua_State *L, int stackIndex)
+amiga_checkConstNullableString(lua_State *L, int stackIndex)
 {
   const char* result = 0;
   if (!lua_isnoneornil(L, 1)) {
     result = luaL_checkstring(L, stackIndex);
+  }
+  return result;
+}
+
+char *
+amiga_checkNullableString(lua_State *L, int stackIndex)
+{
+  char* result = 0;
+  if (!lua_isnoneornil(L, 1)) {
+    result = (char*)luaL_checkstring(L, stackIndex);
   }
   return result;
 }

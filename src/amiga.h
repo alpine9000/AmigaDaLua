@@ -33,13 +33,30 @@ typedef struct MsgPort MsgPort;
 typedef struct Message Message;
 typedef struct IntuiMessage IntuiMessage;
 typedef struct Gadget Gadget;
+typedef struct View View;
+typedef struct ViewPort ViewPort;
+typedef struct IntuiText IntuiText;
 typedef struct Screen Screen;
+typedef struct Hook Hook;
+typedef struct List List;
+typedef struct GadgetInfo GadgetInfo;
+typedef struct Image Image;
+typedef struct IClass IClass;
+typedef struct DrawInfo DrawInfo;
+typedef struct ScreenBuffer ScreenBuffer;
+typedef struct NewScreen NewScreen;
 typedef struct NewGadget NewGadget;
 typedef struct NewWindow NewWindow;
 typedef struct Requester Requester;
 typedef struct TextAttr TextAttr;
 typedef struct StringInfo StringInfo;
 typedef struct TextFont TextFont;
+typedef struct NewMenu NewMenu;
+typedef struct Menu Menu;
+typedef struct MenuItem MenuItem;
+typedef struct InputEvent InputEvent;
+typedef struct BitMap BitMap;
+typedef struct DBufInfo DBufInfo;
 
 struct GadgetPtr{
     Gadget *ptr;
@@ -63,4 +80,7 @@ struct Gadget **
 amiga_checkGadgetPtr(lua_State *L, int stackIndex);
 
 const char *
+amiga_checkConstNullableString(lua_State *L, int stackIndex);
+
+char *
 amiga_checkNullableString(lua_State *L, int stackIndex);
