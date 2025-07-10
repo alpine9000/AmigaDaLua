@@ -48,7 +48,7 @@ typedef struct InfoData InfoData;
 // TODO
 //typedef struct Window Window;
 typedef struct RastPort RastPort;
-typedef struct TagItem TagItem;
+//typedef struct TagItem TagItem;
 typedef struct RastPort RastPort;
 typedef struct MsgPort MsgPort;
 typedef struct Message Message;
@@ -69,7 +69,7 @@ typedef struct NewScreen NewScreen;
 typedef struct NewGadget NewGadget;
 typedef struct NewWindow NewWindow;
 typedef struct Requester Requester;
-typedef struct TextAttr TextAttr;
+//typedef struct TextAttr TextAttr;
 typedef struct StringInfo StringInfo;
 typedef struct TextFont TextFont;
 typedef struct NewMenu NewMenu;

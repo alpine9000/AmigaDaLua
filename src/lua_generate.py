@@ -44,7 +44,7 @@ TYPE_CONFIG = {
     "StackSwapStruct":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
 
     #Utility
-    "TagItem": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "TagItem": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "Hook": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},    
     
     #Intuition
@@ -63,7 +63,7 @@ TYPE_CONFIG = {
     "GadgetInfo": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
     "Image":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
     "StringInfo": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
-    "TextAttr": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
+    "TextAttr": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "TextFont":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},    
     "Gadget": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
     "Requester": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
@@ -263,11 +263,11 @@ def parse_ctype(ctype):
         if tag in TYPE_CONFIG:
             struct = TYPE_CONFIG[tag].get("struct")
             if not struct:
-                return tag, pointer_level
+                return tag, pointer_level, tag
             else:
-                return base, pointer_level
+                return base, pointer_level, tag
 
-    return base, pointer_level
+    return base, pointer_level, base
 
 def get_struct_fields(cursor):
     fields = []
@@ -314,13 +314,13 @@ def get_struct_fields(cursor):
 
     return fields
 
-def generate_lua_index(struct_name, fields, functors):
+def generate_lua_index(struct_name, type_name, fields, functors):
     if struct_name in indexes:
         return
     else:
         indexes.add(struct_name)    
     print(f"static int\n_lua_gen_{struct_name}_index(lua_State *L)\n{{")
-    print(f"  {struct_name} *obj = *({struct_name} **)luaL_checkudata(L, 1, \"{struct_name}\");")
+    print(f"  {type_name} *obj = *({type_name} **)luaL_checkudata(L, 1, \"{struct_name}\");")
     print("  const char *key = luaL_checkstring(L, 2);")
     for name, ctype in fields:
         if not name:
@@ -351,13 +351,15 @@ def generate_lua_index(struct_name, fields, functors):
             print("    return 1;")
             print("  }")
         else:
-            base, pointer_level = parse_ctype(ctype)
-            if base in TYPE_CONFIG:
+            base, pointer_level, tag = parse_ctype(ctype)
+
+            
+            if tag in TYPE_CONFIG:
                 if pointer_level == 0:
                     print(f"  if (strcmp(key, \"{name}\") == 0) {{")
                     print(f"    {base} **ud = ({base} **)lua_newuserdata(L, sizeof({base} *));")
                     print(f"    *ud = ({base}*)&obj->{name};")
-                    print(f"    luaL_getmetatable(L, \"{base}\");")
+                    print(f"    luaL_getmetatable(L, \"{tag}\");")
                     print("    lua_setmetatable(L, -2);")
                     print("    return 1;")
                     print("  }")
@@ -365,7 +367,7 @@ def generate_lua_index(struct_name, fields, functors):
                     print(f"  if (strcmp(key, \"{name}\") == 0) {{")
                     print(f"    {base} **ud = ({base} **)lua_newuserdata(L, sizeof({base} *));")
                     print(f"    *ud = ({base}*)obj->{name};")
-                    print(f"    luaL_getmetatable(L, \"{base}\");")
+                    print(f"    luaL_getmetatable(L, \"{tag}\");")
                     print("    lua_setmetatable(L, -2);")
                     print("    return 1;")
                     print("  }")
@@ -401,13 +403,13 @@ def generate_thunk_externs(struct_name, fields):
     print("\n")
 
     
-def generate_lua_newindex(struct_name, fields, functors):
+def generate_lua_newindex(struct_name, type_name, fields, functors):
     if struct_name in newindexes:
         return
     else:
         newindexes.add(struct_name)
     print(f"static int\n_lua_gen_{struct_name}_newindex(lua_State *L)\n{{")
-    print(f"  {struct_name} *obj = *({struct_name} **)luaL_checkudata(L, 1, \"{struct_name}\");")
+    print(f"  {type_name} *obj = *({type_name} **)luaL_checkudata(L, 1, \"{struct_name}\");")
     print("  const char *key = luaL_checkstring(L, 2);")
 
     for name, ctype in fields:
@@ -469,25 +471,25 @@ def generate_lua_newindex(struct_name, fields, functors):
 
         # Struct pointers and values
         else:
-            base, pointer_level = parse_ctype(ctype)
-            if base in TYPE_CONFIG:
+            base, pointer_level, tag = parse_ctype(ctype)
+            if tag in TYPE_CONFIG:
                 if pointer_level == 0:
                     print(f"  if (strcmp(key, \"{name}\") == 0) {{")
                     print(f"    // finder 0")
-                    print(f"    {base} *val = *({base} **)luaL_checkudata(L, 3, \"{base}\");")
+                    print(f"    {base} *val = *({base} **)luaL_checkudata(L, 3, \"{tag}\");")
                     print(f"    obj->{name} = *val;")
                     print("    return 0;")
                     print("  }")
                 elif pointer_level == 1:
                     print(f"  if (strcmp(key, \"{name}\") == 0) {{")
                     print(f"    // finder 1")                    
-                    print(f"    obj->{name} = *({base} **)luaL_checkudata(L, 3, \"{base}\");")
+                    print(f"    obj->{name} = *({base} **)luaL_checkudata(L, 3, \"{tag}\");")
                     print("    return 0;")
                     print("  }")
                 elif pointer_level == 2:
                     print(f"  if (strcmp(key, \"{name}\") == 0) {{")
                     print(f"    // finder 2")                    
-                    print(f"    {base} *val = *({base} **)luaL_checkudata(L, 3, \"{base}\");")
+                    print(f"    {base} *val = *({base} **)luaL_checkudata(L, 3, \"{tag}\");")
                     print(f"    *obj->{name} = val;")
                     print("    return 0;")
                     print("  }")
@@ -498,11 +500,11 @@ def generate_lua_newindex(struct_name, fields, functors):
     print(f"static int")
     print(f"_lua_{struct_name}_constructor(lua_State *L)")
     print(f"{{")
-    print(f"  // Allocate pointer-to-{struct_name} in userdata")
-    print(f"  {struct_name} **objp = lua_newuserdata(L, sizeof({struct_name} *));")
-    print(f"  *objp = malloc(sizeof({struct_name}));")
+    print(f"  // Allocate pointer-to-{type_name} in userdata")
+    print(f"  {type_name} **objp = lua_newuserdata(L, sizeof({type_name} *));")
+    print(f"  *objp = malloc(sizeof({type_name}));")
     print(f"  if (!*objp) return luaL_error(L, \"out of memory\");")
-    print(f"  memset(*objp, 0, sizeof({struct_name}));")
+    print(f"  memset(*objp, 0, sizeof({type_name}));")
     print()
     print(f"  // Set metatable")
     print(f"  luaL_getmetatable(L, \"{struct_name}\");")
@@ -566,7 +568,7 @@ def generate_lua_keys_installer(struct_name, fields):
     for name, ctype in fields:
         if not name:
             continue
-        base, _ = parse_ctype(ctype)
+        base, _, tag = parse_ctype(ctype)
         if (
             base in READ_TYPE_TO_LUA or
             base in TYPE_CONFIG or
@@ -972,23 +974,38 @@ def find_typedef_structs(cursor):
                 generate_lua_function(node, True, True)                                
             if node.spelling in BOOL_FUNCTION_CONFIG:
                 generate_lua_function(node, False, True)                
-        if node.kind == clang.cindex.CursorKind.TYPEDEF_DECL:
+        if node.kind == clang.cindex.CursorKind.TYPEDEF_DECL or clang.cindex.CursorKind.STRUCT_DECL:
             if node.spelling in ENUM_CONFIG:
                  underlying = node.underlying_typedef_type.get_declaration()
                  if underlying.kind == clang.cindex.CursorKind.ENUM_DECL:
                      generate_lua_enum(node, underlying)
-            if node.spelling in TYPE_CONFIG:
-                struct_def = node.underlying_typedef_type.get_declaration()
-                if struct_def.kind == clang.cindex.CursorKind.STRUCT_DECL and struct_def.is_definition():
+
+            lookup = node.spelling
+            typename = node.spelling
+            if lookup in TYPE_CONFIG:
+                struct_def = None
+                process = False
+                if node.kind == clang.cindex.CursorKind.STRUCT_DECL:
+                    if TYPE_CONFIG[lookup].get("struct"):
+                        struct_def = node.type.get_declaration()
+                        typename = f"struct {lookup}"
+                        process = True
+                if node.kind == clang.cindex.CursorKind.TYPEDEF_DECL:
+                    struct_def = node.underlying_typedef_type.get_declaration()
+                    if struct_def.kind == clang.cindex.CursorKind.STRUCT_DECL and struct_def.is_definition():
+                        typename = lookup
+                        process = True
+                    
+                if process:
                     fields = get_struct_fields(struct_def)
                     config = TYPE_CONFIG[node.spelling]
                     functors =  config.get("functors")         
                     if config.get("newindex"):
                         if functors:
                             generate_thunk_externs(node.spelling, fields)
-                        generate_lua_newindex(node.spelling, fields, functors)
+                        generate_lua_newindex(node.spelling, typename, fields, functors)
                     if config.get("index"):
-                        generate_lua_index(node.spelling, fields, functors)                        
+                        generate_lua_index(node.spelling, typename, fields, functors)                        
                     if config.get("keys"):
                         generate_lua_keys_installer(node.spelling, fields)
                     if config.get("metainstall"):

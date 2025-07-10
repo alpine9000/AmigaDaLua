@@ -4,7 +4,7 @@
 
 #define countof(x) (sizeof(x) / sizeof(x[0]))
 static int
-_amiga_readVarTags(lua_State* L, TagItem* taglist, int maxTags, int argNum);
+_amiga_readVarTags(lua_State* L, struct TagItem* taglist, int maxTags, int argNum);
 static int
 _amiga_doTagList(lua_State* L, struct TagItem* tags, uint16_t maxTags, uint16_t argNumber);
 
@@ -14,7 +14,7 @@ _amiga_doTagList(lua_State* L, struct TagItem* tags, uint16_t maxTags, uint16_t 
 #include "_lua_gen.h"
 
 static int
-_amiga_readVarTags(lua_State* L, TagItem* taglist, int maxTags, int argNum)
+_amiga_readVarTags(lua_State* L, struct TagItem* taglist, int maxTags, int argNum)
 {
   int nargs = lua_gettop(L);
   if ((nargs - (argNum-1)) % 2 != 0) {
@@ -188,7 +188,7 @@ _amiga_getGadget(lua_State* L)
     return 0;
   }
   
-  Gadget* ptr = (Gadget*)raw;
+  struct Gadget* ptr = (struct Gadget*)raw;
   _lua_gen_pushGadget(L, ptr);
   return 1;
 }
@@ -202,7 +202,7 @@ _amiga_getStringInfo(lua_State* L)
     return 0;
   }
   
-  StringInfo* ptr = (StringInfo*)raw;
+  struct StringInfo* ptr = (struct StringInfo*)raw;
   _lua_gen_pushStringInfo(L, ptr);
   return 1;
 }
