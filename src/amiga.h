@@ -16,12 +16,14 @@
 #include <intuition/intuition.h>
 #include <intuition/screens.h>
 #include <intuition/intuitionbase.h>
+#include <intuition/imageclass.h>
 #include <exec/libraries.h>
 #include <exec/types.h>
 #include <exec/execbase.h>
 #include <exec/ports.h>
 #include <exec/execbase.h>
 #include <graphics/rastport.h>
+#include <graphics/videocontrol.h>
 #include <libraries/gadtools.h>
 
 typedef struct {

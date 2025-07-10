@@ -5,8 +5,10 @@
 #define countof(x) (sizeof(x) / sizeof(x[0]))
 static int
 _amiga_readVarTags(lua_State* L, struct TagItem* taglist, int maxTags, int argNum);
-static int
-_amiga_doTagList(lua_State* L, struct TagItem* tags, uint16_t maxTags, uint16_t argNumber);
+static int _amiga_doTagList(lua_State *L, struct TagItem *tags,
+                            uint16_t maxTags, uint16_t argNumber);
+static void
+_amiga_push_u16array_proxy(lua_State *L, uint16_t *array, int count);
 
 #undef NM_BARLABEL
 #define NM_BARLABEL ((uint32_t)(STRPTR)-1)
@@ -174,7 +176,7 @@ static int
 _amiga_getPtr(lua_State* L)
 {
   void** ptr = lua_touserdata(L, 1);
-  
+
   lua_pushinteger(L, (uintptr_t)*ptr);
   return 1;
 }
@@ -193,6 +195,7 @@ _amiga_getGadget(lua_State* L)
   return 1;
 }
 
+
 int
 _amiga_getStringInfo(lua_State* L)
 {
@@ -207,13 +210,129 @@ _amiga_getStringInfo(lua_State* L)
   return 1;
 }
 
+int lua_u16array_index(lua_State *L) {
+    uint16_t *array = lua_touserdata(L, lua_upvalueindex(1));
+    int count       = lua_tointeger(L, lua_upvalueindex(2));
+
+    // if key is not a number, let normal lookup proceed
+    if (!lua_isinteger(L, 2)) {
+        lua_getmetatable(L, 1);
+        lua_pushvalue(L, 2);
+        lua_rawget(L, -2);
+        return 1;
+    }
+    
+    int index = luaL_checkinteger(L, 2);
+    if (index < 1 || index > count)
+        return luaL_error(L, "index out of range (1..%d)", count);
+
+    lua_pushinteger(L, array[index - 1]);
+    return 1;
+}
+
+int lua_u16array_newindex(lua_State *L) {
+    uint16_t *array = lua_touserdata(L, lua_upvalueindex(1));
+    int count       = lua_tointeger(L, lua_upvalueindex(2));
+
+    int index = luaL_checkinteger(L, 2);
+    if (index < 1 || index > count)
+        return luaL_error(L, "index out of range (1..%d)", count);
+
+    uint16_t val = luaL_checkinteger(L, 3);
+
+    array[index-1] = val;
+    return 0;
+}
+
+static int
+_amiga_u16array_element_ptr(lua_State *L)
+{
+  uint16_t *array = lua_touserdata(L, lua_upvalueindex(1));
+  int count       = lua_tointeger(L, lua_upvalueindex(2));
+  
+  int index = luaL_checkinteger(L, 1);
+  if (index < 1 || index > count)
+    return luaL_error(L, "index out of range (1..%d)", count);
+  // Return as lightuserdata (raw pointer)
+  lua_pushlightuserdata(L, &array[index - 1]);
+  return 1;
+}
+
+static void
+_amiga_push_u16array_proxy(lua_State *L, uint16_t *array, int count)
+{
+    lua_newtable(L); // the proxy
+
+    lua_pushlightuserdata(L, array);
+    lua_pushinteger(L, count);
+
+    lua_pushcclosure(L, lua_u16array_index, 2);
+    lua_setfield(L, -2, "__index");
+
+    lua_pushlightuserdata(L, array);
+    lua_pushinteger(L, count);
+
+    lua_pushcclosure(L, lua_u16array_newindex, 2);
+    lua_setfield(L, -2, "__newindex");
+
+    lua_pushlightuserdata(L, array);
+    lua_pushinteger(L, count);
+    lua_pushcclosure(L, _amiga_u16array_element_ptr, 2);
+    lua_setfield(L, -2, "ptr");
+    
+    lua_setmetatable(L, -2);
+}
+
+
+static void
+_amiga_push_u16array_metatable(lua_State *L, uint16_t *array, int count) {
+    luaL_newmetatable(L, "u16array_proxy");
+
+    lua_pushlightuserdata(L, array);
+    lua_pushinteger(L, count);
+    lua_pushcclosure(L, lua_u16array_index, 2);
+    lua_setfield(L, -2, "__index");
+
+    lua_pushlightuserdata(L, array);
+    lua_pushinteger(L, count);
+    lua_pushcclosure(L, lua_u16array_newindex, 2);
+    lua_setfield(L, -2, "__newindex");
+
+    lua_setmetatable(L, -2);    
+}
+
+static int
+_amiga_create_u16array(lua_State *L) {
+    int n = luaL_len(L, 1);
+    uint16_t *data = lua_newuserdata(L, n * sizeof(uint16_t));
+
+    for (int i = 0; i < n; i++) {
+        lua_rawgeti(L, 1, i + 1);
+	data[i] = (uint16_t)luaL_checkinteger(L, -1);
+        lua_pop(L, 1);
+    }
+
+    _amiga_push_u16array_metatable(L, data, n);  // bind proxy metatable
+    return 1;
+}
+
 void
 lua_install(lua_State* L)
 {
+  extern struct Custom custom;
+  struct Custom **ud = (struct Custom **)lua_newuserdata(L, sizeof(struct Custom *));
+  *ud = &custom;
+  luaL_getmetatable(L, "Custom");
+  lua_setmetatable(L, -2);
+  lua_setglobal(L, "custom");
+  
   lua_register(L, "NewGadgetList", _amiga_newGadgetPtr);
   lua_register(L, "GetPtr", _amiga_getPtr);
   lua_register(L, "GetGadget", _amiga_getGadget);
   lua_register(L, "GetStringInfo", _amiga_getStringInfo);
+
+  lua_pushcfunction(L, _amiga_create_u16array);
+  lua_setglobal(L, "CreateArrayUWORD");
 }
 
 
