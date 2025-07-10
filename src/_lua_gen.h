@@ -1,6 +1,384 @@
 // generated with lua_generate.py - run: python3 lua_generate.py amiga.h > _lua_gen.h
 
 void
+_lua_gen_pushDateStamp(lua_State *L, struct DateStamp* obj)
+{
+  if (obj) {
+    struct DateStamp **ud = (struct DateStamp **)lua_newuserdata(L, sizeof(struct DateStamp *));
+    *ud = obj;
+    luaL_getmetatable(L, "DateStamp");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct DateStamp*
+_lua_gen_checkDateStamp(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct DateStamp **ud = (struct DateStamp **)luaL_checkudata(L, stackIndex, "DateStamp");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushProcess(lua_State *L, struct Process* obj)
+{
+  if (obj) {
+    struct Process **ud = (struct Process **)lua_newuserdata(L, sizeof(struct Process *));
+    *ud = obj;
+    luaL_getmetatable(L, "Process");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct Process*
+_lua_gen_checkProcess(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct Process **ud = (struct Process **)luaL_checkudata(L, stackIndex, "Process");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushDosPacket(lua_State *L, struct DosPacket* obj)
+{
+  if (obj) {
+    struct DosPacket **ud = (struct DosPacket **)lua_newuserdata(L, sizeof(struct DosPacket *));
+    *ud = obj;
+    luaL_getmetatable(L, "DosPacket");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct DosPacket*
+_lua_gen_checkDosPacket(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct DosPacket **ud = (struct DosPacket **)luaL_checkudata(L, stackIndex, "DosPacket");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushSegment(lua_State *L, struct Segment* obj)
+{
+  if (obj) {
+    struct Segment **ud = (struct Segment **)lua_newuserdata(L, sizeof(struct Segment *));
+    *ud = obj;
+    luaL_getmetatable(L, "Segment");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct Segment*
+_lua_gen_checkSegment(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct Segment **ud = (struct Segment **)luaL_checkudata(L, stackIndex, "Segment");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushCommandLineInterface(lua_State *L, struct CommandLineInterface* obj)
+{
+  if (obj) {
+    struct CommandLineInterface **ud = (struct CommandLineInterface **)lua_newuserdata(L, sizeof(struct CommandLineInterface *));
+    *ud = obj;
+    luaL_getmetatable(L, "CommandLineInterface");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct CommandLineInterface*
+_lua_gen_checkCommandLineInterface(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct CommandLineInterface **ud = (struct CommandLineInterface **)luaL_checkudata(L, stackIndex, "CommandLineInterface");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushDosList(lua_State *L, struct DosList* obj)
+{
+  if (obj) {
+    struct DosList **ud = (struct DosList **)lua_newuserdata(L, sizeof(struct DosList *));
+    *ud = obj;
+    luaL_getmetatable(L, "DosList");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct DosList*
+_lua_gen_checkDosList(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct DosList **ud = (struct DosList **)luaL_checkudata(L, stackIndex, "DosList");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushDevProc(lua_State *L, struct DevProc* obj)
+{
+  if (obj) {
+    struct DevProc **ud = (struct DevProc **)lua_newuserdata(L, sizeof(struct DevProc *));
+    *ud = obj;
+    luaL_getmetatable(L, "DevProc");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct DevProc*
+_lua_gen_checkDevProc(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct DevProc **ud = (struct DevProc **)luaL_checkudata(L, stackIndex, "DevProc");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushRecordLock(lua_State *L, struct RecordLock* obj)
+{
+  if (obj) {
+    struct RecordLock **ud = (struct RecordLock **)lua_newuserdata(L, sizeof(struct RecordLock *));
+    *ud = obj;
+    luaL_getmetatable(L, "RecordLock");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct RecordLock*
+_lua_gen_checkRecordLock(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct RecordLock **ud = (struct RecordLock **)luaL_checkudata(L, stackIndex, "RecordLock");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushRDArgs(lua_State *L, struct RDArgs* obj)
+{
+  if (obj) {
+    struct RDArgs **ud = (struct RDArgs **)lua_newuserdata(L, sizeof(struct RDArgs *));
+    *ud = obj;
+    luaL_getmetatable(L, "RDArgs");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct RDArgs*
+_lua_gen_checkRDArgs(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct RDArgs **ud = (struct RDArgs **)luaL_checkudata(L, stackIndex, "RDArgs");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushAnchorPath(lua_State *L, struct AnchorPath* obj)
+{
+  if (obj) {
+    struct AnchorPath **ud = (struct AnchorPath **)lua_newuserdata(L, sizeof(struct AnchorPath *));
+    *ud = obj;
+    luaL_getmetatable(L, "AnchorPath");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct AnchorPath*
+_lua_gen_checkAnchorPath(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct AnchorPath **ud = (struct AnchorPath **)luaL_checkudata(L, stackIndex, "AnchorPath");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushLocalVar(lua_State *L, struct LocalVar* obj)
+{
+  if (obj) {
+    struct LocalVar **ud = (struct LocalVar **)lua_newuserdata(L, sizeof(struct LocalVar *));
+    *ud = obj;
+    luaL_getmetatable(L, "LocalVar");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct LocalVar*
+_lua_gen_checkLocalVar(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct LocalVar **ud = (struct LocalVar **)luaL_checkudata(L, stackIndex, "LocalVar");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushNotifyRequest(lua_State *L, struct NotifyRequest* obj)
+{
+  if (obj) {
+    struct NotifyRequest **ud = (struct NotifyRequest **)lua_newuserdata(L, sizeof(struct NotifyRequest *));
+    *ud = obj;
+    luaL_getmetatable(L, "NotifyRequest");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct NotifyRequest*
+_lua_gen_checkNotifyRequest(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct NotifyRequest **ud = (struct NotifyRequest **)luaL_checkudata(L, stackIndex, "NotifyRequest");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushDateTime(lua_State *L, struct DateTime* obj)
+{
+  if (obj) {
+    struct DateTime **ud = (struct DateTime **)lua_newuserdata(L, sizeof(struct DateTime *));
+    *ud = obj;
+    luaL_getmetatable(L, "DateTime");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct DateTime*
+_lua_gen_checkDateTime(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct DateTime **ud = (struct DateTime **)luaL_checkudata(L, stackIndex, "DateTime");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushWindow(lua_State *L, struct Window* obj)
+{
+  if (obj) {
+    struct Window **ud = (struct Window **)lua_newuserdata(L, sizeof(struct Window *));
+    *ud = obj;
+    luaL_getmetatable(L, "Window");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct Window*
+_lua_gen_checkWindow(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct Window **ud = (struct Window **)luaL_checkudata(L, stackIndex, "Window");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
 _lua_gen_pushResident(lua_State *L, struct Resident* obj)
 {
   if (obj) {
@@ -379,23 +757,50 @@ _lua_gen_checkStackSwapStruct(lua_State* L, int stackIndex)
 }
 
 void
-_lua_gen_pushWindow(lua_State *L, struct Window* obj)
+_lua_gen_pushFileInfoBlock(lua_State *L, struct FileInfoBlock* obj)
 {
   if (obj) {
-    struct Window **ud = (struct Window **)lua_newuserdata(L, sizeof(struct Window *));
+    struct FileInfoBlock **ud = (struct FileInfoBlock **)lua_newuserdata(L, sizeof(struct FileInfoBlock *));
     *ud = obj;
-    luaL_getmetatable(L, "Window");
+    luaL_getmetatable(L, "FileInfoBlock");
     lua_setmetatable(L, -2);
   } else {
     lua_pushnil(L);
   }
 }
 
-struct Window*
-_lua_gen_checkWindow(lua_State* L, int stackIndex)
+struct FileInfoBlock*
+_lua_gen_checkFileInfoBlock(lua_State* L, int stackIndex)
 {
    if (!lua_isnoneornil(L, stackIndex)) {
-      struct Window **ud = (struct Window **)luaL_checkudata(L, stackIndex, "Window");
+      struct FileInfoBlock **ud = (struct FileInfoBlock **)luaL_checkudata(L, stackIndex, "FileInfoBlock");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
+_lua_gen_pushInfoData(lua_State *L, struct InfoData* obj)
+{
+  if (obj) {
+    struct InfoData **ud = (struct InfoData **)lua_newuserdata(L, sizeof(struct InfoData *));
+    *ud = obj;
+    luaL_getmetatable(L, "InfoData");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct InfoData*
+_lua_gen_checkInfoData(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct InfoData **ud = (struct InfoData **)luaL_checkudata(L, stackIndex, "InfoData");
       if (!ud) {
         return 0;
       }
@@ -1247,8 +1652,18 @@ _lua_Open(lua_State* L)
   (void)L;
   CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
   LONG accessMode = luaL_checkinteger(L, 2);
-  BPTR result = Open(name, accessMode);
-  lua_pushinteger(L, result);
+  BPTR _result = Open(name, accessMode);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Close(lua_State* L)
+{
+  (void)L;
+  BPTR file = luaL_checkinteger(L, 1);
+  LONG _result = Close(file);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1259,8 +1674,1500 @@ _lua_Read(lua_State* L)
   BPTR file = luaL_checkinteger(L, 1);
   APTR buffer = lua_touserdata(L, 2);
   LONG length = luaL_checkinteger(L, 3);
-  LONG result = Read(file, buffer, length);
-  lua_pushinteger(L, result);
+  LONG _result = Read(file, buffer, length);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Write(lua_State* L)
+{
+  (void)L;
+  BPTR file = luaL_checkinteger(L, 1);
+  CONST_APTR buffer = lua_touserdata(L, 2);
+  LONG length = luaL_checkinteger(L, 3);
+  LONG _result = Write(file, buffer, length);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Input(lua_State* L)
+{
+  (void)L;
+  BPTR _result = Input();
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Output(lua_State* L)
+{
+  (void)L;
+  BPTR _result = Output();
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Seek(lua_State* L)
+{
+  (void)L;
+  BPTR file = luaL_checkinteger(L, 1);
+  LONG position = luaL_checkinteger(L, 2);
+  LONG offset = luaL_checkinteger(L, 3);
+  LONG _result = Seek(file, position, offset);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_DeleteFile(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  LONG _result = DeleteFile(name);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Rename(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR oldName = amiga_checkConstNullableString(L, 1);
+  CONST_STRPTR newName = amiga_checkConstNullableString(L, 2);
+  LONG _result = Rename(oldName, newName);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Lock(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  LONG type = luaL_checkinteger(L, 2);
+  BPTR _result = Lock(name, type);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_UnLock(lua_State* L)
+{
+  (void)L;
+  BPTR lock = luaL_checkinteger(L, 1);
+  UnLock(lock);
+  return 0;
+}
+
+static int
+_lua_DupLock(lua_State* L)
+{
+  (void)L;
+  BPTR lock = luaL_checkinteger(L, 1);
+  BPTR _result = DupLock(lock);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Examine(lua_State* L)
+{
+  (void)L;
+  BPTR lock = luaL_checkinteger(L, 1);
+  struct FileInfoBlock * fileInfoBlock = _lua_gen_checkFileInfoBlock(L, 2);
+  LONG _result = Examine(lock, fileInfoBlock);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_ExNext(lua_State* L)
+{
+  (void)L;
+  BPTR lock = luaL_checkinteger(L, 1);
+  struct FileInfoBlock * fileInfoBlock = _lua_gen_checkFileInfoBlock(L, 2);
+  LONG _result = ExNext(lock, fileInfoBlock);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Info(lua_State* L)
+{
+  (void)L;
+  BPTR lock = luaL_checkinteger(L, 1);
+  struct InfoData * parameterBlock = _lua_gen_checkInfoData(L, 2);
+  LONG _result = Info(lock, parameterBlock);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_CreateDir(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  BPTR _result = CreateDir(name);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_CurrentDir(lua_State* L)
+{
+  (void)L;
+  BPTR lock = luaL_checkinteger(L, 1);
+  BPTR _result = CurrentDir(lock);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_IoErr(lua_State* L)
+{
+  (void)L;
+  LONG _result = IoErr();
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Exit(lua_State* L)
+{
+  (void)L;
+  LONG returnCode = luaL_checkinteger(L, 1);
+  Exit(returnCode);
+  return 0;
+}
+
+static int
+_lua_LoadSeg(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  BPTR _result = LoadSeg(name);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_UnLoadSeg(lua_State* L)
+{
+  (void)L;
+  BPTR seglist = luaL_checkinteger(L, 1);
+  UnLoadSeg(seglist);
+  return 0;
+}
+
+static int
+_lua_DeviceProc(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  struct MsgPort * _result = DeviceProc(name);
+  _lua_gen_pushMsgPort(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetComment(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  CONST_STRPTR comment = amiga_checkConstNullableString(L, 2);
+  LONG _result = SetComment(name, comment);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetProtection(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  LONG protect = luaL_checkinteger(L, 2);
+  LONG _result = SetProtection(name, protect);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_DateStamp(lua_State* L)
+{
+  (void)L;
+  struct DateStamp * date = _lua_gen_checkDateStamp(L, 1);
+  struct DateStamp * _result = DateStamp(date);
+  _lua_gen_pushDateStamp(L, _result);
+  return 1;
+}
+
+static int
+_lua_Delay(lua_State* L)
+{
+  (void)L;
+  LONG timeout = luaL_checkinteger(L, 1);
+  Delay(timeout);
+  return 0;
+}
+
+static int
+_lua_WaitForChar(lua_State* L)
+{
+  (void)L;
+  BPTR file = luaL_checkinteger(L, 1);
+  LONG timeout = luaL_checkinteger(L, 2);
+  LONG _result = WaitForChar(file, timeout);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_ParentDir(lua_State* L)
+{
+  (void)L;
+  BPTR lock = luaL_checkinteger(L, 1);
+  BPTR _result = ParentDir(lock);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_IsInteractive(lua_State* L)
+{
+  (void)L;
+  BPTR file = luaL_checkinteger(L, 1);
+  LONG _result = IsInteractive(file);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Execute(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR string = amiga_checkConstNullableString(L, 1);
+  BPTR file = luaL_checkinteger(L, 2);
+  BPTR file2 = luaL_checkinteger(L, 3);
+  LONG _result = Execute(string, file, file2);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_AllocDosObject(lua_State* L)
+{
+  (void)L;
+  ULONG type = luaL_checkinteger(L, 1);
+  const struct TagItem * tags = _lua_gen_checkTagItem(L, 2);
+  APTR _result = AllocDosObject(type, tags);
+  lua_pushlightuserdata(L, _result);
+  return 1;
+}
+
+static int
+_lua_AllocDosObjectTagList(lua_State* L)
+{
+  (void)L;
+  ULONG type = luaL_checkinteger(L, 1);
+  const struct TagItem * tags = _lua_gen_checkTagItem(L, 2);
+  APTR _result = AllocDosObjectTagList(type, tags);
+  lua_pushlightuserdata(L, _result);
+  return 1;
+}
+
+static int
+_lua_AllocDosObjectTags(lua_State* L)
+{
+  (void)L;
+  ULONG type = luaL_checkinteger(L, 1);
+  ULONG tag1type = luaL_checkinteger(L, 2);
+  APTR _result = AllocDosObjectTags(type, tag1type);
+  lua_pushlightuserdata(L, _result);
+  return 1;
+}
+
+static int
+_lua_FreeDosObject(lua_State* L)
+{
+  (void)L;
+  ULONG type = luaL_checkinteger(L, 1);
+  APTR ptr = lua_touserdata(L, 2);
+  FreeDosObject(type, ptr);
+  return 0;
+}
+
+static int
+_lua_DoPkt0(lua_State* L)
+{
+  (void)L;
+  struct MsgPort * port = _lua_gen_checkMsgPort(L, 1);
+  LONG action = luaL_checkinteger(L, 2);
+  LONG _result = DoPkt0(port, action);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_DoPkt1(lua_State* L)
+{
+  (void)L;
+  struct MsgPort * port = _lua_gen_checkMsgPort(L, 1);
+  LONG action = luaL_checkinteger(L, 2);
+  LONG arg1 = luaL_checkinteger(L, 3);
+  LONG _result = DoPkt1(port, action, arg1);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_WaitPkt(lua_State* L)
+{
+  (void)L;
+  struct DosPacket * _result = WaitPkt();
+  _lua_gen_pushDosPacket(L, _result);
+  return 1;
+}
+
+static int
+_lua_ReplyPkt(lua_State* L)
+{
+  (void)L;
+  struct DosPacket * dp = _lua_gen_checkDosPacket(L, 1);
+  LONG res1 = luaL_checkinteger(L, 2);
+  LONG res2 = luaL_checkinteger(L, 3);
+  ReplyPkt(dp, res1, res2);
+  return 0;
+}
+
+static int
+_lua_AbortPkt(lua_State* L)
+{
+  (void)L;
+  struct MsgPort * port = _lua_gen_checkMsgPort(L, 1);
+  struct DosPacket * pkt = _lua_gen_checkDosPacket(L, 2);
+  AbortPkt(port, pkt);
+  return 0;
+}
+
+static int
+_lua_LockRecords(lua_State* L)
+{
+  (void)L;
+  const struct RecordLock * recArray = _lua_gen_checkRecordLock(L, 1);
+  ULONG timeout = luaL_checkinteger(L, 2);
+  BOOL _result = LockRecords(recArray, timeout);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_UnLockRecord(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  ULONG offset = luaL_checkinteger(L, 2);
+  ULONG length = luaL_checkinteger(L, 3);
+  BOOL _result = UnLockRecord(fh, offset, length);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_UnLockRecords(lua_State* L)
+{
+  (void)L;
+  const struct RecordLock * recArray = _lua_gen_checkRecordLock(L, 1);
+  BOOL _result = UnLockRecords(recArray);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_SelectInput(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  BPTR _result = SelectInput(fh);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_SelectOutput(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  BPTR _result = SelectOutput(fh);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_FGetC(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  LONG _result = FGetC(fh);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_FPutC(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  LONG ch = luaL_checkinteger(L, 2);
+  LONG _result = FPutC(fh, ch);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_UnGetC(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  LONG character = luaL_checkinteger(L, 2);
+  LONG _result = UnGetC(fh, character);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_FRead(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  APTR block = lua_touserdata(L, 2);
+  ULONG blocklen = luaL_checkinteger(L, 3);
+  ULONG number = luaL_checkinteger(L, 4);
+  LONG _result = FRead(fh, block, blocklen, number);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_FWrite(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  CONST_APTR block = lua_touserdata(L, 2);
+  ULONG blocklen = luaL_checkinteger(L, 3);
+  ULONG number = luaL_checkinteger(L, 4);
+  LONG _result = FWrite(fh, block, blocklen, number);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_FGets(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  STRPTR buf = amiga_checkNullableString(L, 2);
+  ULONG buflen = luaL_checkinteger(L, 3);
+  STRPTR _result = FGets(fh, buf, buflen);
+  lua_pushstring(L, _result);
+  return 1;
+}
+
+static int
+_lua_FPuts(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  CONST_STRPTR str = amiga_checkConstNullableString(L, 2);
+  LONG _result = FPuts(fh, str);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_VFWritef(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  CONST_STRPTR format = amiga_checkConstNullableString(L, 2);
+  const LONG * argarray = lua_touserdata(L, 3);
+  VFWritef(fh, format, argarray);
+  return 0;
+}
+
+static int
+_lua_FWritef(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  CONST_STRPTR format = amiga_checkConstNullableString(L, 2);
+  FWritef(fh, format);
+  return 0;
+}
+
+static int
+_lua_VFPrintf(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  CONST_STRPTR format = amiga_checkConstNullableString(L, 2);
+  CONST_APTR argarray = lua_touserdata(L, 3);
+  LONG _result = VFPrintf(fh, format, argarray);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_FPrintf(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  CONST_STRPTR format = amiga_checkConstNullableString(L, 2);
+  LONG _result = FPrintf(fh, format);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Flush(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  LONG _result = Flush(fh);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetVBuf(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  STRPTR buff = amiga_checkNullableString(L, 2);
+  LONG type = luaL_checkinteger(L, 3);
+  LONG size = luaL_checkinteger(L, 4);
+  LONG _result = SetVBuf(fh, buff, type, size);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_DupLockFromFH(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  BPTR _result = DupLockFromFH(fh);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_OpenFromLock(lua_State* L)
+{
+  (void)L;
+  BPTR lock = luaL_checkinteger(L, 1);
+  BPTR _result = OpenFromLock(lock);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_ParentOfFH(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  BPTR _result = ParentOfFH(fh);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_ExamineFH(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  struct FileInfoBlock * fib = _lua_gen_checkFileInfoBlock(L, 2);
+  BOOL _result = ExamineFH(fh, fib);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetFileDate(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  const struct DateStamp * date = _lua_gen_checkDateStamp(L, 2);
+  LONG _result = SetFileDate(name, date);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_NameFromLock(lua_State* L)
+{
+  (void)L;
+  BPTR lock = luaL_checkinteger(L, 1);
+  STRPTR buffer = amiga_checkNullableString(L, 2);
+  LONG len = luaL_checkinteger(L, 3);
+  LONG _result = NameFromLock(lock, buffer, len);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_NameFromFH(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  STRPTR buffer = amiga_checkNullableString(L, 2);
+  LONG len = luaL_checkinteger(L, 3);
+  LONG _result = NameFromFH(fh, buffer, len);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_SameLock(lua_State* L)
+{
+  (void)L;
+  BPTR lock1 = luaL_checkinteger(L, 1);
+  BPTR lock2 = luaL_checkinteger(L, 2);
+  LONG _result = SameLock(lock1, lock2);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetMode(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  LONG mode = luaL_checkinteger(L, 2);
+  LONG _result = SetMode(fh, mode);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_MakeLink(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  LONG dest = luaL_checkinteger(L, 2);
+  LONG soft = luaL_checkinteger(L, 3);
+  LONG _result = MakeLink(name, dest, soft);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_ChangeMode(lua_State* L)
+{
+  (void)L;
+  LONG type = luaL_checkinteger(L, 1);
+  BPTR fh = luaL_checkinteger(L, 2);
+  LONG newmode = luaL_checkinteger(L, 3);
+  LONG _result = ChangeMode(type, fh, newmode);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetFileSize(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  LONG pos = luaL_checkinteger(L, 2);
+  LONG mode = luaL_checkinteger(L, 3);
+  LONG _result = SetFileSize(fh, pos, mode);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetIoErr(lua_State* L)
+{
+  (void)L;
+  LONG result = luaL_checkinteger(L, 1);
+  LONG _result = SetIoErr(result);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Fault(lua_State* L)
+{
+  (void)L;
+  LONG code = luaL_checkinteger(L, 1);
+  CONST_STRPTR header = amiga_checkConstNullableString(L, 2);
+  STRPTR buffer = amiga_checkNullableString(L, 3);
+  LONG len = luaL_checkinteger(L, 4);
+  BOOL _result = Fault(code, header, buffer, len);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_PrintFault(lua_State* L)
+{
+  (void)L;
+  LONG code = luaL_checkinteger(L, 1);
+  CONST_STRPTR header = amiga_checkConstNullableString(L, 2);
+  BOOL _result = PrintFault(code, header);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_Cli(lua_State* L)
+{
+  (void)L;
+  struct CommandLineInterface * _result = Cli();
+  _lua_gen_pushCommandLineInterface(L, _result);
+  return 1;
+}
+
+static int
+_lua_CreateNewProc(lua_State* L)
+{
+  (void)L;
+  const struct TagItem * tags = _lua_gen_checkTagItem(L, 1);
+  struct Process * _result = CreateNewProc(tags);
+  _lua_gen_pushProcess(L, _result);
+  return 1;
+}
+
+static int
+_lua_CreateNewProcTagList(lua_State* L)
+{
+  (void)L;
+  const struct TagItem * tags = _lua_gen_checkTagItem(L, 1);
+  struct Process * _result = CreateNewProcTagList(tags);
+  _lua_gen_pushProcess(L, _result);
+  return 1;
+}
+
+static int
+_lua_CreateNewProcTags(lua_State* L)
+{
+  (void)L;
+  ULONG tag1type = luaL_checkinteger(L, 1);
+  struct Process * _result = CreateNewProcTags(tag1type);
+  _lua_gen_pushProcess(L, _result);
+  return 1;
+}
+
+static int
+_lua_GetConsoleTask(lua_State* L)
+{
+  (void)L;
+  struct MsgPort * _result = GetConsoleTask();
+  _lua_gen_pushMsgPort(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetConsoleTask(lua_State* L)
+{
+  (void)L;
+  struct MsgPort * task = _lua_gen_checkMsgPort(L, 1);
+  struct MsgPort * _result = SetConsoleTask(task);
+  _lua_gen_pushMsgPort(L, _result);
+  return 1;
+}
+
+static int
+_lua_GetFileSysTask(lua_State* L)
+{
+  (void)L;
+  struct MsgPort * _result = GetFileSysTask();
+  _lua_gen_pushMsgPort(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetFileSysTask(lua_State* L)
+{
+  (void)L;
+  struct MsgPort * task = _lua_gen_checkMsgPort(L, 1);
+  struct MsgPort * _result = SetFileSysTask(task);
+  _lua_gen_pushMsgPort(L, _result);
+  return 1;
+}
+
+static int
+_lua_GetArgStr(lua_State* L)
+{
+  (void)L;
+  STRPTR _result = GetArgStr();
+  lua_pushstring(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetArgStr(lua_State* L)
+{
+  (void)L;
+  STRPTR string = amiga_checkNullableString(L, 1);
+  STRPTR _result = SetArgStr(string);
+  lua_pushstring(L, _result);
+  return 1;
+}
+
+static int
+_lua_FindCliProc(lua_State* L)
+{
+  (void)L;
+  ULONG num = luaL_checkinteger(L, 1);
+  struct Process * _result = FindCliProc(num);
+  _lua_gen_pushProcess(L, _result);
+  return 1;
+}
+
+static int
+_lua_MaxCli(lua_State* L)
+{
+  (void)L;
+  ULONG _result = MaxCli();
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetCurrentDirName(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  BOOL _result = SetCurrentDirName(name);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_GetCurrentDirName(lua_State* L)
+{
+  (void)L;
+  STRPTR buf = amiga_checkNullableString(L, 1);
+  LONG len = luaL_checkinteger(L, 2);
+  BOOL _result = GetCurrentDirName(buf, len);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetProgramName(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  BOOL _result = SetProgramName(name);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_GetProgramName(lua_State* L)
+{
+  (void)L;
+  STRPTR buf = amiga_checkNullableString(L, 1);
+  LONG len = luaL_checkinteger(L, 2);
+  BOOL _result = GetProgramName(buf, len);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetPrompt(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  BOOL _result = SetPrompt(name);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_GetPrompt(lua_State* L)
+{
+  (void)L;
+  STRPTR buf = amiga_checkNullableString(L, 1);
+  LONG len = luaL_checkinteger(L, 2);
+  BOOL _result = GetPrompt(buf, len);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetProgramDir(lua_State* L)
+{
+  (void)L;
+  BPTR lock = luaL_checkinteger(L, 1);
+  BPTR _result = SetProgramDir(lock);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_GetProgramDir(lua_State* L)
+{
+  (void)L;
+  BPTR _result = GetProgramDir();
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_SystemTagList(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR command = amiga_checkConstNullableString(L, 1);
+  const struct TagItem * tags = _lua_gen_checkTagItem(L, 2);
+  LONG _result = SystemTagList(command, tags);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_System(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR command = amiga_checkConstNullableString(L, 1);
+  const struct TagItem * tags = _lua_gen_checkTagItem(L, 2);
+  LONG _result = System(command, tags);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_SystemTags(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR command = amiga_checkConstNullableString(L, 1);
+  ULONG tag1type = luaL_checkinteger(L, 2);
+  LONG _result = SystemTags(command, tag1type);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_AssignLock(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  BPTR lock = luaL_checkinteger(L, 2);
+  LONG _result = AssignLock(name, lock);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_AssignLate(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  CONST_STRPTR path = amiga_checkConstNullableString(L, 2);
+  BOOL _result = AssignLate(name, path);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_AssignPath(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  CONST_STRPTR path = amiga_checkConstNullableString(L, 2);
+  BOOL _result = AssignPath(name, path);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_AssignAdd(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  BPTR lock = luaL_checkinteger(L, 2);
+  BOOL _result = AssignAdd(name, lock);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_RemAssignList(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  BPTR lock = luaL_checkinteger(L, 2);
+  LONG _result = RemAssignList(name, lock);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_GetDeviceProc(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  struct DevProc * dp = _lua_gen_checkDevProc(L, 2);
+  struct DevProc * _result = GetDeviceProc(name, dp);
+  _lua_gen_pushDevProc(L, _result);
+  return 1;
+}
+
+static int
+_lua_FreeDeviceProc(lua_State* L)
+{
+  (void)L;
+  struct DevProc * dp = _lua_gen_checkDevProc(L, 1);
+  FreeDeviceProc(dp);
+  return 0;
+}
+
+static int
+_lua_LockDosList(lua_State* L)
+{
+  (void)L;
+  ULONG flags = luaL_checkinteger(L, 1);
+  struct DosList * _result = LockDosList(flags);
+  _lua_gen_pushDosList(L, _result);
+  return 1;
+}
+
+static int
+_lua_UnLockDosList(lua_State* L)
+{
+  (void)L;
+  ULONG flags = luaL_checkinteger(L, 1);
+  UnLockDosList(flags);
+  return 0;
+}
+
+static int
+_lua_AttemptLockDosList(lua_State* L)
+{
+  (void)L;
+  ULONG flags = luaL_checkinteger(L, 1);
+  struct DosList * _result = AttemptLockDosList(flags);
+  _lua_gen_pushDosList(L, _result);
+  return 1;
+}
+
+static int
+_lua_RemDosEntry(lua_State* L)
+{
+  (void)L;
+  struct DosList * dlist = _lua_gen_checkDosList(L, 1);
+  BOOL _result = RemDosEntry(dlist);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_AddDosEntry(lua_State* L)
+{
+  (void)L;
+  struct DosList * dlist = _lua_gen_checkDosList(L, 1);
+  LONG _result = AddDosEntry(dlist);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_NextDosEntry(lua_State* L)
+{
+  (void)L;
+  const struct DosList * dlist = _lua_gen_checkDosList(L, 1);
+  ULONG flags = luaL_checkinteger(L, 2);
+  struct DosList * _result = NextDosEntry(dlist, flags);
+  _lua_gen_pushDosList(L, _result);
+  return 1;
+}
+
+static int
+_lua_MakeDosEntry(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  LONG type = luaL_checkinteger(L, 2);
+  struct DosList * _result = MakeDosEntry(name, type);
+  _lua_gen_pushDosList(L, _result);
+  return 1;
+}
+
+static int
+_lua_FreeDosEntry(lua_State* L)
+{
+  (void)L;
+  struct DosList * dlist = _lua_gen_checkDosList(L, 1);
+  FreeDosEntry(dlist);
+  return 0;
+}
+
+static int
+_lua_IsFileSystem(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  BOOL _result = IsFileSystem(name);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_Format(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR filesystem = amiga_checkConstNullableString(L, 1);
+  CONST_STRPTR volumename = amiga_checkConstNullableString(L, 2);
+  ULONG dostype = luaL_checkinteger(L, 3);
+  BOOL _result = Format(filesystem, volumename, dostype);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_Relabel(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR drive = amiga_checkConstNullableString(L, 1);
+  CONST_STRPTR newname = amiga_checkConstNullableString(L, 2);
+  LONG _result = Relabel(drive, newname);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Inhibit(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  LONG onoff = luaL_checkinteger(L, 2);
+  LONG _result = Inhibit(name, onoff);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_AddBuffers(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  LONG number = luaL_checkinteger(L, 2);
+  LONG _result = AddBuffers(name, number);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_CompareDates(lua_State* L)
+{
+  (void)L;
+  const struct DateStamp * date1 = _lua_gen_checkDateStamp(L, 1);
+  const struct DateStamp * date2 = _lua_gen_checkDateStamp(L, 2);
+  LONG _result = CompareDates(date1, date2);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_DateToStr(lua_State* L)
+{
+  (void)L;
+  struct DateTime * datetime = _lua_gen_checkDateTime(L, 1);
+  LONG _result = DateToStr(datetime);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_StrToDate(lua_State* L)
+{
+  (void)L;
+  struct DateTime * datetime = _lua_gen_checkDateTime(L, 1);
+  LONG _result = StrToDate(datetime);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_NewLoadSeg(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR file = amiga_checkConstNullableString(L, 1);
+  const struct TagItem * tags = _lua_gen_checkTagItem(L, 2);
+  BPTR _result = NewLoadSeg(file, tags);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_NewLoadSegTagList(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR file = amiga_checkConstNullableString(L, 1);
+  const struct TagItem * tags = _lua_gen_checkTagItem(L, 2);
+  BPTR _result = NewLoadSegTagList(file, tags);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_NewLoadSegTags(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR file = amiga_checkConstNullableString(L, 1);
+  ULONG tag1type = luaL_checkinteger(L, 2);
+  BPTR _result = NewLoadSegTags(file, tag1type);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_AddSegment(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  BPTR seg = luaL_checkinteger(L, 2);
+  LONG system = luaL_checkinteger(L, 3);
+  LONG _result = AddSegment(name, seg, system);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_RemSegment(lua_State* L)
+{
+  (void)L;
+  struct Segment * seg = _lua_gen_checkSegment(L, 1);
+  LONG _result = RemSegment(seg);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_CheckSignal(lua_State* L)
+{
+  (void)L;
+  LONG mask = luaL_checkinteger(L, 1);
+  LONG _result = CheckSignal(mask);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_FindArg(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR keyword = amiga_checkConstNullableString(L, 1);
+  CONST_STRPTR arg_template = amiga_checkConstNullableString(L, 2);
+  LONG _result = FindArg(keyword, arg_template);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_StrToLong(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR string = amiga_checkConstNullableString(L, 1);
+  LONG * value = lua_touserdata(L, 2);
+  LONG _result = StrToLong(string, value);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_MatchFirst(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR pat = amiga_checkConstNullableString(L, 1);
+  struct AnchorPath * anchor = _lua_gen_checkAnchorPath(L, 2);
+  LONG _result = MatchFirst(pat, anchor);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_MatchNext(lua_State* L)
+{
+  (void)L;
+  struct AnchorPath * anchor = _lua_gen_checkAnchorPath(L, 1);
+  LONG _result = MatchNext(anchor);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_MatchEnd(lua_State* L)
+{
+  (void)L;
+  struct AnchorPath * anchor = _lua_gen_checkAnchorPath(L, 1);
+  MatchEnd(anchor);
+  return 0;
+}
+
+static int
+_lua_ParsePattern(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR pat = amiga_checkConstNullableString(L, 1);
+  UBYTE * patbuf = lua_touserdata(L, 2);
+  LONG patbuflen = luaL_checkinteger(L, 3);
+  LONG _result = ParsePattern(pat, patbuf, patbuflen);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_MatchPattern(lua_State* L)
+{
+  (void)L;
+  const UBYTE * patbuf = lua_touserdata(L, 1);
+  CONST_STRPTR str = amiga_checkConstNullableString(L, 2);
+  BOOL _result = MatchPattern(patbuf, str);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_FreeArgs(lua_State* L)
+{
+  (void)L;
+  struct RDArgs * args = _lua_gen_checkRDArgs(L, 1);
+  FreeArgs(args);
+  return 0;
+}
+
+static int
+_lua_FilePart(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR path = amiga_checkConstNullableString(L, 1);
+  STRPTR _result = FilePart(path);
+  lua_pushstring(L, _result);
+  return 1;
+}
+
+static int
+_lua_PathPart(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR path = amiga_checkConstNullableString(L, 1);
+  STRPTR _result = PathPart(path);
+  lua_pushstring(L, _result);
+  return 1;
+}
+
+static int
+_lua_AddPart(lua_State* L)
+{
+  (void)L;
+  STRPTR dirname = amiga_checkNullableString(L, 1);
+  CONST_STRPTR filename = amiga_checkConstNullableString(L, 2);
+  ULONG size = luaL_checkinteger(L, 3);
+  BOOL _result = AddPart(dirname, filename, size);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_StartNotify(lua_State* L)
+{
+  (void)L;
+  struct NotifyRequest * notify = _lua_gen_checkNotifyRequest(L, 1);
+  BOOL _result = StartNotify(notify);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_EndNotify(lua_State* L)
+{
+  (void)L;
+  struct NotifyRequest * notify = _lua_gen_checkNotifyRequest(L, 1);
+  EndNotify(notify);
+  return 0;
+}
+
+static int
+_lua_SetVar(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  CONST_STRPTR buffer = amiga_checkConstNullableString(L, 2);
+  LONG size = luaL_checkinteger(L, 3);
+  LONG flags = luaL_checkinteger(L, 4);
+  BOOL _result = SetVar(name, buffer, size, flags);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_GetVar(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  STRPTR buffer = amiga_checkNullableString(L, 2);
+  LONG size = luaL_checkinteger(L, 3);
+  LONG flags = luaL_checkinteger(L, 4);
+  LONG _result = GetVar(name, buffer, size, flags);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_DeleteVar(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  ULONG flags = luaL_checkinteger(L, 2);
+  LONG _result = DeleteVar(name, flags);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_FindVar(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  ULONG type = luaL_checkinteger(L, 2);
+  struct LocalVar * _result = FindVar(name, type);
+  _lua_gen_pushLocalVar(L, _result);
+  return 1;
+}
+
+static int
+_lua_CliInitNewcli(lua_State* L)
+{
+  (void)L;
+  struct DosPacket * dp = _lua_gen_checkDosPacket(L, 1);
+  LONG _result = CliInitNewcli(dp);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_CliInitRun(lua_State* L)
+{
+  (void)L;
+  struct DosPacket * dp = _lua_gen_checkDosPacket(L, 1);
+  LONG _result = CliInitRun(dp);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_WriteChars(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR buf = amiga_checkConstNullableString(L, 1);
+  ULONG buflen = luaL_checkinteger(L, 2);
+  LONG _result = WriteChars(buf, buflen);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1269,8 +3176,155 @@ _lua_PutStr(lua_State* L)
 {
   (void)L;
   CONST_STRPTR str = amiga_checkConstNullableString(L, 1);
-  LONG result = PutStr(str);
-  lua_pushinteger(L, result);
+  LONG _result = PutStr(str);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_VPrintf(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR format = amiga_checkConstNullableString(L, 1);
+  CONST_APTR argarray = lua_touserdata(L, 2);
+  LONG _result = VPrintf(format, argarray);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_Printf(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR format = amiga_checkConstNullableString(L, 1);
+  LONG _result = Printf(format);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_ParsePatternNoCase(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR pat = amiga_checkConstNullableString(L, 1);
+  UBYTE * patbuf = lua_touserdata(L, 2);
+  LONG patbuflen = luaL_checkinteger(L, 3);
+  LONG _result = ParsePatternNoCase(pat, patbuf, patbuflen);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_MatchPatternNoCase(lua_State* L)
+{
+  (void)L;
+  const UBYTE * patbuf = lua_touserdata(L, 1);
+  CONST_STRPTR str = amiga_checkConstNullableString(L, 2);
+  BOOL _result = MatchPatternNoCase(patbuf, str);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_SameDevice(lua_State* L)
+{
+  (void)L;
+  BPTR lock1 = luaL_checkinteger(L, 1);
+  BPTR lock2 = luaL_checkinteger(L, 2);
+  BOOL _result = SameDevice(lock1, lock2);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_SetOwner(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  LONG owner_info = luaL_checkinteger(L, 2);
+  BOOL _result = SetOwner(name, owner_info);
+  lua_pushboolean(L, _result);
+  return 1;
+}
+
+static int
+_lua_VolumeRequestHook(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR vol = amiga_checkConstNullableString(L, 1);
+  LONG _result = VolumeRequestHook(vol);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_GetCurrentDir(lua_State* L)
+{
+  (void)L;
+  BPTR _result = GetCurrentDir();
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_PutErrStr(lua_State* L)
+{
+  (void)L;
+  CONST_STRPTR str = amiga_checkConstNullableString(L, 1);
+  LONG _result = PutErrStr(str);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_ErrorOutput(lua_State* L)
+{
+  (void)L;
+  LONG _result = ErrorOutput();
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_SelectError(lua_State* L)
+{
+  (void)L;
+  BPTR fh = luaL_checkinteger(L, 1);
+  LONG _result = SelectError(fh);
+  lua_pushinteger(L, _result);
+  return 1;
+}
+
+static int
+_lua_DoShellMethodTagList(lua_State* L)
+{
+  (void)L;
+  ULONG method = luaL_checkinteger(L, 1);
+  const struct TagItem * tags = _lua_gen_checkTagItem(L, 2);
+  APTR _result = DoShellMethodTagList(method, tags);
+  lua_pushlightuserdata(L, _result);
+  return 1;
+}
+
+static int
+_lua_DoShellMethod(lua_State* L)
+{
+  (void)L;
+  ULONG method = luaL_checkinteger(L, 1);
+  ULONG tag1type = luaL_checkinteger(L, 2);
+  APTR _result = DoShellMethod(method, tag1type);
+  lua_pushlightuserdata(L, _result);
+  return 1;
+}
+
+static int
+_lua_ScanStackToken(lua_State* L)
+{
+  (void)L;
+  BPTR seg = luaL_checkinteger(L, 1);
+  LONG defaultstack = luaL_checkinteger(L, 2);
+  LONG _result = ScanStackToken(seg, defaultstack);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1300,8 +3354,8 @@ _lua_FindResident(lua_State* L)
 {
   (void)L;
   CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
-  struct Resident * result = FindResident(name);
-  _lua_gen_pushResident(L, result);
+  struct Resident * _result = FindResident(name);
+  _lua_gen_pushResident(L, _result);
   return 1;
 }
 
@@ -1311,8 +3365,8 @@ _lua_InitResident(lua_State* L)
   (void)L;
   const struct Resident * resident = _lua_gen_checkResident(L, 1);
   ULONG segList = luaL_checkinteger(L, 2);
-  APTR result = InitResident(resident, segList);
-  lua_pushlightuserdata(L, result);
+  APTR _result = InitResident(resident, segList);
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -1372,8 +3426,8 @@ _lua_SetSR(lua_State* L)
   (void)L;
   ULONG newSR = luaL_checkinteger(L, 1);
   ULONG mask = luaL_checkinteger(L, 2);
-  ULONG result = SetSR(newSR, mask);
-  lua_pushinteger(L, result);
+  ULONG _result = SetSR(newSR, mask);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1381,8 +3435,8 @@ static int
 _lua_SuperState(lua_State* L)
 {
   (void)L;
-  APTR result = SuperState();
-  lua_pushlightuserdata(L, result);
+  APTR _result = SuperState();
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -1430,8 +3484,8 @@ _lua_Allocate(lua_State* L)
   (void)L;
   struct MemHeader * freeList = _lua_gen_checkMemHeader(L, 1);
   ULONG byteSize = luaL_checkinteger(L, 2);
-  APTR result = Allocate(freeList, byteSize);
-  lua_pushlightuserdata(L, result);
+  APTR _result = Allocate(freeList, byteSize);
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -1441,8 +3495,8 @@ _lua_AllocMem(lua_State* L)
   (void)L;
   ULONG byteSize = luaL_checkinteger(L, 1);
   ULONG requirements = luaL_checkinteger(L, 2);
-  APTR result = AllocMem(byteSize, requirements);
-  lua_pushlightuserdata(L, result);
+  APTR _result = AllocMem(byteSize, requirements);
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -1452,8 +3506,8 @@ _lua_AllocAbs(lua_State* L)
   (void)L;
   ULONG byteSize = luaL_checkinteger(L, 1);
   APTR location = lua_touserdata(L, 2);
-  APTR result = AllocAbs(byteSize, location);
-  lua_pushlightuserdata(L, result);
+  APTR _result = AllocAbs(byteSize, location);
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -1472,8 +3526,8 @@ _lua_AvailMem(lua_State* L)
 {
   (void)L;
   ULONG requirements = luaL_checkinteger(L, 1);
-  ULONG result = AvailMem(requirements);
-  lua_pushinteger(L, result);
+  ULONG _result = AvailMem(requirements);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1482,8 +3536,8 @@ _lua_AllocEntry(lua_State* L)
 {
   (void)L;
   const struct MemList * entry = _lua_gen_checkMemList(L, 1);
-  struct MemList * result = AllocEntry(entry);
-  _lua_gen_pushMemList(L, result);
+  struct MemList * _result = AllocEntry(entry);
+  _lua_gen_pushMemList(L, _result);
   return 1;
 }
 
@@ -1559,8 +3613,8 @@ _lua_RemHead(lua_State* L)
 {
   (void)L;
   struct List * list = _lua_gen_checkList(L, 1);
-  struct Node * result = RemHead(list);
-  _lua_gen_pushNode(L, result);
+  struct Node * _result = RemHead(list);
+  _lua_gen_pushNode(L, _result);
   return 1;
 }
 
@@ -1569,8 +3623,8 @@ _lua_RemHeadMinList(lua_State* L)
 {
   (void)L;
   struct MinList * minlist = _lua_gen_checkMinList(L, 1);
-  struct MinNode * result = RemHeadMinList(minlist);
-  _lua_gen_pushMinNode(L, result);
+  struct MinNode * _result = RemHeadMinList(minlist);
+  _lua_gen_pushMinNode(L, _result);
   return 1;
 }
 
@@ -1579,8 +3633,8 @@ _lua_RemTail(lua_State* L)
 {
   (void)L;
   struct List * list = _lua_gen_checkList(L, 1);
-  struct Node * result = RemTail(list);
-  _lua_gen_pushNode(L, result);
+  struct Node * _result = RemTail(list);
+  _lua_gen_pushNode(L, _result);
   return 1;
 }
 
@@ -1589,8 +3643,8 @@ _lua_RemTailMinList(lua_State* L)
 {
   (void)L;
   struct MinList * minlist = _lua_gen_checkMinList(L, 1);
-  struct MinNode * result = RemTailMinList(minlist);
-  _lua_gen_pushMinNode(L, result);
+  struct MinNode * _result = RemTailMinList(minlist);
+  _lua_gen_pushMinNode(L, _result);
   return 1;
 }
 
@@ -1610,8 +3664,8 @@ _lua_FindName(lua_State* L)
   (void)L;
   struct List * list = _lua_gen_checkList(L, 1);
   CONST_STRPTR name = amiga_checkConstNullableString(L, 2);
-  struct Node * result = FindName(list, name);
-  _lua_gen_pushNode(L, result);
+  struct Node * _result = FindName(list, name);
+  _lua_gen_pushNode(L, _result);
   return 1;
 }
 
@@ -1622,8 +3676,8 @@ _lua_AddTask(lua_State* L)
   struct Task * task = _lua_gen_checkTask(L, 1);
   APTR initPC = lua_touserdata(L, 2);
   APTR finalPC = lua_touserdata(L, 3);
-  APTR result = AddTask(task, initPC, finalPC);
-  lua_pushlightuserdata(L, result);
+  APTR _result = AddTask(task, initPC, finalPC);
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -1641,8 +3695,8 @@ _lua_FindTask(lua_State* L)
 {
   (void)L;
   CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
-  struct Task * result = FindTask(name);
-  _lua_gen_pushTask(L, result);
+  struct Task * _result = FindTask(name);
+  _lua_gen_pushTask(L, _result);
   return 1;
 }
 
@@ -1652,8 +3706,8 @@ _lua_SetTaskPri(lua_State* L)
   (void)L;
   struct Task * task = _lua_gen_checkTask(L, 1);
   LONG priority = luaL_checkinteger(L, 2);
-  BYTE result = SetTaskPri(task, priority);
-  lua_pushinteger(L, result);
+  BYTE _result = SetTaskPri(task, priority);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1663,8 +3717,8 @@ _lua_SetSignal(lua_State* L)
   (void)L;
   ULONG newSignals = luaL_checkinteger(L, 1);
   ULONG signalSet = luaL_checkinteger(L, 2);
-  ULONG result = SetSignal(newSignals, signalSet);
-  lua_pushinteger(L, result);
+  ULONG _result = SetSignal(newSignals, signalSet);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1674,8 +3728,8 @@ _lua_SetExcept(lua_State* L)
   (void)L;
   ULONG newSignals = luaL_checkinteger(L, 1);
   ULONG signalSet = luaL_checkinteger(L, 2);
-  ULONG result = SetExcept(newSignals, signalSet);
-  lua_pushinteger(L, result);
+  ULONG _result = SetExcept(newSignals, signalSet);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1684,8 +3738,8 @@ _lua_Wait(lua_State* L)
 {
   (void)L;
   ULONG signalSet = luaL_checkinteger(L, 1);
-  ULONG result = Wait(signalSet);
-  lua_pushinteger(L, result);
+  ULONG _result = Wait(signalSet);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1704,8 +3758,8 @@ _lua_AllocSignal(lua_State* L)
 {
   (void)L;
   LONG signalNum = luaL_checkinteger(L, 1);
-  BYTE result = AllocSignal(signalNum);
-  lua_pushinteger(L, result);
+  BYTE _result = AllocSignal(signalNum);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1723,8 +3777,8 @@ _lua_AllocTrap(lua_State* L)
 {
   (void)L;
   LONG trapNum = luaL_checkinteger(L, 1);
-  LONG result = AllocTrap(trapNum);
-  lua_pushinteger(L, result);
+  LONG _result = AllocTrap(trapNum);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1770,8 +3824,8 @@ _lua_GetMsg(lua_State* L)
 {
   (void)L;
   struct MsgPort * port = _lua_gen_checkMsgPort(L, 1);
-  struct Message * result = GetMsg(port);
-  _lua_gen_pushMessage(L, result);
+  struct Message * _result = GetMsg(port);
+  _lua_gen_pushMessage(L, _result);
   return 1;
 }
 
@@ -1789,8 +3843,8 @@ _lua_WaitPort(lua_State* L)
 {
   (void)L;
   struct MsgPort * port = _lua_gen_checkMsgPort(L, 1);
-  struct Message * result = WaitPort(port);
-  _lua_gen_pushMessage(L, result);
+  struct Message * _result = WaitPort(port);
+  _lua_gen_pushMessage(L, _result);
   return 1;
 }
 
@@ -1799,8 +3853,8 @@ _lua_FindPort(lua_State* L)
 {
   (void)L;
   CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
-  struct MsgPort * result = FindPort(name);
-  _lua_gen_pushMsgPort(L, result);
+  struct MsgPort * _result = FindPort(name);
+  _lua_gen_pushMsgPort(L, _result);
   return 1;
 }
 
@@ -1827,8 +3881,8 @@ _lua_OldOpenLibrary(lua_State* L)
 {
   (void)L;
   CONST_STRPTR libName = amiga_checkConstNullableString(L, 1);
-  struct Library * result = OldOpenLibrary(libName);
-  _lua_gen_pushLibrary(L, result);
+  struct Library * _result = OldOpenLibrary(libName);
+  _lua_gen_pushLibrary(L, _result);
   return 1;
 }
 
@@ -1882,8 +3936,8 @@ _lua_DoIO(lua_State* L)
 {
   (void)L;
   struct IORequest * ioRequest = _lua_gen_checkIORequest(L, 1);
-  BYTE result = DoIO(ioRequest);
-  lua_pushinteger(L, result);
+  BYTE _result = DoIO(ioRequest);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1901,8 +3955,8 @@ _lua_CheckIO(lua_State* L)
 {
   (void)L;
   const struct IORequest * ioRequest = _lua_gen_checkIORequest(L, 1);
-  struct IORequest * result = CheckIO(ioRequest);
-  _lua_gen_pushIORequest(L, result);
+  struct IORequest * _result = CheckIO(ioRequest);
+  _lua_gen_pushIORequest(L, _result);
   return 1;
 }
 
@@ -1911,8 +3965,8 @@ _lua_WaitIO(lua_State* L)
 {
   (void)L;
   struct IORequest * ioRequest = _lua_gen_checkIORequest(L, 1);
-  BYTE result = WaitIO(ioRequest);
-  lua_pushinteger(L, result);
+  BYTE _result = WaitIO(ioRequest);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1948,8 +4002,8 @@ _lua_OpenResource(lua_State* L)
 {
   (void)L;
   CONST_STRPTR resName = amiga_checkConstNullableString(L, 1);
-  APTR result = OpenResource(resName);
-  lua_pushlightuserdata(L, result);
+  APTR _result = OpenResource(resName);
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -1957,8 +4011,8 @@ static int
 _lua_GetCC(lua_State* L)
 {
   (void)L;
-  ULONG result = GetCC();
-  lua_pushinteger(L, result);
+  ULONG _result = GetCC();
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1967,8 +4021,8 @@ _lua_TypeOfMem(lua_State* L)
 {
   (void)L;
   CONST_APTR address = lua_touserdata(L, 1);
-  ULONG result = TypeOfMem(address);
-  lua_pushinteger(L, result);
+  ULONG _result = TypeOfMem(address);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1978,8 +4032,8 @@ _lua_Procure(lua_State* L)
   (void)L;
   struct SignalSemaphore * sigSem = _lua_gen_checkSignalSemaphore(L, 1);
   struct SemaphoreMessage * bidMsg = _lua_gen_checkSemaphoreMessage(L, 2);
-  ULONG result = Procure(sigSem, bidMsg);
-  lua_pushinteger(L, result);
+  ULONG _result = Procure(sigSem, bidMsg);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -1999,8 +4053,8 @@ _lua_OpenLibrary(lua_State* L)
   (void)L;
   CONST_STRPTR libName = amiga_checkConstNullableString(L, 1);
   ULONG version = luaL_checkinteger(L, 2);
-  struct Library * result = OpenLibrary(libName, version);
-  _lua_gen_pushLibrary(L, result);
+  struct Library * _result = OpenLibrary(libName, version);
+  _lua_gen_pushLibrary(L, _result);
   return 1;
 }
 
@@ -2036,8 +4090,8 @@ _lua_AttemptSemaphore(lua_State* L)
 {
   (void)L;
   struct SignalSemaphore * sigSem = _lua_gen_checkSignalSemaphore(L, 1);
-  ULONG result = AttemptSemaphore(sigSem);
-  lua_pushinteger(L, result);
+  ULONG _result = AttemptSemaphore(sigSem);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2064,8 +4118,8 @@ _lua_FindSemaphore(lua_State* L)
 {
   (void)L;
   CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
-  struct SignalSemaphore * result = FindSemaphore(name);
-  _lua_gen_pushSignalSemaphore(L, result);
+  struct SignalSemaphore * _result = FindSemaphore(name);
+  _lua_gen_pushSignalSemaphore(L, _result);
   return 1;
 }
 
@@ -2091,8 +4145,8 @@ static int
 _lua_SumKickData(lua_State* L)
 {
   (void)L;
-  ULONG result = SumKickData();
-  lua_pushinteger(L, result);
+  ULONG _result = SumKickData();
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2143,8 +4197,8 @@ _lua_CacheControl(lua_State* L)
   (void)L;
   ULONG cacheBits = luaL_checkinteger(L, 1);
   ULONG cacheMask = luaL_checkinteger(L, 2);
-  ULONG result = CacheControl(cacheBits, cacheMask);
-  lua_pushinteger(L, result);
+  ULONG _result = CacheControl(cacheBits, cacheMask);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2154,8 +4208,8 @@ _lua_CreateIORequest(lua_State* L)
   (void)L;
   struct MsgPort * port = _lua_gen_checkMsgPort(L, 1);
   ULONG size = luaL_checkinteger(L, 2);
-  APTR result = CreateIORequest(port, size);
-  lua_pushlightuserdata(L, result);
+  APTR _result = CreateIORequest(port, size);
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -2172,8 +4226,8 @@ static int
 _lua_CreateMsgPort(lua_State* L)
 {
   (void)L;
-  struct MsgPort * result = CreateMsgPort();
-  _lua_gen_pushMsgPort(L, result);
+  struct MsgPort * _result = CreateMsgPort();
+  _lua_gen_pushMsgPort(L, _result);
   return 1;
 }
 
@@ -2201,8 +4255,8 @@ _lua_AllocVec(lua_State* L)
   (void)L;
   ULONG byteSize = luaL_checkinteger(L, 1);
   ULONG requirements = luaL_checkinteger(L, 2);
-  APTR result = AllocVec(byteSize, requirements);
-  lua_pushlightuserdata(L, result);
+  APTR _result = AllocVec(byteSize, requirements);
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -2222,8 +4276,8 @@ _lua_CreatePool(lua_State* L)
   ULONG requirements = luaL_checkinteger(L, 1);
   ULONG puddleSize = luaL_checkinteger(L, 2);
   ULONG threshSize = luaL_checkinteger(L, 3);
-  APTR result = CreatePool(requirements, puddleSize, threshSize);
-  lua_pushlightuserdata(L, result);
+  APTR _result = CreatePool(requirements, puddleSize, threshSize);
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -2242,8 +4296,8 @@ _lua_AllocPooled(lua_State* L)
   (void)L;
   APTR poolHeader = lua_touserdata(L, 1);
   ULONG memSize = luaL_checkinteger(L, 2);
-  APTR result = AllocPooled(poolHeader, memSize);
-  lua_pushlightuserdata(L, result);
+  APTR _result = AllocPooled(poolHeader, memSize);
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -2263,8 +4317,8 @@ _lua_AttemptSemaphoreShared(lua_State* L)
 {
   (void)L;
   struct SignalSemaphore * sigSem = _lua_gen_checkSignalSemaphore(L, 1);
-  ULONG result = AttemptSemaphoreShared(sigSem);
-  lua_pushinteger(L, result);
+  ULONG _result = AttemptSemaphoreShared(sigSem);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2292,8 +4346,8 @@ _lua_CachePreDMA(lua_State* L)
   CONST_APTR address = lua_touserdata(L, 1);
   ULONG * length = lua_touserdata(L, 2);
   ULONG flags = luaL_checkinteger(L, 3);
-  APTR result = CachePreDMA(address, length, flags);
-  lua_pushlightuserdata(L, result);
+  APTR _result = CachePreDMA(address, length, flags);
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -2331,8 +4385,8 @@ _lua_ObtainQuickVector(lua_State* L)
 {
   (void)L;
   APTR interruptCode = lua_touserdata(L, 1);
-  ULONG result = ObtainQuickVector(interruptCode);
-  lua_pushinteger(L, result);
+  ULONG _result = ObtainQuickVector(interruptCode);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2352,8 +4406,8 @@ _lua_Text(lua_State* L)
   struct RastPort * rp = _lua_gen_checkRastPort(L, 1);
   CONST_STRPTR string = amiga_checkConstNullableString(L, 2);
   ULONG count = luaL_checkinteger(L, 3);
-  LONG result = Text(rp, string, count);
-  lua_pushinteger(L, result);
+  LONG _result = Text(rp, string, count);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2362,8 +4416,8 @@ _lua_OpenFont(lua_State* L)
 {
   (void)L;
   const struct TextAttr * textAttr = _lua_gen_checkTextAttr(L, 1);
-  struct TextFont * result = OpenFont(textAttr);
-  _lua_gen_pushTextFont(L, result);
+  struct TextFont * _result = OpenFont(textAttr);
+  _lua_gen_pushTextFont(L, _result);
   return 1;
 }
 
@@ -2409,8 +4463,8 @@ _lua_ClearDMRequest(lua_State* L)
 {
   (void)L;
   struct Window * window = _lua_gen_checkWindow(L, 1);
-  BOOL result = ClearDMRequest(window);
-  lua_pushboolean(L, result);
+  BOOL _result = ClearDMRequest(window);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -2437,8 +4491,8 @@ _lua_CloseScreen(lua_State* L)
 {
   (void)L;
   struct Screen * screen = _lua_gen_checkScreen(L, 1);
-  BOOL result = CloseScreen(screen);
-  lua_pushboolean(L, result);
+  BOOL _result = CloseScreen(screen);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -2455,8 +4509,8 @@ static int
 _lua_CloseWorkBench(lua_State* L)
 {
   (void)L;
-  LONG result = CloseWorkBench();
-  lua_pushinteger(L, result);
+  LONG _result = CloseWorkBench();
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2477,8 +4531,8 @@ _lua_DisplayAlert(lua_State* L)
   ULONG alertNumber = luaL_checkinteger(L, 1);
   CONST_STRPTR string = amiga_checkConstNullableString(L, 2);
   ULONG height = luaL_checkinteger(L, 3);
-  BOOL result = DisplayAlert(alertNumber, string, height);
-  lua_pushboolean(L, result);
+  BOOL _result = DisplayAlert(alertNumber, string, height);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -2516,8 +4570,8 @@ _lua_ItemAddress(lua_State* L)
   (void)L;
   const struct Menu * menuStrip = _lua_gen_checkMenu(L, 1);
   ULONG menuNumber = luaL_checkinteger(L, 2);
-  struct MenuItem * result = ItemAddress(menuStrip, menuNumber);
-  _lua_gen_pushMenuItem(L, result);
+  struct MenuItem * _result = ItemAddress(menuStrip, menuNumber);
+  _lua_gen_pushMenuItem(L, _result);
   return 1;
 }
 
@@ -2527,8 +4581,8 @@ _lua_ModifyIDCMP(lua_State* L)
   (void)L;
   struct Window * window = _lua_gen_checkWindow(L, 1);
   ULONG flags = luaL_checkinteger(L, 2);
-  BOOL result = ModifyIDCMP(window, flags);
-  lua_pushboolean(L, result);
+  BOOL _result = ModifyIDCMP(window, flags);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -2579,8 +4633,8 @@ _lua_OpenScreen(lua_State* L)
 {
   (void)L;
   const struct NewScreen * newScreen = _lua_gen_checkNewScreen(L, 1);
-  struct Screen * result = OpenScreen(newScreen);
-  _lua_gen_pushScreen(L, result);
+  struct Screen * _result = OpenScreen(newScreen);
+  _lua_gen_pushScreen(L, _result);
   return 1;
 }
 
@@ -2589,8 +4643,8 @@ _lua_OpenWindow(lua_State* L)
 {
   (void)L;
   const struct NewWindow * newWindow = _lua_gen_checkNewWindow(L, 1);
-  struct Window * result = OpenWindow(newWindow);
-  _lua_gen_pushWindow(L, result);
+  struct Window * _result = OpenWindow(newWindow);
+  _lua_gen_pushWindow(L, _result);
   return 1;
 }
 
@@ -2598,8 +4652,8 @@ static int
 _lua_OpenWorkBench(lua_State* L)
 {
   (void)L;
-  ULONG result = OpenWorkBench();
-  lua_pushinteger(L, result);
+  ULONG _result = OpenWorkBench();
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2609,8 +4663,8 @@ _lua_RemoveGadget(lua_State* L)
   (void)L;
   struct Window * window = _lua_gen_checkWindow(L, 1);
   struct Gadget * gadget = _lua_gen_checkGadget(L, 2);
-  UWORD result = RemoveGadget(window, gadget);
-  lua_pushinteger(L, result);
+  UWORD _result = RemoveGadget(window, gadget);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2640,8 +4694,8 @@ _lua_Request(lua_State* L)
   (void)L;
   struct Requester * requester = _lua_gen_checkRequester(L, 1);
   struct Window * window = _lua_gen_checkWindow(L, 2);
-  BOOL result = Request(requester, window);
-  lua_pushboolean(L, result);
+  BOOL _result = Request(requester, window);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -2669,8 +4723,8 @@ _lua_SetDMRequest(lua_State* L)
   (void)L;
   struct Window * window = _lua_gen_checkWindow(L, 1);
   struct Requester * requester = _lua_gen_checkRequester(L, 2);
-  BOOL result = SetDMRequest(window, requester);
-  lua_pushboolean(L, result);
+  BOOL _result = SetDMRequest(window, requester);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -2680,8 +4734,8 @@ _lua_SetMenuStrip(lua_State* L)
   (void)L;
   struct Window * window = _lua_gen_checkWindow(L, 1);
   struct Menu * menu = _lua_gen_checkMenu(L, 2);
-  BOOL result = SetMenuStrip(window, menu);
-  lua_pushboolean(L, result);
+  BOOL _result = SetMenuStrip(window, menu);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -2710,8 +4764,8 @@ static int
 _lua_ViewAddress(lua_State* L)
 {
   (void)L;
-  struct View * result = ViewAddress();
-  _lua_gen_pushView(L, result);
+  struct View * _result = ViewAddress();
+  _lua_gen_pushView(L, _result);
   return 1;
 }
 
@@ -2720,8 +4774,8 @@ _lua_ViewPortAddress(lua_State* L)
 {
   (void)L;
   const struct Window * window = _lua_gen_checkWindow(L, 1);
-  struct ViewPort * result = ViewPortAddress(window);
-  _lua_gen_pushViewPort(L, result);
+  struct ViewPort * _result = ViewPortAddress(window);
+  _lua_gen_pushViewPort(L, _result);
   return 1;
 }
 
@@ -2748,8 +4802,8 @@ _lua_IntuiTextLength(lua_State* L)
 {
   (void)L;
   const struct IntuiText * iText = _lua_gen_checkIntuiText(L, 1);
-  LONG result = IntuiTextLength(iText);
-  lua_pushinteger(L, result);
+  LONG _result = IntuiTextLength(iText);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2757,8 +4811,8 @@ static int
 _lua_WBenchToBack(lua_State* L)
 {
   (void)L;
-  BOOL result = WBenchToBack();
-  lua_pushboolean(L, result);
+  BOOL _result = WBenchToBack();
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -2766,8 +4820,8 @@ static int
 _lua_WBenchToFront(lua_State* L)
 {
   (void)L;
-  BOOL result = WBenchToFront();
-  lua_pushboolean(L, result);
+  BOOL _result = WBenchToFront();
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -2804,8 +4858,8 @@ _lua_MakeScreen(lua_State* L)
 {
   (void)L;
   struct Screen * screen = _lua_gen_checkScreen(L, 1);
-  LONG result = MakeScreen(screen);
-  lua_pushinteger(L, result);
+  LONG _result = MakeScreen(screen);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2813,8 +4867,8 @@ static int
 _lua_RemakeDisplay(lua_State* L)
 {
   (void)L;
-  LONG result = RemakeDisplay();
-  lua_pushinteger(L, result);
+  LONG _result = RemakeDisplay();
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2822,8 +4876,8 @@ static int
 _lua_RethinkDisplay(lua_State* L)
 {
   (void)L;
-  LONG result = RethinkDisplay();
-  lua_pushinteger(L, result);
+  LONG _result = RethinkDisplay();
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2841,8 +4895,8 @@ _lua_LockIBase(lua_State* L)
 {
   (void)L;
   ULONG dontknow = luaL_checkinteger(L, 1);
-  ULONG result = LockIBase(dontknow);
-  lua_pushinteger(L, result);
+  ULONG _result = LockIBase(dontknow);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2878,8 +4932,8 @@ _lua_SetEditHook(lua_State* L)
 {
   (void)L;
   struct Hook * hook = _lua_gen_checkHook(L, 1);
-  struct Hook * result = SetEditHook(hook);
-  _lua_gen_pushHook(L, result);
+  struct Hook * _result = SetEditHook(hook);
+  _lua_gen_pushHook(L, _result);
   return 1;
 }
 
@@ -2889,8 +4943,8 @@ _lua_SetMouseQueue(lua_State* L)
   (void)L;
   struct Window * window = _lua_gen_checkWindow(L, 1);
   ULONG queueLength = luaL_checkinteger(L, 2);
-  LONG result = SetMouseQueue(window, queueLength);
-  lua_pushinteger(L, result);
+  LONG _result = SetMouseQueue(window, queueLength);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2908,8 +4962,8 @@ _lua_LockPubScreen(lua_State* L)
 {
   (void)L;
   CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
-  struct Screen * result = LockPubScreen(name);
-  _lua_gen_pushScreen(L, result);
+  struct Screen * _result = LockPubScreen(name);
+  _lua_gen_pushScreen(L, _result);
   return 1;
 }
 
@@ -2927,8 +4981,8 @@ static int
 _lua_LockPubScreenList(lua_State* L)
 {
   (void)L;
-  struct List * result = LockPubScreenList();
-  _lua_gen_pushList(L, result);
+  struct List * _result = LockPubScreenList();
+  _lua_gen_pushList(L, _result);
   return 1;
 }
 
@@ -2946,8 +5000,8 @@ _lua_NextPubScreen(lua_State* L)
   (void)L;
   const struct Screen * screen = _lua_gen_checkScreen(L, 1);
   STRPTR namebuf = amiga_checkNullableString(L, 2);
-  STRPTR result = NextPubScreen(screen, namebuf);
-  lua_pushstring(L, result);
+  STRPTR _result = NextPubScreen(screen, namebuf);
+  lua_pushstring(L, _result);
   return 1;
 }
 
@@ -2965,8 +5019,8 @@ _lua_SetPubScreenModes(lua_State* L)
 {
   (void)L;
   ULONG modes = luaL_checkinteger(L, 1);
-  UWORD result = SetPubScreenModes(modes);
-  lua_pushinteger(L, result);
+  UWORD _result = SetPubScreenModes(modes);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2976,8 +5030,8 @@ _lua_PubScreenStatus(lua_State* L)
   (void)L;
   struct Screen * screen = _lua_gen_checkScreen(L, 1);
   ULONG statusFlags = luaL_checkinteger(L, 2);
-  UWORD result = PubScreenStatus(screen, statusFlags);
-  lua_pushinteger(L, result);
+  UWORD _result = PubScreenStatus(screen, statusFlags);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -2986,8 +5040,8 @@ _lua_ObtainGIRPort(lua_State* L)
 {
   (void)L;
   struct GadgetInfo * gInfo = _lua_gen_checkGadgetInfo(L, 1);
-  struct RastPort * result = ObtainGIRPort(gInfo);
-  _lua_gen_pushRastPort(L, result);
+  struct RastPort * _result = ObtainGIRPort(gInfo);
+  _lua_gen_pushRastPort(L, _result);
   return 1;
 }
 
@@ -3019,8 +5073,8 @@ _lua_OpenWindowTagList(lua_State* L)
     _amiga_doTagList(L, _tags, countof(_tags), 2);
     tagList = _tags;
   }
-  struct Window * result = OpenWindowTagList(newWindow, tagList);
-  _lua_gen_pushWindow(L, result);
+  struct Window * _result = OpenWindowTagList(newWindow, tagList);
+  _lua_gen_pushWindow(L, _result);
   return 1;
 }
 
@@ -3030,8 +5084,8 @@ _lua_OpenWindowTags(lua_State* L)
   const struct NewWindow * newWindow = _lua_gen_checkNewWindow(L, 1);
   struct TagItem taglist[64];
   _amiga_readVarTags(L, taglist, countof(taglist), 2);
-  struct Window * result = OpenWindowTagList(newWindow, taglist);
-  _lua_gen_pushWindow(L, result);
+  struct Window * _result = OpenWindowTagList(newWindow, taglist);
+  _lua_gen_pushWindow(L, _result);
   return 1;
 }
 
@@ -3041,8 +5095,8 @@ _lua_PointInImage(lua_State* L)
   (void)L;
   ULONG point = luaL_checkinteger(L, 1);
   const struct Image * image = _lua_gen_checkImage(L, 2);
-  BOOL result = PointInImage(point, image);
-  lua_pushboolean(L, result);
+  BOOL _result = PointInImage(point, image);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -3065,8 +5119,8 @@ _lua_SetAttrsA(lua_State* L)
     _amiga_doTagList(L, _tags, countof(_tags), 2);
     tagList = _tags;
   }
-  ULONG result = SetAttrsA(object, tagList);
-  lua_pushinteger(L, result);
+  ULONG _result = SetAttrsA(object, tagList);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -3076,8 +5130,8 @@ _lua_SetAttrs(lua_State* L)
   APTR object = lua_touserdata(L, 1);
   struct TagItem taglist[64];
   _amiga_readVarTags(L, taglist, countof(taglist), 2);
-  ULONG result = SetAttrsA(object, taglist);
-  lua_pushinteger(L, result);
+  ULONG _result = SetAttrsA(object, taglist);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -3088,8 +5142,8 @@ _lua_GetAttr(lua_State* L)
   ULONG attrID = luaL_checkinteger(L, 1);
   APTR object = lua_touserdata(L, 2);
   ULONG * storagePtr = lua_touserdata(L, 3);
-  ULONG result = GetAttr(attrID, object, storagePtr);
-  lua_pushinteger(L, result);
+  ULONG _result = GetAttr(attrID, object, storagePtr);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -3098,8 +5152,8 @@ _lua_NextObject(lua_State* L)
 {
   (void)L;
   CONST_APTR objectPtrPtr = lua_touserdata(L, 1);
-  APTR result = NextObject(objectPtrPtr);
-  lua_pushlightuserdata(L, result);
+  APTR _result = NextObject(objectPtrPtr);
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -3117,8 +5171,8 @@ _lua_GetScreenDrawInfo(lua_State* L)
 {
   (void)L;
   struct Screen * screen = _lua_gen_checkScreen(L, 1);
-  struct DrawInfo * result = GetScreenDrawInfo(screen);
-  _lua_gen_pushDrawInfo(L, result);
+  struct DrawInfo * _result = GetScreenDrawInfo(screen);
+  _lua_gen_pushDrawInfo(L, _result);
   return 1;
 }
 
@@ -3128,8 +5182,8 @@ _lua_ResetMenuStrip(lua_State* L)
   (void)L;
   struct Window * window = _lua_gen_checkWindow(L, 1);
   struct Menu * menu = _lua_gen_checkMenu(L, 2);
-  BOOL result = ResetMenuStrip(window, menu);
-  lua_pushboolean(L, result);
+  BOOL _result = ResetMenuStrip(window, menu);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -3147,8 +5201,8 @@ _lua_FreeClass(lua_State* L)
 {
   (void)L;
   struct IClass * classPtr = _lua_gen_checkIClass(L, 1);
-  BOOL result = FreeClass(classPtr);
-  lua_pushboolean(L, result);
+  BOOL _result = FreeClass(classPtr);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -3168,8 +5222,8 @@ _lua_ChangeScreenBuffer(lua_State* L)
   (void)L;
   struct Screen * sc = _lua_gen_checkScreen(L, 1);
   struct ScreenBuffer * sb = _lua_gen_checkScreenBuffer(L, 2);
-  ULONG result = ChangeScreenBuffer(sc, sb);
-  lua_pushinteger(L, result);
+  ULONG _result = ChangeScreenBuffer(sc, sb);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -3226,8 +5280,8 @@ _lua_TimedDisplayAlert(lua_State* L)
   CONST_STRPTR string = amiga_checkConstNullableString(L, 2);
   ULONG height = luaL_checkinteger(L, 3);
   ULONG time = luaL_checkinteger(L, 4);
-  BOOL result = TimedDisplayAlert(alertNumber, string, height, time);
-  lua_pushboolean(L, result);
+  BOOL _result = TimedDisplayAlert(alertNumber, string, height, time);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -3247,8 +5301,8 @@ _lua_ShowWindow(lua_State* L)
   (void)L;
   struct Window * window = _lua_gen_checkWindow(L, 1);
   struct Window * other = _lua_gen_checkWindow(L, 2);
-  BOOL result = ShowWindow(window, other);
-  lua_pushboolean(L, result);
+  BOOL _result = ShowWindow(window, other);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -3257,8 +5311,8 @@ _lua_HideWindow(lua_State* L)
 {
   (void)L;
   struct Window * window = _lua_gen_checkWindow(L, 1);
-  BOOL result = HideWindow(window);
-  lua_pushboolean(L, result);
+  BOOL _result = HideWindow(window);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -3272,8 +5326,8 @@ _lua_IntuitionControlA(lua_State* L)
     _amiga_doTagList(L, _tags, countof(_tags), 2);
     taglist = _tags;
   }
-  ULONG result = IntuitionControlA(object, taglist);
-  lua_pushinteger(L, result);
+  ULONG _result = IntuitionControlA(object, taglist);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -3283,8 +5337,8 @@ _lua_IntuitionControl(lua_State* L)
   APTR object = lua_touserdata(L, 1);
   struct TagItem taglist[64];
   _amiga_readVarTags(L, taglist, countof(taglist), 2);
-  ULONG result = IntuitionControlA(object, taglist);
-  lua_pushinteger(L, result);
+  ULONG _result = IntuitionControlA(object, taglist);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -3300,8 +5354,8 @@ _lua_CreateGadgetA(lua_State* L)
     _amiga_doTagList(L, _tags, countof(_tags), 4);
     taglist = _tags;
   }
-  struct Gadget * result = CreateGadgetA(kind, gad, ng, taglist);
-  _lua_gen_pushGadget(L, result);
+  struct Gadget * _result = CreateGadgetA(kind, gad, ng, taglist);
+  _lua_gen_pushGadget(L, _result);
   return 1;
 }
 
@@ -3313,8 +5367,8 @@ _lua_CreateGadget(lua_State* L)
   struct NewGadget * ng = _lua_gen_checkNewGadget(L, 3);
   struct TagItem taglist[64];
   _amiga_readVarTags(L, taglist, countof(taglist), 4);
-  struct Gadget * result = CreateGadgetA(kind, gad, ng, taglist);
-  _lua_gen_pushGadget(L, result);
+  struct Gadget * _result = CreateGadgetA(kind, gad, ng, taglist);
+  _lua_gen_pushGadget(L, _result);
   return 1;
 }
 
@@ -3365,8 +5419,8 @@ _lua_CreateMenusA(lua_State* L)
     _amiga_doTagList(L, _tags, countof(_tags), 2);
     taglist = _tags;
   }
-  struct Menu * result = CreateMenusA(newmenu, taglist);
-  _lua_gen_pushMenu(L, result);
+  struct Menu * _result = CreateMenusA(newmenu, taglist);
+  _lua_gen_pushMenu(L, _result);
   return 1;
 }
 
@@ -3376,8 +5430,8 @@ _lua_CreateMenus(lua_State* L)
   const struct NewMenu * newmenu = _lua_gen_checkNewMenu(L, 1);
   struct TagItem taglist[64];
   _amiga_readVarTags(L, taglist, countof(taglist), 2);
-  struct Menu * result = CreateMenusA(newmenu, taglist);
-  _lua_gen_pushMenu(L, result);
+  struct Menu * _result = CreateMenusA(newmenu, taglist);
+  _lua_gen_pushMenu(L, _result);
   return 1;
 }
 
@@ -3401,8 +5455,8 @@ _lua_LayoutMenuItemsA(lua_State* L)
     _amiga_doTagList(L, _tags, countof(_tags), 3);
     taglist = _tags;
   }
-  BOOL result = LayoutMenuItemsA(firstitem, vi, taglist);
-  lua_pushboolean(L, result);
+  BOOL _result = LayoutMenuItemsA(firstitem, vi, taglist);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -3413,8 +5467,8 @@ _lua_LayoutMenuItems(lua_State* L)
   APTR vi = lua_touserdata(L, 2);
   struct TagItem taglist[64];
   _amiga_readVarTags(L, taglist, countof(taglist), 3);
-  BOOL result = LayoutMenuItemsA(firstitem, vi, taglist);
-  lua_pushboolean(L, result);
+  BOOL _result = LayoutMenuItemsA(firstitem, vi, taglist);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -3429,8 +5483,8 @@ _lua_LayoutMenusA(lua_State* L)
     _amiga_doTagList(L, _tags, countof(_tags), 3);
     taglist = _tags;
   }
-  BOOL result = LayoutMenusA(firstmenu, vi, taglist);
-  lua_pushboolean(L, result);
+  BOOL _result = LayoutMenusA(firstmenu, vi, taglist);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -3441,8 +5495,8 @@ _lua_LayoutMenus(lua_State* L)
   APTR vi = lua_touserdata(L, 2);
   struct TagItem taglist[64];
   _amiga_readVarTags(L, taglist, countof(taglist), 3);
-  BOOL result = LayoutMenusA(firstmenu, vi, taglist);
-  lua_pushboolean(L, result);
+  BOOL _result = LayoutMenusA(firstmenu, vi, taglist);
+  lua_pushboolean(L, _result);
   return 1;
 }
 
@@ -3451,8 +5505,8 @@ _lua_GT_GetIMsg(lua_State* L)
 {
   (void)L;
   struct MsgPort * iport = _lua_gen_checkMsgPort(L, 1);
-  struct IntuiMessage * result = GT_GetIMsg(iport);
-  _lua_gen_pushIntuiMessage(L, result);
+  struct IntuiMessage * _result = GT_GetIMsg(iport);
+  _lua_gen_pushIntuiMessage(L, _result);
   return 1;
 }
 
@@ -3499,8 +5553,8 @@ _lua_GT_FilterIMsg(lua_State* L)
 {
   (void)L;
   const struct IntuiMessage * imsg = _lua_gen_checkIntuiMessage(L, 1);
-  struct IntuiMessage * result = GT_FilterIMsg(imsg);
-  _lua_gen_pushIntuiMessage(L, result);
+  struct IntuiMessage * _result = GT_FilterIMsg(imsg);
+  _lua_gen_pushIntuiMessage(L, _result);
   return 1;
 }
 
@@ -3509,8 +5563,8 @@ _lua_GT_PostFilterIMsg(lua_State* L)
 {
   (void)L;
   struct IntuiMessage * imsg = _lua_gen_checkIntuiMessage(L, 1);
-  struct IntuiMessage * result = GT_PostFilterIMsg(imsg);
-  _lua_gen_pushIntuiMessage(L, result);
+  struct IntuiMessage * _result = GT_PostFilterIMsg(imsg);
+  _lua_gen_pushIntuiMessage(L, _result);
   return 1;
 }
 
@@ -3519,8 +5573,8 @@ _lua_CreateContext(lua_State* L)
 {
   (void)L;
   struct Gadget ** glistptr = amiga_checkGadgetPtr(L, 1);
-  struct Gadget * result = CreateContext(glistptr);
-  _lua_gen_pushGadget(L, result);
+  struct Gadget * _result = CreateContext(glistptr);
+  _lua_gen_pushGadget(L, _result);
   return 1;
 }
 
@@ -3566,8 +5620,8 @@ _lua_GetVisualInfoA(lua_State* L)
     _amiga_doTagList(L, _tags, countof(_tags), 2);
     taglist = _tags;
   }
-  APTR result = GetVisualInfoA(screen, taglist);
-  lua_pushlightuserdata(L, result);
+  APTR _result = GetVisualInfoA(screen, taglist);
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -3577,8 +5631,8 @@ _lua_GetVisualInfo(lua_State* L)
   struct Screen * screen = _lua_gen_checkScreen(L, 1);
   struct TagItem taglist[64];
   _amiga_readVarTags(L, taglist, countof(taglist), 2);
-  APTR result = GetVisualInfoA(screen, taglist);
-  lua_pushlightuserdata(L, result);
+  APTR _result = GetVisualInfoA(screen, taglist);
+  lua_pushlightuserdata(L, _result);
   return 1;
 }
 
@@ -3602,8 +5656,8 @@ _lua_SetDesignFontA(lua_State* L)
     _amiga_doTagList(L, _tags, countof(_tags), 3);
     tags = _tags;
   }
-  LONG result = SetDesignFontA(vi, tattr, tags);
-  lua_pushinteger(L, result);
+  LONG _result = SetDesignFontA(vi, tattr, tags);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -3614,8 +5668,8 @@ _lua_SetDesignFont(lua_State* L)
   struct TextAttr * tattr = _lua_gen_checkTextAttr(L, 2);
   struct TagItem taglist[64];
   _amiga_readVarTags(L, taglist, countof(taglist), 3);
-  LONG result = SetDesignFontA(vi, tattr, taglist);
-  lua_pushinteger(L, result);
+  LONG _result = SetDesignFontA(vi, tattr, taglist);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -3629,8 +5683,8 @@ _lua_ScaleGadgetRectA(lua_State* L)
     _amiga_doTagList(L, _tags, countof(_tags), 2);
     tags = _tags;
   }
-  LONG result = ScaleGadgetRectA(ng, tags);
-  lua_pushinteger(L, result);
+  LONG _result = ScaleGadgetRectA(ng, tags);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -3640,8 +5694,8 @@ _lua_ScaleGadgetRect(lua_State* L)
   struct NewGadget * ng = _lua_gen_checkNewGadget(L, 1);
   struct TagItem taglist[64];
   _amiga_readVarTags(L, taglist, countof(taglist), 2);
-  LONG result = ScaleGadgetRectA(ng, taglist);
-  lua_pushinteger(L, result);
+  LONG _result = ScaleGadgetRectA(ng, taglist);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -3657,8 +5711,8 @@ _lua_GT_GetGadgetAttrsA(lua_State* L)
     _amiga_doTagList(L, _tags, countof(_tags), 4);
     taglist = _tags;
   }
-  LONG result = GT_GetGadgetAttrsA(gad, win, req, taglist);
-  lua_pushinteger(L, result);
+  LONG _result = GT_GetGadgetAttrsA(gad, win, req, taglist);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -3670,8 +5724,8 @@ _lua_GT_GetGadgetAttrs(lua_State* L)
   struct Requester * req = _lua_gen_checkRequester(L, 3);
   struct TagItem taglist[64];
   _amiga_readVarTags(L, taglist, countof(taglist), 4);
-  LONG result = GT_GetGadgetAttrsA(gad, win, req, taglist);
-  lua_pushinteger(L, result);
+  LONG _result = GT_GetGadgetAttrsA(gad, win, req, taglist);
+  lua_pushinteger(L, _result);
   return 1;
 }
 
@@ -5467,203 +7521,40 @@ _lua_gen_install_meta_StackSwapStruct(lua_State *L) {
 }
 
 static int
-_lua_gen_Window_newindex(lua_State *L)
+_lua_gen_FileInfoBlock_newindex(lua_State *L)
 {
-  Window *obj = *(Window **)luaL_checkudata(L, 1, "Window");
+  FileInfoBlock *obj = *(FileInfoBlock **)luaL_checkudata(L, 1, "FileInfoBlock");
   const char *key = luaL_checkstring(L, 2);
-  if (strcmp(key, "NextWindow") == 0) {
-    // finder 1
-    obj->NextWindow = *(Window **)luaL_checkudata(L, 3, "Window");
+  if (strcmp(key, "fib_DiskKey") == 0) {
+    obj->fib_DiskKey = (LONG)luaL_checkinteger(L, 3);
     return 0;
   }
-  if (strcmp(key, "LeftEdge") == 0) {
-    obj->LeftEdge = (WORD)luaL_checkinteger(L, 3);
+  if (strcmp(key, "fib_DirEntryType") == 0) {
+    obj->fib_DirEntryType = (LONG)luaL_checkinteger(L, 3);
     return 0;
   }
-  if (strcmp(key, "TopEdge") == 0) {
-    obj->TopEdge = (WORD)luaL_checkinteger(L, 3);
+  if (strcmp(key, "fib_Protection") == 0) {
+    obj->fib_Protection = (LONG)luaL_checkinteger(L, 3);
     return 0;
   }
-  if (strcmp(key, "Width") == 0) {
-    obj->Width = (WORD)luaL_checkinteger(L, 3);
+  if (strcmp(key, "fib_EntryType") == 0) {
+    obj->fib_EntryType = (LONG)luaL_checkinteger(L, 3);
     return 0;
   }
-  if (strcmp(key, "Height") == 0) {
-    obj->Height = (WORD)luaL_checkinteger(L, 3);
+  if (strcmp(key, "fib_Size") == 0) {
+    obj->fib_Size = (LONG)luaL_checkinteger(L, 3);
     return 0;
   }
-  if (strcmp(key, "MouseY") == 0) {
-    obj->MouseY = (WORD)luaL_checkinteger(L, 3);
+  if (strcmp(key, "fib_NumBlocks") == 0) {
+    obj->fib_NumBlocks = (LONG)luaL_checkinteger(L, 3);
     return 0;
   }
-  if (strcmp(key, "MouseX") == 0) {
-    obj->MouseX = (WORD)luaL_checkinteger(L, 3);
+  if (strcmp(key, "fib_OwnerUID") == 0) {
+    obj->fib_OwnerUID = (UWORD)luaL_checkinteger(L, 3);
     return 0;
   }
-  if (strcmp(key, "MinWidth") == 0) {
-    obj->MinWidth = (WORD)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "MinHeight") == 0) {
-    obj->MinHeight = (WORD)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "MaxWidth") == 0) {
-    obj->MaxWidth = (UWORD)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "MaxHeight") == 0) {
-    obj->MaxHeight = (UWORD)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "Flags") == 0) {
-    obj->Flags = (ULONG)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "MenuStrip") == 0) {
-    // finder 1
-    obj->MenuStrip = *(Menu **)luaL_checkudata(L, 3, "Menu");
-    return 0;
-  }
-  if (strcmp(key, "Title") == 0) {
-    obj->Title = (STRPTR)amiga_checkNullableString(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "FirstRequest") == 0) {
-    // finder 1
-    obj->FirstRequest = *(Requester **)luaL_checkudata(L, 3, "Requester");
-    return 0;
-  }
-  if (strcmp(key, "DMRequest") == 0) {
-    // finder 1
-    obj->DMRequest = *(Requester **)luaL_checkudata(L, 3, "Requester");
-    return 0;
-  }
-  if (strcmp(key, "ReqCount") == 0) {
-    obj->ReqCount = (WORD)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "WScreen") == 0) {
-    // finder 1
-    obj->WScreen = *(Screen **)luaL_checkudata(L, 3, "Screen");
-    return 0;
-  }
-  if (strcmp(key, "RPort") == 0) {
-    // finder 1
-    obj->RPort = *(RastPort **)luaL_checkudata(L, 3, "RastPort");
-    return 0;
-  }
-  if (strcmp(key, "BorderLeft") == 0) {
-    obj->BorderLeft = (BYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "BorderTop") == 0) {
-    obj->BorderTop = (BYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "BorderRight") == 0) {
-    obj->BorderRight = (BYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "BorderBottom") == 0) {
-    obj->BorderBottom = (BYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "BorderRPort") == 0) {
-    // finder 1
-    obj->BorderRPort = *(RastPort **)luaL_checkudata(L, 3, "RastPort");
-    return 0;
-  }
-  if (strcmp(key, "FirstGadget") == 0) {
-    // finder 1
-    obj->FirstGadget = *(Gadget **)luaL_checkudata(L, 3, "Gadget");
-    return 0;
-  }
-  if (strcmp(key, "Parent") == 0) {
-    // finder 1
-    obj->Parent = *(Window **)luaL_checkudata(L, 3, "Window");
-    return 0;
-  }
-  if (strcmp(key, "Descendant") == 0) {
-    // finder 1
-    obj->Descendant = *(Window **)luaL_checkudata(L, 3, "Window");
-    return 0;
-  }
-  if (strcmp(key, "PtrHeight") == 0) {
-    obj->PtrHeight = (BYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "PtrWidth") == 0) {
-    obj->PtrWidth = (BYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "XOffset") == 0) {
-    obj->XOffset = (BYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "YOffset") == 0) {
-    obj->YOffset = (BYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "IDCMPFlags") == 0) {
-    obj->IDCMPFlags = (ULONG)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "UserPort") == 0) {
-    // finder 1
-    obj->UserPort = *(MsgPort **)luaL_checkudata(L, 3, "MsgPort");
-    return 0;
-  }
-  if (strcmp(key, "WindowPort") == 0) {
-    // finder 1
-    obj->WindowPort = *(MsgPort **)luaL_checkudata(L, 3, "MsgPort");
-    return 0;
-  }
-  if (strcmp(key, "MessageKey") == 0) {
-    // finder 1
-    obj->MessageKey = *(IntuiMessage **)luaL_checkudata(L, 3, "IntuiMessage");
-    return 0;
-  }
-  if (strcmp(key, "DetailPen") == 0) {
-    obj->DetailPen = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "BlockPen") == 0) {
-    obj->BlockPen = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "CheckMark") == 0) {
-    // finder 1
-    obj->CheckMark = *(Image **)luaL_checkudata(L, 3, "Image");
-    return 0;
-  }
-  if (strcmp(key, "ScreenTitle") == 0) {
-    obj->ScreenTitle = (STRPTR)amiga_checkNullableString(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "GZZMouseX") == 0) {
-    obj->GZZMouseX = (WORD)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "GZZMouseY") == 0) {
-    obj->GZZMouseY = (WORD)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "GZZWidth") == 0) {
-    obj->GZZWidth = (WORD)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "GZZHeight") == 0) {
-    obj->GZZHeight = (WORD)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "IFont") == 0) {
-    // finder 1
-    obj->IFont = *(TextFont **)luaL_checkudata(L, 3, "TextFont");
-    return 0;
-  }
-  if (strcmp(key, "MoreFlags") == 0) {
-    obj->MoreFlags = (ULONG)luaL_checkinteger(L, 3);
+  if (strcmp(key, "fib_OwnerGID") == 0) {
+    obj->fib_OwnerGID = (UWORD)luaL_checkinteger(L, 3);
     return 0;
   }
   return 0;
@@ -5671,16 +7562,16 @@ _lua_gen_Window_newindex(lua_State *L)
 
 
 static int
-_lua_Window_constructor(lua_State *L)
+_lua_FileInfoBlock_constructor(lua_State *L)
 {
-  // Allocate pointer-to-Window in userdata
-  Window **objp = lua_newuserdata(L, sizeof(Window *));
-  *objp = malloc(sizeof(Window));
+  // Allocate pointer-to-FileInfoBlock in userdata
+  FileInfoBlock **objp = lua_newuserdata(L, sizeof(FileInfoBlock *));
+  *objp = malloc(sizeof(FileInfoBlock));
   if (!*objp) return luaL_error(L, "out of memory");
-  memset(*objp, 0, sizeof(Window));
+  memset(*objp, 0, sizeof(FileInfoBlock));
 
   // Set metatable
-  luaL_getmetatable(L, "Window");
+  luaL_getmetatable(L, "FileInfoBlock");
   lua_setmetatable(L, -2);
 
   // If a table is passed, use __newindex to copy fields
@@ -5700,352 +7591,238 @@ _lua_Window_constructor(lua_State *L)
 }
 
 static int
-_lua_gen_Window_index(lua_State *L)
+_lua_gen_FileInfoBlock_index(lua_State *L)
 {
-  Window *obj = *(Window **)luaL_checkudata(L, 1, "Window");
+  FileInfoBlock *obj = *(FileInfoBlock **)luaL_checkudata(L, 1, "FileInfoBlock");
   const char *key = luaL_checkstring(L, 2);
-  if (strcmp(key, "NextWindow") == 0) {
-    Window **ud = (Window **)lua_newuserdata(L, sizeof(Window *));
-    *ud = (Window*)obj->NextWindow;
-    luaL_getmetatable(L, "Window");
-    lua_setmetatable(L, -2);
+  if (strcmp(key, "fib_DiskKey") == 0) {
+    lua_pushinteger(L, obj->fib_DiskKey);
     return 1;
   }
-  if (strcmp(key, "LeftEdge") == 0) {
-    lua_pushinteger(L, obj->LeftEdge);
+  if (strcmp(key, "fib_DirEntryType") == 0) {
+    lua_pushinteger(L, obj->fib_DirEntryType);
     return 1;
   }
-  if (strcmp(key, "TopEdge") == 0) {
-    lua_pushinteger(L, obj->TopEdge);
+  if (strcmp(key, "fib_Protection") == 0) {
+    lua_pushinteger(L, obj->fib_Protection);
     return 1;
   }
-  if (strcmp(key, "Width") == 0) {
-    lua_pushinteger(L, obj->Width);
+  if (strcmp(key, "fib_EntryType") == 0) {
+    lua_pushinteger(L, obj->fib_EntryType);
     return 1;
   }
-  if (strcmp(key, "Height") == 0) {
-    lua_pushinteger(L, obj->Height);
+  if (strcmp(key, "fib_Size") == 0) {
+    lua_pushinteger(L, obj->fib_Size);
     return 1;
   }
-  if (strcmp(key, "MouseY") == 0) {
-    lua_pushinteger(L, obj->MouseY);
+  if (strcmp(key, "fib_NumBlocks") == 0) {
+    lua_pushinteger(L, obj->fib_NumBlocks);
     return 1;
   }
-  if (strcmp(key, "MouseX") == 0) {
-    lua_pushinteger(L, obj->MouseX);
+  if (strcmp(key, "fib_OwnerUID") == 0) {
+    lua_pushinteger(L, obj->fib_OwnerUID);
     return 1;
   }
-  if (strcmp(key, "MinWidth") == 0) {
-    lua_pushinteger(L, obj->MinWidth);
-    return 1;
-  }
-  if (strcmp(key, "MinHeight") == 0) {
-    lua_pushinteger(L, obj->MinHeight);
-    return 1;
-  }
-  if (strcmp(key, "MaxWidth") == 0) {
-    lua_pushinteger(L, obj->MaxWidth);
-    return 1;
-  }
-  if (strcmp(key, "MaxHeight") == 0) {
-    lua_pushinteger(L, obj->MaxHeight);
-    return 1;
-  }
-  if (strcmp(key, "Flags") == 0) {
-    lua_pushinteger(L, obj->Flags);
-    return 1;
-  }
-  if (strcmp(key, "MenuStrip") == 0) {
-    Menu **ud = (Menu **)lua_newuserdata(L, sizeof(Menu *));
-    *ud = (Menu*)obj->MenuStrip;
-    luaL_getmetatable(L, "Menu");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "Title") == 0) {
-    lua_pushstring(L, obj->Title);
-    return 1;
-  }
-  if (strcmp(key, "FirstRequest") == 0) {
-    Requester **ud = (Requester **)lua_newuserdata(L, sizeof(Requester *));
-    *ud = (Requester*)obj->FirstRequest;
-    luaL_getmetatable(L, "Requester");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "DMRequest") == 0) {
-    Requester **ud = (Requester **)lua_newuserdata(L, sizeof(Requester *));
-    *ud = (Requester*)obj->DMRequest;
-    luaL_getmetatable(L, "Requester");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "ReqCount") == 0) {
-    lua_pushinteger(L, obj->ReqCount);
-    return 1;
-  }
-  if (strcmp(key, "WScreen") == 0) {
-    Screen **ud = (Screen **)lua_newuserdata(L, sizeof(Screen *));
-    *ud = (Screen*)obj->WScreen;
-    luaL_getmetatable(L, "Screen");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "RPort") == 0) {
-    RastPort **ud = (RastPort **)lua_newuserdata(L, sizeof(RastPort *));
-    *ud = (RastPort*)obj->RPort;
-    luaL_getmetatable(L, "RastPort");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "BorderLeft") == 0) {
-    lua_pushinteger(L, obj->BorderLeft);
-    return 1;
-  }
-  if (strcmp(key, "BorderTop") == 0) {
-    lua_pushinteger(L, obj->BorderTop);
-    return 1;
-  }
-  if (strcmp(key, "BorderRight") == 0) {
-    lua_pushinteger(L, obj->BorderRight);
-    return 1;
-  }
-  if (strcmp(key, "BorderBottom") == 0) {
-    lua_pushinteger(L, obj->BorderBottom);
-    return 1;
-  }
-  if (strcmp(key, "BorderRPort") == 0) {
-    RastPort **ud = (RastPort **)lua_newuserdata(L, sizeof(RastPort *));
-    *ud = (RastPort*)obj->BorderRPort;
-    luaL_getmetatable(L, "RastPort");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "FirstGadget") == 0) {
-    Gadget **ud = (Gadget **)lua_newuserdata(L, sizeof(Gadget *));
-    *ud = (Gadget*)obj->FirstGadget;
-    luaL_getmetatable(L, "Gadget");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "Parent") == 0) {
-    Window **ud = (Window **)lua_newuserdata(L, sizeof(Window *));
-    *ud = (Window*)obj->Parent;
-    luaL_getmetatable(L, "Window");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "Descendant") == 0) {
-    Window **ud = (Window **)lua_newuserdata(L, sizeof(Window *));
-    *ud = (Window*)obj->Descendant;
-    luaL_getmetatable(L, "Window");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "PtrHeight") == 0) {
-    lua_pushinteger(L, obj->PtrHeight);
-    return 1;
-  }
-  if (strcmp(key, "PtrWidth") == 0) {
-    lua_pushinteger(L, obj->PtrWidth);
-    return 1;
-  }
-  if (strcmp(key, "XOffset") == 0) {
-    lua_pushinteger(L, obj->XOffset);
-    return 1;
-  }
-  if (strcmp(key, "YOffset") == 0) {
-    lua_pushinteger(L, obj->YOffset);
-    return 1;
-  }
-  if (strcmp(key, "IDCMPFlags") == 0) {
-    lua_pushinteger(L, obj->IDCMPFlags);
-    return 1;
-  }
-  if (strcmp(key, "UserPort") == 0) {
-    MsgPort **ud = (MsgPort **)lua_newuserdata(L, sizeof(MsgPort *));
-    *ud = (MsgPort*)obj->UserPort;
-    luaL_getmetatable(L, "MsgPort");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "WindowPort") == 0) {
-    MsgPort **ud = (MsgPort **)lua_newuserdata(L, sizeof(MsgPort *));
-    *ud = (MsgPort*)obj->WindowPort;
-    luaL_getmetatable(L, "MsgPort");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "MessageKey") == 0) {
-    IntuiMessage **ud = (IntuiMessage **)lua_newuserdata(L, sizeof(IntuiMessage *));
-    *ud = (IntuiMessage*)obj->MessageKey;
-    luaL_getmetatable(L, "IntuiMessage");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "DetailPen") == 0) {
-    lua_pushinteger(L, obj->DetailPen);
-    return 1;
-  }
-  if (strcmp(key, "BlockPen") == 0) {
-    lua_pushinteger(L, obj->BlockPen);
-    return 1;
-  }
-  if (strcmp(key, "CheckMark") == 0) {
-    Image **ud = (Image **)lua_newuserdata(L, sizeof(Image *));
-    *ud = (Image*)obj->CheckMark;
-    luaL_getmetatable(L, "Image");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "ScreenTitle") == 0) {
-    lua_pushstring(L, obj->ScreenTitle);
-    return 1;
-  }
-  if (strcmp(key, "GZZMouseX") == 0) {
-    lua_pushinteger(L, obj->GZZMouseX);
-    return 1;
-  }
-  if (strcmp(key, "GZZMouseY") == 0) {
-    lua_pushinteger(L, obj->GZZMouseY);
-    return 1;
-  }
-  if (strcmp(key, "GZZWidth") == 0) {
-    lua_pushinteger(L, obj->GZZWidth);
-    return 1;
-  }
-  if (strcmp(key, "GZZHeight") == 0) {
-    lua_pushinteger(L, obj->GZZHeight);
-    return 1;
-  }
-  if (strcmp(key, "IFont") == 0) {
-    TextFont **ud = (TextFont **)lua_newuserdata(L, sizeof(TextFont *));
-    *ud = (TextFont*)obj->IFont;
-    luaL_getmetatable(L, "TextFont");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "MoreFlags") == 0) {
-    lua_pushinteger(L, obj->MoreFlags);
+  if (strcmp(key, "fib_OwnerGID") == 0) {
+    lua_pushinteger(L, obj->fib_OwnerGID);
     return 1;
   }
   return 0;
 }
 
 static void
-_lua_gen_Window_install_keys(lua_State *L)
+_lua_gen_FileInfoBlock_install_keys(lua_State *L)
 {
   lua_newtable(L);
-  lua_pushstring(L, "NextWindow");
+  lua_pushstring(L, "fib_DiskKey");
   lua_rawseti(L, -2, 1);
-  lua_pushstring(L, "LeftEdge");
+  lua_pushstring(L, "fib_DirEntryType");
   lua_rawseti(L, -2, 2);
-  lua_pushstring(L, "TopEdge");
+  lua_pushstring(L, "fib_Protection");
   lua_rawseti(L, -2, 3);
-  lua_pushstring(L, "Width");
+  lua_pushstring(L, "fib_EntryType");
   lua_rawseti(L, -2, 4);
-  lua_pushstring(L, "Height");
+  lua_pushstring(L, "fib_Size");
   lua_rawseti(L, -2, 5);
-  lua_pushstring(L, "MouseY");
+  lua_pushstring(L, "fib_NumBlocks");
   lua_rawseti(L, -2, 6);
-  lua_pushstring(L, "MouseX");
+  lua_pushstring(L, "fib_OwnerUID");
   lua_rawseti(L, -2, 7);
-  lua_pushstring(L, "MinWidth");
+  lua_pushstring(L, "fib_OwnerGID");
   lua_rawseti(L, -2, 8);
-  lua_pushstring(L, "MinHeight");
-  lua_rawseti(L, -2, 9);
-  lua_pushstring(L, "MaxWidth");
-  lua_rawseti(L, -2, 10);
-  lua_pushstring(L, "MaxHeight");
-  lua_rawseti(L, -2, 11);
-  lua_pushstring(L, "Flags");
-  lua_rawseti(L, -2, 12);
-  lua_pushstring(L, "MenuStrip");
-  lua_rawseti(L, -2, 13);
-  lua_pushstring(L, "Title");
-  lua_rawseti(L, -2, 14);
-  lua_pushstring(L, "FirstRequest");
-  lua_rawseti(L, -2, 15);
-  lua_pushstring(L, "DMRequest");
-  lua_rawseti(L, -2, 16);
-  lua_pushstring(L, "ReqCount");
-  lua_rawseti(L, -2, 17);
-  lua_pushstring(L, "WScreen");
-  lua_rawseti(L, -2, 18);
-  lua_pushstring(L, "RPort");
-  lua_rawseti(L, -2, 19);
-  lua_pushstring(L, "BorderLeft");
-  lua_rawseti(L, -2, 20);
-  lua_pushstring(L, "BorderTop");
-  lua_rawseti(L, -2, 21);
-  lua_pushstring(L, "BorderRight");
-  lua_rawseti(L, -2, 22);
-  lua_pushstring(L, "BorderBottom");
-  lua_rawseti(L, -2, 23);
-  lua_pushstring(L, "BorderRPort");
-  lua_rawseti(L, -2, 24);
-  lua_pushstring(L, "FirstGadget");
-  lua_rawseti(L, -2, 25);
-  lua_pushstring(L, "Parent");
-  lua_rawseti(L, -2, 26);
-  lua_pushstring(L, "Descendant");
-  lua_rawseti(L, -2, 27);
-  lua_pushstring(L, "Pointer");
-  lua_rawseti(L, -2, 28);
-  lua_pushstring(L, "PtrHeight");
-  lua_rawseti(L, -2, 29);
-  lua_pushstring(L, "PtrWidth");
-  lua_rawseti(L, -2, 30);
-  lua_pushstring(L, "XOffset");
-  lua_rawseti(L, -2, 31);
-  lua_pushstring(L, "YOffset");
-  lua_rawseti(L, -2, 32);
-  lua_pushstring(L, "IDCMPFlags");
-  lua_rawseti(L, -2, 33);
-  lua_pushstring(L, "UserPort");
-  lua_rawseti(L, -2, 34);
-  lua_pushstring(L, "WindowPort");
-  lua_rawseti(L, -2, 35);
-  lua_pushstring(L, "MessageKey");
-  lua_rawseti(L, -2, 36);
-  lua_pushstring(L, "DetailPen");
-  lua_rawseti(L, -2, 37);
-  lua_pushstring(L, "BlockPen");
-  lua_rawseti(L, -2, 38);
-  lua_pushstring(L, "CheckMark");
-  lua_rawseti(L, -2, 39);
-  lua_pushstring(L, "ScreenTitle");
-  lua_rawseti(L, -2, 40);
-  lua_pushstring(L, "GZZMouseX");
-  lua_rawseti(L, -2, 41);
-  lua_pushstring(L, "GZZMouseY");
-  lua_rawseti(L, -2, 42);
-  lua_pushstring(L, "GZZWidth");
-  lua_rawseti(L, -2, 43);
-  lua_pushstring(L, "GZZHeight");
-  lua_rawseti(L, -2, 44);
-  lua_pushstring(L, "ExtData");
-  lua_rawseti(L, -2, 45);
-  lua_pushstring(L, "UserData");
-  lua_rawseti(L, -2, 46);
-  lua_pushstring(L, "IFont");
-  lua_rawseti(L, -2, 47);
-  lua_pushstring(L, "MoreFlags");
-  lua_rawseti(L, -2, 48);
   lua_setfield(L, -2, "__keys");
 }
 
 static void
-_lua_gen_install_meta_Window(lua_State *L) {
-  if (luaL_newmetatable(L, "Window")) {
-    lua_pushcfunction(L, _lua_gen_Window_index);
+_lua_gen_install_meta_FileInfoBlock(lua_State *L) {
+  if (luaL_newmetatable(L, "FileInfoBlock")) {
+    lua_pushcfunction(L, _lua_gen_FileInfoBlock_index);
     lua_setfield(L, -2, "__index");
-    lua_pushcfunction(L, _lua_gen_Window_newindex);
+    lua_pushcfunction(L, _lua_gen_FileInfoBlock_newindex);
     lua_setfield(L, -2, "__newindex");
-    lua_pushcfunction(L, _lua_Window_constructor);
-    lua_setglobal(L, "Window");
-    _lua_gen_Window_install_keys(L);
-    lua_pushstring(L, "Window");
+    lua_pushcfunction(L, _lua_FileInfoBlock_constructor);
+    lua_setglobal(L, "FileInfoBlock");
+    _lua_gen_FileInfoBlock_install_keys(L);
+    lua_pushstring(L, "FileInfoBlock");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_InfoData_newindex(lua_State *L)
+{
+  InfoData *obj = *(InfoData **)luaL_checkudata(L, 1, "InfoData");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "id_NumSoftErrors") == 0) {
+    obj->id_NumSoftErrors = (LONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "id_UnitNumber") == 0) {
+    obj->id_UnitNumber = (LONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "id_DiskState") == 0) {
+    obj->id_DiskState = (LONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "id_NumBlocks") == 0) {
+    obj->id_NumBlocks = (LONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "id_NumBlocksUsed") == 0) {
+    obj->id_NumBlocksUsed = (LONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "id_BytesPerBlock") == 0) {
+    obj->id_BytesPerBlock = (LONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "id_DiskType") == 0) {
+    obj->id_DiskType = (LONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "id_VolumeNode") == 0) {
+    obj->id_VolumeNode = (BPTR)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "id_InUse") == 0) {
+    obj->id_InUse = (LONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_InfoData_constructor(lua_State *L)
+{
+  // Allocate pointer-to-InfoData in userdata
+  InfoData **objp = lua_newuserdata(L, sizeof(InfoData *));
+  *objp = malloc(sizeof(InfoData));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(InfoData));
+
+  // Set metatable
+  luaL_getmetatable(L, "InfoData");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_InfoData_index(lua_State *L)
+{
+  InfoData *obj = *(InfoData **)luaL_checkudata(L, 1, "InfoData");
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "id_NumSoftErrors") == 0) {
+    lua_pushinteger(L, obj->id_NumSoftErrors);
+    return 1;
+  }
+  if (strcmp(key, "id_UnitNumber") == 0) {
+    lua_pushinteger(L, obj->id_UnitNumber);
+    return 1;
+  }
+  if (strcmp(key, "id_DiskState") == 0) {
+    lua_pushinteger(L, obj->id_DiskState);
+    return 1;
+  }
+  if (strcmp(key, "id_NumBlocks") == 0) {
+    lua_pushinteger(L, obj->id_NumBlocks);
+    return 1;
+  }
+  if (strcmp(key, "id_NumBlocksUsed") == 0) {
+    lua_pushinteger(L, obj->id_NumBlocksUsed);
+    return 1;
+  }
+  if (strcmp(key, "id_BytesPerBlock") == 0) {
+    lua_pushinteger(L, obj->id_BytesPerBlock);
+    return 1;
+  }
+  if (strcmp(key, "id_DiskType") == 0) {
+    lua_pushinteger(L, obj->id_DiskType);
+    return 1;
+  }
+  if (strcmp(key, "id_VolumeNode") == 0) {
+    lua_pushinteger(L, obj->id_VolumeNode);
+    return 1;
+  }
+  if (strcmp(key, "id_InUse") == 0) {
+    lua_pushinteger(L, obj->id_InUse);
+    return 1;
+  }
+  return 0;
+}
+
+static void
+_lua_gen_InfoData_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "id_NumSoftErrors");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "id_UnitNumber");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "id_DiskState");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "id_NumBlocks");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "id_NumBlocksUsed");
+  lua_rawseti(L, -2, 5);
+  lua_pushstring(L, "id_BytesPerBlock");
+  lua_rawseti(L, -2, 6);
+  lua_pushstring(L, "id_DiskType");
+  lua_rawseti(L, -2, 7);
+  lua_pushstring(L, "id_VolumeNode");
+  lua_rawseti(L, -2, 8);
+  lua_pushstring(L, "id_InUse");
+  lua_rawseti(L, -2, 9);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_InfoData(lua_State *L) {
+  if (luaL_newmetatable(L, "InfoData")) {
+    lua_pushcfunction(L, _lua_gen_InfoData_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_InfoData_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_InfoData_constructor);
+    lua_setglobal(L, "InfoData");
+    _lua_gen_InfoData_install_keys(L);
+    lua_pushstring(L, "InfoData");
     lua_setfield(L, -2, "__name");
   }
   lua_pop(L, 1);
@@ -6701,11 +8478,6 @@ _lua_gen_IntuiMessage_newindex(lua_State *L)
     obj->Micros = (ULONG)luaL_checkinteger(L, 3);
     return 0;
   }
-  if (strcmp(key, "IDCMPWindow") == 0) {
-    // finder 1
-    obj->IDCMPWindow = *(Window **)luaL_checkudata(L, 3, "Window");
-    return 0;
-  }
   if (strcmp(key, "SpecialLink") == 0) {
     // finder 1
     obj->SpecialLink = *(IntuiMessage **)luaL_checkudata(L, 3, "IntuiMessage");
@@ -6788,13 +8560,6 @@ _lua_gen_IntuiMessage_index(lua_State *L)
     lua_pushinteger(L, obj->Micros);
     return 1;
   }
-  if (strcmp(key, "IDCMPWindow") == 0) {
-    Window **ud = (Window **)lua_newuserdata(L, sizeof(Window *));
-    *ud = (Window*)obj->IDCMPWindow;
-    luaL_getmetatable(L, "Window");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
   if (strcmp(key, "SpecialLink") == 0) {
     IntuiMessage **ud = (IntuiMessage **)lua_newuserdata(L, sizeof(IntuiMessage *));
     *ud = (IntuiMessage*)obj->SpecialLink;
@@ -6827,10 +8592,8 @@ _lua_gen_IntuiMessage_install_keys(lua_State *L)
   lua_rawseti(L, -2, 8);
   lua_pushstring(L, "Micros");
   lua_rawseti(L, -2, 9);
-  lua_pushstring(L, "IDCMPWindow");
-  lua_rawseti(L, -2, 10);
   lua_pushstring(L, "SpecialLink");
-  lua_rawseti(L, -2, 11);
+  lua_rawseti(L, -2, 10);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -7510,11 +9273,6 @@ _lua_gen_Screen_newindex(lua_State *L)
     obj->NextScreen = *(Screen **)luaL_checkudata(L, 3, "Screen");
     return 0;
   }
-  if (strcmp(key, "FirstWindow") == 0) {
-    // finder 1
-    obj->FirstWindow = *(Window **)luaL_checkudata(L, 3, "Window");
-    return 0;
-  }
   if (strcmp(key, "LeftEdge") == 0) {
     obj->LeftEdge = (WORD)luaL_checkinteger(L, 3);
     return 0;
@@ -7672,13 +9430,6 @@ _lua_gen_Screen_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
-  if (strcmp(key, "FirstWindow") == 0) {
-    Window **ud = (Window **)lua_newuserdata(L, sizeof(Window *));
-    *ud = (Window*)obj->FirstWindow;
-    luaL_getmetatable(L, "Window");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
   if (strcmp(key, "LeftEdge") == 0) {
     lua_pushinteger(L, obj->LeftEdge);
     return 1;
@@ -7807,64 +9558,62 @@ _lua_gen_Screen_install_keys(lua_State *L)
   lua_newtable(L);
   lua_pushstring(L, "NextScreen");
   lua_rawseti(L, -2, 1);
-  lua_pushstring(L, "FirstWindow");
-  lua_rawseti(L, -2, 2);
   lua_pushstring(L, "LeftEdge");
-  lua_rawseti(L, -2, 3);
+  lua_rawseti(L, -2, 2);
   lua_pushstring(L, "TopEdge");
-  lua_rawseti(L, -2, 4);
+  lua_rawseti(L, -2, 3);
   lua_pushstring(L, "Width");
-  lua_rawseti(L, -2, 5);
+  lua_rawseti(L, -2, 4);
   lua_pushstring(L, "Height");
-  lua_rawseti(L, -2, 6);
+  lua_rawseti(L, -2, 5);
   lua_pushstring(L, "MouseY");
-  lua_rawseti(L, -2, 7);
+  lua_rawseti(L, -2, 6);
   lua_pushstring(L, "MouseX");
-  lua_rawseti(L, -2, 8);
+  lua_rawseti(L, -2, 7);
   lua_pushstring(L, "Flags");
-  lua_rawseti(L, -2, 9);
+  lua_rawseti(L, -2, 8);
   lua_pushstring(L, "Title");
-  lua_rawseti(L, -2, 10);
+  lua_rawseti(L, -2, 9);
   lua_pushstring(L, "DefaultTitle");
-  lua_rawseti(L, -2, 11);
+  lua_rawseti(L, -2, 10);
   lua_pushstring(L, "BarHeight");
-  lua_rawseti(L, -2, 12);
+  lua_rawseti(L, -2, 11);
   lua_pushstring(L, "BarVBorder");
-  lua_rawseti(L, -2, 13);
+  lua_rawseti(L, -2, 12);
   lua_pushstring(L, "BarHBorder");
-  lua_rawseti(L, -2, 14);
+  lua_rawseti(L, -2, 13);
   lua_pushstring(L, "MenuVBorder");
-  lua_rawseti(L, -2, 15);
+  lua_rawseti(L, -2, 14);
   lua_pushstring(L, "MenuHBorder");
-  lua_rawseti(L, -2, 16);
+  lua_rawseti(L, -2, 15);
   lua_pushstring(L, "WBorTop");
-  lua_rawseti(L, -2, 17);
+  lua_rawseti(L, -2, 16);
   lua_pushstring(L, "WBorLeft");
-  lua_rawseti(L, -2, 18);
+  lua_rawseti(L, -2, 17);
   lua_pushstring(L, "WBorRight");
-  lua_rawseti(L, -2, 19);
+  lua_rawseti(L, -2, 18);
   lua_pushstring(L, "WBorBottom");
-  lua_rawseti(L, -2, 20);
+  lua_rawseti(L, -2, 19);
   lua_pushstring(L, "Font");
-  lua_rawseti(L, -2, 21);
+  lua_rawseti(L, -2, 20);
   lua_pushstring(L, "ViewPort");
-  lua_rawseti(L, -2, 22);
+  lua_rawseti(L, -2, 21);
   lua_pushstring(L, "RastPort");
-  lua_rawseti(L, -2, 23);
+  lua_rawseti(L, -2, 22);
   lua_pushstring(L, "BitMap");
-  lua_rawseti(L, -2, 24);
+  lua_rawseti(L, -2, 23);
   lua_pushstring(L, "FirstGadget");
-  lua_rawseti(L, -2, 25);
+  lua_rawseti(L, -2, 24);
   lua_pushstring(L, "DetailPen");
-  lua_rawseti(L, -2, 26);
+  lua_rawseti(L, -2, 25);
   lua_pushstring(L, "BlockPen");
-  lua_rawseti(L, -2, 27);
+  lua_rawseti(L, -2, 26);
   lua_pushstring(L, "SaveColor0");
-  lua_rawseti(L, -2, 28);
+  lua_rawseti(L, -2, 27);
   lua_pushstring(L, "ExtData");
-  lua_rawseti(L, -2, 29);
+  lua_rawseti(L, -2, 28);
   lua_pushstring(L, "UserData");
-  lua_rawseti(L, -2, 30);
+  lua_rawseti(L, -2, 29);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -8123,11 +9872,6 @@ _lua_gen_GadgetInfo_newindex(lua_State *L)
     obj->gi_Screen = *(Screen **)luaL_checkudata(L, 3, "Screen");
     return 0;
   }
-  if (strcmp(key, "gi_Window") == 0) {
-    // finder 1
-    obj->gi_Window = *(Window **)luaL_checkudata(L, 3, "Window");
-    return 0;
-  }
   if (strcmp(key, "gi_Requester") == 0) {
     // finder 1
     obj->gi_Requester = *(Requester **)luaL_checkudata(L, 3, "Requester");
@@ -8188,13 +9932,6 @@ _lua_gen_GadgetInfo_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
-  if (strcmp(key, "gi_Window") == 0) {
-    Window **ud = (Window **)lua_newuserdata(L, sizeof(Window *));
-    *ud = (Window*)obj->gi_Window;
-    luaL_getmetatable(L, "Window");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
   if (strcmp(key, "gi_Requester") == 0) {
     Requester **ud = (Requester **)lua_newuserdata(L, sizeof(Requester *));
     *ud = (Requester*)obj->gi_Requester;
@@ -8225,14 +9962,12 @@ _lua_gen_GadgetInfo_install_keys(lua_State *L)
   lua_newtable(L);
   lua_pushstring(L, "gi_Screen");
   lua_rawseti(L, -2, 1);
-  lua_pushstring(L, "gi_Window");
-  lua_rawseti(L, -2, 2);
   lua_pushstring(L, "gi_Requester");
-  lua_rawseti(L, -2, 3);
+  lua_rawseti(L, -2, 2);
   lua_pushstring(L, "gi_RastPort");
-  lua_rawseti(L, -2, 4);
+  lua_rawseti(L, -2, 3);
   lua_pushstring(L, "gi_DrInfo");
-  lua_rawseti(L, -2, 5);
+  lua_rawseti(L, -2, 4);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -9545,11 +11280,6 @@ _lua_gen_Requester_newindex(lua_State *L)
     obj->ImageBMap = *(BitMap **)luaL_checkudata(L, 3, "BitMap");
     return 0;
   }
-  if (strcmp(key, "RWindow") == 0) {
-    // finder 1
-    obj->RWindow = *(Window **)luaL_checkudata(L, 3, "Window");
-    return 0;
-  }
   if (strcmp(key, "ReqImage") == 0) {
     // finder 1
     obj->ReqImage = *(Image **)luaL_checkudata(L, 3, "Image");
@@ -9653,13 +11383,6 @@ _lua_gen_Requester_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
-  if (strcmp(key, "RWindow") == 0) {
-    Window **ud = (Window **)lua_newuserdata(L, sizeof(Window *));
-    *ud = (Window*)obj->RWindow;
-    luaL_getmetatable(L, "Window");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
   if (strcmp(key, "ReqImage") == 0) {
     Image **ud = (Image **)lua_newuserdata(L, sizeof(Image *));
     *ud = (Image*)obj->ReqImage;
@@ -9698,10 +11421,8 @@ _lua_gen_Requester_install_keys(lua_State *L)
   lua_rawseti(L, -2, 11);
   lua_pushstring(L, "ImageBMap");
   lua_rawseti(L, -2, 12);
-  lua_pushstring(L, "RWindow");
-  lua_rawseti(L, -2, 13);
   lua_pushstring(L, "ReqImage");
-  lua_rawseti(L, -2, 14);
+  lua_rawseti(L, -2, 13);
   lua_setfield(L, -2, "__keys");
 }
 
@@ -11305,8 +13026,8 @@ _lua_TO_CONST_STRPTR(lua_State* L)
 {
   (void)L;
   void * data = lua_touserdata(L, 1);
-  CONST_STRPTR result = TO_CONST_STRPTR(data);
-  lua_pushstring(L, result);
+  CONST_STRPTR _result = TO_CONST_STRPTR(data);
+  lua_pushstring(L, _result);
   return 1;
 }
 
@@ -11315,8 +13036,8 @@ _lua_TO_IntuiMessage(lua_State* L)
 {
   (void)L;
   struct Message * msg = _lua_gen_checkMessage(L, 1);
-  struct IntuiMessage * result = TO_IntuiMessage(msg);
-  _lua_gen_pushIntuiMessage(L, result);
+  struct IntuiMessage * _result = TO_IntuiMessage(msg);
+  _lua_gen_pushIntuiMessage(L, _result);
   return 1;
 }
 
@@ -11884,7 +13605,8 @@ _lua_gen_installGeneratedMetaTables(lua_State *L)
   _lua_gen_install_meta_SignalSemaphore(L);
   _lua_gen_install_meta_SemaphoreMessage(L);
   _lua_gen_install_meta_StackSwapStruct(L);
-  _lua_gen_install_meta_Window(L);
+  _lua_gen_install_meta_FileInfoBlock(L);
+  _lua_gen_install_meta_InfoData(L);
   _lua_gen_install_meta_RastPort(L);
   _lua_gen_install_meta_TagItem(L);
   _lua_gen_install_meta_MsgPort(L);
@@ -11928,8 +13650,164 @@ static void
 _lua_gen_installGeneratedFunctions(lua_State *L)
 {
   lua_register(L, "Open", _lua_Open);
+  lua_register(L, "Close", _lua_Close);
   lua_register(L, "Read", _lua_Read);
+  lua_register(L, "Write", _lua_Write);
+  lua_register(L, "Input", _lua_Input);
+  lua_register(L, "Output", _lua_Output);
+  lua_register(L, "Seek", _lua_Seek);
+  lua_register(L, "DeleteFile", _lua_DeleteFile);
+  lua_register(L, "Rename", _lua_Rename);
+  lua_register(L, "Lock", _lua_Lock);
+  lua_register(L, "UnLock", _lua_UnLock);
+  lua_register(L, "DupLock", _lua_DupLock);
+  lua_register(L, "Examine", _lua_Examine);
+  lua_register(L, "ExNext", _lua_ExNext);
+  lua_register(L, "Info", _lua_Info);
+  lua_register(L, "CreateDir", _lua_CreateDir);
+  lua_register(L, "CurrentDir", _lua_CurrentDir);
+  lua_register(L, "IoErr", _lua_IoErr);
+  lua_register(L, "Exit", _lua_Exit);
+  lua_register(L, "LoadSeg", _lua_LoadSeg);
+  lua_register(L, "UnLoadSeg", _lua_UnLoadSeg);
+  lua_register(L, "DeviceProc", _lua_DeviceProc);
+  lua_register(L, "SetComment", _lua_SetComment);
+  lua_register(L, "SetProtection", _lua_SetProtection);
+  lua_register(L, "DateStamp", _lua_DateStamp);
+  lua_register(L, "Delay", _lua_Delay);
+  lua_register(L, "WaitForChar", _lua_WaitForChar);
+  lua_register(L, "ParentDir", _lua_ParentDir);
+  lua_register(L, "IsInteractive", _lua_IsInteractive);
+  lua_register(L, "Execute", _lua_Execute);
+  lua_register(L, "AllocDosObject", _lua_AllocDosObject);
+  lua_register(L, "AllocDosObjectTagList", _lua_AllocDosObjectTagList);
+  lua_register(L, "AllocDosObjectTags", _lua_AllocDosObjectTags);
+  lua_register(L, "FreeDosObject", _lua_FreeDosObject);
+  lua_register(L, "DoPkt0", _lua_DoPkt0);
+  lua_register(L, "DoPkt1", _lua_DoPkt1);
+  lua_register(L, "WaitPkt", _lua_WaitPkt);
+  lua_register(L, "ReplyPkt", _lua_ReplyPkt);
+  lua_register(L, "AbortPkt", _lua_AbortPkt);
+  lua_register(L, "LockRecords", _lua_LockRecords);
+  lua_register(L, "UnLockRecord", _lua_UnLockRecord);
+  lua_register(L, "UnLockRecords", _lua_UnLockRecords);
+  lua_register(L, "SelectInput", _lua_SelectInput);
+  lua_register(L, "SelectOutput", _lua_SelectOutput);
+  lua_register(L, "FGetC", _lua_FGetC);
+  lua_register(L, "FPutC", _lua_FPutC);
+  lua_register(L, "UnGetC", _lua_UnGetC);
+  lua_register(L, "FRead", _lua_FRead);
+  lua_register(L, "FWrite", _lua_FWrite);
+  lua_register(L, "FGets", _lua_FGets);
+  lua_register(L, "FPuts", _lua_FPuts);
+  lua_register(L, "VFWritef", _lua_VFWritef);
+  lua_register(L, "FWritef", _lua_FWritef);
+  lua_register(L, "VFPrintf", _lua_VFPrintf);
+  lua_register(L, "FPrintf", _lua_FPrintf);
+  lua_register(L, "Flush", _lua_Flush);
+  lua_register(L, "SetVBuf", _lua_SetVBuf);
+  lua_register(L, "DupLockFromFH", _lua_DupLockFromFH);
+  lua_register(L, "OpenFromLock", _lua_OpenFromLock);
+  lua_register(L, "ParentOfFH", _lua_ParentOfFH);
+  lua_register(L, "ExamineFH", _lua_ExamineFH);
+  lua_register(L, "SetFileDate", _lua_SetFileDate);
+  lua_register(L, "NameFromLock", _lua_NameFromLock);
+  lua_register(L, "NameFromFH", _lua_NameFromFH);
+  lua_register(L, "SameLock", _lua_SameLock);
+  lua_register(L, "SetMode", _lua_SetMode);
+  lua_register(L, "MakeLink", _lua_MakeLink);
+  lua_register(L, "ChangeMode", _lua_ChangeMode);
+  lua_register(L, "SetFileSize", _lua_SetFileSize);
+  lua_register(L, "SetIoErr", _lua_SetIoErr);
+  lua_register(L, "Fault", _lua_Fault);
+  lua_register(L, "PrintFault", _lua_PrintFault);
+  lua_register(L, "Cli", _lua_Cli);
+  lua_register(L, "CreateNewProc", _lua_CreateNewProc);
+  lua_register(L, "CreateNewProcTagList", _lua_CreateNewProcTagList);
+  lua_register(L, "CreateNewProcTags", _lua_CreateNewProcTags);
+  lua_register(L, "GetConsoleTask", _lua_GetConsoleTask);
+  lua_register(L, "SetConsoleTask", _lua_SetConsoleTask);
+  lua_register(L, "GetFileSysTask", _lua_GetFileSysTask);
+  lua_register(L, "SetFileSysTask", _lua_SetFileSysTask);
+  lua_register(L, "GetArgStr", _lua_GetArgStr);
+  lua_register(L, "SetArgStr", _lua_SetArgStr);
+  lua_register(L, "FindCliProc", _lua_FindCliProc);
+  lua_register(L, "MaxCli", _lua_MaxCli);
+  lua_register(L, "SetCurrentDirName", _lua_SetCurrentDirName);
+  lua_register(L, "GetCurrentDirName", _lua_GetCurrentDirName);
+  lua_register(L, "SetProgramName", _lua_SetProgramName);
+  lua_register(L, "GetProgramName", _lua_GetProgramName);
+  lua_register(L, "SetPrompt", _lua_SetPrompt);
+  lua_register(L, "GetPrompt", _lua_GetPrompt);
+  lua_register(L, "SetProgramDir", _lua_SetProgramDir);
+  lua_register(L, "GetProgramDir", _lua_GetProgramDir);
+  lua_register(L, "SystemTagList", _lua_SystemTagList);
+  lua_register(L, "System", _lua_System);
+  lua_register(L, "SystemTags", _lua_SystemTags);
+  lua_register(L, "AssignLock", _lua_AssignLock);
+  lua_register(L, "AssignLate", _lua_AssignLate);
+  lua_register(L, "AssignPath", _lua_AssignPath);
+  lua_register(L, "AssignAdd", _lua_AssignAdd);
+  lua_register(L, "RemAssignList", _lua_RemAssignList);
+  lua_register(L, "GetDeviceProc", _lua_GetDeviceProc);
+  lua_register(L, "FreeDeviceProc", _lua_FreeDeviceProc);
+  lua_register(L, "LockDosList", _lua_LockDosList);
+  lua_register(L, "UnLockDosList", _lua_UnLockDosList);
+  lua_register(L, "AttemptLockDosList", _lua_AttemptLockDosList);
+  lua_register(L, "RemDosEntry", _lua_RemDosEntry);
+  lua_register(L, "AddDosEntry", _lua_AddDosEntry);
+  lua_register(L, "NextDosEntry", _lua_NextDosEntry);
+  lua_register(L, "MakeDosEntry", _lua_MakeDosEntry);
+  lua_register(L, "FreeDosEntry", _lua_FreeDosEntry);
+  lua_register(L, "IsFileSystem", _lua_IsFileSystem);
+  lua_register(L, "Format", _lua_Format);
+  lua_register(L, "Relabel", _lua_Relabel);
+  lua_register(L, "Inhibit", _lua_Inhibit);
+  lua_register(L, "AddBuffers", _lua_AddBuffers);
+  lua_register(L, "CompareDates", _lua_CompareDates);
+  lua_register(L, "DateToStr", _lua_DateToStr);
+  lua_register(L, "StrToDate", _lua_StrToDate);
+  lua_register(L, "NewLoadSeg", _lua_NewLoadSeg);
+  lua_register(L, "NewLoadSegTagList", _lua_NewLoadSegTagList);
+  lua_register(L, "NewLoadSegTags", _lua_NewLoadSegTags);
+  lua_register(L, "AddSegment", _lua_AddSegment);
+  lua_register(L, "RemSegment", _lua_RemSegment);
+  lua_register(L, "CheckSignal", _lua_CheckSignal);
+  lua_register(L, "FindArg", _lua_FindArg);
+  lua_register(L, "StrToLong", _lua_StrToLong);
+  lua_register(L, "MatchFirst", _lua_MatchFirst);
+  lua_register(L, "MatchNext", _lua_MatchNext);
+  lua_register(L, "MatchEnd", _lua_MatchEnd);
+  lua_register(L, "ParsePattern", _lua_ParsePattern);
+  lua_register(L, "MatchPattern", _lua_MatchPattern);
+  lua_register(L, "FreeArgs", _lua_FreeArgs);
+  lua_register(L, "FilePart", _lua_FilePart);
+  lua_register(L, "PathPart", _lua_PathPart);
+  lua_register(L, "AddPart", _lua_AddPart);
+  lua_register(L, "StartNotify", _lua_StartNotify);
+  lua_register(L, "EndNotify", _lua_EndNotify);
+  lua_register(L, "SetVar", _lua_SetVar);
+  lua_register(L, "GetVar", _lua_GetVar);
+  lua_register(L, "DeleteVar", _lua_DeleteVar);
+  lua_register(L, "FindVar", _lua_FindVar);
+  lua_register(L, "CliInitNewcli", _lua_CliInitNewcli);
+  lua_register(L, "CliInitRun", _lua_CliInitRun);
+  lua_register(L, "WriteChars", _lua_WriteChars);
   lua_register(L, "PutStr", _lua_PutStr);
+  lua_register(L, "VPrintf", _lua_VPrintf);
+  lua_register(L, "Printf", _lua_Printf);
+  lua_register(L, "ParsePatternNoCase", _lua_ParsePatternNoCase);
+  lua_register(L, "MatchPatternNoCase", _lua_MatchPatternNoCase);
+  lua_register(L, "SameDevice", _lua_SameDevice);
+  lua_register(L, "SetOwner", _lua_SetOwner);
+  lua_register(L, "VolumeRequestHook", _lua_VolumeRequestHook);
+  lua_register(L, "GetCurrentDir", _lua_GetCurrentDir);
+  lua_register(L, "PutErrStr", _lua_PutErrStr);
+  lua_register(L, "ErrorOutput", _lua_ErrorOutput);
+  lua_register(L, "SelectError", _lua_SelectError);
+  lua_register(L, "DoShellMethodTagList", _lua_DoShellMethodTagList);
+  lua_register(L, "DoShellMethod", _lua_DoShellMethod);
+  lua_register(L, "ScanStackToken", _lua_ScanStackToken);
   lua_register(L, "InitCode", _lua_InitCode);
   lua_register(L, "InitStruct", _lua_InitStruct);
   lua_register(L, "FindResident", _lua_FindResident);

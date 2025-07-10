@@ -41,8 +41,12 @@ typedef struct SignalSemaphore SignalSemaphore;
 typedef struct SemaphoreMessage SemaphoreMessage;
 typedef struct StackSwapStruct StackSwapStruct;
 
+//Dos
+typedef struct FileInfoBlock FileInfoBlock;
+typedef struct InfoData InfoData;
+
 // TODO
-typedef struct Window Window;
+//typedef struct Window Window;
 typedef struct RastPort RastPort;
 typedef struct TagItem TagItem;
 typedef struct RastPort RastPort;
