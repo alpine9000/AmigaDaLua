@@ -15266,7 +15266,7 @@ _lua_GT_GetGadgetAttrs(lua_State* L)
 static int
 _lua_gen_GadgetPtr_newindex(lua_State *L)
 {
-  GadgetPtr *obj = *(GadgetPtr **)luaL_checkudata(L, 1, "GadgetPtr");
+  struct GadgetPtr *obj = *(struct GadgetPtr **)luaL_checkudata(L, 1, "GadgetPtr");
   const char *key = luaL_checkstring(L, 2);
   if (strcmp(key, "ptr") == 0) {
     // finder 1
@@ -15280,11 +15280,11 @@ _lua_gen_GadgetPtr_newindex(lua_State *L)
 static int
 _lua_GadgetPtr_constructor(lua_State *L)
 {
-  // Allocate pointer-to-GadgetPtr in userdata
-  GadgetPtr **objp = lua_newuserdata(L, sizeof(GadgetPtr *));
-  *objp = malloc(sizeof(GadgetPtr));
+  // Allocate pointer-to-struct GadgetPtr in userdata
+  struct GadgetPtr **objp = lua_newuserdata(L, sizeof(struct GadgetPtr *));
+  *objp = malloc(sizeof(struct GadgetPtr));
   if (!*objp) return luaL_error(L, "out of memory");
-  memset(*objp, 0, sizeof(GadgetPtr));
+  memset(*objp, 0, sizeof(struct GadgetPtr));
 
   // Set metatable
   luaL_getmetatable(L, "GadgetPtr");
@@ -15309,7 +15309,7 @@ _lua_GadgetPtr_constructor(lua_State *L)
 static int
 _lua_gen_GadgetPtr_index(lua_State *L)
 {
-  GadgetPtr *obj = *(GadgetPtr **)luaL_checkudata(L, 1, "GadgetPtr");
+  struct GadgetPtr *obj = *(struct GadgetPtr **)luaL_checkudata(L, 1, "GadgetPtr");
   const char *key = luaL_checkstring(L, 2);
   if (strcmp(key, "ptr") == 0) {
     struct Gadget **ud = (struct Gadget **)lua_newuserdata(L, sizeof(struct Gadget *));

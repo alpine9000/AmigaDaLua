@@ -25,16 +25,13 @@
 #include <libraries/gadtools.h>
 
 struct GadgetPtr {
-    struct Gadget *ptr;
+  struct Gadget *ptr;
 };
-
-typedef struct GadgetPtr GadgetPtr;
 
 CONST_STRPTR TO_CONST_STRPTR(void* data)
 {
   return (CONST_STRPTR)data;
 }
-
 
 struct IntuiMessage* TO_IntuiMessage(struct Message* msg)
 {

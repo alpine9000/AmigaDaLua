@@ -131,8 +131,8 @@ _amiga_doTagList(lua_State* L, struct TagItem* tags, uint16_t maxTags, uint16_t 
 static int
 _amiga_newGadgetPtr(lua_State *L)
 {
-  GadgetPtr **gp = lua_newuserdata(L, sizeof(GadgetPtr*));
-  *gp = malloc(sizeof(GadgetPtr *));
+  struct GadgetPtr **gp = lua_newuserdata(L, sizeof(struct GadgetPtr*));
+  *gp = malloc(sizeof(struct GadgetPtr *));
   (*gp)->ptr = 0;
   luaL_getmetatable(L, "GadgetPtr");
   lua_setmetatable(L, -2);
