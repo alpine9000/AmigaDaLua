@@ -24,63 +24,8 @@
 #include <graphics/rastport.h>
 #include <libraries/gadtools.h>
 
-// Exec
-typedef struct Resident Resident;
-typedef struct Interrupt Interrupt;
-typedef struct MemHeader MemHeader;
-typedef struct MemList MemList;
-typedef struct Node Node;
-typedef struct MinList MinList;
-typedef struct MaxList MaxList;
-typedef struct MinNode MinNode;
-typedef struct Task Task;
-typedef struct Library Library;
-typedef struct Device Device;
-typedef struct IORequest IORequest;
-typedef struct SignalSemaphore SignalSemaphore;
-typedef struct SemaphoreMessage SemaphoreMessage;
-typedef struct StackSwapStruct StackSwapStruct;
-
-//Dos
-typedef struct FileInfoBlock FileInfoBlock;
-typedef struct InfoData InfoData;
-
-// TODO
-//typedef struct Window Window;
-typedef struct RastPort RastPort;
-//typedef struct TagItem TagItem;
-typedef struct RastPort RastPort;
-typedef struct MsgPort MsgPort;
-typedef struct Message Message;
-typedef struct IntuiMessage IntuiMessage;
-typedef struct Gadget Gadget;
-typedef struct View View;
-typedef struct ViewPort ViewPort;
-typedef struct IntuiText IntuiText;
-typedef struct Screen Screen;
-typedef struct Hook Hook;
-typedef struct List List;
-typedef struct GadgetInfo GadgetInfo;
-typedef struct Image Image;
-typedef struct IClass IClass;
-typedef struct DrawInfo DrawInfo;
-typedef struct ScreenBuffer ScreenBuffer;
-typedef struct NewScreen NewScreen;
-typedef struct NewGadget NewGadget;
-typedef struct NewWindow NewWindow;
-typedef struct Requester Requester;
-//typedef struct TextAttr TextAttr;
-typedef struct StringInfo StringInfo;
-typedef struct TextFont TextFont;
-typedef struct NewMenu NewMenu;
-typedef struct Menu Menu;
-typedef struct MenuItem MenuItem;
-typedef struct InputEvent InputEvent;
-typedef struct BitMap BitMap;
-typedef struct DBufInfo DBufInfo;
-
-struct GadgetPtr{
-    Gadget *ptr;
+struct GadgetPtr {
+    struct Gadget *ptr;
 };
 
 typedef struct GadgetPtr GadgetPtr;
