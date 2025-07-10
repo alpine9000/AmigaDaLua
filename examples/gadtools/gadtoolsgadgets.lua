@@ -1,3 +1,4 @@
+print("Simple example of using a number of gadtools gadgets - see http://amigadev.elowar.com/read/ADCD_2.1/Libraries_Manual_guide/node0598.html")
 -- Simple example of using a number of gadtools gadgets.
 --
 -- Here's a working example showing how to set up and use a linked list
