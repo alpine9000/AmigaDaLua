@@ -132,7 +132,7 @@ function loadCopper()
    --  Allocate memory for the Copper list.  
    --  Make certain that the initial memory is cleared. 
    --uCopList = AllocMem(sizeof(struct UCopList), MEMF_PUBLIC|MEMF_CLEAR)
-   uCopList = AllocMem(32, MEMF_PUBLIC|MEMF_CLEAR)
+   uCopList = AllocMem(12, MEMF_PUBLIC|MEMF_CLEAR)
    if not uCopList then
       ret_val = ERROR_NO_FREE_STORE
    else
