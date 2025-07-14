@@ -487,6 +487,85 @@ def emit_array_proxy_c_code(ctype):
     if "struct" in ctype or "union" in ctype or tag in TYPE_CONFIG:    
         return
 
+    print(f"typedef struct {{")
+    print(f"  {ctype}* data;")
+    print(f"  uint16_t count;")
+    print(f"}} lua_gen_wrapped_{func_base}_data_t;\n")
+
+    print(f"static int _lua_gen_wrapped_{func_base}_ptr_method(lua_State* L) {{")
+    print(f"    lua_gen_wrapped_{func_base}_data_t* wrapper = luaL_checkudata(L, 1, \"{func_base}_proxy\");")
+    print(f"    int index = luaL_checkinteger(L, 2);")
+    print(f"    void* ptr = &wrapper->data[index - 1];")
+    print(f"    lua_pushlightuserdata(L, ptr);")
+    print(f"    return 1;")
+    print(f"}}")
+
+    print(f"static int")
+    print(f"_lua_gen_wrapped_{func_base}_index(lua_State* L)")
+    print(f"{{")
+    print(f"  lua_gen_wrapped_{func_base}_data_t* wrapper = luaL_checkudata(L, 1, \"{func_base}_proxy\");")
+    print(f"  if (lua_isinteger(L, 2)) {{")
+    print(f"    int index = lua_tointeger(L, 2);")
+    print(f"    if (index < 1 || index > wrapper->count)")
+    print(f"      return luaL_error(L, \"index out of range (1..%d)\", wrapper->count);")
+    print(f"    {get_lua_push(ctype)}(L, wrapper->data[index - 1]);")
+    print(f"    return 1;")
+    print(f"  }}\n")
+  
+    print(f"  // Not a numeric key? Try methods")
+    print(f"  lua_getmetatable(L, 1);")
+    print(f"  lua_getfield(L, -1, \"__methods\");")
+    print(f"  lua_pushvalue(L, 2);")
+    print(f"  lua_gettable(L, -2);")
+    print(f"  return 1;")
+    print(f"}}\n")
+
+    print(f"static int")
+    print(f"_lua_gen_wrapped_{func_base}_newindex(lua_State* L)")
+    print(f"{{")
+    print(f"  lua_gen_wrapped_{func_base}_data_t* wrapper = luaL_checkudata(L, 1, \"{func_base}_proxy\");")
+  
+    print(f"  if (!lua_isinteger(L, 2))")
+    print(f"    return luaL_error(L, \"only integer indices allowed\");")
+  
+    print(f"  int index = lua_tointeger(L, 2);")
+    print(f"  if (index < 1 || index > wrapper->count)")
+    print(f"    return luaL_error(L, \"index out of range (1..%d)\", wrapper->count);")
+  
+    print(f"  {ctype} value = {get_lua_check(ctype)}(L,  3);")   
+    print(f"  wrapper->data[index - 1] = value;")
+    print(f"  return 0;")
+    print(f"}}\n")
+
+    print(f"static void")
+    print(f"_lua_gen_push_{func_base}_array_proxy(lua_State *L,  {ctype} *array, int count)")
+    print(f"{{\n")
+    print(f"  lua_gen_wrapped_{func_base}_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_{func_base}_data_t));")
+    print(f"  wrapper->data = array;")
+    print(f"  wrapper->count = count;\n")
+    
+    print(f"  if (luaL_newmetatable(L, \"{func_base}_proxy\")) {{")
+    print(f"    // Create method table")
+    print(f"    lua_newtable(L);")
+    print(f"    lua_pushcfunction(L, _lua_gen_wrapped_{func_base}_ptr_method);")
+    print(f"    lua_setfield(L, -2, \"ptr\");")
+    print(f"    lua_setfield(L, -2, \"__methods\");\n")
+
+    print(f"    // __index handles both numeric and method lookup")
+    print(f"    lua_pushcfunction(L, _lua_gen_wrapped_{func_base}_index);")
+    print(f"    lua_setfield(L, -2, \"__index\");\n")
+
+    print(f"    // __newindex for writing")
+    print(f"    lua_pushcfunction(L, _lua_gen_wrapped_{func_base}_newindex);")
+    print(f"    lua_setfield(L, -2, \"__newindex\");")
+    print(f"  }}\n")
+
+    print(f"  lua_setmetatable(L, -2);  // assign to userdata\n")
+    
+    print(f"}}")
+
+    
+"""
     print(f"static int")
     print(f"_lua_gen_{func_base}_element_ptr(lua_State *L)")
     print(f"{{")
@@ -551,7 +630,7 @@ def emit_array_proxy_c_code(ctype):
     
     print( "    lua_setmetatable(L, -2);")
     print( "}\n")
-
+"""
 def generate_lua_index(struct_name, type_name, fields, functors):
     if struct_name in indexes:
         return

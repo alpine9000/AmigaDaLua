@@ -6269,75 +6269,79 @@ _lua_gen_install_meta_DateStamp(lua_State *L) {
   lua_pop(L, 1);
 }
 
-static int
-_lua_gen_UBYTE_element_ptr(lua_State *L)
-{
-   UBYTE *array = lua_touserdata(L, lua_upvalueindex(1));
-   int count       = lua_tointeger(L, lua_upvalueindex(2));
+typedef struct {
+  UBYTE* data;
+  uint16_t count;
+} lua_gen_wrapped_UBYTE_data_t;
 
-   int index = luaL_checkinteger(L, 1);
-   if (index < 1 || index > count)
-     return luaL_error(L, "index out of range (1..%d)", count);
-   // Return as lightuserdata (raw pointer)
-   lua_pushlightuserdata(L, &array[index - 1]);
-return 1;
-}
-
-static int _lua_gen_UBYTE_array_index(lua_State *L)
-{
-    UBYTE *arr = lua_touserdata(L, lua_upvalueindex(1));
-    int count     = lua_tointeger(L, lua_upvalueindex(2));
-    // if key is not a number, let normal lookup proceed
-
-    if (!lua_isinteger(L, 2)) {
-        lua_getmetatable(L, 1);
-        lua_pushvalue(L, 2);
-        lua_rawget(L, -2);
-        return 1;
-    }
-
-    int index     = luaL_checkinteger(L, 2);
-
-    if (index < 1 || index > count)
-        return luaL_error(L, "index out of range (1..%d)", count);
-    lua_pushinteger(L, arr[index - 1]);
+static int _lua_gen_wrapped_UBYTE_ptr_method(lua_State* L) {
+    lua_gen_wrapped_UBYTE_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_proxy");
+    int index = luaL_checkinteger(L, 2);
+    void* ptr = &wrapper->data[index - 1];
+    lua_pushlightuserdata(L, ptr);
     return 1;
 }
-
-static int _lua_gen_UBYTE_array_newindex(lua_State *L)
+static int
+_lua_gen_wrapped_UBYTE_index(lua_State* L)
 {
-    UBYTE *arr = lua_touserdata(L, lua_upvalueindex(1));
-    int count     = lua_tointeger(L, lua_upvalueindex(2));
-    int index     = luaL_checkinteger(L, 2);
-    if (index < 1 || index > count)
-        return luaL_error(L, "index out of range (1..%d)", count);
-    arr[index - 1] = luaL_checkinteger(L,  3);
-    return 0;
+  lua_gen_wrapped_UBYTE_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_proxy");
+  if (lua_isinteger(L, 2)) {
+    int index = lua_tointeger(L, 2);
+    if (index < 1 || index > wrapper->count)
+      return luaL_error(L, "index out of range (1..%d)", wrapper->count);
+    lua_pushinteger(L, wrapper->data[index - 1]);
+    return 1;
+  }
+
+  // Not a numeric key? Try methods
+  lua_getmetatable(L, 1);
+  lua_getfield(L, -1, "__methods");
+  lua_pushvalue(L, 2);
+  lua_gettable(L, -2);
+  return 1;
 }
 
-static void _lua_gen_push_UBYTE_array_proxy(lua_State *L, UBYTE *array, int count)
+static int
+_lua_gen_wrapped_UBYTE_newindex(lua_State* L)
 {
+  lua_gen_wrapped_UBYTE_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_proxy");
+  if (!lua_isinteger(L, 2))
+    return luaL_error(L, "only integer indices allowed");
+  int index = lua_tointeger(L, 2);
+  if (index < 1 || index > wrapper->count)
+    return luaL_error(L, "index out of range (1..%d)", wrapper->count);
+  UBYTE value = luaL_checkinteger(L,  3);
+  wrapper->data[index - 1] = value;
+  return 0;
+}
+
+static void
+_lua_gen_push_UBYTE_array_proxy(lua_State *L,  UBYTE *array, int count)
+{
+
+  lua_gen_wrapped_UBYTE_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_UBYTE_data_t));
+  wrapper->data = array;
+  wrapper->count = count;
+
+  if (luaL_newmetatable(L, "UBYTE_proxy")) {
+    // Create method table
     lua_newtable(L);
+    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_ptr_method);
+    lua_setfield(L, -2, "ptr");
+    lua_setfield(L, -2, "__methods");
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-
-    lua_pushcclosure(L, _lua_gen_UBYTE_array_index, 2);
+    // __index handles both numeric and method lookup
+    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_index);
     lua_setfield(L, -2, "__index");
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-
-    lua_pushcclosure(L, _lua_gen_UBYTE_array_newindex, 2);
+    // __newindex for writing
+    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_newindex);
     lua_setfield(L, -2, "__newindex");
+  }
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-    lua_pushcclosure(L, _lua_gen_UBYTE_element_ptr, 2);
-    lua_setfield(L, -2, "ptr");
-    lua_setmetatable(L, -2);
+  lua_setmetatable(L, -2);  // assign to userdata
+
 }
-
 static int
 _lua_gen_FileInfoBlock_newindex(lua_State *L)
 {
@@ -9865,75 +9869,79 @@ _lua_gen_install_meta_LocalVar(lua_State *L) {
   lua_pop(L, 1);
 }
 
-static int
-_lua_gen_ULONG_element_ptr(lua_State *L)
-{
-   ULONG *array = lua_touserdata(L, lua_upvalueindex(1));
-   int count       = lua_tointeger(L, lua_upvalueindex(2));
+typedef struct {
+  ULONG* data;
+  uint16_t count;
+} lua_gen_wrapped_ULONG_data_t;
 
-   int index = luaL_checkinteger(L, 1);
-   if (index < 1 || index > count)
-     return luaL_error(L, "index out of range (1..%d)", count);
-   // Return as lightuserdata (raw pointer)
-   lua_pushlightuserdata(L, &array[index - 1]);
-return 1;
-}
-
-static int _lua_gen_ULONG_array_index(lua_State *L)
-{
-    ULONG *arr = lua_touserdata(L, lua_upvalueindex(1));
-    int count     = lua_tointeger(L, lua_upvalueindex(2));
-    // if key is not a number, let normal lookup proceed
-
-    if (!lua_isinteger(L, 2)) {
-        lua_getmetatable(L, 1);
-        lua_pushvalue(L, 2);
-        lua_rawget(L, -2);
-        return 1;
-    }
-
-    int index     = luaL_checkinteger(L, 2);
-
-    if (index < 1 || index > count)
-        return luaL_error(L, "index out of range (1..%d)", count);
-    lua_pushinteger(L, arr[index - 1]);
+static int _lua_gen_wrapped_ULONG_ptr_method(lua_State* L) {
+    lua_gen_wrapped_ULONG_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_proxy");
+    int index = luaL_checkinteger(L, 2);
+    void* ptr = &wrapper->data[index - 1];
+    lua_pushlightuserdata(L, ptr);
     return 1;
 }
-
-static int _lua_gen_ULONG_array_newindex(lua_State *L)
+static int
+_lua_gen_wrapped_ULONG_index(lua_State* L)
 {
-    ULONG *arr = lua_touserdata(L, lua_upvalueindex(1));
-    int count     = lua_tointeger(L, lua_upvalueindex(2));
-    int index     = luaL_checkinteger(L, 2);
-    if (index < 1 || index > count)
-        return luaL_error(L, "index out of range (1..%d)", count);
-    arr[index - 1] = luaL_checkinteger(L,  3);
-    return 0;
+  lua_gen_wrapped_ULONG_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_proxy");
+  if (lua_isinteger(L, 2)) {
+    int index = lua_tointeger(L, 2);
+    if (index < 1 || index > wrapper->count)
+      return luaL_error(L, "index out of range (1..%d)", wrapper->count);
+    lua_pushinteger(L, wrapper->data[index - 1]);
+    return 1;
+  }
+
+  // Not a numeric key? Try methods
+  lua_getmetatable(L, 1);
+  lua_getfield(L, -1, "__methods");
+  lua_pushvalue(L, 2);
+  lua_gettable(L, -2);
+  return 1;
 }
 
-static void _lua_gen_push_ULONG_array_proxy(lua_State *L, ULONG *array, int count)
+static int
+_lua_gen_wrapped_ULONG_newindex(lua_State* L)
 {
+  lua_gen_wrapped_ULONG_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_proxy");
+  if (!lua_isinteger(L, 2))
+    return luaL_error(L, "only integer indices allowed");
+  int index = lua_tointeger(L, 2);
+  if (index < 1 || index > wrapper->count)
+    return luaL_error(L, "index out of range (1..%d)", wrapper->count);
+  ULONG value = luaL_checkinteger(L,  3);
+  wrapper->data[index - 1] = value;
+  return 0;
+}
+
+static void
+_lua_gen_push_ULONG_array_proxy(lua_State *L,  ULONG *array, int count)
+{
+
+  lua_gen_wrapped_ULONG_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_ULONG_data_t));
+  wrapper->data = array;
+  wrapper->count = count;
+
+  if (luaL_newmetatable(L, "ULONG_proxy")) {
+    // Create method table
     lua_newtable(L);
+    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_ptr_method);
+    lua_setfield(L, -2, "ptr");
+    lua_setfield(L, -2, "__methods");
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-
-    lua_pushcclosure(L, _lua_gen_ULONG_array_index, 2);
+    // __index handles both numeric and method lookup
+    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_index);
     lua_setfield(L, -2, "__index");
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-
-    lua_pushcclosure(L, _lua_gen_ULONG_array_newindex, 2);
+    // __newindex for writing
+    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_newindex);
     lua_setfield(L, -2, "__newindex");
+  }
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-    lua_pushcclosure(L, _lua_gen_ULONG_element_ptr, 2);
-    lua_setfield(L, -2, "ptr");
-    lua_setmetatable(L, -2);
+  lua_setmetatable(L, -2);  // assign to userdata
+
 }
-
 static int
 _lua_gen_NotifyRequest_newindex(lua_State *L)
 {
@@ -12832,75 +12840,79 @@ _lua_gen_install_meta_Point(lua_State *L) {
   lua_pop(L, 1);
 }
 
-static int
-_lua_gen_PLANEPTR_element_ptr(lua_State *L)
-{
-   PLANEPTR *array = lua_touserdata(L, lua_upvalueindex(1));
-   int count       = lua_tointeger(L, lua_upvalueindex(2));
+typedef struct {
+  PLANEPTR* data;
+  uint16_t count;
+} lua_gen_wrapped_PLANEPTR_data_t;
 
-   int index = luaL_checkinteger(L, 1);
-   if (index < 1 || index > count)
-     return luaL_error(L, "index out of range (1..%d)", count);
-   // Return as lightuserdata (raw pointer)
-   lua_pushlightuserdata(L, &array[index - 1]);
-return 1;
-}
-
-static int _lua_gen_PLANEPTR_array_index(lua_State *L)
-{
-    PLANEPTR *arr = lua_touserdata(L, lua_upvalueindex(1));
-    int count     = lua_tointeger(L, lua_upvalueindex(2));
-    // if key is not a number, let normal lookup proceed
-
-    if (!lua_isinteger(L, 2)) {
-        lua_getmetatable(L, 1);
-        lua_pushvalue(L, 2);
-        lua_rawget(L, -2);
-        return 1;
-    }
-
-    int index     = luaL_checkinteger(L, 2);
-
-    if (index < 1 || index > count)
-        return luaL_error(L, "index out of range (1..%d)", count);
-    lua_pushlightuserdata(L, arr[index - 1]);
+static int _lua_gen_wrapped_PLANEPTR_ptr_method(lua_State* L) {
+    lua_gen_wrapped_PLANEPTR_data_t* wrapper = luaL_checkudata(L, 1, "PLANEPTR_proxy");
+    int index = luaL_checkinteger(L, 2);
+    void* ptr = &wrapper->data[index - 1];
+    lua_pushlightuserdata(L, ptr);
     return 1;
 }
-
-static int _lua_gen_PLANEPTR_array_newindex(lua_State *L)
+static int
+_lua_gen_wrapped_PLANEPTR_index(lua_State* L)
 {
-    PLANEPTR *arr = lua_touserdata(L, lua_upvalueindex(1));
-    int count     = lua_tointeger(L, lua_upvalueindex(2));
-    int index     = luaL_checkinteger(L, 2);
-    if (index < 1 || index > count)
-        return luaL_error(L, "index out of range (1..%d)", count);
-    arr[index - 1] = lua_touserdata(L,  3);
-    return 0;
+  lua_gen_wrapped_PLANEPTR_data_t* wrapper = luaL_checkudata(L, 1, "PLANEPTR_proxy");
+  if (lua_isinteger(L, 2)) {
+    int index = lua_tointeger(L, 2);
+    if (index < 1 || index > wrapper->count)
+      return luaL_error(L, "index out of range (1..%d)", wrapper->count);
+    lua_pushlightuserdata(L, wrapper->data[index - 1]);
+    return 1;
+  }
+
+  // Not a numeric key? Try methods
+  lua_getmetatable(L, 1);
+  lua_getfield(L, -1, "__methods");
+  lua_pushvalue(L, 2);
+  lua_gettable(L, -2);
+  return 1;
 }
 
-static void _lua_gen_push_PLANEPTR_array_proxy(lua_State *L, PLANEPTR *array, int count)
+static int
+_lua_gen_wrapped_PLANEPTR_newindex(lua_State* L)
 {
+  lua_gen_wrapped_PLANEPTR_data_t* wrapper = luaL_checkudata(L, 1, "PLANEPTR_proxy");
+  if (!lua_isinteger(L, 2))
+    return luaL_error(L, "only integer indices allowed");
+  int index = lua_tointeger(L, 2);
+  if (index < 1 || index > wrapper->count)
+    return luaL_error(L, "index out of range (1..%d)", wrapper->count);
+  PLANEPTR value = lua_touserdata(L,  3);
+  wrapper->data[index - 1] = value;
+  return 0;
+}
+
+static void
+_lua_gen_push_PLANEPTR_array_proxy(lua_State *L,  PLANEPTR *array, int count)
+{
+
+  lua_gen_wrapped_PLANEPTR_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_PLANEPTR_data_t));
+  wrapper->data = array;
+  wrapper->count = count;
+
+  if (luaL_newmetatable(L, "PLANEPTR_proxy")) {
+    // Create method table
     lua_newtable(L);
+    lua_pushcfunction(L, _lua_gen_wrapped_PLANEPTR_ptr_method);
+    lua_setfield(L, -2, "ptr");
+    lua_setfield(L, -2, "__methods");
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-
-    lua_pushcclosure(L, _lua_gen_PLANEPTR_array_index, 2);
+    // __index handles both numeric and method lookup
+    lua_pushcfunction(L, _lua_gen_wrapped_PLANEPTR_index);
     lua_setfield(L, -2, "__index");
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-
-    lua_pushcclosure(L, _lua_gen_PLANEPTR_array_newindex, 2);
+    // __newindex for writing
+    lua_pushcfunction(L, _lua_gen_wrapped_PLANEPTR_newindex);
     lua_setfield(L, -2, "__newindex");
+  }
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-    lua_pushcclosure(L, _lua_gen_PLANEPTR_element_ptr, 2);
-    lua_setfield(L, -2, "ptr");
-    lua_setmetatable(L, -2);
+  lua_setmetatable(L, -2);  // assign to userdata
+
 }
-
 static int
 _lua_gen_BitMap_newindex(lua_State *L)
 {
@@ -13209,75 +13221,79 @@ _lua_gen_install_meta_ExtendedNode(lua_State *L) {
   lua_pop(L, 1);
 }
 
-static int
-_lua_gen_ULONG_p_element_ptr(lua_State *L)
-{
-   ULONG * *array = lua_touserdata(L, lua_upvalueindex(1));
-   int count       = lua_tointeger(L, lua_upvalueindex(2));
+typedef struct {
+  ULONG ** data;
+  uint16_t count;
+} lua_gen_wrapped_ULONG_p_data_t;
 
-   int index = luaL_checkinteger(L, 1);
-   if (index < 1 || index > count)
-     return luaL_error(L, "index out of range (1..%d)", count);
-   // Return as lightuserdata (raw pointer)
-   lua_pushlightuserdata(L, &array[index - 1]);
-return 1;
-}
-
-static int _lua_gen_ULONG_p_array_index(lua_State *L)
-{
-    ULONG * *arr = lua_touserdata(L, lua_upvalueindex(1));
-    int count     = lua_tointeger(L, lua_upvalueindex(2));
-    // if key is not a number, let normal lookup proceed
-
-    if (!lua_isinteger(L, 2)) {
-        lua_getmetatable(L, 1);
-        lua_pushvalue(L, 2);
-        lua_rawget(L, -2);
-        return 1;
-    }
-
-    int index     = luaL_checkinteger(L, 2);
-
-    if (index < 1 || index > count)
-        return luaL_error(L, "index out of range (1..%d)", count);
-    lua_pushlightuserdata(L, arr[index - 1]);
+static int _lua_gen_wrapped_ULONG_p_ptr_method(lua_State* L) {
+    lua_gen_wrapped_ULONG_p_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_p_proxy");
+    int index = luaL_checkinteger(L, 2);
+    void* ptr = &wrapper->data[index - 1];
+    lua_pushlightuserdata(L, ptr);
     return 1;
 }
-
-static int _lua_gen_ULONG_p_array_newindex(lua_State *L)
+static int
+_lua_gen_wrapped_ULONG_p_index(lua_State* L)
 {
-    ULONG * *arr = lua_touserdata(L, lua_upvalueindex(1));
-    int count     = lua_tointeger(L, lua_upvalueindex(2));
-    int index     = luaL_checkinteger(L, 2);
-    if (index < 1 || index > count)
-        return luaL_error(L, "index out of range (1..%d)", count);
-    arr[index - 1] = lua_touserdata(L,  3);
-    return 0;
+  lua_gen_wrapped_ULONG_p_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_p_proxy");
+  if (lua_isinteger(L, 2)) {
+    int index = lua_tointeger(L, 2);
+    if (index < 1 || index > wrapper->count)
+      return luaL_error(L, "index out of range (1..%d)", wrapper->count);
+    lua_pushlightuserdata(L, wrapper->data[index - 1]);
+    return 1;
+  }
+
+  // Not a numeric key? Try methods
+  lua_getmetatable(L, 1);
+  lua_getfield(L, -1, "__methods");
+  lua_pushvalue(L, 2);
+  lua_gettable(L, -2);
+  return 1;
 }
 
-static void _lua_gen_push_ULONG_p_array_proxy(lua_State *L, ULONG * *array, int count)
+static int
+_lua_gen_wrapped_ULONG_p_newindex(lua_State* L)
 {
+  lua_gen_wrapped_ULONG_p_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_p_proxy");
+  if (!lua_isinteger(L, 2))
+    return luaL_error(L, "only integer indices allowed");
+  int index = lua_tointeger(L, 2);
+  if (index < 1 || index > wrapper->count)
+    return luaL_error(L, "index out of range (1..%d)", wrapper->count);
+  ULONG * value = lua_touserdata(L,  3);
+  wrapper->data[index - 1] = value;
+  return 0;
+}
+
+static void
+_lua_gen_push_ULONG_p_array_proxy(lua_State *L,  ULONG * *array, int count)
+{
+
+  lua_gen_wrapped_ULONG_p_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_ULONG_p_data_t));
+  wrapper->data = array;
+  wrapper->count = count;
+
+  if (luaL_newmetatable(L, "ULONG_p_proxy")) {
+    // Create method table
     lua_newtable(L);
+    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_p_ptr_method);
+    lua_setfield(L, -2, "ptr");
+    lua_setfield(L, -2, "__methods");
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-
-    lua_pushcclosure(L, _lua_gen_ULONG_p_array_index, 2);
+    // __index handles both numeric and method lookup
+    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_p_index);
     lua_setfield(L, -2, "__index");
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-
-    lua_pushcclosure(L, _lua_gen_ULONG_p_array_newindex, 2);
+    // __newindex for writing
+    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_p_newindex);
     lua_setfield(L, -2, "__newindex");
+  }
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-    lua_pushcclosure(L, _lua_gen_ULONG_p_element_ptr, 2);
-    lua_setfield(L, -2, "ptr");
-    lua_setmetatable(L, -2);
+  lua_setmetatable(L, -2);  // assign to userdata
+
 }
-
 static int
 _lua_gen_GfxBase_newindex(lua_State *L)
 {
@@ -15829,75 +15845,79 @@ _lua_gen_install_meta_ViewPort(lua_State *L) {
   lua_pop(L, 1);
 }
 
-static int
-_lua_gen_UWORD_element_ptr(lua_State *L)
-{
-   UWORD *array = lua_touserdata(L, lua_upvalueindex(1));
-   int count       = lua_tointeger(L, lua_upvalueindex(2));
+typedef struct {
+  UWORD* data;
+  uint16_t count;
+} lua_gen_wrapped_UWORD_data_t;
 
-   int index = luaL_checkinteger(L, 1);
-   if (index < 1 || index > count)
-     return luaL_error(L, "index out of range (1..%d)", count);
-   // Return as lightuserdata (raw pointer)
-   lua_pushlightuserdata(L, &array[index - 1]);
-return 1;
-}
-
-static int _lua_gen_UWORD_array_index(lua_State *L)
-{
-    UWORD *arr = lua_touserdata(L, lua_upvalueindex(1));
-    int count     = lua_tointeger(L, lua_upvalueindex(2));
-    // if key is not a number, let normal lookup proceed
-
-    if (!lua_isinteger(L, 2)) {
-        lua_getmetatable(L, 1);
-        lua_pushvalue(L, 2);
-        lua_rawget(L, -2);
-        return 1;
-    }
-
-    int index     = luaL_checkinteger(L, 2);
-
-    if (index < 1 || index > count)
-        return luaL_error(L, "index out of range (1..%d)", count);
-    lua_pushinteger(L, arr[index - 1]);
+static int _lua_gen_wrapped_UWORD_ptr_method(lua_State* L) {
+    lua_gen_wrapped_UWORD_data_t* wrapper = luaL_checkudata(L, 1, "UWORD_proxy");
+    int index = luaL_checkinteger(L, 2);
+    void* ptr = &wrapper->data[index - 1];
+    lua_pushlightuserdata(L, ptr);
     return 1;
 }
-
-static int _lua_gen_UWORD_array_newindex(lua_State *L)
+static int
+_lua_gen_wrapped_UWORD_index(lua_State* L)
 {
-    UWORD *arr = lua_touserdata(L, lua_upvalueindex(1));
-    int count     = lua_tointeger(L, lua_upvalueindex(2));
-    int index     = luaL_checkinteger(L, 2);
-    if (index < 1 || index > count)
-        return luaL_error(L, "index out of range (1..%d)", count);
-    arr[index - 1] = luaL_checkinteger(L,  3);
-    return 0;
+  lua_gen_wrapped_UWORD_data_t* wrapper = luaL_checkudata(L, 1, "UWORD_proxy");
+  if (lua_isinteger(L, 2)) {
+    int index = lua_tointeger(L, 2);
+    if (index < 1 || index > wrapper->count)
+      return luaL_error(L, "index out of range (1..%d)", wrapper->count);
+    lua_pushinteger(L, wrapper->data[index - 1]);
+    return 1;
+  }
+
+  // Not a numeric key? Try methods
+  lua_getmetatable(L, 1);
+  lua_getfield(L, -1, "__methods");
+  lua_pushvalue(L, 2);
+  lua_gettable(L, -2);
+  return 1;
 }
 
-static void _lua_gen_push_UWORD_array_proxy(lua_State *L, UWORD *array, int count)
+static int
+_lua_gen_wrapped_UWORD_newindex(lua_State* L)
 {
+  lua_gen_wrapped_UWORD_data_t* wrapper = luaL_checkudata(L, 1, "UWORD_proxy");
+  if (!lua_isinteger(L, 2))
+    return luaL_error(L, "only integer indices allowed");
+  int index = lua_tointeger(L, 2);
+  if (index < 1 || index > wrapper->count)
+    return luaL_error(L, "index out of range (1..%d)", wrapper->count);
+  UWORD value = luaL_checkinteger(L,  3);
+  wrapper->data[index - 1] = value;
+  return 0;
+}
+
+static void
+_lua_gen_push_UWORD_array_proxy(lua_State *L,  UWORD *array, int count)
+{
+
+  lua_gen_wrapped_UWORD_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_UWORD_data_t));
+  wrapper->data = array;
+  wrapper->count = count;
+
+  if (luaL_newmetatable(L, "UWORD_proxy")) {
+    // Create method table
     lua_newtable(L);
+    lua_pushcfunction(L, _lua_gen_wrapped_UWORD_ptr_method);
+    lua_setfield(L, -2, "ptr");
+    lua_setfield(L, -2, "__methods");
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-
-    lua_pushcclosure(L, _lua_gen_UWORD_array_index, 2);
+    // __index handles both numeric and method lookup
+    lua_pushcfunction(L, _lua_gen_wrapped_UWORD_index);
     lua_setfield(L, -2, "__index");
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-
-    lua_pushcclosure(L, _lua_gen_UWORD_array_newindex, 2);
+    // __newindex for writing
+    lua_pushcfunction(L, _lua_gen_wrapped_UWORD_newindex);
     lua_setfield(L, -2, "__newindex");
+  }
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-    lua_pushcclosure(L, _lua_gen_UWORD_element_ptr, 2);
-    lua_setfield(L, -2, "ptr");
-    lua_setmetatable(L, -2);
+  lua_setmetatable(L, -2);  // assign to userdata
+
 }
-
 static int
 _lua_gen_copinit_newindex(lua_State *L)
 {
@@ -16203,75 +16223,79 @@ _lua_gen_install_meta_View(lua_State *L) {
   lua_pop(L, 1);
 }
 
-static int
-_lua_gen_APTR_element_ptr(lua_State *L)
-{
-   APTR *array = lua_touserdata(L, lua_upvalueindex(1));
-   int count       = lua_tointeger(L, lua_upvalueindex(2));
+typedef struct {
+  APTR* data;
+  uint16_t count;
+} lua_gen_wrapped_APTR_data_t;
 
-   int index = luaL_checkinteger(L, 1);
-   if (index < 1 || index > count)
-     return luaL_error(L, "index out of range (1..%d)", count);
-   // Return as lightuserdata (raw pointer)
-   lua_pushlightuserdata(L, &array[index - 1]);
-return 1;
-}
-
-static int _lua_gen_APTR_array_index(lua_State *L)
-{
-    APTR *arr = lua_touserdata(L, lua_upvalueindex(1));
-    int count     = lua_tointeger(L, lua_upvalueindex(2));
-    // if key is not a number, let normal lookup proceed
-
-    if (!lua_isinteger(L, 2)) {
-        lua_getmetatable(L, 1);
-        lua_pushvalue(L, 2);
-        lua_rawget(L, -2);
-        return 1;
-    }
-
-    int index     = luaL_checkinteger(L, 2);
-
-    if (index < 1 || index > count)
-        return luaL_error(L, "index out of range (1..%d)", count);
-    lua_pushlightuserdata(L, arr[index - 1]);
+static int _lua_gen_wrapped_APTR_ptr_method(lua_State* L) {
+    lua_gen_wrapped_APTR_data_t* wrapper = luaL_checkudata(L, 1, "APTR_proxy");
+    int index = luaL_checkinteger(L, 2);
+    void* ptr = &wrapper->data[index - 1];
+    lua_pushlightuserdata(L, ptr);
     return 1;
 }
-
-static int _lua_gen_APTR_array_newindex(lua_State *L)
+static int
+_lua_gen_wrapped_APTR_index(lua_State* L)
 {
-    APTR *arr = lua_touserdata(L, lua_upvalueindex(1));
-    int count     = lua_tointeger(L, lua_upvalueindex(2));
-    int index     = luaL_checkinteger(L, 2);
-    if (index < 1 || index > count)
-        return luaL_error(L, "index out of range (1..%d)", count);
-    arr[index - 1] = lua_touserdata(L,  3);
-    return 0;
+  lua_gen_wrapped_APTR_data_t* wrapper = luaL_checkudata(L, 1, "APTR_proxy");
+  if (lua_isinteger(L, 2)) {
+    int index = lua_tointeger(L, 2);
+    if (index < 1 || index > wrapper->count)
+      return luaL_error(L, "index out of range (1..%d)", wrapper->count);
+    lua_pushlightuserdata(L, wrapper->data[index - 1]);
+    return 1;
+  }
+
+  // Not a numeric key? Try methods
+  lua_getmetatable(L, 1);
+  lua_getfield(L, -1, "__methods");
+  lua_pushvalue(L, 2);
+  lua_gettable(L, -2);
+  return 1;
 }
 
-static void _lua_gen_push_APTR_array_proxy(lua_State *L, APTR *array, int count)
+static int
+_lua_gen_wrapped_APTR_newindex(lua_State* L)
 {
+  lua_gen_wrapped_APTR_data_t* wrapper = luaL_checkudata(L, 1, "APTR_proxy");
+  if (!lua_isinteger(L, 2))
+    return luaL_error(L, "only integer indices allowed");
+  int index = lua_tointeger(L, 2);
+  if (index < 1 || index > wrapper->count)
+    return luaL_error(L, "index out of range (1..%d)", wrapper->count);
+  APTR value = lua_touserdata(L,  3);
+  wrapper->data[index - 1] = value;
+  return 0;
+}
+
+static void
+_lua_gen_push_APTR_array_proxy(lua_State *L,  APTR *array, int count)
+{
+
+  lua_gen_wrapped_APTR_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_APTR_data_t));
+  wrapper->data = array;
+  wrapper->count = count;
+
+  if (luaL_newmetatable(L, "APTR_proxy")) {
+    // Create method table
     lua_newtable(L);
+    lua_pushcfunction(L, _lua_gen_wrapped_APTR_ptr_method);
+    lua_setfield(L, -2, "ptr");
+    lua_setfield(L, -2, "__methods");
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-
-    lua_pushcclosure(L, _lua_gen_APTR_array_index, 2);
+    // __index handles both numeric and method lookup
+    lua_pushcfunction(L, _lua_gen_wrapped_APTR_index);
     lua_setfield(L, -2, "__index");
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-
-    lua_pushcclosure(L, _lua_gen_APTR_array_newindex, 2);
+    // __newindex for writing
+    lua_pushcfunction(L, _lua_gen_wrapped_APTR_newindex);
     lua_setfield(L, -2, "__newindex");
+  }
 
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-    lua_pushcclosure(L, _lua_gen_APTR_element_ptr, 2);
-    lua_setfield(L, -2, "ptr");
-    lua_setmetatable(L, -2);
+  lua_setmetatable(L, -2);  // assign to userdata
+
 }
-
 static int
 _lua_gen_Custom_newindex(lua_State *L)
 {
