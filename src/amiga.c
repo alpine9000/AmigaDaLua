@@ -26,7 +26,7 @@ amiga_debug_print(const char *text);
 typedef struct {
   uint16_t* data;
   uint16_t count;
-} amiga_uint16_data_wrapper_t;
+} amiga_wrapped_uint16_t_data_t;
 
 
 static int
@@ -222,8 +222,8 @@ _amiga_getStringInfo(lua_State* L)
   return 1;
 }
 
-static int _amiga_uint16_t_array_ptr_method(lua_State* L) {
-    amiga_uint16_data_wrapper_t* wrapper = luaL_checkudata(L, 1, "uint16_t_array_proxy");
+static int _amiga_wrapped_uint16_t_array_ptr_method(lua_State* L) {
+    amiga_wrapped_uint16_t_data_t* wrapper = luaL_checkudata(L, 1, "uint16_t_array_proxy");
     int index = luaL_checkinteger(L, 2);
     void* ptr = &wrapper->data[index - 1];
     lua_pushlightuserdata(L, ptr);
@@ -233,7 +233,7 @@ static int _amiga_uint16_t_array_ptr_method(lua_State* L) {
 static int
 _amiga_wrapped_uint16_t_array_index(lua_State* L)
 {
-  amiga_uint16_data_wrapper_t* wrapper = luaL_checkudata(L, 1, "uint16_t_array_proxy");
+  amiga_wrapped_uint16_t_data_t* wrapper = luaL_checkudata(L, 1, "uint16_t_array_proxy");
   
   if (lua_isinteger(L, 2)) {
     int index = lua_tointeger(L, 2);
@@ -254,7 +254,7 @@ _amiga_wrapped_uint16_t_array_index(lua_State* L)
 static int
 _amiga_wrapped_uint16_t_array_newindex(lua_State* L)
 {
-  amiga_uint16_data_wrapper_t* wrapper = luaL_checkudata(L, 1, "uint16_t_array_proxy");
+  amiga_wrapped_uint16_t_data_t* wrapper = luaL_checkudata(L, 1, "uint16_t_array_proxy");
   
   if (!lua_isinteger(L, 2))
     return luaL_error(L, "only integer indices allowed");
@@ -274,7 +274,7 @@ _amiga_push_wrapped_uint16_t_array_metatable(lua_State *L)
   if (luaL_newmetatable(L, "uint16_t_array_proxy")) {
     // Create method table
     lua_newtable(L);
-    lua_pushcfunction(L, _amiga_uint16_t_array_ptr_method);
+    lua_pushcfunction(L, _amiga_wrapped_uint16_t_array_ptr_method);
     lua_setfield(L, -2, "ptr");
     lua_setfield(L, -2, "__methods");
     
@@ -295,7 +295,7 @@ static int
 _amiga_create_uint16_t_array(lua_State *L)
 {
   int n = luaL_len(L, 1);
-  amiga_uint16_data_wrapper_t* wrapper = lua_newuserdata(L, sizeof(amiga_uint16_data_wrapper_t));
+  amiga_wrapped_uint16_t_data_t* wrapper = lua_newuserdata(L, sizeof(amiga_wrapped_uint16_t_data_t));
   wrapper->data = AllocMem(sizeof(uint16_t)*n, MEMF_CLEAR|MEMF_PUBLIC);
   
   for (int i = 0; i < n; i++) {
@@ -313,7 +313,7 @@ static int
 _amiga_create_chip_uint16_t_array(lua_State *L)
 {
   int n = luaL_len(L, 1);
-  amiga_uint16_data_wrapper_t* wrapper = lua_newuserdata(L, sizeof(amiga_uint16_data_wrapper_t));
+  amiga_wrapped_uint16_t_data_t* wrapper = lua_newuserdata(L, sizeof(amiga_wrapped_uint16_t_data_t));
   wrapper->data = AllocMem(sizeof(uint16_t)*n, MEMF_CLEAR|MEMF_CHIP);
   
   for (int i = 0; i < n; i++) {
