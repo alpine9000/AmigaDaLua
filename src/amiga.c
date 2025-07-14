@@ -23,12 +23,6 @@ amiga_debug_print(const char *text);
 
 #include "_lua_gen.h"
 
-typedef struct {
-  uint16_t* data;
-  uint16_t count;
-} amiga_wrapped_uint16_t_data_t;
-
-
 static int
 _amiga_readVarTags(lua_State* L, struct TagItem* taglist, int maxTags, int argNum)
 {
@@ -222,108 +216,35 @@ _amiga_getStringInfo(lua_State* L)
   return 1;
 }
 
-static int _amiga_wrapped_uint16_t_array_ptr_method(lua_State* L) {
-    amiga_wrapped_uint16_t_data_t* wrapper = luaL_checkudata(L, 1, "uint16_t_array_proxy");
-    int index = luaL_checkinteger(L, 2);
-    void* ptr = &wrapper->data[index - 1];
-    lua_pushlightuserdata(L, ptr);
-    return 1;
-}
 
 static int
-_amiga_wrapped_uint16_t_array_index(lua_State* L)
+_amiga_do_create_UWORD_array(lua_State *L, uint32_t allocFlags)
 {
-  amiga_wrapped_uint16_t_data_t* wrapper = luaL_checkudata(L, 1, "uint16_t_array_proxy");
+  int count = luaL_len(L, 1);
+  UWORD* data = AllocMem(sizeof(uint16_t)*count, allocFlags);
   
-  if (lua_isinteger(L, 2)) {
-    int index = lua_tointeger(L, 2);
-    if (index < 1 || index > wrapper->count)
-      return luaL_error(L, "index out of range (1..%d)", wrapper->count);
-    lua_pushinteger(L, wrapper->data[index - 1]);
-    return 1;
+  for (int i = 0; i < count; i++) {
+    lua_rawgeti(L, 1, i + 1);
+    data[i] = (uint16_t)luaL_checkinteger(L, -1);
+    lua_pop(L, 1);
   }
-  
-  // Not a numeric key? Try methods
-  lua_getmetatable(L, 1);
-  lua_getfield(L, -1, "__methods");
-  lua_pushvalue(L, 2);
-  lua_gettable(L, -2);
+
+  _lua_gen_push_UWORD_array_proxy(L, data, count);  
   return 1;
-}
-
-static int
-_amiga_wrapped_uint16_t_array_newindex(lua_State* L)
-{
-  amiga_wrapped_uint16_t_data_t* wrapper = luaL_checkudata(L, 1, "uint16_t_array_proxy");
-  
-  if (!lua_isinteger(L, 2))
-    return luaL_error(L, "only integer indices allowed");
-  
-  int index = lua_tointeger(L, 2);
-  if (index < 1 || index > wrapper->count)
-    return luaL_error(L, "index out of range (1..%d)", wrapper->count);
-  
-  uint16_t value = (uint16_t)luaL_checkinteger(L, 3);
-  wrapper->data[index - 1] = value;
-  return 0;
-}
-
-static void
-_amiga_push_wrapped_uint16_t_array_metatable(lua_State *L)
-{
-  if (luaL_newmetatable(L, "uint16_t_array_proxy")) {
-    // Create method table
-    lua_newtable(L);
-    lua_pushcfunction(L, _amiga_wrapped_uint16_t_array_ptr_method);
-    lua_setfield(L, -2, "ptr");
-    lua_setfield(L, -2, "__methods");
-    
-    // __index handles both numeric and method lookup
-    lua_pushcfunction(L, _amiga_wrapped_uint16_t_array_index);
-    lua_setfield(L, -2, "__index");
-    
-    // __newindex for writing
-    lua_pushcfunction(L, _amiga_wrapped_uint16_t_array_newindex);
-    lua_setfield(L, -2, "__newindex");
-  }
-  
-  lua_setmetatable(L, -2);  // assign to userdata
 }
 
 
 static int
 _amiga_create_uint16_t_array(lua_State *L)
 {
-  int n = luaL_len(L, 1);
-  amiga_wrapped_uint16_t_data_t* wrapper = lua_newuserdata(L, sizeof(amiga_wrapped_uint16_t_data_t));
-  wrapper->data = AllocMem(sizeof(uint16_t)*n, MEMF_CLEAR|MEMF_PUBLIC);
-  
-  for (int i = 0; i < n; i++) {
-    lua_rawgeti(L, 1, i + 1);
-    wrapper->data[i] = (uint16_t)luaL_checkinteger(L, -1);
-    lua_pop(L, 1);
-  }
-
-  _amiga_push_wrapped_uint16_t_array_metatable(L);  // bind proxy metatable
-  return 1;
+  return _amiga_do_create_UWORD_array(L, MEMF_CLEAR|MEMF_PUBLIC);
 }
 
     
 static int
 _amiga_create_chip_uint16_t_array(lua_State *L)
 {
-  int n = luaL_len(L, 1);
-  amiga_wrapped_uint16_t_data_t* wrapper = lua_newuserdata(L, sizeof(amiga_wrapped_uint16_t_data_t));
-  wrapper->data = AllocMem(sizeof(uint16_t)*n, MEMF_CLEAR|MEMF_CHIP);
-  
-  for (int i = 0; i < n; i++) {
-    lua_rawgeti(L, 1, i + 1);
-    wrapper->data[i] = (uint16_t)luaL_checkinteger(L, -1);
-    lua_pop(L, 1);
-  }
-
-  _amiga_push_wrapped_uint16_t_array_metatable(L);  // bind proxy metatable
-  return 1;
+  return _amiga_do_create_UWORD_array(L, MEMF_CLEAR|MEMF_CHIP);  
 }
 
 BSTR
