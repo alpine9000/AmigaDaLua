@@ -17,6 +17,7 @@
 #include <graphics/rastport.h>
 #include <graphics/videocontrol.h>
 #include <graphics/copper.h>
+#include <graphics/gels.h>
 #include <intuition/intuition.h>
 #include <intuition/screens.h>
 #include <intuition/intuitionbase.h>
@@ -37,6 +38,13 @@
 typedef struct {
   struct Gadget *ptr;
 } GadgetPtr;
+
+#undef RemBob
+void
+RemBob(struct Bob* b)
+{
+  (b)->Flags |= BOBSAWAY;
+}
 
 CONST_STRPTR TO_CONST_STRPTR(void* data)
 {

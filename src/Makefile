@@ -223,6 +223,6 @@ lvm.o: lvm.c lprefix.h lua.h luaconf.h ldebug.h lstate.h lobject.h \
  ltable.h lvm.h ljumptab.h
 lzio.o: lzio.c lprefix.h lua.h luaconf.h llimits.h lmem.h lstate.h \
  lobject.h ltm.h lzio.h
-amiga.o: _lua_gen.h amiga.h
+amiga.o: _lua_gen.h amiga.h thunk.c
 
 # (end of Makefile)

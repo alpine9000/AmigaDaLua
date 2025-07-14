@@ -2593,6 +2593,33 @@ _lua_gen_checkDBufPacket(lua_State* L, int stackIndex)
 }
 
 void
+_lua_gen_pushcollTable(lua_State *L, struct collTable* obj)
+{
+  if (obj) {
+    struct collTable **ud = (struct collTable **)lua_newuserdata(L, sizeof(struct collTable *));
+    *ud = obj;
+    luaL_getmetatable(L, "collTable");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+struct collTable*
+_lua_gen_checkcollTable(lua_State* L, int stackIndex)
+{
+   if (!lua_isnoneornil(L, stackIndex)) {
+      struct collTable **ud = (struct collTable **)luaL_checkudata(L, stackIndex, "collTable");
+      if (!ud) {
+        return 0;
+      }
+      return *ud;
+   } else {
+      return 0;
+   }
+}
+
+void
 _lua_gen_pushTmpRas(lua_State *L, struct TmpRas* obj)
 {
   if (obj) {
@@ -2900,6 +2927,11 @@ _lua_gen_TagItem_index(lua_State *L)
     lua_pushinteger(L, obj->ti_Data);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct TagItem));
+    return 1;
+}
+
   return 0;
 }
 
@@ -2938,12 +2970,14 @@ _lua_gen_Node_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "ln_Succ") == 0) {
     // finder 1
-    obj->ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ln_Pred") == 0) {
     // finder 1
-    obj->ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ln_Type") == 0) {
@@ -3023,6 +3057,11 @@ _lua_gen_Node_index(lua_State *L)
     lua_pushstring(L, obj->ln_Name);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Node));
+    return 1;
+}
+
   return 0;
 }
 
@@ -3063,12 +3102,14 @@ _lua_gen_MinNode_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "mln_Succ") == 0) {
     // finder 1
-    obj->mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "mln_Pred") == 0) {
     // finder 1
-    obj->mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   return 0;
@@ -3124,6 +3165,11 @@ _lua_gen_MinNode_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct MinNode));
+    return 1;
+}
+
   return 0;
 }
 
@@ -3158,17 +3204,20 @@ _lua_gen_List_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "lh_Head") == 0) {
     // finder 1
-    obj->lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->lh_Head = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "lh_Tail") == 0) {
     // finder 1
-    obj->lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->lh_Tail = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "lh_TailPred") == 0) {
     // finder 1
-    obj->lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->lh_TailPred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "lh_Type") == 0) {
@@ -3247,6 +3296,11 @@ _lua_gen_List_index(lua_State *L)
     lua_pushinteger(L, obj->l_pad);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct List));
+    return 1;
+}
+
   return 0;
 }
 
@@ -3285,17 +3339,20 @@ _lua_gen_MinList_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "mlh_Head") == 0) {
     // finder 1
-    obj->mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "mlh_Tail") == 0) {
     // finder 1
-    obj->mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "mlh_TailPred") == 0) {
     // finder 1
-    obj->mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   return 0;
@@ -3358,6 +3415,11 @@ _lua_gen_MinList_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct MinList));
+    return 1;
+}
+
   return 0;
 }
 
@@ -3392,12 +3454,14 @@ _lua_gen_Task_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "tc_Node.ln_Succ") == 0) {
     // finder 1
-    obj->tc_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->tc_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->tc_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "tc_Node.ln_Pred") == 0) {
     // finder 1
-    obj->tc_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->tc_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->tc_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "tc_Node.ln_Type") == 0) {
@@ -3496,17 +3560,20 @@ _lua_gen_Task_newindex(lua_State *L)
   }
   if (strcmp(key, "tc_MemEntry.lh_Head") == 0) {
     // finder 1
-    obj->tc_MemEntry.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->tc_MemEntry.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->tc_MemEntry.lh_Head = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "tc_MemEntry.lh_Tail") == 0) {
     // finder 1
-    obj->tc_MemEntry.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->tc_MemEntry.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->tc_MemEntry.lh_Tail = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "tc_MemEntry.lh_TailPred") == 0) {
     // finder 1
-    obj->tc_MemEntry.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->tc_MemEntry.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->tc_MemEntry.lh_TailPred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "tc_MemEntry.lh_Type") == 0) {
@@ -3715,6 +3782,11 @@ _lua_gen_Task_index(lua_State *L)
     lua_pushlightuserdata(L, obj->tc_UserData);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Task));
+    return 1;
+}
+
   return 0;
 }
 
@@ -3860,6 +3932,11 @@ _lua_gen_StackSwapStruct_index(lua_State *L)
     lua_pushlightuserdata(L, obj->stk_Pointer);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct StackSwapStruct));
+    return 1;
+}
+
   return 0;
 }
 
@@ -3900,12 +3977,14 @@ _lua_gen_MsgPort_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "mp_Node.ln_Succ") == 0) {
     // finder 1
-    obj->mp_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->mp_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->mp_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "mp_Node.ln_Pred") == 0) {
     // finder 1
-    obj->mp_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->mp_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->mp_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "mp_Node.ln_Type") == 0) {
@@ -3940,17 +4019,20 @@ _lua_gen_MsgPort_newindex(lua_State *L)
   }
   if (strcmp(key, "mp_MsgList.lh_Head") == 0) {
     // finder 1
-    obj->mp_MsgList.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->mp_MsgList.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->mp_MsgList.lh_Head = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "mp_MsgList.lh_Tail") == 0) {
     // finder 1
-    obj->mp_MsgList.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->mp_MsgList.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->mp_MsgList.lh_Tail = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "mp_MsgList.lh_TailPred") == 0) {
     // finder 1
-    obj->mp_MsgList.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->mp_MsgList.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->mp_MsgList.lh_TailPred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "mp_MsgList.lh_Type") == 0) {
@@ -4087,6 +4169,11 @@ _lua_gen_MsgPort_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct MsgPort));
+    return 1;
+}
+
   return 0;
 }
 
@@ -4135,12 +4222,14 @@ _lua_gen_Message_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "mn_Node.ln_Succ") == 0) {
     // finder 1
-    obj->mn_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->mn_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->mn_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "mn_Node.ln_Pred") == 0) {
     // finder 1
-    obj->mn_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->mn_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->mn_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "mn_Node.ln_Type") == 0) {
@@ -4163,7 +4252,8 @@ _lua_gen_Message_newindex(lua_State *L)
   }
   if (strcmp(key, "mn_ReplyPort") == 0) {
     // finder 1
-    obj->mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    //obj->mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    obj->mn_ReplyPort = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
   if (strcmp(key, "mn_Length") == 0) {
@@ -4253,6 +4343,11 @@ _lua_gen_Message_index(lua_State *L)
     lua_pushinteger(L, obj->mn_Length);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Message));
+    return 1;
+}
+
   return 0;
 }
 
@@ -4295,12 +4390,14 @@ _lua_gen_Library_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "lib_Node.ln_Succ") == 0) {
     // finder 1
-    obj->lib_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->lib_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->lib_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "lib_Node.ln_Pred") == 0) {
     // finder 1
-    obj->lib_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->lib_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->lib_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "lib_Node.ln_Type") == 0) {
@@ -4465,6 +4562,11 @@ _lua_gen_Library_index(lua_State *L)
     lua_pushinteger(L, obj->lib_OpenCnt);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Library));
+    return 1;
+}
+
   return 0;
 }
 
@@ -4523,12 +4625,14 @@ _lua_gen_SemaphoreRequest_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "sr_Link.mln_Succ") == 0) {
     // finder 1
-    obj->sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->sr_Link.mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "sr_Link.mln_Pred") == 0) {
     // finder 1
-    obj->sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->sr_Link.mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "sr_Link") == 0) {
@@ -4539,7 +4643,8 @@ _lua_gen_SemaphoreRequest_newindex(lua_State *L)
   }
   if (strcmp(key, "sr_Waiter") == 0) {
     // finder 1
-    obj->sr_Waiter = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->sr_Waiter = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->sr_Waiter = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   return 0;
@@ -4609,6 +4714,11 @@ _lua_gen_SemaphoreRequest_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct SemaphoreRequest));
+    return 1;
+}
+
   return 0;
 }
 
@@ -4643,12 +4753,14 @@ _lua_gen_SignalSemaphore_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "ss_Link.ln_Succ") == 0) {
     // finder 1
-    obj->ss_Link.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->ss_Link.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->ss_Link.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ss_Link.ln_Pred") == 0) {
     // finder 1
-    obj->ss_Link.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->ss_Link.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->ss_Link.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ss_Link.ln_Type") == 0) {
@@ -4675,17 +4787,20 @@ _lua_gen_SignalSemaphore_newindex(lua_State *L)
   }
   if (strcmp(key, "ss_WaitQueue.mlh_Head") == 0) {
     // finder 1
-    obj->ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->ss_WaitQueue.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ss_WaitQueue.mlh_Tail") == 0) {
     // finder 1
-    obj->ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->ss_WaitQueue.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ss_WaitQueue.mlh_TailPred") == 0) {
     // finder 1
-    obj->ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->ss_WaitQueue.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ss_WaitQueue") == 0) {
@@ -4696,12 +4811,14 @@ _lua_gen_SignalSemaphore_newindex(lua_State *L)
   }
   if (strcmp(key, "ss_MultipleLink.sr_Link.mln_Succ") == 0) {
     // finder 1
-    obj->ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->ss_MultipleLink.sr_Link.mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ss_MultipleLink.sr_Link.mln_Pred") == 0) {
     // finder 1
-    obj->ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->ss_MultipleLink.sr_Link.mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ss_MultipleLink.sr_Link") == 0) {
@@ -4712,7 +4829,8 @@ _lua_gen_SignalSemaphore_newindex(lua_State *L)
   }
   if (strcmp(key, "ss_MultipleLink.sr_Waiter") == 0) {
     // finder 1
-    obj->ss_MultipleLink.sr_Waiter = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->ss_MultipleLink.sr_Waiter = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->ss_MultipleLink.sr_Waiter = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   if (strcmp(key, "ss_MultipleLink") == 0) {
@@ -4723,7 +4841,8 @@ _lua_gen_SignalSemaphore_newindex(lua_State *L)
   }
   if (strcmp(key, "ss_Owner") == 0) {
     // finder 1
-    obj->ss_Owner = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->ss_Owner = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->ss_Owner = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   if (strcmp(key, "ss_QueueCount") == 0) {
@@ -4880,6 +4999,11 @@ _lua_gen_SignalSemaphore_index(lua_State *L)
     lua_pushinteger(L, obj->ss_QueueCount);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct SignalSemaphore));
+    return 1;
+}
+
   return 0;
 }
 
@@ -4924,12 +5048,14 @@ _lua_gen_SemaphoreMessage_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "ssm_Message.mn_Node.ln_Succ") == 0) {
     // finder 1
-    obj->ssm_Message.mn_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->ssm_Message.mn_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->ssm_Message.mn_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ssm_Message.mn_Node.ln_Pred") == 0) {
     // finder 1
-    obj->ssm_Message.mn_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->ssm_Message.mn_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->ssm_Message.mn_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ssm_Message.mn_Node.ln_Type") == 0) {
@@ -4952,7 +5078,8 @@ _lua_gen_SemaphoreMessage_newindex(lua_State *L)
   }
   if (strcmp(key, "ssm_Message.mn_ReplyPort") == 0) {
     // finder 1
-    obj->ssm_Message.mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    //obj->ssm_Message.mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    obj->ssm_Message.mn_ReplyPort = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
   if (strcmp(key, "ssm_Message.mn_Length") == 0) {
@@ -4967,7 +5094,8 @@ _lua_gen_SemaphoreMessage_newindex(lua_State *L)
   }
   if (strcmp(key, "ssm_Semaphore") == 0) {
     // finder 1
-    obj->ssm_Semaphore = *(struct SignalSemaphore **)luaL_checkudata(L, 3, "SignalSemaphore");
+    //obj->ssm_Semaphore = *(struct SignalSemaphore **)luaL_checkudata(L, 3, "SignalSemaphore");
+    obj->ssm_Semaphore = (struct SignalSemaphore *)_lua_gen_checkSignalSemaphore(L, 3);
     return 0;
   }
   return 0;
@@ -5067,6 +5195,11 @@ _lua_gen_SemaphoreMessage_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct SemaphoreMessage));
+    return 1;
+}
+
   return 0;
 }
 
@@ -5109,12 +5242,14 @@ _lua_gen_IORequest_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "io_Message.mn_Node.ln_Succ") == 0) {
     // finder 1
-    obj->io_Message.mn_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->io_Message.mn_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->io_Message.mn_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "io_Message.mn_Node.ln_Pred") == 0) {
     // finder 1
-    obj->io_Message.mn_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->io_Message.mn_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->io_Message.mn_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "io_Message.mn_Node.ln_Type") == 0) {
@@ -5137,7 +5272,8 @@ _lua_gen_IORequest_newindex(lua_State *L)
   }
   if (strcmp(key, "io_Message.mn_ReplyPort") == 0) {
     // finder 1
-    obj->io_Message.mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    //obj->io_Message.mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    obj->io_Message.mn_ReplyPort = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
   if (strcmp(key, "io_Message.mn_Length") == 0) {
@@ -5152,12 +5288,14 @@ _lua_gen_IORequest_newindex(lua_State *L)
   }
   if (strcmp(key, "io_Device") == 0) {
     // finder 1
-    obj->io_Device = *(struct Device **)luaL_checkudata(L, 3, "Device");
+    //obj->io_Device = *(struct Device **)luaL_checkudata(L, 3, "Device");
+    obj->io_Device = (struct Device *)_lua_gen_checkDevice(L, 3);
     return 0;
   }
   if (strcmp(key, "io_Unit") == 0) {
     // finder 1
-    obj->io_Unit = *(struct Unit **)luaL_checkudata(L, 3, "Unit");
+    //obj->io_Unit = *(struct Unit **)luaL_checkudata(L, 3, "Unit");
+    obj->io_Unit = (struct Unit *)_lua_gen_checkUnit(L, 3);
     return 0;
   }
   if (strcmp(key, "io_Command") == 0) {
@@ -5288,6 +5426,11 @@ _lua_gen_IORequest_index(lua_State *L)
     lua_pushinteger(L, obj->io_Error);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct IORequest));
+    return 1;
+}
+
   return 0;
 }
 
@@ -5336,12 +5479,14 @@ _lua_gen_Device_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "dd_Library.lib_Node.ln_Succ") == 0) {
     // finder 1
-    obj->dd_Library.lib_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->dd_Library.lib_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->dd_Library.lib_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "dd_Library.lib_Node.ln_Pred") == 0) {
     // finder 1
-    obj->dd_Library.lib_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->dd_Library.lib_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->dd_Library.lib_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "dd_Library.lib_Node.ln_Type") == 0) {
@@ -5519,6 +5664,11 @@ _lua_gen_Device_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Device));
+    return 1;
+}
+
   return 0;
 }
 
@@ -5577,12 +5727,14 @@ _lua_gen_Unit_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "unit_MsgPort.mp_Node.ln_Succ") == 0) {
     // finder 1
-    obj->unit_MsgPort.mp_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->unit_MsgPort.mp_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->unit_MsgPort.mp_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "unit_MsgPort.mp_Node.ln_Pred") == 0) {
     // finder 1
-    obj->unit_MsgPort.mp_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->unit_MsgPort.mp_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->unit_MsgPort.mp_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "unit_MsgPort.mp_Node.ln_Type") == 0) {
@@ -5617,17 +5769,20 @@ _lua_gen_Unit_newindex(lua_State *L)
   }
   if (strcmp(key, "unit_MsgPort.mp_MsgList.lh_Head") == 0) {
     // finder 1
-    obj->unit_MsgPort.mp_MsgList.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->unit_MsgPort.mp_MsgList.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->unit_MsgPort.mp_MsgList.lh_Head = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "unit_MsgPort.mp_MsgList.lh_Tail") == 0) {
     // finder 1
-    obj->unit_MsgPort.mp_MsgList.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->unit_MsgPort.mp_MsgList.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->unit_MsgPort.mp_MsgList.lh_Tail = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "unit_MsgPort.mp_MsgList.lh_TailPred") == 0) {
     // finder 1
-    obj->unit_MsgPort.mp_MsgList.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->unit_MsgPort.mp_MsgList.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->unit_MsgPort.mp_MsgList.lh_TailPred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "unit_MsgPort.mp_MsgList.lh_Type") == 0) {
@@ -5801,6 +5956,11 @@ _lua_gen_Unit_index(lua_State *L)
     lua_pushinteger(L, obj->unit_OpenCnt);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Unit));
+    return 1;
+}
+
   return 0;
 }
 
@@ -5956,6 +6116,11 @@ _lua_gen_TimeVal_Type_index(lua_State *L)
     lua_pushinteger(L, obj->tv_micro);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(TimeVal_Type));
+    return 1;
+}
+
   return 0;
 }
 
@@ -6067,6 +6232,11 @@ _lua_gen_DateStamp_index(lua_State *L)
     lua_pushinteger(L, obj->ds_Tick);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct DateStamp));
+    return 1;
+}
+
   return 0;
 }
 
@@ -6339,6 +6509,11 @@ _lua_gen_FileInfoBlock_index(lua_State *L)
     _lua_gen_push_UBYTE_array_proxy(L, obj->fib_Reserved, 32);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct FileInfoBlock));
+    return 1;
+}
+
   return 0;
 }
 
@@ -6506,6 +6681,11 @@ _lua_gen_InfoData_index(lua_State *L)
     lua_pushinteger(L, obj->id_InUse);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct InfoData));
+    return 1;
+}
+
   return 0;
 }
 
@@ -6558,12 +6738,14 @@ _lua_gen_Process_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "pr_Task.tc_Node.ln_Succ") == 0) {
     // finder 1
-    obj->pr_Task.tc_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->pr_Task.tc_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_Task.tc_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pr_Task.tc_Node.ln_Pred") == 0) {
     // finder 1
-    obj->pr_Task.tc_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->pr_Task.tc_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_Task.tc_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pr_Task.tc_Node.ln_Type") == 0) {
@@ -6662,17 +6844,20 @@ _lua_gen_Process_newindex(lua_State *L)
   }
   if (strcmp(key, "pr_Task.tc_MemEntry.lh_Head") == 0) {
     // finder 1
-    obj->pr_Task.tc_MemEntry.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->pr_Task.tc_MemEntry.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_Task.tc_MemEntry.lh_Head = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pr_Task.tc_MemEntry.lh_Tail") == 0) {
     // finder 1
-    obj->pr_Task.tc_MemEntry.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->pr_Task.tc_MemEntry.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_Task.tc_MemEntry.lh_Tail = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pr_Task.tc_MemEntry.lh_TailPred") == 0) {
     // finder 1
-    obj->pr_Task.tc_MemEntry.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->pr_Task.tc_MemEntry.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_Task.tc_MemEntry.lh_TailPred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pr_Task.tc_MemEntry.lh_Type") == 0) {
@@ -6701,12 +6886,14 @@ _lua_gen_Process_newindex(lua_State *L)
   }
   if (strcmp(key, "pr_MsgPort.mp_Node.ln_Succ") == 0) {
     // finder 1
-    obj->pr_MsgPort.mp_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->pr_MsgPort.mp_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_MsgPort.mp_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pr_MsgPort.mp_Node.ln_Pred") == 0) {
     // finder 1
-    obj->pr_MsgPort.mp_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->pr_MsgPort.mp_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_MsgPort.mp_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pr_MsgPort.mp_Node.ln_Type") == 0) {
@@ -6741,17 +6928,20 @@ _lua_gen_Process_newindex(lua_State *L)
   }
   if (strcmp(key, "pr_MsgPort.mp_MsgList.lh_Head") == 0) {
     // finder 1
-    obj->pr_MsgPort.mp_MsgList.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->pr_MsgPort.mp_MsgList.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_MsgPort.mp_MsgList.lh_Head = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pr_MsgPort.mp_MsgList.lh_Tail") == 0) {
     // finder 1
-    obj->pr_MsgPort.mp_MsgList.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->pr_MsgPort.mp_MsgList.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_MsgPort.mp_MsgList.lh_Tail = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pr_MsgPort.mp_MsgList.lh_TailPred") == 0) {
     // finder 1
-    obj->pr_MsgPort.mp_MsgList.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->pr_MsgPort.mp_MsgList.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_MsgPort.mp_MsgList.lh_TailPred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pr_MsgPort.mp_MsgList.lh_Type") == 0) {
@@ -6860,17 +7050,20 @@ _lua_gen_Process_newindex(lua_State *L)
   }
   if (strcmp(key, "pr_LocalVars.mlh_Head") == 0) {
     // finder 1
-    obj->pr_LocalVars.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->pr_LocalVars.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->pr_LocalVars.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pr_LocalVars.mlh_Tail") == 0) {
     // finder 1
-    obj->pr_LocalVars.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->pr_LocalVars.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->pr_LocalVars.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pr_LocalVars.mlh_TailPred") == 0) {
     // finder 1
-    obj->pr_LocalVars.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->pr_LocalVars.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->pr_LocalVars.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pr_LocalVars") == 0) {
@@ -7290,6 +7483,11 @@ _lua_gen_Process_index(lua_State *L)
     lua_pushinteger(L, obj->pr_CES);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Process));
+    return 1;
+}
+
   return 0;
 }
 
@@ -7434,12 +7632,14 @@ _lua_gen_DosPacket_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "dp_Link") == 0) {
     // finder 1
-    obj->dp_Link = *(struct Message **)luaL_checkudata(L, 3, "Message");
+    //obj->dp_Link = *(struct Message **)luaL_checkudata(L, 3, "Message");
+    obj->dp_Link = (struct Message *)_lua_gen_checkMessage(L, 3);
     return 0;
   }
   if (strcmp(key, "dp_Port") == 0) {
     // finder 1
-    obj->dp_Port = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    //obj->dp_Port = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    obj->dp_Port = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
   if (strcmp(key, "dp_Type") == 0) {
@@ -7575,6 +7775,11 @@ _lua_gen_DosPacket_index(lua_State *L)
     lua_pushinteger(L, obj->dp_Arg7);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct DosPacket));
+    return 1;
+}
+
   return 0;
 }
 
@@ -7695,6 +7900,11 @@ _lua_gen_Segment_index(lua_State *L)
     _lua_gen_push_UBYTE_array_proxy(L, obj->seg_Name, 4);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Segment));
+    return 1;
+}
+
   return 0;
 }
 
@@ -7902,6 +8112,11 @@ _lua_gen_CommandLineInterface_index(lua_State *L)
     lua_pushinteger(L, obj->cli_Module);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct CommandLineInterface));
+    return 1;
+}
+
   return 0;
 }
 
@@ -7976,7 +8191,8 @@ _lua_gen_DosList_newindex(lua_State *L)
   }
   if (strcmp(key, "dol_Task") == 0) {
     // finder 1
-    obj->dol_Task = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    //obj->dol_Task = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    obj->dol_Task = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
   if (strcmp(key, "dol_Lock") == 0) {
@@ -8039,7 +8255,8 @@ _lua_gen_DosList_newindex(lua_State *L)
   }
   if (strcmp(key, "dol_misc.dol_assign.dol_List") == 0) {
     // finder 1
-    obj->dol_misc.dol_assign.dol_List = *(struct AssignList **)luaL_checkudata(L, 3, "AssignList");
+    //obj->dol_misc.dol_assign.dol_List = *(struct AssignList **)luaL_checkudata(L, 3, "AssignList");
+    obj->dol_misc.dol_assign.dol_List = (struct AssignList *)_lua_gen_checkAssignList(L, 3);
     return 0;
   }
   // Unsupported type dol_misc unnamed union
@@ -8178,6 +8395,11 @@ _lua_gen_DosList_index(lua_State *L)
     amiga_pushBSTR(L, obj->dol_Name);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct DosList));
+    return 1;
+}
+
   return 0;
 }
 
@@ -8244,7 +8466,8 @@ _lua_gen_AssignList_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "al_Next") == 0) {
     // finder 1
-    obj->al_Next = *(struct AssignList **)luaL_checkudata(L, 3, "AssignList");
+    //obj->al_Next = *(struct AssignList **)luaL_checkudata(L, 3, "AssignList");
+    obj->al_Next = (struct AssignList *)_lua_gen_checkAssignList(L, 3);
     return 0;
   }
   if (strcmp(key, "al_Lock") == 0) {
@@ -8301,6 +8524,11 @@ _lua_gen_AssignList_index(lua_State *L)
     lua_pushinteger(L, obj->al_Lock);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct AssignList));
+    return 1;
+}
+
   return 0;
 }
 
@@ -8337,7 +8565,8 @@ _lua_gen_DevProc_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "dvp_Port") == 0) {
     // finder 1
-    obj->dvp_Port = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    //obj->dvp_Port = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    obj->dvp_Port = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
   if (strcmp(key, "dvp_Lock") == 0) {
@@ -8350,7 +8579,8 @@ _lua_gen_DevProc_newindex(lua_State *L)
   }
   if (strcmp(key, "dvp_DevNode") == 0) {
     // finder 1
-    obj->dvp_DevNode = *(struct DosList **)luaL_checkudata(L, 3, "DosList");
+    //obj->dvp_DevNode = *(struct DosList **)luaL_checkudata(L, 3, "DosList");
+    obj->dvp_DevNode = (struct DosList *)_lua_gen_checkDosList(L, 3);
     return 0;
   }
   return 0;
@@ -8414,6 +8644,11 @@ _lua_gen_DevProc_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct DevProc));
+    return 1;
+}
+
   return 0;
 }
 
@@ -8521,6 +8756,11 @@ _lua_gen_RecordLock_index(lua_State *L)
     lua_pushinteger(L, obj->rec_Mode);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct RecordLock));
+    return 1;
+}
+
   return 0;
 }
 
@@ -8624,6 +8864,11 @@ _lua_gen_CSource_index(lua_State *L)
     lua_pushinteger(L, obj->CS_CurChr);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct CSource));
+    return 1;
+}
+
   return 0;
 }
 
@@ -8778,6 +9023,11 @@ _lua_gen_RDArgs_index(lua_State *L)
     lua_pushinteger(L, obj->RDA_Flags);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct RDArgs));
+    return 1;
+}
+
   return 0;
 }
 
@@ -8828,12 +9078,14 @@ _lua_gen_AnchorPath_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "ap_Base") == 0) {
     // finder 1
-    obj->ap_Base = *(struct AChain **)luaL_checkudata(L, 3, "AChain");
+    //obj->ap_Base = *(struct AChain **)luaL_checkudata(L, 3, "AChain");
+    obj->ap_Base = (struct AChain *)_lua_gen_checkAChain(L, 3);
     return 0;
   }
   if (strcmp(key, "ap_Last") == 0) {
     // finder 1
-    obj->ap_Last = *(struct AChain **)luaL_checkudata(L, 3, "AChain");
+    //obj->ap_Last = *(struct AChain **)luaL_checkudata(L, 3, "AChain");
+    obj->ap_Last = (struct AChain *)_lua_gen_checkAChain(L, 3);
     return 0;
   }
   if (strcmp(key, "ap_BreakBits") == 0) {
@@ -9078,6 +9330,11 @@ _lua_gen_AnchorPath_index(lua_State *L)
     lua_pushstring(L, obj->ap_Buf);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct AnchorPath));
+    return 1;
+}
+
   return 0;
 }
 
@@ -9146,12 +9403,14 @@ _lua_gen_AChain_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "an_Child") == 0) {
     // finder 1
-    obj->an_Child = *(struct AChain **)luaL_checkudata(L, 3, "AChain");
+    //obj->an_Child = *(struct AChain **)luaL_checkudata(L, 3, "AChain");
+    obj->an_Child = (struct AChain *)_lua_gen_checkAChain(L, 3);
     return 0;
   }
   if (strcmp(key, "an_Parent") == 0) {
     // finder 1
-    obj->an_Parent = *(struct AChain **)luaL_checkudata(L, 3, "AChain");
+    //obj->an_Parent = *(struct AChain **)luaL_checkudata(L, 3, "AChain");
+    obj->an_Parent = (struct AChain *)_lua_gen_checkAChain(L, 3);
     return 0;
   }
   if (strcmp(key, "an_Lock") == 0) {
@@ -9372,6 +9631,11 @@ _lua_gen_AChain_index(lua_State *L)
     lua_pushstring(L, obj->an_String);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct AChain));
+    return 1;
+}
+
   return 0;
 }
 
@@ -9434,12 +9698,14 @@ _lua_gen_LocalVar_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "lv_Node.ln_Succ") == 0) {
     // finder 1
-    obj->lv_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->lv_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->lv_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "lv_Node.ln_Pred") == 0) {
     // finder 1
-    obj->lv_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->lv_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->lv_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "lv_Node.ln_Type") == 0) {
@@ -9556,6 +9822,11 @@ _lua_gen_LocalVar_index(lua_State *L)
     lua_pushinteger(L, obj->lv_Len);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct LocalVar));
+    return 1;
+}
+
   return 0;
 }
 
@@ -9687,12 +9958,14 @@ _lua_gen_NotifyRequest_newindex(lua_State *L)
   }
   if (strcmp(key, "nr_stuff.nr_Msg.nr_Port") == 0) {
     // finder 1
-    obj->nr_stuff.nr_Msg.nr_Port = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    //obj->nr_stuff.nr_Msg.nr_Port = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    obj->nr_stuff.nr_Msg.nr_Port = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
   if (strcmp(key, "nr_stuff.nr_Signal.nr_Task") == 0) {
     // finder 1
-    obj->nr_stuff.nr_Signal.nr_Task = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->nr_stuff.nr_Signal.nr_Task = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->nr_stuff.nr_Signal.nr_Task = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   if (strcmp(key, "nr_stuff.nr_Signal.nr_SignalNum") == 0) {
@@ -9711,7 +9984,8 @@ _lua_gen_NotifyRequest_newindex(lua_State *L)
   }
   if (strcmp(key, "nr_Handler") == 0) {
     // finder 1
-    obj->nr_Handler = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    //obj->nr_Handler = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    obj->nr_Handler = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
   return 0;
@@ -9810,6 +10084,11 @@ _lua_gen_NotifyRequest_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct NotifyRequest));
+    return 1;
+}
+
   return 0;
 }
 
@@ -9974,6 +10253,11 @@ _lua_gen_DateTime_index(lua_State *L)
     lua_pushstring(L, obj->dat_StrTime);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct DateTime));
+    return 1;
+}
+
   return 0;
 }
 
@@ -10024,12 +10308,14 @@ _lua_gen_Hook_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "h_MinNode.mln_Succ") == 0) {
     // finder 1
-    obj->h_MinNode.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->h_MinNode.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->h_MinNode.mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "h_MinNode.mln_Pred") == 0) {
     // finder 1
-    obj->h_MinNode.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->h_MinNode.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->h_MinNode.mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "h_MinNode") == 0) {
@@ -10122,6 +10408,11 @@ _lua_gen_Hook_index(lua_State *L)
     lua_pushlightuserdata(L, obj->h_Data);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Hook));
+    return 1;
+}
+
   return 0;
 }
 
@@ -11844,27 +12135,32 @@ _lua_gen_GadgetInfo_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "gi_Screen") == 0) {
     // finder 1
-    obj->gi_Screen = *(struct Screen **)luaL_checkudata(L, 3, "Screen");
+    //obj->gi_Screen = *(struct Screen **)luaL_checkudata(L, 3, "Screen");
+    obj->gi_Screen = (struct Screen *)_lua_gen_checkScreen(L, 3);
     return 0;
   }
   if (strcmp(key, "gi_Window") == 0) {
     // finder 1
-    obj->gi_Window = *(struct Window **)luaL_checkudata(L, 3, "Window");
+    //obj->gi_Window = *(struct Window **)luaL_checkudata(L, 3, "Window");
+    obj->gi_Window = (struct Window *)_lua_gen_checkWindow(L, 3);
     return 0;
   }
   if (strcmp(key, "gi_Requester") == 0) {
     // finder 1
-    obj->gi_Requester = *(struct Requester **)luaL_checkudata(L, 3, "Requester");
+    //obj->gi_Requester = *(struct Requester **)luaL_checkudata(L, 3, "Requester");
+    obj->gi_Requester = (struct Requester *)_lua_gen_checkRequester(L, 3);
     return 0;
   }
   if (strcmp(key, "gi_RastPort") == 0) {
     // finder 1
-    obj->gi_RastPort = *(struct RastPort **)luaL_checkudata(L, 3, "RastPort");
+    //obj->gi_RastPort = *(struct RastPort **)luaL_checkudata(L, 3, "RastPort");
+    obj->gi_RastPort = (struct RastPort *)_lua_gen_checkRastPort(L, 3);
     return 0;
   }
   if (strcmp(key, "gi_Layer") == 0) {
     // finder 1
-    obj->gi_Layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    //obj->gi_Layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->gi_Layer = (struct Layer *)_lua_gen_checkLayer(L, 3);
     return 0;
   }
   if (strcmp(key, "gi_Domain.Left") == 0) {
@@ -11903,7 +12199,8 @@ _lua_gen_GadgetInfo_newindex(lua_State *L)
   }
   if (strcmp(key, "gi_DrInfo") == 0) {
     // finder 1
-    obj->gi_DrInfo = *(struct DrawInfo **)luaL_checkudata(L, 3, "DrawInfo");
+    //obj->gi_DrInfo = *(struct DrawInfo **)luaL_checkudata(L, 3, "DrawInfo");
+    obj->gi_DrInfo = (struct DrawInfo *)_lua_gen_checkDrawInfo(L, 3);
     return 0;
   }
   // gi_Reserved[6] proxied via the index
@@ -12027,6 +12324,11 @@ _lua_gen_GadgetInfo_index(lua_State *L)
     _lua_gen_push_ULONG_array_proxy(L, obj->gi_Reserved, 6);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct GadgetInfo));
+    return 1;
+}
+
   return 0;
 }
 
@@ -12075,12 +12377,14 @@ _lua_gen_IClass_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "cl_Dispatcher.h_MinNode.mln_Succ") == 0) {
     // finder 1
-    obj->cl_Dispatcher.h_MinNode.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->cl_Dispatcher.h_MinNode.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->cl_Dispatcher.h_MinNode.mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "cl_Dispatcher.h_MinNode.mln_Pred") == 0) {
     // finder 1
-    obj->cl_Dispatcher.h_MinNode.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->cl_Dispatcher.h_MinNode.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->cl_Dispatcher.h_MinNode.mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "cl_Dispatcher.h_MinNode") == 0) {
@@ -12113,7 +12417,8 @@ _lua_gen_IClass_newindex(lua_State *L)
   }
   if (strcmp(key, "cl_Super") == 0) {
     // finder 1
-    obj->cl_Super = *(struct IClass **)luaL_checkudata(L, 3, "IClass");
+    //obj->cl_Super = *(struct IClass **)luaL_checkudata(L, 3, "IClass");
+    obj->cl_Super = (struct IClass *)_lua_gen_checkIClass(L, 3);
     return 0;
   }
   if (strcmp(key, "cl_ID") == 0) {
@@ -12262,6 +12567,11 @@ _lua_gen_IClass_index(lua_State *L)
     lua_pushinteger(L, obj->cl_Flags);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct IClass));
+    return 1;
+}
+
   return 0;
 }
 
@@ -12387,6 +12697,11 @@ _lua_gen_Rectangle_index(lua_State *L)
     lua_pushinteger(L, obj->MaxY);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Rectangle));
+    return 1;
+}
+
   return 0;
 }
 
@@ -12482,6 +12797,11 @@ _lua_gen_Point_index(lua_State *L)
     lua_pushinteger(L, obj->y);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(Point));
+    return 1;
+}
+
   return 0;
 }
 
@@ -12671,6 +12991,11 @@ _lua_gen_BitMap_index(lua_State *L)
     _lua_gen_push_PLANEPTR_array_proxy(L, obj->Planes, 8);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct BitMap));
+    return 1;
+}
+
   return 0;
 }
 
@@ -12717,12 +13042,14 @@ _lua_gen_ExtendedNode_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "xln_Succ") == 0) {
     // finder 1
-    obj->xln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->xln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->xln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "xln_Pred") == 0) {
     // finder 1
-    obj->xln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->xln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->xln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "xln_Type") == 0) {
@@ -12747,7 +13074,8 @@ _lua_gen_ExtendedNode_newindex(lua_State *L)
   }
   if (strcmp(key, "xln_Library") == 0) {
     // finder 1
-    obj->xln_Library = *(struct GfxBase **)luaL_checkudata(L, 3, "GfxBase");
+    //obj->xln_Library = *(struct GfxBase **)luaL_checkudata(L, 3, "GfxBase");
+    obj->xln_Library = (struct GfxBase *)_lua_gen_checkGfxBase(L, 3);
     return 0;
   }
   // Unsupported type xln_Init LONG ()(struct ExtendedNode , UWORD)
@@ -12838,6 +13166,11 @@ _lua_gen_ExtendedNode_index(lua_State *L)
   if (strcmp(key, "xln_Init") == 0) {
     return luaL_error(L, "Unsupported type LONG (*)(struct ExtendedNode *, UWORD) for field xln_Init");
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct ExtendedNode));
+    return 1;
+}
+
   return 0;
 }
 
@@ -12953,12 +13286,14 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "LibNode.lib_Node.ln_Succ") == 0) {
     // finder 1
-    obj->LibNode.lib_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->LibNode.lib_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->LibNode.lib_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "LibNode.lib_Node.ln_Pred") == 0) {
     // finder 1
-    obj->LibNode.lib_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->LibNode.lib_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->LibNode.lib_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "LibNode.lib_Node.ln_Type") == 0) {
@@ -13023,12 +13358,14 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   }
   if (strcmp(key, "ActiView") == 0) {
     // finder 1
-    obj->ActiView = *(struct View **)luaL_checkudata(L, 3, "View");
+    //obj->ActiView = *(struct View **)luaL_checkudata(L, 3, "View");
+    obj->ActiView = (struct View *)_lua_gen_checkView(L, 3);
     return 0;
   }
   if (strcmp(key, "copinit") == 0) {
     // finder 1
-    obj->copinit = *(struct copinit **)luaL_checkudata(L, 3, "copinit");
+    //obj->copinit = *(struct copinit **)luaL_checkudata(L, 3, "copinit");
+    obj->copinit = (struct copinit *)_lua_gen_checkcopinit(L, 3);
     return 0;
   }
   if (strcmp(key, "cia") == 0) {
@@ -13049,32 +13386,38 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   }
   if (strcmp(key, "blthd") == 0) {
     // finder 1
-    obj->blthd = *(struct bltnode **)luaL_checkudata(L, 3, "bltnode");
+    //obj->blthd = *(struct bltnode **)luaL_checkudata(L, 3, "bltnode");
+    obj->blthd = (struct bltnode *)_lua_gen_checkbltnode(L, 3);
     return 0;
   }
   if (strcmp(key, "blttl") == 0) {
     // finder 1
-    obj->blttl = *(struct bltnode **)luaL_checkudata(L, 3, "bltnode");
+    //obj->blttl = *(struct bltnode **)luaL_checkudata(L, 3, "bltnode");
+    obj->blttl = (struct bltnode *)_lua_gen_checkbltnode(L, 3);
     return 0;
   }
   if (strcmp(key, "bsblthd") == 0) {
     // finder 1
-    obj->bsblthd = *(struct bltnode **)luaL_checkudata(L, 3, "bltnode");
+    //obj->bsblthd = *(struct bltnode **)luaL_checkudata(L, 3, "bltnode");
+    obj->bsblthd = (struct bltnode *)_lua_gen_checkbltnode(L, 3);
     return 0;
   }
   if (strcmp(key, "bsblttl") == 0) {
     // finder 1
-    obj->bsblttl = *(struct bltnode **)luaL_checkudata(L, 3, "bltnode");
+    //obj->bsblttl = *(struct bltnode **)luaL_checkudata(L, 3, "bltnode");
+    obj->bsblttl = (struct bltnode *)_lua_gen_checkbltnode(L, 3);
     return 0;
   }
   if (strcmp(key, "vbsrv.is_Node.ln_Succ") == 0) {
     // finder 1
-    obj->vbsrv.is_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->vbsrv.is_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->vbsrv.is_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "vbsrv.is_Node.ln_Pred") == 0) {
     // finder 1
-    obj->vbsrv.is_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->vbsrv.is_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->vbsrv.is_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "vbsrv.is_Node.ln_Type") == 0) {
@@ -13111,12 +13454,14 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   }
   if (strcmp(key, "timsrv.is_Node.ln_Succ") == 0) {
     // finder 1
-    obj->timsrv.is_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->timsrv.is_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->timsrv.is_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "timsrv.is_Node.ln_Pred") == 0) {
     // finder 1
-    obj->timsrv.is_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->timsrv.is_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->timsrv.is_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "timsrv.is_Node.ln_Type") == 0) {
@@ -13153,12 +13498,14 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   }
   if (strcmp(key, "bltsrv.is_Node.ln_Succ") == 0) {
     // finder 1
-    obj->bltsrv.is_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->bltsrv.is_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->bltsrv.is_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "bltsrv.is_Node.ln_Pred") == 0) {
     // finder 1
-    obj->bltsrv.is_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->bltsrv.is_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->bltsrv.is_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "bltsrv.is_Node.ln_Type") == 0) {
@@ -13195,17 +13542,20 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   }
   if (strcmp(key, "TextFonts.lh_Head") == 0) {
     // finder 1
-    obj->TextFonts.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->TextFonts.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->TextFonts.lh_Head = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "TextFonts.lh_Tail") == 0) {
     // finder 1
-    obj->TextFonts.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->TextFonts.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->TextFonts.lh_Tail = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "TextFonts.lh_TailPred") == 0) {
     // finder 1
-    obj->TextFonts.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->TextFonts.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->TextFonts.lh_TailPred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "TextFonts.lh_Type") == 0) {
@@ -13224,7 +13574,8 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   }
   if (strcmp(key, "DefaultFont") == 0) {
     // finder 1
-    obj->DefaultFont = *(struct TextFont **)luaL_checkudata(L, 3, "TextFont");
+    //obj->DefaultFont = *(struct TextFont **)luaL_checkudata(L, 3, "TextFont");
+    obj->DefaultFont = (struct TextFont *)_lua_gen_checkTextFont(L, 3);
     return 0;
   }
   if (strcmp(key, "Modes") == 0) {
@@ -13269,17 +13620,20 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   }
   if (strcmp(key, "BlitWaitQ.lh_Head") == 0) {
     // finder 1
-    obj->BlitWaitQ.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->BlitWaitQ.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->BlitWaitQ.lh_Head = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "BlitWaitQ.lh_Tail") == 0) {
     // finder 1
-    obj->BlitWaitQ.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->BlitWaitQ.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->BlitWaitQ.lh_Tail = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "BlitWaitQ.lh_TailPred") == 0) {
     // finder 1
-    obj->BlitWaitQ.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->BlitWaitQ.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->BlitWaitQ.lh_TailPred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "BlitWaitQ.lh_Type") == 0) {
@@ -13298,22 +13652,26 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   }
   if (strcmp(key, "BlitOwner") == 0) {
     // finder 1
-    obj->BlitOwner = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->BlitOwner = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->BlitOwner = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   if (strcmp(key, "TOF_WaitQ.lh_Head") == 0) {
     // finder 1
-    obj->TOF_WaitQ.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->TOF_WaitQ.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->TOF_WaitQ.lh_Head = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "TOF_WaitQ.lh_Tail") == 0) {
     // finder 1
-    obj->TOF_WaitQ.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->TOF_WaitQ.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->TOF_WaitQ.lh_Tail = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "TOF_WaitQ.lh_TailPred") == 0) {
     // finder 1
-    obj->TOF_WaitQ.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->TOF_WaitQ.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->TOF_WaitQ.lh_TailPred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "TOF_WaitQ.lh_Type") == 0) {
@@ -13366,7 +13724,8 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   }
   if (strcmp(key, "LastChanceMemory") == 0) {
     // finder 1
-    obj->LastChanceMemory = *(struct SignalSemaphore **)luaL_checkudata(L, 3, "SignalSemaphore");
+    //obj->LastChanceMemory = *(struct SignalSemaphore **)luaL_checkudata(L, 3, "SignalSemaphore");
+    obj->LastChanceMemory = (struct SignalSemaphore *)_lua_gen_checkSignalSemaphore(L, 3);
     return 0;
   }
   if (strcmp(key, "LCMptr") == 0) {
@@ -13444,22 +13803,26 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   }
   if (strcmp(key, "current_monitor") == 0) {
     // finder 1
-    obj->current_monitor = *(struct MonitorSpec **)luaL_checkudata(L, 3, "MonitorSpec");
+    //obj->current_monitor = *(struct MonitorSpec **)luaL_checkudata(L, 3, "MonitorSpec");
+    obj->current_monitor = (struct MonitorSpec *)_lua_gen_checkMonitorSpec(L, 3);
     return 0;
   }
   if (strcmp(key, "MonitorList.lh_Head") == 0) {
     // finder 1
-    obj->MonitorList.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->MonitorList.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->MonitorList.lh_Head = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "MonitorList.lh_Tail") == 0) {
     // finder 1
-    obj->MonitorList.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->MonitorList.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->MonitorList.lh_Tail = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "MonitorList.lh_TailPred") == 0) {
     // finder 1
-    obj->MonitorList.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->MonitorList.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->MonitorList.lh_TailPred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "MonitorList.lh_Type") == 0) {
@@ -13478,12 +13841,14 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   }
   if (strcmp(key, "default_monitor") == 0) {
     // finder 1
-    obj->default_monitor = *(struct MonitorSpec **)luaL_checkudata(L, 3, "MonitorSpec");
+    //obj->default_monitor = *(struct MonitorSpec **)luaL_checkudata(L, 3, "MonitorSpec");
+    obj->default_monitor = (struct MonitorSpec *)_lua_gen_checkMonitorSpec(L, 3);
     return 0;
   }
   if (strcmp(key, "MonitorListSemaphore") == 0) {
     // finder 1
-    obj->MonitorListSemaphore = *(struct SignalSemaphore **)luaL_checkudata(L, 3, "SignalSemaphore");
+    //obj->MonitorListSemaphore = *(struct SignalSemaphore **)luaL_checkudata(L, 3, "SignalSemaphore");
+    obj->MonitorListSemaphore = (struct SignalSemaphore *)_lua_gen_checkSignalSemaphore(L, 3);
     return 0;
   }
   if (strcmp(key, "DisplayInfoDataBase") == 0) {
@@ -13496,17 +13861,20 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   }
   if (strcmp(key, "ActiViewCprSemaphore") == 0) {
     // finder 1
-    obj->ActiViewCprSemaphore = *(struct SignalSemaphore **)luaL_checkudata(L, 3, "SignalSemaphore");
+    //obj->ActiViewCprSemaphore = *(struct SignalSemaphore **)luaL_checkudata(L, 3, "SignalSemaphore");
+    obj->ActiViewCprSemaphore = (struct SignalSemaphore *)_lua_gen_checkSignalSemaphore(L, 3);
     return 0;
   }
   if (strcmp(key, "UtilBase") == 0) {
     // finder 1
-    obj->UtilBase = *(struct Library **)luaL_checkudata(L, 3, "Library");
+    //obj->UtilBase = *(struct Library **)luaL_checkudata(L, 3, "Library");
+    obj->UtilBase = (struct Library *)_lua_gen_checkLibrary(L, 3);
     return 0;
   }
   if (strcmp(key, "ExecBase") == 0) {
     // finder 1
-    obj->ExecBase = *(struct Library **)luaL_checkudata(L, 3, "Library");
+    //obj->ExecBase = *(struct Library **)luaL_checkudata(L, 3, "Library");
+    obj->ExecBase = (struct Library *)_lua_gen_checkLibrary(L, 3);
     return 0;
   }
   if (strcmp(key, "bwshifts") == 0) {
@@ -13617,7 +13985,8 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   }
   if (strcmp(key, "natural_monitor") == 0) {
     // finder 1
-    obj->natural_monitor = *(struct MonitorSpec **)luaL_checkudata(L, 3, "MonitorSpec");
+    //obj->natural_monitor = *(struct MonitorSpec **)luaL_checkudata(L, 3, "MonitorSpec");
+    obj->natural_monitor = (struct MonitorSpec *)_lua_gen_checkMonitorSpec(L, 3);
     return 0;
   }
   if (strcmp(key, "ProgData") == 0) {
@@ -13642,13 +14011,15 @@ _lua_gen_GfxBase_newindex(lua_State *L)
   }
   if (strcmp(key, "HashTableSemaphore") == 0) {
     // finder 1
-    obj->HashTableSemaphore = *(struct SignalSemaphore **)luaL_checkudata(L, 3, "SignalSemaphore");
+    //obj->HashTableSemaphore = *(struct SignalSemaphore **)luaL_checkudata(L, 3, "SignalSemaphore");
+    obj->HashTableSemaphore = (struct SignalSemaphore *)_lua_gen_checkSignalSemaphore(L, 3);
     return 0;
   }
   // HWEmul[9] proxied via the index
   if (strcmp(key, "Scratch") == 0) {
     // finder 1
-    obj->Scratch = *(struct RegionRectangle **)luaL_checkudata(L, 3, "RegionRectangle");
+    //obj->Scratch = *(struct RegionRectangle **)luaL_checkudata(L, 3, "RegionRectangle");
+    obj->Scratch = (struct RegionRectangle *)_lua_gen_checkRegionRectangle(L, 3);
     return 0;
   }
   if (strcmp(key, "ScratchSize") == 0) {
@@ -14506,6 +14877,11 @@ _lua_gen_GfxBase_index(lua_State *L)
     lua_pushinteger(L, obj->ScratchSize);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct GfxBase));
+    return 1;
+}
+
   return 0;
 }
 
@@ -14766,7 +15142,8 @@ _lua_gen_CopIns_newindex(lua_State *L)
   }
   if (strcmp(key, "u3.nxtlist") == 0) {
     // finder 1
-    obj->u3.nxtlist = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    //obj->u3.nxtlist = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    obj->u3.nxtlist = (struct CopList *)_lua_gen_checkCopList(L, 3);
     return 0;
   }
   if (strcmp(key, "u3.u4.u1.VWaitPos") == 0) {
@@ -14859,6 +15236,11 @@ _lua_gen_CopIns_index(lua_State *L)
   if (strcmp(key, "u3") == 0) {
     return luaL_error(L, "Unsupported type unnamed union for field u3");
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct CopIns));
+    return 1;
+}
+
   return 0;
 }
 
@@ -14903,27 +15285,32 @@ _lua_gen_CopList_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "Next") == 0) {
     // finder 1
-    obj->Next = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    //obj->Next = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    obj->Next = (struct CopList *)_lua_gen_checkCopList(L, 3);
     return 0;
   }
   if (strcmp(key, "_CopList") == 0) {
     // finder 1
-    obj->_CopList = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    //obj->_CopList = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    obj->_CopList = (struct CopList *)_lua_gen_checkCopList(L, 3);
     return 0;
   }
   if (strcmp(key, "_ViewPort") == 0) {
     // finder 1
-    obj->_ViewPort = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    //obj->_ViewPort = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    obj->_ViewPort = (struct ViewPort *)_lua_gen_checkViewPort(L, 3);
     return 0;
   }
   if (strcmp(key, "CopIns") == 0) {
     // finder 1
-    obj->CopIns = *(struct CopIns **)luaL_checkudata(L, 3, "CopIns");
+    //obj->CopIns = *(struct CopIns **)luaL_checkudata(L, 3, "CopIns");
+    obj->CopIns = (struct CopIns *)_lua_gen_checkCopIns(L, 3);
     return 0;
   }
   if (strcmp(key, "CopPtr") == 0) {
     // finder 1
-    obj->CopPtr = *(struct CopIns **)luaL_checkudata(L, 3, "CopIns");
+    //obj->CopPtr = *(struct CopIns **)luaL_checkudata(L, 3, "CopIns");
+    obj->CopPtr = (struct CopIns *)_lua_gen_checkCopIns(L, 3);
     return 0;
   }
   if (strcmp(key, "CopLStart") == 0) {
@@ -15056,6 +15443,11 @@ _lua_gen_CopList_index(lua_State *L)
     lua_pushinteger(L, obj->Flags);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct CopList));
+    return 1;
+}
+
   return 0;
 }
 
@@ -15104,7 +15496,8 @@ _lua_gen_cprlist_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "Next") == 0) {
     // finder 1
-    obj->Next = *(struct cprlist **)luaL_checkudata(L, 3, "cprlist");
+    //obj->Next = *(struct cprlist **)luaL_checkudata(L, 3, "cprlist");
+    obj->Next = (struct cprlist *)_lua_gen_checkcprlist(L, 3);
     return 0;
   }
   if (strcmp(key, "start") == 0) {
@@ -15169,6 +15562,11 @@ _lua_gen_cprlist_index(lua_State *L)
     lua_pushinteger(L, obj->MaxCount);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct cprlist));
+    return 1;
+}
+
   return 0;
 }
 
@@ -15207,27 +15605,32 @@ _lua_gen_ViewPort_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "Next") == 0) {
     // finder 1
-    obj->Next = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    //obj->Next = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    obj->Next = (struct ViewPort *)_lua_gen_checkViewPort(L, 3);
     return 0;
   }
   if (strcmp(key, "ColorMap") == 0) {
     // finder 1
-    obj->ColorMap = *(struct ColorMap **)luaL_checkudata(L, 3, "ColorMap");
+    //obj->ColorMap = *(struct ColorMap **)luaL_checkudata(L, 3, "ColorMap");
+    obj->ColorMap = (struct ColorMap *)_lua_gen_checkColorMap(L, 3);
     return 0;
   }
   if (strcmp(key, "DspIns") == 0) {
     // finder 1
-    obj->DspIns = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    //obj->DspIns = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    obj->DspIns = (struct CopList *)_lua_gen_checkCopList(L, 3);
     return 0;
   }
   if (strcmp(key, "SprIns") == 0) {
     // finder 1
-    obj->SprIns = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    //obj->SprIns = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    obj->SprIns = (struct CopList *)_lua_gen_checkCopList(L, 3);
     return 0;
   }
   if (strcmp(key, "ClrIns") == 0) {
     // finder 1
-    obj->ClrIns = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    //obj->ClrIns = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    obj->ClrIns = (struct CopList *)_lua_gen_checkCopList(L, 3);
     return 0;
   }
   if (strcmp(key, "UCopIns") == 0) {
@@ -15264,7 +15667,8 @@ _lua_gen_ViewPort_newindex(lua_State *L)
   }
   if (strcmp(key, "RasInfo") == 0) {
     // finder 1
-    obj->RasInfo = *(struct RasInfo **)luaL_checkudata(L, 3, "RasInfo");
+    //obj->RasInfo = *(struct RasInfo **)luaL_checkudata(L, 3, "RasInfo");
+    obj->RasInfo = (struct RasInfo *)_lua_gen_checkRasInfo(L, 3);
     return 0;
   }
   return 0;
@@ -15380,6 +15784,11 @@ _lua_gen_ViewPort_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct ViewPort));
+    return 1;
+}
+
   return 0;
 }
 
@@ -15594,6 +16003,11 @@ _lua_gen_copinit_index(lua_State *L)
     _lua_gen_push_UWORD_array_proxy(L, obj->sprstop, 8);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct copinit));
+    return 1;
+}
+
   return 0;
 }
 
@@ -15652,17 +16066,20 @@ _lua_gen_View_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "ViewPort") == 0) {
     // finder 1
-    obj->ViewPort = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    //obj->ViewPort = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    obj->ViewPort = (struct ViewPort *)_lua_gen_checkViewPort(L, 3);
     return 0;
   }
   if (strcmp(key, "LOFCprList") == 0) {
     // finder 1
-    obj->LOFCprList = *(struct cprlist **)luaL_checkudata(L, 3, "cprlist");
+    //obj->LOFCprList = *(struct cprlist **)luaL_checkudata(L, 3, "cprlist");
+    obj->LOFCprList = (struct cprlist *)_lua_gen_checkcprlist(L, 3);
     return 0;
   }
   if (strcmp(key, "SHFCprList") == 0) {
     // finder 1
-    obj->SHFCprList = *(struct cprlist **)luaL_checkudata(L, 3, "cprlist");
+    //obj->SHFCprList = *(struct cprlist **)luaL_checkudata(L, 3, "cprlist");
+    obj->SHFCprList = (struct cprlist *)_lua_gen_checkcprlist(L, 3);
     return 0;
   }
   if (strcmp(key, "DyOffset") == 0) {
@@ -15749,6 +16166,11 @@ _lua_gen_View_index(lua_State *L)
     lua_pushinteger(L, obj->Modes);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct View));
+    return 1;
+}
+
   return 0;
 }
 
@@ -16700,6 +17122,11 @@ _lua_gen_Custom_index(lua_State *L)
     lua_pushinteger(L, obj->fmode);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Custom));
+    return 1;
+}
+
   return 0;
 }
 
@@ -16956,7 +17383,8 @@ _lua_gen_ColorMap_newindex(lua_State *L)
   }
   if (strcmp(key, "cm_vpe") == 0) {
     // finder 1
-    obj->cm_vpe = *(struct ViewPortExtra **)luaL_checkudata(L, 3, "ViewPortExtra");
+    //obj->cm_vpe = *(struct ViewPortExtra **)luaL_checkudata(L, 3, "ViewPortExtra");
+    obj->cm_vpe = (struct ViewPortExtra *)_lua_gen_checkViewPortExtra(L, 3);
     return 0;
   }
   if (strcmp(key, "LowColorBits") == 0) {
@@ -16981,7 +17409,8 @@ _lua_gen_ColorMap_newindex(lua_State *L)
   }
   if (strcmp(key, "cm_vp") == 0) {
     // finder 1
-    obj->cm_vp = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    //obj->cm_vp = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    obj->cm_vp = (struct ViewPort *)_lua_gen_checkViewPort(L, 3);
     return 0;
   }
   if (strcmp(key, "NormalDisplayInfo") == 0) {
@@ -16994,7 +17423,8 @@ _lua_gen_ColorMap_newindex(lua_State *L)
   }
   if (strcmp(key, "cm_batch_items") == 0) {
     // finder 1
-    obj->cm_batch_items = *(struct TagItem **)luaL_checkudata(L, 3, "TagItem");
+    //obj->cm_batch_items = *(struct TagItem **)luaL_checkudata(L, 3, "TagItem");
+    obj->cm_batch_items = (struct TagItem *)_lua_gen_checkTagItem(L, 3);
     return 0;
   }
   if (strcmp(key, "VPModeID") == 0) {
@@ -17003,7 +17433,8 @@ _lua_gen_ColorMap_newindex(lua_State *L)
   }
   if (strcmp(key, "PalExtra") == 0) {
     // finder 1
-    obj->PalExtra = *(struct PaletteExtra **)luaL_checkudata(L, 3, "PaletteExtra");
+    //obj->PalExtra = *(struct PaletteExtra **)luaL_checkudata(L, 3, "PaletteExtra");
+    obj->PalExtra = (struct PaletteExtra *)_lua_gen_checkPaletteExtra(L, 3);
     return 0;
   }
   if (strcmp(key, "SpriteBase_Even") == 0) {
@@ -17153,6 +17584,11 @@ _lua_gen_ColorMap_index(lua_State *L)
     lua_pushinteger(L, obj->Bp_1_base);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct ColorMap));
+    return 1;
+}
+
   return 0;
 }
 
@@ -17219,12 +17655,14 @@ _lua_gen_RasInfo_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "Next") == 0) {
     // finder 1
-    obj->Next = *(struct RasInfo **)luaL_checkudata(L, 3, "RasInfo");
+    //obj->Next = *(struct RasInfo **)luaL_checkudata(L, 3, "RasInfo");
+    obj->Next = (struct RasInfo *)_lua_gen_checkRasInfo(L, 3);
     return 0;
   }
   if (strcmp(key, "BitMap") == 0) {
     // finder 1
-    obj->BitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    //obj->BitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    obj->BitMap = (struct BitMap *)_lua_gen_checkBitMap(L, 3);
     return 0;
   }
   if (strcmp(key, "RxOffset") == 0) {
@@ -17296,6 +17734,11 @@ _lua_gen_RasInfo_index(lua_State *L)
     lua_pushinteger(L, obj->RyOffset);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct RasInfo));
+    return 1;
+}
+
   return 0;
 }
 
@@ -17334,12 +17777,14 @@ _lua_gen_MonitorSpec_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "ms_Node.xln_Succ") == 0) {
     // finder 1
-    obj->ms_Node.xln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->ms_Node.xln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->ms_Node.xln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ms_Node.xln_Pred") == 0) {
     // finder 1
-    obj->ms_Node.xln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->ms_Node.xln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->ms_Node.xln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ms_Node.xln_Type") == 0) {
@@ -17364,7 +17809,8 @@ _lua_gen_MonitorSpec_newindex(lua_State *L)
   }
   if (strcmp(key, "ms_Node.xln_Library") == 0) {
     // finder 1
-    obj->ms_Node.xln_Library = *(struct GfxBase **)luaL_checkudata(L, 3, "GfxBase");
+    //obj->ms_Node.xln_Library = *(struct GfxBase **)luaL_checkudata(L, 3, "GfxBase");
+    obj->ms_Node.xln_Library = (struct GfxBase *)_lua_gen_checkGfxBase(L, 3);
     return 0;
   }
   // Unsupported type ms_Node.xln_Init LONG ()(struct ExtendedNode , UWORD)
@@ -17411,7 +17857,8 @@ _lua_gen_MonitorSpec_newindex(lua_State *L)
   }
   if (strcmp(key, "ms_Special") == 0) {
     // finder 1
-    obj->ms_Special = *(struct SpecialMonitor **)luaL_checkudata(L, 3, "SpecialMonitor");
+    //obj->ms_Special = *(struct SpecialMonitor **)luaL_checkudata(L, 3, "SpecialMonitor");
+    obj->ms_Special = (struct SpecialMonitor *)_lua_gen_checkSpecialMonitor(L, 3);
     return 0;
   }
   if (strcmp(key, "ms_OpenCount") == 0) {
@@ -17478,17 +17925,20 @@ _lua_gen_MonitorSpec_newindex(lua_State *L)
   }
   if (strcmp(key, "DisplayInfoDataBase.lh_Head") == 0) {
     // finder 1
-    obj->DisplayInfoDataBase.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->DisplayInfoDataBase.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->DisplayInfoDataBase.lh_Head = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "DisplayInfoDataBase.lh_Tail") == 0) {
     // finder 1
-    obj->DisplayInfoDataBase.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->DisplayInfoDataBase.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->DisplayInfoDataBase.lh_Tail = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "DisplayInfoDataBase.lh_TailPred") == 0) {
     // finder 1
-    obj->DisplayInfoDataBase.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->DisplayInfoDataBase.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->DisplayInfoDataBase.lh_TailPred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "DisplayInfoDataBase.lh_Type") == 0) {
@@ -17507,12 +17957,14 @@ _lua_gen_MonitorSpec_newindex(lua_State *L)
   }
   if (strcmp(key, "DisplayInfoDataBaseSemaphore.ss_Link.ln_Succ") == 0) {
     // finder 1
-    obj->DisplayInfoDataBaseSemaphore.ss_Link.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->DisplayInfoDataBaseSemaphore.ss_Link.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->DisplayInfoDataBaseSemaphore.ss_Link.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "DisplayInfoDataBaseSemaphore.ss_Link.ln_Pred") == 0) {
     // finder 1
-    obj->DisplayInfoDataBaseSemaphore.ss_Link.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->DisplayInfoDataBaseSemaphore.ss_Link.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->DisplayInfoDataBaseSemaphore.ss_Link.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "DisplayInfoDataBaseSemaphore.ss_Link.ln_Type") == 0) {
@@ -17539,17 +17991,20 @@ _lua_gen_MonitorSpec_newindex(lua_State *L)
   }
   if (strcmp(key, "DisplayInfoDataBaseSemaphore.ss_WaitQueue.mlh_Head") == 0) {
     // finder 1
-    obj->DisplayInfoDataBaseSemaphore.ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->DisplayInfoDataBaseSemaphore.ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->DisplayInfoDataBaseSemaphore.ss_WaitQueue.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "DisplayInfoDataBaseSemaphore.ss_WaitQueue.mlh_Tail") == 0) {
     // finder 1
-    obj->DisplayInfoDataBaseSemaphore.ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->DisplayInfoDataBaseSemaphore.ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->DisplayInfoDataBaseSemaphore.ss_WaitQueue.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "DisplayInfoDataBaseSemaphore.ss_WaitQueue.mlh_TailPred") == 0) {
     // finder 1
-    obj->DisplayInfoDataBaseSemaphore.ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->DisplayInfoDataBaseSemaphore.ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->DisplayInfoDataBaseSemaphore.ss_WaitQueue.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "DisplayInfoDataBaseSemaphore.ss_WaitQueue") == 0) {
@@ -17560,12 +18015,14 @@ _lua_gen_MonitorSpec_newindex(lua_State *L)
   }
   if (strcmp(key, "DisplayInfoDataBaseSemaphore.ss_MultipleLink.sr_Link.mln_Succ") == 0) {
     // finder 1
-    obj->DisplayInfoDataBaseSemaphore.ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->DisplayInfoDataBaseSemaphore.ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->DisplayInfoDataBaseSemaphore.ss_MultipleLink.sr_Link.mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "DisplayInfoDataBaseSemaphore.ss_MultipleLink.sr_Link.mln_Pred") == 0) {
     // finder 1
-    obj->DisplayInfoDataBaseSemaphore.ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->DisplayInfoDataBaseSemaphore.ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->DisplayInfoDataBaseSemaphore.ss_MultipleLink.sr_Link.mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "DisplayInfoDataBaseSemaphore.ss_MultipleLink.sr_Link") == 0) {
@@ -17576,7 +18033,8 @@ _lua_gen_MonitorSpec_newindex(lua_State *L)
   }
   if (strcmp(key, "DisplayInfoDataBaseSemaphore.ss_MultipleLink.sr_Waiter") == 0) {
     // finder 1
-    obj->DisplayInfoDataBaseSemaphore.ss_MultipleLink.sr_Waiter = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->DisplayInfoDataBaseSemaphore.ss_MultipleLink.sr_Waiter = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->DisplayInfoDataBaseSemaphore.ss_MultipleLink.sr_Waiter = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   if (strcmp(key, "DisplayInfoDataBaseSemaphore.ss_MultipleLink") == 0) {
@@ -17587,7 +18045,8 @@ _lua_gen_MonitorSpec_newindex(lua_State *L)
   }
   if (strcmp(key, "DisplayInfoDataBaseSemaphore.ss_Owner") == 0) {
     // finder 1
-    obj->DisplayInfoDataBaseSemaphore.ss_Owner = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->DisplayInfoDataBaseSemaphore.ss_Owner = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->DisplayInfoDataBaseSemaphore.ss_Owner = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   if (strcmp(key, "DisplayInfoDataBaseSemaphore.ss_QueueCount") == 0) {
@@ -17971,6 +18430,11 @@ _lua_gen_MonitorSpec_index(lua_State *L)
   if (strcmp(key, "ms_KillView") == 0) {
     return luaL_error(L, "Unsupported type LONG (*)(struct MonitorSpec *) for field ms_KillView");
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct MonitorSpec));
+    return 1;
+}
+
   return 0;
 }
 
@@ -18081,12 +18545,14 @@ _lua_gen_ViewPortExtra_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "n.xln_Succ") == 0) {
     // finder 1
-    obj->n.xln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->n.xln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->n.xln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "n.xln_Pred") == 0) {
     // finder 1
-    obj->n.xln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->n.xln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->n.xln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "n.xln_Type") == 0) {
@@ -18111,7 +18577,8 @@ _lua_gen_ViewPortExtra_newindex(lua_State *L)
   }
   if (strcmp(key, "n.xln_Library") == 0) {
     // finder 1
-    obj->n.xln_Library = *(struct GfxBase **)luaL_checkudata(L, 3, "GfxBase");
+    //obj->n.xln_Library = *(struct GfxBase **)luaL_checkudata(L, 3, "GfxBase");
+    obj->n.xln_Library = (struct GfxBase *)_lua_gen_checkGfxBase(L, 3);
     return 0;
   }
   // Unsupported type n.xln_Init LONG ()(struct ExtendedNode , UWORD)
@@ -18126,7 +18593,8 @@ _lua_gen_ViewPortExtra_newindex(lua_State *L)
   }
   if (strcmp(key, "ViewPort") == 0) {
     // finder 1
-    obj->ViewPort = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    //obj->ViewPort = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    obj->ViewPort = (struct ViewPort *)_lua_gen_checkViewPort(L, 3);
     return 0;
   }
   if (strcmp(key, "DisplayClip.MinX") == 0) {
@@ -18314,6 +18782,11 @@ _lua_gen_ViewPortExtra_index(lua_State *L)
     lua_pushinteger(L, obj->cop2ptr);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct ViewPortExtra));
+    return 1;
+}
+
   return 0;
 }
 
@@ -18380,12 +18853,14 @@ _lua_gen_PaletteExtra_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "pe_Semaphore.ss_Link.ln_Succ") == 0) {
     // finder 1
-    obj->pe_Semaphore.ss_Link.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->pe_Semaphore.ss_Link.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pe_Semaphore.ss_Link.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pe_Semaphore.ss_Link.ln_Pred") == 0) {
     // finder 1
-    obj->pe_Semaphore.ss_Link.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->pe_Semaphore.ss_Link.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pe_Semaphore.ss_Link.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pe_Semaphore.ss_Link.ln_Type") == 0) {
@@ -18412,17 +18887,20 @@ _lua_gen_PaletteExtra_newindex(lua_State *L)
   }
   if (strcmp(key, "pe_Semaphore.ss_WaitQueue.mlh_Head") == 0) {
     // finder 1
-    obj->pe_Semaphore.ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->pe_Semaphore.ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->pe_Semaphore.ss_WaitQueue.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pe_Semaphore.ss_WaitQueue.mlh_Tail") == 0) {
     // finder 1
-    obj->pe_Semaphore.ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->pe_Semaphore.ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->pe_Semaphore.ss_WaitQueue.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pe_Semaphore.ss_WaitQueue.mlh_TailPred") == 0) {
     // finder 1
-    obj->pe_Semaphore.ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->pe_Semaphore.ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->pe_Semaphore.ss_WaitQueue.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pe_Semaphore.ss_WaitQueue") == 0) {
@@ -18433,12 +18911,14 @@ _lua_gen_PaletteExtra_newindex(lua_State *L)
   }
   if (strcmp(key, "pe_Semaphore.ss_MultipleLink.sr_Link.mln_Succ") == 0) {
     // finder 1
-    obj->pe_Semaphore.ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->pe_Semaphore.ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->pe_Semaphore.ss_MultipleLink.sr_Link.mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pe_Semaphore.ss_MultipleLink.sr_Link.mln_Pred") == 0) {
     // finder 1
-    obj->pe_Semaphore.ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->pe_Semaphore.ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->pe_Semaphore.ss_MultipleLink.sr_Link.mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "pe_Semaphore.ss_MultipleLink.sr_Link") == 0) {
@@ -18449,7 +18929,8 @@ _lua_gen_PaletteExtra_newindex(lua_State *L)
   }
   if (strcmp(key, "pe_Semaphore.ss_MultipleLink.sr_Waiter") == 0) {
     // finder 1
-    obj->pe_Semaphore.ss_MultipleLink.sr_Waiter = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->pe_Semaphore.ss_MultipleLink.sr_Waiter = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->pe_Semaphore.ss_MultipleLink.sr_Waiter = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   if (strcmp(key, "pe_Semaphore.ss_MultipleLink") == 0) {
@@ -18460,7 +18941,8 @@ _lua_gen_PaletteExtra_newindex(lua_State *L)
   }
   if (strcmp(key, "pe_Semaphore.ss_Owner") == 0) {
     // finder 1
-    obj->pe_Semaphore.ss_Owner = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->pe_Semaphore.ss_Owner = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->pe_Semaphore.ss_Owner = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   if (strcmp(key, "pe_Semaphore.ss_QueueCount") == 0) {
@@ -18499,7 +18981,8 @@ _lua_gen_PaletteExtra_newindex(lua_State *L)
   }
   if (strcmp(key, "pe_ViewPort") == 0) {
     // finder 1
-    obj->pe_ViewPort = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    //obj->pe_ViewPort = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    obj->pe_ViewPort = (struct ViewPort *)_lua_gen_checkViewPort(L, 3);
     return 0;
   }
   if (strcmp(key, "pe_SharableColors") == 0) {
@@ -18698,6 +19181,11 @@ _lua_gen_PaletteExtra_index(lua_State *L)
     lua_pushinteger(L, obj->pe_SharableColors);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct PaletteExtra));
+    return 1;
+}
+
   return 0;
 }
 
@@ -18764,12 +19252,14 @@ _lua_gen_DBufInfo_newindex(lua_State *L)
   }
   if (strcmp(key, "dbi_SafeMessage.mn_Node.ln_Succ") == 0) {
     // finder 1
-    obj->dbi_SafeMessage.mn_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->dbi_SafeMessage.mn_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->dbi_SafeMessage.mn_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "dbi_SafeMessage.mn_Node.ln_Pred") == 0) {
     // finder 1
-    obj->dbi_SafeMessage.mn_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->dbi_SafeMessage.mn_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->dbi_SafeMessage.mn_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "dbi_SafeMessage.mn_Node.ln_Type") == 0) {
@@ -18792,7 +19282,8 @@ _lua_gen_DBufInfo_newindex(lua_State *L)
   }
   if (strcmp(key, "dbi_SafeMessage.mn_ReplyPort") == 0) {
     // finder 1
-    obj->dbi_SafeMessage.mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    //obj->dbi_SafeMessage.mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    obj->dbi_SafeMessage.mn_ReplyPort = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
   if (strcmp(key, "dbi_SafeMessage.mn_Length") == 0) {
@@ -18819,12 +19310,14 @@ _lua_gen_DBufInfo_newindex(lua_State *L)
   }
   if (strcmp(key, "dbi_DispMessage.mn_Node.ln_Succ") == 0) {
     // finder 1
-    obj->dbi_DispMessage.mn_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->dbi_DispMessage.mn_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->dbi_DispMessage.mn_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "dbi_DispMessage.mn_Node.ln_Pred") == 0) {
     // finder 1
-    obj->dbi_DispMessage.mn_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->dbi_DispMessage.mn_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->dbi_DispMessage.mn_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "dbi_DispMessage.mn_Node.ln_Type") == 0) {
@@ -18847,7 +19340,8 @@ _lua_gen_DBufInfo_newindex(lua_State *L)
   }
   if (strcmp(key, "dbi_DispMessage.mn_ReplyPort") == 0) {
     // finder 1
-    obj->dbi_DispMessage.mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    //obj->dbi_DispMessage.mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    obj->dbi_DispMessage.mn_ReplyPort = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
   if (strcmp(key, "dbi_DispMessage.mn_Length") == 0) {
@@ -19077,6 +19571,11 @@ _lua_gen_DBufInfo_index(lua_State *L)
     lua_pushinteger(L, obj->dbi_BeamPos2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct DBufInfo));
+    return 1;
+}
+
   return 0;
 }
 
@@ -19151,12 +19650,14 @@ _lua_gen_SpecialMonitor_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "spm_Node.xln_Succ") == 0) {
     // finder 1
-    obj->spm_Node.xln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->spm_Node.xln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->spm_Node.xln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "spm_Node.xln_Pred") == 0) {
     // finder 1
-    obj->spm_Node.xln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->spm_Node.xln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->spm_Node.xln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "spm_Node.xln_Type") == 0) {
@@ -19181,7 +19682,8 @@ _lua_gen_SpecialMonitor_newindex(lua_State *L)
   }
   if (strcmp(key, "spm_Node.xln_Library") == 0) {
     // finder 1
-    obj->spm_Node.xln_Library = *(struct GfxBase **)luaL_checkudata(L, 3, "GfxBase");
+    //obj->spm_Node.xln_Library = *(struct GfxBase **)luaL_checkudata(L, 3, "GfxBase");
+    obj->spm_Node.xln_Library = (struct GfxBase *)_lua_gen_checkGfxBase(L, 3);
     return 0;
   }
   // Unsupported type spm_Node.xln_Init LONG ()(struct ExtendedNode , UWORD)
@@ -19441,6 +19943,11 @@ _lua_gen_SpecialMonitor_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct SpecialMonitor));
+    return 1;
+}
+
   return 0;
 }
 
@@ -19566,6 +20073,11 @@ _lua_gen_AnalogSignalInterval_index(lua_State *L)
     lua_pushinteger(L, obj->asi_Stop);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct AnalogSignalInterval));
+    return 1;
+}
+
   return 0;
 }
 
@@ -19604,12 +20116,14 @@ _lua_gen_AnimOb_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "NextOb") == 0) {
     // finder 1
-    obj->NextOb = *(struct AnimOb **)luaL_checkudata(L, 3, "AnimOb");
+    //obj->NextOb = *(struct AnimOb **)luaL_checkudata(L, 3, "AnimOb");
+    obj->NextOb = (struct AnimOb *)_lua_gen_checkAnimOb(L, 3);
     return 0;
   }
   if (strcmp(key, "PrevOb") == 0) {
     // finder 1
-    obj->PrevOb = *(struct AnimOb **)luaL_checkudata(L, 3, "AnimOb");
+    //obj->PrevOb = *(struct AnimOb **)luaL_checkudata(L, 3, "AnimOb");
+    obj->PrevOb = (struct AnimOb *)_lua_gen_checkAnimOb(L, 3);
     return 0;
   }
   if (strcmp(key, "Clock") == 0) {
@@ -19662,7 +20176,8 @@ _lua_gen_AnimOb_newindex(lua_State *L)
   }
   if (strcmp(key, "HeadComp") == 0) {
     // finder 1
-    obj->HeadComp = *(struct AnimComp **)luaL_checkudata(L, 3, "AnimComp");
+    //obj->HeadComp = *(struct AnimComp **)luaL_checkudata(L, 3, "AnimComp");
+    obj->HeadComp = (struct AnimComp *)_lua_gen_checkAnimComp(L, 3);
     return 0;
   }
   if (strcmp(key, "AUserExt") == 0) {
@@ -19781,6 +20296,11 @@ _lua_gen_AnimOb_index(lua_State *L)
     lua_pushinteger(L, obj->AUserExt);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct AnimOb));
+    return 1;
+}
+
   return 0;
 }
 
@@ -19942,6 +20462,11 @@ _lua_gen_AreaInfo_index(lua_State *L)
     lua_pushinteger(L, obj->FirstY);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct AreaInfo));
+    return 1;
+}
+
   return 0;
 }
 
@@ -20040,12 +20565,14 @@ _lua_gen_BitScaleArgs_newindex(lua_State *L)
   }
   if (strcmp(key, "bsa_SrcBitMap") == 0) {
     // finder 1
-    obj->bsa_SrcBitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    //obj->bsa_SrcBitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    obj->bsa_SrcBitMap = (struct BitMap *)_lua_gen_checkBitMap(L, 3);
     return 0;
   }
   if (strcmp(key, "bsa_DestBitMap") == 0) {
     // finder 1
-    obj->bsa_DestBitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    //obj->bsa_DestBitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    obj->bsa_DestBitMap = (struct BitMap *)_lua_gen_checkBitMap(L, 3);
     return 0;
   }
   if (strcmp(key, "bsa_Flags") == 0) {
@@ -20189,6 +20716,11 @@ _lua_gen_BitScaleArgs_index(lua_State *L)
     lua_pushinteger(L, obj->bsa_Reserved2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct BitScaleArgs));
+    return 1;
+}
+
   return 0;
 }
 
@@ -20269,27 +20801,32 @@ _lua_gen_Bob_newindex(lua_State *L)
   }
   if (strcmp(key, "Before") == 0) {
     // finder 1
-    obj->Before = *(struct Bob **)luaL_checkudata(L, 3, "Bob");
+    //obj->Before = *(struct Bob **)luaL_checkudata(L, 3, "Bob");
+    obj->Before = (struct Bob *)_lua_gen_checkBob(L, 3);
     return 0;
   }
   if (strcmp(key, "After") == 0) {
     // finder 1
-    obj->After = *(struct Bob **)luaL_checkudata(L, 3, "Bob");
+    //obj->After = *(struct Bob **)luaL_checkudata(L, 3, "Bob");
+    obj->After = (struct Bob *)_lua_gen_checkBob(L, 3);
     return 0;
   }
   if (strcmp(key, "BobVSprite") == 0) {
     // finder 1
-    obj->BobVSprite = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    //obj->BobVSprite = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    obj->BobVSprite = (struct VSprite *)_lua_gen_checkVSprite(L, 3);
     return 0;
   }
   if (strcmp(key, "BobComp") == 0) {
     // finder 1
-    obj->BobComp = *(struct AnimComp **)luaL_checkudata(L, 3, "AnimComp");
+    //obj->BobComp = *(struct AnimComp **)luaL_checkudata(L, 3, "AnimComp");
+    obj->BobComp = (struct AnimComp *)_lua_gen_checkAnimComp(L, 3);
     return 0;
   }
   if (strcmp(key, "DBuffer") == 0) {
     // finder 1
-    obj->DBuffer = *(struct DBufPacket **)luaL_checkudata(L, 3, "DBufPacket");
+    //obj->DBuffer = *(struct DBufPacket **)luaL_checkudata(L, 3, "DBufPacket");
+    obj->DBuffer = (struct DBufPacket *)_lua_gen_checkDBufPacket(L, 3);
     return 0;
   }
   if (strcmp(key, "BUserExt") == 0) {
@@ -20386,6 +20923,11 @@ _lua_gen_Bob_index(lua_State *L)
     lua_pushinteger(L, obj->BUserExt);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Bob));
+    return 1;
+}
+
   return 0;
 }
 
@@ -20456,7 +20998,8 @@ _lua_gen_Border_newindex(lua_State *L)
   }
   if (strcmp(key, "NextBorder") == 0) {
     // finder 1
-    obj->NextBorder = *(struct Border **)luaL_checkudata(L, 3, "Border");
+    //obj->NextBorder = *(struct Border **)luaL_checkudata(L, 3, "Border");
+    obj->NextBorder = (struct Border *)_lua_gen_checkBorder(L, 3);
     return 0;
   }
   return 0;
@@ -20533,6 +21076,11 @@ _lua_gen_Border_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Border));
+    return 1;
+}
+
   return 0;
 }
 
@@ -20581,12 +21129,14 @@ _lua_gen_ClipRect_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "Next") == 0) {
     // finder 1
-    obj->Next = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    //obj->Next = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->Next = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
     return 0;
   }
   if (strcmp(key, "reservedlink") == 0) {
     // finder 1
-    obj->reservedlink = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    //obj->reservedlink = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->reservedlink = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
     return 0;
   }
   if (strcmp(key, "obscured") == 0) {
@@ -20595,7 +21145,8 @@ _lua_gen_ClipRect_newindex(lua_State *L)
   }
   if (strcmp(key, "BitMap") == 0) {
     // finder 1
-    obj->BitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    //obj->BitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    obj->BitMap = (struct BitMap *)_lua_gen_checkBitMap(L, 3);
     return 0;
   }
   if (strcmp(key, "bounds.MinX") == 0) {
@@ -20622,12 +21173,14 @@ _lua_gen_ClipRect_newindex(lua_State *L)
   }
   if (strcmp(key, "vlink") == 0) {
     // finder 1
-    obj->vlink = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    //obj->vlink = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->vlink = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
     return 0;
   }
   if (strcmp(key, "home") == 0) {
     // finder 1
-    obj->home = *(struct Layer_Info **)luaL_checkudata(L, 3, "Layer_Info");
+    //obj->home = *(struct Layer_Info **)luaL_checkudata(L, 3, "Layer_Info");
+    obj->home = (struct Layer_Info *)_lua_gen_checkLayer_Info(L, 3);
     return 0;
   }
   if (strcmp(key, "reserved") == 0) {
@@ -20739,6 +21292,11 @@ _lua_gen_ClipRect_index(lua_State *L)
     lua_pushlightuserdata(L, obj->reserved);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct ClipRect));
+    return 1;
+}
+
   return 0;
 }
 
@@ -20797,7 +21355,8 @@ _lua_gen_DrawInfo_newindex(lua_State *L)
   }
   if (strcmp(key, "dri_Font") == 0) {
     // finder 1
-    obj->dri_Font = *(struct TextFont **)luaL_checkudata(L, 3, "TextFont");
+    //obj->dri_Font = *(struct TextFont **)luaL_checkudata(L, 3, "TextFont");
+    obj->dri_Font = (struct TextFont *)_lua_gen_checkTextFont(L, 3);
     return 0;
   }
   if (strcmp(key, "dri_Depth") == 0) {
@@ -20822,17 +21381,20 @@ _lua_gen_DrawInfo_newindex(lua_State *L)
   }
   if (strcmp(key, "dri_CheckMark") == 0) {
     // finder 1
-    obj->dri_CheckMark = *(struct Image **)luaL_checkudata(L, 3, "Image");
+    //obj->dri_CheckMark = *(struct Image **)luaL_checkudata(L, 3, "Image");
+    obj->dri_CheckMark = (struct Image *)_lua_gen_checkImage(L, 3);
     return 0;
   }
   if (strcmp(key, "dri_AmigaKey") == 0) {
     // finder 1
-    obj->dri_AmigaKey = *(struct Image **)luaL_checkudata(L, 3, "Image");
+    //obj->dri_AmigaKey = *(struct Image **)luaL_checkudata(L, 3, "Image");
+    obj->dri_AmigaKey = (struct Image *)_lua_gen_checkImage(L, 3);
     return 0;
   }
   if (strcmp(key, "dri_Screen") == 0) {
     // finder 1
-    obj->dri_Screen = *(struct Screen **)luaL_checkudata(L, 3, "Screen");
+    //obj->dri_Screen = *(struct Screen **)luaL_checkudata(L, 3, "Screen");
+    obj->dri_Screen = (struct Screen *)_lua_gen_checkScreen(L, 3);
     return 0;
   }
   // dri_Reserved[4] proxied via the index
@@ -20939,6 +21501,11 @@ _lua_gen_DrawInfo_index(lua_State *L)
     _lua_gen_push_ULONG_array_proxy(L, obj->dri_Reserved, 4);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct DrawInfo));
+    return 1;
+}
+
   return 0;
 }
 
@@ -20989,7 +21556,8 @@ _lua_gen_Gadget_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "NextGadget") == 0) {
     // finder 1
-    obj->NextGadget = *(struct Gadget **)luaL_checkudata(L, 3, "Gadget");
+    //obj->NextGadget = *(struct Gadget **)luaL_checkudata(L, 3, "Gadget");
+    obj->NextGadget = (struct Gadget *)_lua_gen_checkGadget(L, 3);
     return 0;
   }
   if (strcmp(key, "LeftEdge") == 0) {
@@ -21030,7 +21598,8 @@ _lua_gen_Gadget_newindex(lua_State *L)
   }
   if (strcmp(key, "GadgetText") == 0) {
     // finder 1
-    obj->GadgetText = *(struct IntuiText **)luaL_checkudata(L, 3, "IntuiText");
+    //obj->GadgetText = *(struct IntuiText **)luaL_checkudata(L, 3, "IntuiText");
+    obj->GadgetText = (struct IntuiText *)_lua_gen_checkIntuiText(L, 3);
     return 0;
   }
   if (strcmp(key, "MutualExclude") == 0) {
@@ -21154,6 +21723,11 @@ _lua_gen_Gadget_index(lua_State *L)
     lua_pushlightuserdata(L, obj->UserData);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Gadget));
+    return 1;
+}
+
   return 0;
 }
 
@@ -21222,25 +21796,29 @@ _lua_gen_GelsInfo_newindex(lua_State *L)
   }
   if (strcmp(key, "gelHead") == 0) {
     // finder 1
-    obj->gelHead = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    //obj->gelHead = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    obj->gelHead = (struct VSprite *)_lua_gen_checkVSprite(L, 3);
     return 0;
   }
   if (strcmp(key, "gelTail") == 0) {
     // finder 1
-    obj->gelTail = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    //obj->gelTail = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    obj->gelTail = (struct VSprite *)_lua_gen_checkVSprite(L, 3);
     return 0;
   }
   if (strcmp(key, "nextLine") == 0) {
     obj->nextLine = (WORD *)lua_touserdata(L, 3);
     return 0;
   }
-  // Unsupported type lastColor WORD
   if (strcmp(key, "lastColor") == 0) {
-    return luaL_error(L, "Unsupported type WORD for field lastColor");
+    obj->lastColor = (WORD **)lua_touserdata(L, 3);
+    return 0;
   }
-  // Unsupported type collHandler struct collTable
   if (strcmp(key, "collHandler") == 0) {
-    return luaL_error(L, "Unsupported type struct collTable for field collHandler");
+    // finder 1
+    //obj->collHandler = *(struct collTable **)luaL_checkudata(L, 3, "collTable");
+    obj->collHandler = (struct collTable *)_lua_gen_checkcollTable(L, 3);
+    return 0;
   }
   if (strcmp(key, "leftmost") == 0) {
     obj->leftmost = (WORD)luaL_checkinteger(L, 3);
@@ -21331,13 +21909,16 @@ _lua_gen_GelsInfo_index(lua_State *L)
     lua_pushlightuserdata(L, obj->nextLine);
     return 1;
   }
-  // Unsupported lastColor WORD **
   if (strcmp(key, "lastColor") == 0) {
-    return luaL_error(L, "Unsupported type WORD ** for field lastColor");
+    lua_pushlightuserdata(L, obj->lastColor);
+    return 1;
   }
-  // Unsupported collHandler struct collTable *
   if (strcmp(key, "collHandler") == 0) {
-    return luaL_error(L, "Unsupported type struct collTable * for field collHandler");
+    struct collTable **ud = (struct collTable **)lua_newuserdata(L, sizeof(struct collTable *));
+    *ud = (struct collTable*)obj->collHandler;
+    luaL_getmetatable(L, "collTable");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "leftmost") == 0) {
     lua_pushinteger(L, obj->leftmost);
@@ -21363,6 +21944,11 @@ _lua_gen_GelsInfo_index(lua_State *L)
     lua_pushlightuserdata(L, obj->lastBlissObj);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct GelsInfo));
+    return 1;
+}
+
   return 0;
 }
 
@@ -21449,7 +22035,8 @@ _lua_gen_Image_newindex(lua_State *L)
   }
   if (strcmp(key, "NextImage") == 0) {
     // finder 1
-    obj->NextImage = *(struct Image **)luaL_checkudata(L, 3, "Image");
+    //obj->NextImage = *(struct Image **)luaL_checkudata(L, 3, "Image");
+    obj->NextImage = (struct Image *)_lua_gen_checkImage(L, 3);
     return 0;
   }
   return 0;
@@ -21530,6 +22117,11 @@ _lua_gen_Image_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Image));
+    return 1;
+}
+
   return 0;
 }
 
@@ -21580,7 +22172,8 @@ _lua_gen_InputEvent_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "ie_NextEvent") == 0) {
     // finder 1
-    obj->ie_NextEvent = *(struct InputEvent **)luaL_checkudata(L, 3, "InputEvent");
+    //obj->ie_NextEvent = *(struct InputEvent **)luaL_checkudata(L, 3, "InputEvent");
+    obj->ie_NextEvent = (struct InputEvent *)_lua_gen_checkInputEvent(L, 3);
     return 0;
   }
   if (strcmp(key, "ie_Class") == 0) {
@@ -21738,6 +22331,11 @@ _lua_gen_InputEvent_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct InputEvent));
+    return 1;
+}
+
   return 0;
 }
 
@@ -21796,12 +22394,14 @@ _lua_gen_Interrupt_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "is_Node.ln_Succ") == 0) {
     // finder 1
-    obj->is_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->is_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->is_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "is_Node.ln_Pred") == 0) {
     // finder 1
-    obj->is_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->is_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->is_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "is_Node.ln_Type") == 0) {
@@ -21910,6 +22510,11 @@ _lua_gen_Interrupt_index(lua_State *L)
   if (strcmp(key, "is_Code") == 0) {
     return luaL_error(L, "Unsupported type void (*)() for field is_Code");
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Interrupt));
+    return 1;
+}
+
   return 0;
 }
 
@@ -21974,7 +22579,8 @@ _lua_gen_IntuiText_newindex(lua_State *L)
   }
   if (strcmp(key, "ITextFont") == 0) {
     // finder 1
-    obj->ITextFont = *(struct TextAttr **)luaL_checkudata(L, 3, "TextAttr");
+    //obj->ITextFont = *(struct TextAttr **)luaL_checkudata(L, 3, "TextAttr");
+    obj->ITextFont = (struct TextAttr *)_lua_gen_checkTextAttr(L, 3);
     return 0;
   }
   if (strcmp(key, "IText") == 0) {
@@ -21983,7 +22589,8 @@ _lua_gen_IntuiText_newindex(lua_State *L)
   }
   if (strcmp(key, "NextText") == 0) {
     // finder 1
-    obj->NextText = *(struct IntuiText **)luaL_checkudata(L, 3, "IntuiText");
+    //obj->NextText = *(struct IntuiText **)luaL_checkudata(L, 3, "IntuiText");
+    obj->NextText = (struct IntuiText *)_lua_gen_checkIntuiText(L, 3);
     return 0;
   }
   return 0;
@@ -22063,6 +22670,11 @@ _lua_gen_IntuiText_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct IntuiText));
+    return 1;
+}
+
   return 0;
 }
 
@@ -22210,6 +22822,11 @@ _lua_gen_KeyMap_index(lua_State *L)
     lua_pushlightuserdata(L, obj->km_HiRepeatable);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct KeyMap));
+    return 1;
+}
+
   return 0;
 }
 
@@ -22260,22 +22877,26 @@ _lua_gen_Layer_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "front") == 0) {
     // finder 1
-    obj->front = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    //obj->front = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->front = (struct Layer *)_lua_gen_checkLayer(L, 3);
     return 0;
   }
   if (strcmp(key, "back") == 0) {
     // finder 1
-    obj->back = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    //obj->back = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->back = (struct Layer *)_lua_gen_checkLayer(L, 3);
     return 0;
   }
   if (strcmp(key, "ClipRect") == 0) {
     // finder 1
-    obj->ClipRect = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    //obj->ClipRect = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->ClipRect = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
     return 0;
   }
   if (strcmp(key, "rp") == 0) {
     // finder 1
-    obj->rp = *(struct RastPort **)luaL_checkudata(L, 3, "RastPort");
+    //obj->rp = *(struct RastPort **)luaL_checkudata(L, 3, "RastPort");
+    obj->rp = (struct RastPort *)_lua_gen_checkRastPort(L, 3);
     return 0;
   }
   if (strcmp(key, "bounds.MinX") == 0) {
@@ -22302,7 +22923,8 @@ _lua_gen_Layer_newindex(lua_State *L)
   }
   if (strcmp(key, "nlink") == 0) {
     // finder 1
-    obj->nlink = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    //obj->nlink = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->nlink = (struct Layer *)_lua_gen_checkLayer(L, 3);
     return 0;
   }
   if (strcmp(key, "priority") == 0) {
@@ -22315,12 +22937,14 @@ _lua_gen_Layer_newindex(lua_State *L)
   }
   if (strcmp(key, "SuperBitMap") == 0) {
     // finder 1
-    obj->SuperBitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    //obj->SuperBitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    obj->SuperBitMap = (struct BitMap *)_lua_gen_checkBitMap(L, 3);
     return 0;
   }
   if (strcmp(key, "SuperClipRect") == 0) {
     // finder 1
-    obj->SuperClipRect = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    //obj->SuperClipRect = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->SuperClipRect = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
     return 0;
   }
   if (strcmp(key, "Window") == 0) {
@@ -22337,42 +22961,50 @@ _lua_gen_Layer_newindex(lua_State *L)
   }
   if (strcmp(key, "OnScreen") == 0) {
     // finder 1
-    obj->OnScreen = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    //obj->OnScreen = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->OnScreen = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
     return 0;
   }
   if (strcmp(key, "OffScreen") == 0) {
     // finder 1
-    obj->OffScreen = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    //obj->OffScreen = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->OffScreen = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
     return 0;
   }
   if (strcmp(key, "Backup") == 0) {
     // finder 1
-    obj->Backup = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    //obj->Backup = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->Backup = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
     return 0;
   }
   if (strcmp(key, "SuperSaveClipRects") == 0) {
     // finder 1
-    obj->SuperSaveClipRects = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    //obj->SuperSaveClipRects = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->SuperSaveClipRects = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
     return 0;
   }
   if (strcmp(key, "Undamaged") == 0) {
     // finder 1
-    obj->Undamaged = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    //obj->Undamaged = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->Undamaged = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo") == 0) {
     // finder 1
-    obj->LayerInfo = *(struct Layer_Info **)luaL_checkudata(L, 3, "Layer_Info");
+    //obj->LayerInfo = *(struct Layer_Info **)luaL_checkudata(L, 3, "Layer_Info");
+    obj->LayerInfo = (struct Layer_Info *)_lua_gen_checkLayer_Info(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_Link.ln_Succ") == 0) {
     // finder 1
-    obj->Lock.ss_Link.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->Lock.ss_Link.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->Lock.ss_Link.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_Link.ln_Pred") == 0) {
     // finder 1
-    obj->Lock.ss_Link.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->Lock.ss_Link.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->Lock.ss_Link.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_Link.ln_Type") == 0) {
@@ -22399,17 +23031,20 @@ _lua_gen_Layer_newindex(lua_State *L)
   }
   if (strcmp(key, "Lock.ss_WaitQueue.mlh_Head") == 0) {
     // finder 1
-    obj->Lock.ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->Lock.ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_WaitQueue.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_WaitQueue.mlh_Tail") == 0) {
     // finder 1
-    obj->Lock.ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->Lock.ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_WaitQueue.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_WaitQueue.mlh_TailPred") == 0) {
     // finder 1
-    obj->Lock.ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->Lock.ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_WaitQueue.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_WaitQueue") == 0) {
@@ -22420,12 +23055,14 @@ _lua_gen_Layer_newindex(lua_State *L)
   }
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Link.mln_Succ") == 0) {
     // finder 1
-    obj->Lock.ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->Lock.ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_MultipleLink.sr_Link.mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Link.mln_Pred") == 0) {
     // finder 1
-    obj->Lock.ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->Lock.ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_MultipleLink.sr_Link.mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Link") == 0) {
@@ -22436,7 +23073,8 @@ _lua_gen_Layer_newindex(lua_State *L)
   }
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Waiter") == 0) {
     // finder 1
-    obj->Lock.ss_MultipleLink.sr_Waiter = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->Lock.ss_MultipleLink.sr_Waiter = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->Lock.ss_MultipleLink.sr_Waiter = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_MultipleLink") == 0) {
@@ -22447,7 +23085,8 @@ _lua_gen_Layer_newindex(lua_State *L)
   }
   if (strcmp(key, "Lock.ss_Owner") == 0) {
     // finder 1
-    obj->Lock.ss_Owner = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->Lock.ss_Owner = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->Lock.ss_Owner = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_QueueCount") == 0) {
@@ -22462,7 +23101,8 @@ _lua_gen_Layer_newindex(lua_State *L)
   }
   if (strcmp(key, "BackFill") == 0) {
     // finder 1
-    obj->BackFill = *(struct Hook **)luaL_checkudata(L, 3, "Hook");
+    //obj->BackFill = *(struct Hook **)luaL_checkudata(L, 3, "Hook");
+    obj->BackFill = (struct Hook *)_lua_gen_checkHook(L, 3);
     return 0;
   }
   if (strcmp(key, "reserved1") == 0) {
@@ -22471,12 +23111,14 @@ _lua_gen_Layer_newindex(lua_State *L)
   }
   if (strcmp(key, "ClipRegion") == 0) {
     // finder 1
-    obj->ClipRegion = *(struct Region **)luaL_checkudata(L, 3, "Region");
+    //obj->ClipRegion = *(struct Region **)luaL_checkudata(L, 3, "Region");
+    obj->ClipRegion = (struct Region *)_lua_gen_checkRegion(L, 3);
     return 0;
   }
   if (strcmp(key, "clipped") == 0) {
     // finder 1
-    obj->clipped = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    //obj->clipped = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->clipped = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
     return 0;
   }
   if (strcmp(key, "Width") == 0) {
@@ -22490,7 +23132,8 @@ _lua_gen_Layer_newindex(lua_State *L)
   // reserved2[18] proxied via the index
   if (strcmp(key, "DamageList") == 0) {
     // finder 1
-    obj->DamageList = *(struct Region **)luaL_checkudata(L, 3, "Region");
+    //obj->DamageList = *(struct Region **)luaL_checkudata(L, 3, "Region");
+    obj->DamageList = (struct Region *)_lua_gen_checkRegion(L, 3);
     return 0;
   }
   return 0;
@@ -22828,6 +23471,11 @@ _lua_gen_Layer_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Layer));
+    return 1;
+}
+
   return 0;
 }
 
@@ -22898,7 +23546,8 @@ _lua_gen_Layer_Info_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "top_layer") == 0) {
     // finder 1
-    obj->top_layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    //obj->top_layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->top_layer = (struct Layer *)_lua_gen_checkLayer(L, 3);
     return 0;
   }
   if (strcmp(key, "resPtr1") == 0) {
@@ -22911,7 +23560,8 @@ _lua_gen_Layer_Info_newindex(lua_State *L)
   }
   if (strcmp(key, "FreeClipRects") == 0) {
     // finder 1
-    obj->FreeClipRects = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    //obj->FreeClipRects = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->FreeClipRects = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
     return 0;
   }
   if (strcmp(key, "bounds.MinX") == 0) {
@@ -22938,12 +23588,14 @@ _lua_gen_Layer_Info_newindex(lua_State *L)
   }
   if (strcmp(key, "Lock.ss_Link.ln_Succ") == 0) {
     // finder 1
-    obj->Lock.ss_Link.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->Lock.ss_Link.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->Lock.ss_Link.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_Link.ln_Pred") == 0) {
     // finder 1
-    obj->Lock.ss_Link.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->Lock.ss_Link.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->Lock.ss_Link.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_Link.ln_Type") == 0) {
@@ -22970,17 +23622,20 @@ _lua_gen_Layer_Info_newindex(lua_State *L)
   }
   if (strcmp(key, "Lock.ss_WaitQueue.mlh_Head") == 0) {
     // finder 1
-    obj->Lock.ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->Lock.ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_WaitQueue.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_WaitQueue.mlh_Tail") == 0) {
     // finder 1
-    obj->Lock.ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->Lock.ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_WaitQueue.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_WaitQueue.mlh_TailPred") == 0) {
     // finder 1
-    obj->Lock.ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->Lock.ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_WaitQueue.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_WaitQueue") == 0) {
@@ -22991,12 +23646,14 @@ _lua_gen_Layer_Info_newindex(lua_State *L)
   }
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Link.mln_Succ") == 0) {
     // finder 1
-    obj->Lock.ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->Lock.ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_MultipleLink.sr_Link.mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Link.mln_Pred") == 0) {
     // finder 1
-    obj->Lock.ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->Lock.ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_MultipleLink.sr_Link.mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Link") == 0) {
@@ -23007,7 +23664,8 @@ _lua_gen_Layer_Info_newindex(lua_State *L)
   }
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Waiter") == 0) {
     // finder 1
-    obj->Lock.ss_MultipleLink.sr_Waiter = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->Lock.ss_MultipleLink.sr_Waiter = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->Lock.ss_MultipleLink.sr_Waiter = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_MultipleLink") == 0) {
@@ -23018,7 +23676,8 @@ _lua_gen_Layer_Info_newindex(lua_State *L)
   }
   if (strcmp(key, "Lock.ss_Owner") == 0) {
     // finder 1
-    obj->Lock.ss_Owner = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->Lock.ss_Owner = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->Lock.ss_Owner = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   if (strcmp(key, "Lock.ss_QueueCount") == 0) {
@@ -23033,17 +23692,20 @@ _lua_gen_Layer_Info_newindex(lua_State *L)
   }
   if (strcmp(key, "gs_Head.mlh_Head") == 0) {
     // finder 1
-    obj->gs_Head.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->gs_Head.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->gs_Head.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "gs_Head.mlh_Tail") == 0) {
     // finder 1
-    obj->gs_Head.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->gs_Head.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->gs_Head.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "gs_Head.mlh_TailPred") == 0) {
     // finder 1
-    obj->gs_Head.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->gs_Head.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->gs_Head.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "gs_Head") == 0) {
@@ -23082,7 +23744,8 @@ _lua_gen_Layer_Info_newindex(lua_State *L)
   }
   if (strcmp(key, "BlankHook") == 0) {
     // finder 1
-    obj->BlankHook = *(struct Hook **)luaL_checkudata(L, 3, "Hook");
+    //obj->BlankHook = *(struct Hook **)luaL_checkudata(L, 3, "Hook");
+    obj->BlankHook = (struct Hook *)_lua_gen_checkHook(L, 3);
     return 0;
   }
   if (strcmp(key, "resPtr5") == 0) {
@@ -23358,6 +24021,11 @@ _lua_gen_Layer_Info_index(lua_State *L)
     lua_pushlightuserdata(L, obj->resPtr5);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Layer_Info));
+    return 1;
+}
+
   return 0;
 }
 
@@ -23422,12 +24090,14 @@ _lua_gen_MemHeader_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "mh_Node.ln_Succ") == 0) {
     // finder 1
-    obj->mh_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->mh_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->mh_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "mh_Node.ln_Pred") == 0) {
     // finder 1
-    obj->mh_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->mh_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->mh_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "mh_Node.ln_Type") == 0) {
@@ -23454,7 +24124,8 @@ _lua_gen_MemHeader_newindex(lua_State *L)
   }
   if (strcmp(key, "mh_First") == 0) {
     // finder 1
-    obj->mh_First = *(struct MemChunk **)luaL_checkudata(L, 3, "MemChunk");
+    //obj->mh_First = *(struct MemChunk **)luaL_checkudata(L, 3, "MemChunk");
+    obj->mh_First = (struct MemChunk *)_lua_gen_checkMemChunk(L, 3);
     return 0;
   }
   if (strcmp(key, "mh_Lower") == 0) {
@@ -23564,6 +24235,11 @@ _lua_gen_MemHeader_index(lua_State *L)
     lua_pushinteger(L, obj->mh_Free);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct MemHeader));
+    return 1;
+}
+
   return 0;
 }
 
@@ -23612,12 +24288,14 @@ _lua_gen_MemList_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "ml_Node.ln_Succ") == 0) {
     // finder 1
-    obj->ml_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->ml_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->ml_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ml_Node.ln_Pred") == 0) {
     // finder 1
-    obj->ml_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->ml_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->ml_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ml_Node.ln_Type") == 0) {
@@ -23723,6 +24401,11 @@ _lua_gen_MemList_index(lua_State *L)
   return luaL_error(L, "Unsupported array type struct MemEntry");
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct MemList));
+    return 1;
+}
+
   return 0;
 }
 
@@ -23765,7 +24448,8 @@ _lua_gen_Menu_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "NextMenu") == 0) {
     // finder 1
-    obj->NextMenu = *(struct Menu **)luaL_checkudata(L, 3, "Menu");
+    //obj->NextMenu = *(struct Menu **)luaL_checkudata(L, 3, "Menu");
+    obj->NextMenu = (struct Menu *)_lua_gen_checkMenu(L, 3);
     return 0;
   }
   if (strcmp(key, "LeftEdge") == 0) {
@@ -23794,7 +24478,8 @@ _lua_gen_Menu_newindex(lua_State *L)
   }
   if (strcmp(key, "FirstItem") == 0) {
     // finder 1
-    obj->FirstItem = *(struct MenuItem **)luaL_checkudata(L, 3, "MenuItem");
+    //obj->FirstItem = *(struct MenuItem **)luaL_checkudata(L, 3, "MenuItem");
+    obj->FirstItem = (struct MenuItem *)_lua_gen_checkMenuItem(L, 3);
     return 0;
   }
   if (strcmp(key, "JazzX") == 0) {
@@ -23906,6 +24591,11 @@ _lua_gen_Menu_index(lua_State *L)
     lua_pushinteger(L, obj->BeatY);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Menu));
+    return 1;
+}
+
   return 0;
 }
 
@@ -23960,7 +24650,8 @@ _lua_gen_MenuItem_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "NextItem") == 0) {
     // finder 1
-    obj->NextItem = *(struct MenuItem **)luaL_checkudata(L, 3, "MenuItem");
+    //obj->NextItem = *(struct MenuItem **)luaL_checkudata(L, 3, "MenuItem");
+    obj->NextItem = (struct MenuItem *)_lua_gen_checkMenuItem(L, 3);
     return 0;
   }
   if (strcmp(key, "LeftEdge") == 0) {
@@ -24001,7 +24692,8 @@ _lua_gen_MenuItem_newindex(lua_State *L)
   }
   if (strcmp(key, "SubItem") == 0) {
     // finder 1
-    obj->SubItem = *(struct MenuItem **)luaL_checkudata(L, 3, "MenuItem");
+    //obj->SubItem = *(struct MenuItem **)luaL_checkudata(L, 3, "MenuItem");
+    obj->SubItem = (struct MenuItem *)_lua_gen_checkMenuItem(L, 3);
     return 0;
   }
   if (strcmp(key, "NextSelect") == 0) {
@@ -24101,6 +24793,11 @@ _lua_gen_MenuItem_index(lua_State *L)
     lua_pushinteger(L, obj->NextSelect);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct MenuItem));
+    return 1;
+}
+
   return 0;
 }
 
@@ -24175,7 +24872,8 @@ _lua_gen_NewGadget_newindex(lua_State *L)
   }
   if (strcmp(key, "ng_TextAttr") == 0) {
     // finder 1
-    obj->ng_TextAttr = *(struct TextAttr **)luaL_checkudata(L, 3, "TextAttr");
+    //obj->ng_TextAttr = *(struct TextAttr **)luaL_checkudata(L, 3, "TextAttr");
+    obj->ng_TextAttr = (struct TextAttr *)_lua_gen_checkTextAttr(L, 3);
     return 0;
   }
   if (strcmp(key, "ng_GadgetID") == 0) {
@@ -24276,6 +24974,11 @@ _lua_gen_NewGadget_index(lua_State *L)
     lua_pushlightuserdata(L, obj->ng_UserData);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct NewGadget));
+    return 1;
+}
+
   return 0;
 }
 
@@ -24413,6 +25116,11 @@ _lua_gen_NewMenu_index(lua_State *L)
     lua_pushlightuserdata(L, obj->nm_UserData);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct NewMenu));
+    return 1;
+}
+
   return 0;
 }
 
@@ -24495,7 +25203,8 @@ _lua_gen_NewScreen_newindex(lua_State *L)
   }
   if (strcmp(key, "Font") == 0) {
     // finder 1
-    obj->Font = *(struct TextAttr **)luaL_checkudata(L, 3, "TextAttr");
+    //obj->Font = *(struct TextAttr **)luaL_checkudata(L, 3, "TextAttr");
+    obj->Font = (struct TextAttr *)_lua_gen_checkTextAttr(L, 3);
     return 0;
   }
   if (strcmp(key, "DefaultTitle") == 0) {
@@ -24504,12 +25213,14 @@ _lua_gen_NewScreen_newindex(lua_State *L)
   }
   if (strcmp(key, "Gadgets") == 0) {
     // finder 1
-    obj->Gadgets = *(struct Gadget **)luaL_checkudata(L, 3, "Gadget");
+    //obj->Gadgets = *(struct Gadget **)luaL_checkudata(L, 3, "Gadget");
+    obj->Gadgets = (struct Gadget *)_lua_gen_checkGadget(L, 3);
     return 0;
   }
   if (strcmp(key, "CustomBitMap") == 0) {
     // finder 1
-    obj->CustomBitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    //obj->CustomBitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    obj->CustomBitMap = (struct BitMap *)_lua_gen_checkBitMap(L, 3);
     return 0;
   }
   return 0;
@@ -24612,6 +25323,11 @@ _lua_gen_NewScreen_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct NewScreen));
+    return 1;
+}
+
   return 0;
 }
 
@@ -24698,12 +25414,14 @@ _lua_gen_NewWindow_newindex(lua_State *L)
   }
   if (strcmp(key, "FirstGadget") == 0) {
     // finder 1
-    obj->FirstGadget = *(struct Gadget **)luaL_checkudata(L, 3, "Gadget");
+    //obj->FirstGadget = *(struct Gadget **)luaL_checkudata(L, 3, "Gadget");
+    obj->FirstGadget = (struct Gadget *)_lua_gen_checkGadget(L, 3);
     return 0;
   }
   if (strcmp(key, "CheckMark") == 0) {
     // finder 1
-    obj->CheckMark = *(struct Image **)luaL_checkudata(L, 3, "Image");
+    //obj->CheckMark = *(struct Image **)luaL_checkudata(L, 3, "Image");
+    obj->CheckMark = (struct Image *)_lua_gen_checkImage(L, 3);
     return 0;
   }
   if (strcmp(key, "Title") == 0) {
@@ -24712,12 +25430,14 @@ _lua_gen_NewWindow_newindex(lua_State *L)
   }
   if (strcmp(key, "Screen") == 0) {
     // finder 1
-    obj->Screen = *(struct Screen **)luaL_checkudata(L, 3, "Screen");
+    //obj->Screen = *(struct Screen **)luaL_checkudata(L, 3, "Screen");
+    obj->Screen = (struct Screen *)_lua_gen_checkScreen(L, 3);
     return 0;
   }
   if (strcmp(key, "BitMap") == 0) {
     // finder 1
-    obj->BitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    //obj->BitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    obj->BitMap = (struct BitMap *)_lua_gen_checkBitMap(L, 3);
     return 0;
   }
   if (strcmp(key, "MinWidth") == 0) {
@@ -24863,6 +25583,11 @@ _lua_gen_NewWindow_index(lua_State *L)
     lua_pushinteger(L, obj->Type);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct NewWindow));
+    return 1;
+}
+
   return 0;
 }
 
@@ -24925,12 +25650,14 @@ _lua_gen_RastPort_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "Layer") == 0) {
     // finder 1
-    obj->Layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    //obj->Layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->Layer = (struct Layer *)_lua_gen_checkLayer(L, 3);
     return 0;
   }
   if (strcmp(key, "BitMap") == 0) {
     // finder 1
-    obj->BitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    //obj->BitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    obj->BitMap = (struct BitMap *)_lua_gen_checkBitMap(L, 3);
     return 0;
   }
   if (strcmp(key, "AreaPtrn") == 0) {
@@ -24939,17 +25666,20 @@ _lua_gen_RastPort_newindex(lua_State *L)
   }
   if (strcmp(key, "TmpRas") == 0) {
     // finder 1
-    obj->TmpRas = *(struct TmpRas **)luaL_checkudata(L, 3, "TmpRas");
+    //obj->TmpRas = *(struct TmpRas **)luaL_checkudata(L, 3, "TmpRas");
+    obj->TmpRas = (struct TmpRas *)_lua_gen_checkTmpRas(L, 3);
     return 0;
   }
   if (strcmp(key, "AreaInfo") == 0) {
     // finder 1
-    obj->AreaInfo = *(struct AreaInfo **)luaL_checkudata(L, 3, "AreaInfo");
+    //obj->AreaInfo = *(struct AreaInfo **)luaL_checkudata(L, 3, "AreaInfo");
+    obj->AreaInfo = (struct AreaInfo *)_lua_gen_checkAreaInfo(L, 3);
     return 0;
   }
   if (strcmp(key, "GelsInfo") == 0) {
     // finder 1
-    obj->GelsInfo = *(struct GelsInfo **)luaL_checkudata(L, 3, "GelsInfo");
+    //obj->GelsInfo = *(struct GelsInfo **)luaL_checkudata(L, 3, "GelsInfo");
+    obj->GelsInfo = (struct GelsInfo *)_lua_gen_checkGelsInfo(L, 3);
     return 0;
   }
   if (strcmp(key, "Mask") == 0) {
@@ -25011,7 +25741,8 @@ _lua_gen_RastPort_newindex(lua_State *L)
   }
   if (strcmp(key, "Font") == 0) {
     // finder 1
-    obj->Font = *(struct TextFont **)luaL_checkudata(L, 3, "TextFont");
+    //obj->Font = *(struct TextFont **)luaL_checkudata(L, 3, "TextFont");
+    obj->Font = (struct TextFont *)_lua_gen_checkTextFont(L, 3);
     return 0;
   }
   if (strcmp(key, "AlgoStyle") == 0) {
@@ -25230,6 +25961,11 @@ _lua_gen_RastPort_index(lua_State *L)
     _lua_gen_push_UBYTE_array_proxy(L, obj->reserved, 8);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct RastPort));
+    return 1;
+}
+
   return 0;
 }
 
@@ -25338,7 +26074,8 @@ _lua_gen_Region_newindex(lua_State *L)
   }
   if (strcmp(key, "RegionRectangle") == 0) {
     // finder 1
-    obj->RegionRectangle = *(struct RegionRectangle **)luaL_checkudata(L, 3, "RegionRectangle");
+    //obj->RegionRectangle = *(struct RegionRectangle **)luaL_checkudata(L, 3, "RegionRectangle");
+    obj->RegionRectangle = (struct RegionRectangle *)_lua_gen_checkRegionRectangle(L, 3);
     return 0;
   }
   return 0;
@@ -25410,6 +26147,11 @@ _lua_gen_Region_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Region));
+    return 1;
+}
+
   return 0;
 }
 
@@ -25452,7 +26194,8 @@ _lua_gen_Requester_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "OlderRequest") == 0) {
     // finder 1
-    obj->OlderRequest = *(struct Requester **)luaL_checkudata(L, 3, "Requester");
+    //obj->OlderRequest = *(struct Requester **)luaL_checkudata(L, 3, "Requester");
+    obj->OlderRequest = (struct Requester *)_lua_gen_checkRequester(L, 3);
     return 0;
   }
   if (strcmp(key, "LeftEdge") == 0) {
@@ -25481,17 +26224,20 @@ _lua_gen_Requester_newindex(lua_State *L)
   }
   if (strcmp(key, "ReqGadget") == 0) {
     // finder 1
-    obj->ReqGadget = *(struct Gadget **)luaL_checkudata(L, 3, "Gadget");
+    //obj->ReqGadget = *(struct Gadget **)luaL_checkudata(L, 3, "Gadget");
+    obj->ReqGadget = (struct Gadget *)_lua_gen_checkGadget(L, 3);
     return 0;
   }
   if (strcmp(key, "ReqBorder") == 0) {
     // finder 1
-    obj->ReqBorder = *(struct Border **)luaL_checkudata(L, 3, "Border");
+    //obj->ReqBorder = *(struct Border **)luaL_checkudata(L, 3, "Border");
+    obj->ReqBorder = (struct Border *)_lua_gen_checkBorder(L, 3);
     return 0;
   }
   if (strcmp(key, "ReqText") == 0) {
     // finder 1
-    obj->ReqText = *(struct IntuiText **)luaL_checkudata(L, 3, "IntuiText");
+    //obj->ReqText = *(struct IntuiText **)luaL_checkudata(L, 3, "IntuiText");
+    obj->ReqText = (struct IntuiText *)_lua_gen_checkIntuiText(L, 3);
     return 0;
   }
   if (strcmp(key, "Flags") == 0) {
@@ -25504,23 +26250,27 @@ _lua_gen_Requester_newindex(lua_State *L)
   }
   if (strcmp(key, "ReqLayer") == 0) {
     // finder 1
-    obj->ReqLayer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    //obj->ReqLayer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->ReqLayer = (struct Layer *)_lua_gen_checkLayer(L, 3);
     return 0;
   }
   // ReqPad1[32] proxied via the index
   if (strcmp(key, "ImageBMap") == 0) {
     // finder 1
-    obj->ImageBMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    //obj->ImageBMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    obj->ImageBMap = (struct BitMap *)_lua_gen_checkBitMap(L, 3);
     return 0;
   }
   if (strcmp(key, "RWindow") == 0) {
     // finder 1
-    obj->RWindow = *(struct Window **)luaL_checkudata(L, 3, "Window");
+    //obj->RWindow = *(struct Window **)luaL_checkudata(L, 3, "Window");
+    obj->RWindow = (struct Window *)_lua_gen_checkWindow(L, 3);
     return 0;
   }
   if (strcmp(key, "ReqImage") == 0) {
     // finder 1
-    obj->ReqImage = *(struct Image **)luaL_checkudata(L, 3, "Image");
+    //obj->ReqImage = *(struct Image **)luaL_checkudata(L, 3, "Image");
+    obj->ReqImage = (struct Image *)_lua_gen_checkImage(L, 3);
     return 0;
   }
   // ReqPad2[32] proxied via the index
@@ -25659,6 +26409,11 @@ _lua_gen_Requester_index(lua_State *L)
     _lua_gen_push_UBYTE_array_proxy(L, obj->ReqPad2, 32);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Requester));
+    return 1;
+}
+
   return 0;
 }
 
@@ -25717,7 +26472,8 @@ _lua_gen_Resident_newindex(lua_State *L)
   }
   if (strcmp(key, "rt_MatchTag") == 0) {
     // finder 1
-    obj->rt_MatchTag = *(struct Resident **)luaL_checkudata(L, 3, "Resident");
+    //obj->rt_MatchTag = *(struct Resident **)luaL_checkudata(L, 3, "Resident");
+    obj->rt_MatchTag = (struct Resident *)_lua_gen_checkResident(L, 3);
     return 0;
   }
   if (strcmp(key, "rt_EndSkip") == 0) {
@@ -25834,6 +26590,11 @@ _lua_gen_Resident_index(lua_State *L)
     lua_pushlightuserdata(L, obj->rt_Init);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Resident));
+    return 1;
+}
+
   return 0;
 }
 
@@ -25886,12 +26647,14 @@ _lua_gen_Screen_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "NextScreen") == 0) {
     // finder 1
-    obj->NextScreen = *(struct Screen **)luaL_checkudata(L, 3, "Screen");
+    //obj->NextScreen = *(struct Screen **)luaL_checkudata(L, 3, "Screen");
+    obj->NextScreen = (struct Screen *)_lua_gen_checkScreen(L, 3);
     return 0;
   }
   if (strcmp(key, "FirstWindow") == 0) {
     // finder 1
-    obj->FirstWindow = *(struct Window **)luaL_checkudata(L, 3, "Window");
+    //obj->FirstWindow = *(struct Window **)luaL_checkudata(L, 3, "Window");
+    obj->FirstWindow = (struct Window *)_lua_gen_checkWindow(L, 3);
     return 0;
   }
   if (strcmp(key, "LeftEdge") == 0) {
@@ -25968,32 +26731,38 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "Font") == 0) {
     // finder 1
-    obj->Font = *(struct TextAttr **)luaL_checkudata(L, 3, "TextAttr");
+    //obj->Font = *(struct TextAttr **)luaL_checkudata(L, 3, "TextAttr");
+    obj->Font = (struct TextAttr *)_lua_gen_checkTextAttr(L, 3);
     return 0;
   }
   if (strcmp(key, "ViewPort.Next") == 0) {
     // finder 1
-    obj->ViewPort.Next = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    //obj->ViewPort.Next = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    obj->ViewPort.Next = (struct ViewPort *)_lua_gen_checkViewPort(L, 3);
     return 0;
   }
   if (strcmp(key, "ViewPort.ColorMap") == 0) {
     // finder 1
-    obj->ViewPort.ColorMap = *(struct ColorMap **)luaL_checkudata(L, 3, "ColorMap");
+    //obj->ViewPort.ColorMap = *(struct ColorMap **)luaL_checkudata(L, 3, "ColorMap");
+    obj->ViewPort.ColorMap = (struct ColorMap *)_lua_gen_checkColorMap(L, 3);
     return 0;
   }
   if (strcmp(key, "ViewPort.DspIns") == 0) {
     // finder 1
-    obj->ViewPort.DspIns = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    //obj->ViewPort.DspIns = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    obj->ViewPort.DspIns = (struct CopList *)_lua_gen_checkCopList(L, 3);
     return 0;
   }
   if (strcmp(key, "ViewPort.SprIns") == 0) {
     // finder 1
-    obj->ViewPort.SprIns = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    //obj->ViewPort.SprIns = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    obj->ViewPort.SprIns = (struct CopList *)_lua_gen_checkCopList(L, 3);
     return 0;
   }
   if (strcmp(key, "ViewPort.ClrIns") == 0) {
     // finder 1
-    obj->ViewPort.ClrIns = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    //obj->ViewPort.ClrIns = *(struct CopList **)luaL_checkudata(L, 3, "CopList");
+    obj->ViewPort.ClrIns = (struct CopList *)_lua_gen_checkCopList(L, 3);
     return 0;
   }
   if (strcmp(key, "ViewPort.UCopIns") == 0) {
@@ -26030,7 +26799,8 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "ViewPort.RasInfo") == 0) {
     // finder 1
-    obj->ViewPort.RasInfo = *(struct RasInfo **)luaL_checkudata(L, 3, "RasInfo");
+    //obj->ViewPort.RasInfo = *(struct RasInfo **)luaL_checkudata(L, 3, "RasInfo");
+    obj->ViewPort.RasInfo = (struct RasInfo *)_lua_gen_checkRasInfo(L, 3);
     return 0;
   }
   if (strcmp(key, "ViewPort") == 0) {
@@ -26041,12 +26811,14 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "RastPort.Layer") == 0) {
     // finder 1
-    obj->RastPort.Layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    //obj->RastPort.Layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->RastPort.Layer = (struct Layer *)_lua_gen_checkLayer(L, 3);
     return 0;
   }
   if (strcmp(key, "RastPort.BitMap") == 0) {
     // finder 1
-    obj->RastPort.BitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    //obj->RastPort.BitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    obj->RastPort.BitMap = (struct BitMap *)_lua_gen_checkBitMap(L, 3);
     return 0;
   }
   if (strcmp(key, "RastPort.AreaPtrn") == 0) {
@@ -26055,17 +26827,20 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "RastPort.TmpRas") == 0) {
     // finder 1
-    obj->RastPort.TmpRas = *(struct TmpRas **)luaL_checkudata(L, 3, "TmpRas");
+    //obj->RastPort.TmpRas = *(struct TmpRas **)luaL_checkudata(L, 3, "TmpRas");
+    obj->RastPort.TmpRas = (struct TmpRas *)_lua_gen_checkTmpRas(L, 3);
     return 0;
   }
   if (strcmp(key, "RastPort.AreaInfo") == 0) {
     // finder 1
-    obj->RastPort.AreaInfo = *(struct AreaInfo **)luaL_checkudata(L, 3, "AreaInfo");
+    //obj->RastPort.AreaInfo = *(struct AreaInfo **)luaL_checkudata(L, 3, "AreaInfo");
+    obj->RastPort.AreaInfo = (struct AreaInfo *)_lua_gen_checkAreaInfo(L, 3);
     return 0;
   }
   if (strcmp(key, "RastPort.GelsInfo") == 0) {
     // finder 1
-    obj->RastPort.GelsInfo = *(struct GelsInfo **)luaL_checkudata(L, 3, "GelsInfo");
+    //obj->RastPort.GelsInfo = *(struct GelsInfo **)luaL_checkudata(L, 3, "GelsInfo");
+    obj->RastPort.GelsInfo = (struct GelsInfo *)_lua_gen_checkGelsInfo(L, 3);
     return 0;
   }
   if (strcmp(key, "RastPort.Mask") == 0) {
@@ -26127,7 +26902,8 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "RastPort.Font") == 0) {
     // finder 1
-    obj->RastPort.Font = *(struct TextFont **)luaL_checkudata(L, 3, "TextFont");
+    //obj->RastPort.Font = *(struct TextFont **)luaL_checkudata(L, 3, "TextFont");
+    obj->RastPort.Font = (struct TextFont *)_lua_gen_checkTextFont(L, 3);
     return 0;
   }
   if (strcmp(key, "RastPort.AlgoStyle") == 0) {
@@ -26196,7 +26972,8 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "LayerInfo.top_layer") == 0) {
     // finder 1
-    obj->LayerInfo.top_layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    //obj->LayerInfo.top_layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->LayerInfo.top_layer = (struct Layer *)_lua_gen_checkLayer(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.resPtr1") == 0) {
@@ -26209,7 +26986,8 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "LayerInfo.FreeClipRects") == 0) {
     // finder 1
-    obj->LayerInfo.FreeClipRects = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    //obj->LayerInfo.FreeClipRects = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->LayerInfo.FreeClipRects = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.bounds.MinX") == 0) {
@@ -26236,12 +27014,14 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "LayerInfo.Lock.ss_Link.ln_Succ") == 0) {
     // finder 1
-    obj->LayerInfo.Lock.ss_Link.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->LayerInfo.Lock.ss_Link.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->LayerInfo.Lock.ss_Link.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.Lock.ss_Link.ln_Pred") == 0) {
     // finder 1
-    obj->LayerInfo.Lock.ss_Link.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->LayerInfo.Lock.ss_Link.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->LayerInfo.Lock.ss_Link.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.Lock.ss_Link.ln_Type") == 0) {
@@ -26268,17 +27048,20 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "LayerInfo.Lock.ss_WaitQueue.mlh_Head") == 0) {
     // finder 1
-    obj->LayerInfo.Lock.ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->LayerInfo.Lock.ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.Lock.ss_WaitQueue.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.Lock.ss_WaitQueue.mlh_Tail") == 0) {
     // finder 1
-    obj->LayerInfo.Lock.ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->LayerInfo.Lock.ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.Lock.ss_WaitQueue.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.Lock.ss_WaitQueue.mlh_TailPred") == 0) {
     // finder 1
-    obj->LayerInfo.Lock.ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->LayerInfo.Lock.ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.Lock.ss_WaitQueue.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.Lock.ss_WaitQueue") == 0) {
@@ -26289,12 +27072,14 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Succ") == 0) {
     // finder 1
-    obj->LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Pred") == 0) {
     // finder 1
-    obj->LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.Lock.ss_MultipleLink.sr_Link") == 0) {
@@ -26305,7 +27090,8 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "LayerInfo.Lock.ss_MultipleLink.sr_Waiter") == 0) {
     // finder 1
-    obj->LayerInfo.Lock.ss_MultipleLink.sr_Waiter = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->LayerInfo.Lock.ss_MultipleLink.sr_Waiter = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->LayerInfo.Lock.ss_MultipleLink.sr_Waiter = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.Lock.ss_MultipleLink") == 0) {
@@ -26316,7 +27102,8 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "LayerInfo.Lock.ss_Owner") == 0) {
     // finder 1
-    obj->LayerInfo.Lock.ss_Owner = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    //obj->LayerInfo.Lock.ss_Owner = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->LayerInfo.Lock.ss_Owner = (struct Task *)_lua_gen_checkTask(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.Lock.ss_QueueCount") == 0) {
@@ -26331,17 +27118,20 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "LayerInfo.gs_Head.mlh_Head") == 0) {
     // finder 1
-    obj->LayerInfo.gs_Head.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->LayerInfo.gs_Head.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.gs_Head.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.gs_Head.mlh_Tail") == 0) {
     // finder 1
-    obj->LayerInfo.gs_Head.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->LayerInfo.gs_Head.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.gs_Head.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.gs_Head.mlh_TailPred") == 0) {
     // finder 1
-    obj->LayerInfo.gs_Head.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    //obj->LayerInfo.gs_Head.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.gs_Head.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.gs_Head") == 0) {
@@ -26380,7 +27170,8 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "LayerInfo.BlankHook") == 0) {
     // finder 1
-    obj->LayerInfo.BlankHook = *(struct Hook **)luaL_checkudata(L, 3, "Hook");
+    //obj->LayerInfo.BlankHook = *(struct Hook **)luaL_checkudata(L, 3, "Hook");
+    obj->LayerInfo.BlankHook = (struct Hook *)_lua_gen_checkHook(L, 3);
     return 0;
   }
   if (strcmp(key, "LayerInfo.resPtr5") == 0) {
@@ -26395,7 +27186,8 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "FirstGadget") == 0) {
     // finder 1
-    obj->FirstGadget = *(struct Gadget **)luaL_checkudata(L, 3, "Gadget");
+    //obj->FirstGadget = *(struct Gadget **)luaL_checkudata(L, 3, "Gadget");
+    obj->FirstGadget = (struct Gadget *)_lua_gen_checkGadget(L, 3);
     return 0;
   }
   if (strcmp(key, "DetailPen") == 0) {
@@ -26412,7 +27204,8 @@ _lua_gen_Screen_newindex(lua_State *L)
   }
   if (strcmp(key, "BarLayer") == 0) {
     // finder 1
-    obj->BarLayer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    //obj->BarLayer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->BarLayer = (struct Layer *)_lua_gen_checkLayer(L, 3);
     return 0;
   }
   if (strcmp(key, "ExtData") == 0) {
@@ -27091,6 +27884,11 @@ _lua_gen_Screen_index(lua_State *L)
     lua_pushlightuserdata(L, obj->UserData);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Screen));
+    return 1;
+}
+
   return 0;
 }
 
@@ -27356,6 +28154,11 @@ _lua_gen_SimpleSprite_index(lua_State *L)
     lua_pushinteger(L, obj->num);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct SimpleSprite));
+    return 1;
+}
+
   return 0;
 }
 
@@ -27469,6 +28272,11 @@ _lua_gen_TextAttr_index(lua_State *L)
     lua_pushinteger(L, obj->ta_Flags);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct TextAttr));
+    return 1;
+}
+
   return 0;
 }
 
@@ -27511,12 +28319,14 @@ _lua_gen_TextFont_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "tf_Message.mn_Node.ln_Succ") == 0) {
     // finder 1
-    obj->tf_Message.mn_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->tf_Message.mn_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->tf_Message.mn_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "tf_Message.mn_Node.ln_Pred") == 0) {
     // finder 1
-    obj->tf_Message.mn_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->tf_Message.mn_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->tf_Message.mn_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "tf_Message.mn_Node.ln_Type") == 0) {
@@ -27539,7 +28349,8 @@ _lua_gen_TextFont_newindex(lua_State *L)
   }
   if (strcmp(key, "tf_Message.mn_ReplyPort") == 0) {
     // finder 1
-    obj->tf_Message.mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    //obj->tf_Message.mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    obj->tf_Message.mn_ReplyPort = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
   if (strcmp(key, "tf_Message.mn_Length") == 0) {
@@ -27754,6 +28565,11 @@ _lua_gen_TextFont_index(lua_State *L)
     lua_pushlightuserdata(L, obj->tf_CharKern);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct TextFont));
+    return 1;
+}
+
   return 0;
 }
 
@@ -27824,22 +28640,26 @@ _lua_gen_VSprite_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "NextVSprite") == 0) {
     // finder 1
-    obj->NextVSprite = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    //obj->NextVSprite = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    obj->NextVSprite = (struct VSprite *)_lua_gen_checkVSprite(L, 3);
     return 0;
   }
   if (strcmp(key, "PrevVSprite") == 0) {
     // finder 1
-    obj->PrevVSprite = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    //obj->PrevVSprite = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    obj->PrevVSprite = (struct VSprite *)_lua_gen_checkVSprite(L, 3);
     return 0;
   }
   if (strcmp(key, "DrawPath") == 0) {
     // finder 1
-    obj->DrawPath = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    //obj->DrawPath = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    obj->DrawPath = (struct VSprite *)_lua_gen_checkVSprite(L, 3);
     return 0;
   }
   if (strcmp(key, "ClearPath") == 0) {
     // finder 1
-    obj->ClearPath = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    //obj->ClearPath = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    obj->ClearPath = (struct VSprite *)_lua_gen_checkVSprite(L, 3);
     return 0;
   }
   if (strcmp(key, "OldY") == 0) {
@@ -27900,7 +28720,8 @@ _lua_gen_VSprite_newindex(lua_State *L)
   }
   if (strcmp(key, "VSBob") == 0) {
     // finder 1
-    obj->VSBob = *(struct Bob **)luaL_checkudata(L, 3, "Bob");
+    //obj->VSBob = *(struct Bob **)luaL_checkudata(L, 3, "Bob");
+    obj->VSBob = (struct Bob *)_lua_gen_checkBob(L, 3);
     return 0;
   }
   if (strcmp(key, "PlanePick") == 0) {
@@ -28057,6 +28878,11 @@ _lua_gen_VSprite_index(lua_State *L)
     lua_pushinteger(L, obj->VUserExt);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct VSprite));
+    return 1;
+}
+
   return 0;
 }
 
@@ -28125,7 +28951,8 @@ _lua_gen_Window_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "NextWindow") == 0) {
     // finder 1
-    obj->NextWindow = *(struct Window **)luaL_checkudata(L, 3, "Window");
+    //obj->NextWindow = *(struct Window **)luaL_checkudata(L, 3, "Window");
+    obj->NextWindow = (struct Window *)_lua_gen_checkWindow(L, 3);
     return 0;
   }
   if (strcmp(key, "LeftEdge") == 0) {
@@ -28174,7 +29001,8 @@ _lua_gen_Window_newindex(lua_State *L)
   }
   if (strcmp(key, "MenuStrip") == 0) {
     // finder 1
-    obj->MenuStrip = *(struct Menu **)luaL_checkudata(L, 3, "Menu");
+    //obj->MenuStrip = *(struct Menu **)luaL_checkudata(L, 3, "Menu");
+    obj->MenuStrip = (struct Menu *)_lua_gen_checkMenu(L, 3);
     return 0;
   }
   if (strcmp(key, "Title") == 0) {
@@ -28183,12 +29011,14 @@ _lua_gen_Window_newindex(lua_State *L)
   }
   if (strcmp(key, "FirstRequest") == 0) {
     // finder 1
-    obj->FirstRequest = *(struct Requester **)luaL_checkudata(L, 3, "Requester");
+    //obj->FirstRequest = *(struct Requester **)luaL_checkudata(L, 3, "Requester");
+    obj->FirstRequest = (struct Requester *)_lua_gen_checkRequester(L, 3);
     return 0;
   }
   if (strcmp(key, "DMRequest") == 0) {
     // finder 1
-    obj->DMRequest = *(struct Requester **)luaL_checkudata(L, 3, "Requester");
+    //obj->DMRequest = *(struct Requester **)luaL_checkudata(L, 3, "Requester");
+    obj->DMRequest = (struct Requester *)_lua_gen_checkRequester(L, 3);
     return 0;
   }
   if (strcmp(key, "ReqCount") == 0) {
@@ -28197,12 +29027,14 @@ _lua_gen_Window_newindex(lua_State *L)
   }
   if (strcmp(key, "WScreen") == 0) {
     // finder 1
-    obj->WScreen = *(struct Screen **)luaL_checkudata(L, 3, "Screen");
+    //obj->WScreen = *(struct Screen **)luaL_checkudata(L, 3, "Screen");
+    obj->WScreen = (struct Screen *)_lua_gen_checkScreen(L, 3);
     return 0;
   }
   if (strcmp(key, "RPort") == 0) {
     // finder 1
-    obj->RPort = *(struct RastPort **)luaL_checkudata(L, 3, "RastPort");
+    //obj->RPort = *(struct RastPort **)luaL_checkudata(L, 3, "RastPort");
+    obj->RPort = (struct RastPort *)_lua_gen_checkRastPort(L, 3);
     return 0;
   }
   if (strcmp(key, "BorderLeft") == 0) {
@@ -28223,22 +29055,26 @@ _lua_gen_Window_newindex(lua_State *L)
   }
   if (strcmp(key, "BorderRPort") == 0) {
     // finder 1
-    obj->BorderRPort = *(struct RastPort **)luaL_checkudata(L, 3, "RastPort");
+    //obj->BorderRPort = *(struct RastPort **)luaL_checkudata(L, 3, "RastPort");
+    obj->BorderRPort = (struct RastPort *)_lua_gen_checkRastPort(L, 3);
     return 0;
   }
   if (strcmp(key, "FirstGadget") == 0) {
     // finder 1
-    obj->FirstGadget = *(struct Gadget **)luaL_checkudata(L, 3, "Gadget");
+    //obj->FirstGadget = *(struct Gadget **)luaL_checkudata(L, 3, "Gadget");
+    obj->FirstGadget = (struct Gadget *)_lua_gen_checkGadget(L, 3);
     return 0;
   }
   if (strcmp(key, "Parent") == 0) {
     // finder 1
-    obj->Parent = *(struct Window **)luaL_checkudata(L, 3, "Window");
+    //obj->Parent = *(struct Window **)luaL_checkudata(L, 3, "Window");
+    obj->Parent = (struct Window *)_lua_gen_checkWindow(L, 3);
     return 0;
   }
   if (strcmp(key, "Descendant") == 0) {
     // finder 1
-    obj->Descendant = *(struct Window **)luaL_checkudata(L, 3, "Window");
+    //obj->Descendant = *(struct Window **)luaL_checkudata(L, 3, "Window");
+    obj->Descendant = (struct Window *)_lua_gen_checkWindow(L, 3);
     return 0;
   }
   if (strcmp(key, "Pointer") == 0) {
@@ -28267,17 +29103,20 @@ _lua_gen_Window_newindex(lua_State *L)
   }
   if (strcmp(key, "UserPort") == 0) {
     // finder 1
-    obj->UserPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    //obj->UserPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    obj->UserPort = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
   if (strcmp(key, "WindowPort") == 0) {
     // finder 1
-    obj->WindowPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    //obj->WindowPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    obj->WindowPort = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
   if (strcmp(key, "MessageKey") == 0) {
     // finder 1
-    obj->MessageKey = *(struct IntuiMessage **)luaL_checkudata(L, 3, "IntuiMessage");
+    //obj->MessageKey = *(struct IntuiMessage **)luaL_checkudata(L, 3, "IntuiMessage");
+    obj->MessageKey = (struct IntuiMessage *)_lua_gen_checkIntuiMessage(L, 3);
     return 0;
   }
   if (strcmp(key, "DetailPen") == 0) {
@@ -28290,7 +29129,8 @@ _lua_gen_Window_newindex(lua_State *L)
   }
   if (strcmp(key, "CheckMark") == 0) {
     // finder 1
-    obj->CheckMark = *(struct Image **)luaL_checkudata(L, 3, "Image");
+    //obj->CheckMark = *(struct Image **)luaL_checkudata(L, 3, "Image");
+    obj->CheckMark = (struct Image *)_lua_gen_checkImage(L, 3);
     return 0;
   }
   if (strcmp(key, "ScreenTitle") == 0) {
@@ -28323,12 +29163,14 @@ _lua_gen_Window_newindex(lua_State *L)
   }
   if (strcmp(key, "WLayer") == 0) {
     // finder 1
-    obj->WLayer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    //obj->WLayer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->WLayer = (struct Layer *)_lua_gen_checkLayer(L, 3);
     return 0;
   }
   if (strcmp(key, "IFont") == 0) {
     // finder 1
-    obj->IFont = *(struct TextFont **)luaL_checkudata(L, 3, "TextFont");
+    //obj->IFont = *(struct TextFont **)luaL_checkudata(L, 3, "TextFont");
+    obj->IFont = (struct TextFont *)_lua_gen_checkTextFont(L, 3);
     return 0;
   }
   if (strcmp(key, "MoreFlags") == 0) {
@@ -28618,6 +29460,11 @@ _lua_gen_Window_index(lua_State *L)
     lua_pushinteger(L, obj->MoreFlags);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Window));
+    return 1;
+}
+
   return 0;
 }
 
@@ -28718,7 +29565,8 @@ _lua_gen_bltnode_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "n") == 0) {
     // finder 1
-    obj->n = *(struct bltnode **)luaL_checkudata(L, 3, "bltnode");
+    //obj->n = *(struct bltnode **)luaL_checkudata(L, 3, "bltnode");
+    obj->n = (struct bltnode *)_lua_gen_checkbltnode(L, 3);
     return 0;
   }
   // Unsupported type function int ()()
@@ -28807,6 +29655,11 @@ _lua_gen_bltnode_index(lua_State *L)
   if (strcmp(key, "cleanup") == 0) {
     return luaL_error(L, "Unsupported type int (*)() for field cleanup");
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct bltnode));
+    return 1;
+}
+
   return 0;
 }
 
@@ -28851,7 +29704,8 @@ _lua_gen_MemChunk_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "mc_Next") == 0) {
     // finder 1
-    obj->mc_Next = *(struct MemChunk **)luaL_checkudata(L, 3, "MemChunk");
+    //obj->mc_Next = *(struct MemChunk **)luaL_checkudata(L, 3, "MemChunk");
+    obj->mc_Next = (struct MemChunk *)_lua_gen_checkMemChunk(L, 3);
     return 0;
   }
   if (strcmp(key, "mc_Bytes") == 0) {
@@ -28908,6 +29762,11 @@ _lua_gen_MemChunk_index(lua_State *L)
     lua_pushinteger(L, obj->mc_Bytes);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct MemChunk));
+    return 1;
+}
+
   return 0;
 }
 
@@ -30015,12 +30874,14 @@ _lua_gen_RegionRectangle_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "Next") == 0) {
     // finder 1
-    obj->Next = *(struct RegionRectangle **)luaL_checkudata(L, 3, "RegionRectangle");
+    //obj->Next = *(struct RegionRectangle **)luaL_checkudata(L, 3, "RegionRectangle");
+    obj->Next = (struct RegionRectangle *)_lua_gen_checkRegionRectangle(L, 3);
     return 0;
   }
   if (strcmp(key, "Prev") == 0) {
     // finder 1
-    obj->Prev = *(struct RegionRectangle **)luaL_checkudata(L, 3, "RegionRectangle");
+    //obj->Prev = *(struct RegionRectangle **)luaL_checkudata(L, 3, "RegionRectangle");
+    obj->Prev = (struct RegionRectangle *)_lua_gen_checkRegionRectangle(L, 3);
     return 0;
   }
   if (strcmp(key, "bounds.MinX") == 0) {
@@ -30121,6 +30982,11 @@ _lua_gen_RegionRectangle_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct RegionRectangle));
+    return 1;
+}
+
   return 0;
 }
 
@@ -30175,22 +31041,26 @@ _lua_gen_AnimComp_newindex(lua_State *L)
   }
   if (strcmp(key, "NextComp") == 0) {
     // finder 1
-    obj->NextComp = *(struct AnimComp **)luaL_checkudata(L, 3, "AnimComp");
+    //obj->NextComp = *(struct AnimComp **)luaL_checkudata(L, 3, "AnimComp");
+    obj->NextComp = (struct AnimComp *)_lua_gen_checkAnimComp(L, 3);
     return 0;
   }
   if (strcmp(key, "PrevComp") == 0) {
     // finder 1
-    obj->PrevComp = *(struct AnimComp **)luaL_checkudata(L, 3, "AnimComp");
+    //obj->PrevComp = *(struct AnimComp **)luaL_checkudata(L, 3, "AnimComp");
+    obj->PrevComp = (struct AnimComp *)_lua_gen_checkAnimComp(L, 3);
     return 0;
   }
   if (strcmp(key, "NextSeq") == 0) {
     // finder 1
-    obj->NextSeq = *(struct AnimComp **)luaL_checkudata(L, 3, "AnimComp");
+    //obj->NextSeq = *(struct AnimComp **)luaL_checkudata(L, 3, "AnimComp");
+    obj->NextSeq = (struct AnimComp *)_lua_gen_checkAnimComp(L, 3);
     return 0;
   }
   if (strcmp(key, "PrevSeq") == 0) {
     // finder 1
-    obj->PrevSeq = *(struct AnimComp **)luaL_checkudata(L, 3, "AnimComp");
+    //obj->PrevSeq = *(struct AnimComp **)luaL_checkudata(L, 3, "AnimComp");
+    obj->PrevSeq = (struct AnimComp *)_lua_gen_checkAnimComp(L, 3);
     return 0;
   }
   // Unsupported type AnimCRoutine WORD ()(struct AnimComp )
@@ -30207,12 +31077,14 @@ _lua_gen_AnimComp_newindex(lua_State *L)
   }
   if (strcmp(key, "HeadOb") == 0) {
     // finder 1
-    obj->HeadOb = *(struct AnimOb **)luaL_checkudata(L, 3, "AnimOb");
+    //obj->HeadOb = *(struct AnimOb **)luaL_checkudata(L, 3, "AnimOb");
+    obj->HeadOb = (struct AnimOb *)_lua_gen_checkAnimOb(L, 3);
     return 0;
   }
   if (strcmp(key, "AnimBob") == 0) {
     // finder 1
-    obj->AnimBob = *(struct Bob **)luaL_checkudata(L, 3, "Bob");
+    //obj->AnimBob = *(struct Bob **)luaL_checkudata(L, 3, "Bob");
+    obj->AnimBob = (struct Bob *)_lua_gen_checkBob(L, 3);
     return 0;
   }
   return 0;
@@ -30320,6 +31192,11 @@ _lua_gen_AnimComp_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct AnimComp));
+    return 1;
+}
+
   return 0;
 }
 
@@ -30374,7 +31251,8 @@ _lua_gen_DBufPacket_newindex(lua_State *L)
   }
   if (strcmp(key, "BufPath") == 0) {
     // finder 1
-    obj->BufPath = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    //obj->BufPath = *(struct VSprite **)luaL_checkudata(L, 3, "VSprite");
+    obj->BufPath = (struct VSprite *)_lua_gen_checkVSprite(L, 3);
     return 0;
   }
   if (strcmp(key, "BufBuffer") == 0) {
@@ -30439,6 +31317,11 @@ _lua_gen_DBufPacket_index(lua_State *L)
     lua_pushlightuserdata(L, obj->BufBuffer);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct DBufPacket));
+    return 1;
+}
+
   return 0;
 }
 
@@ -30466,6 +31349,89 @@ _lua_gen_install_meta_DBufPacket(lua_State *L) {
     lua_setglobal(L, "DBufPacket");
     _lua_gen_DBufPacket_install_keys(L);
     lua_pushstring(L, "DBufPacket");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_collTable_newindex(lua_State *L)
+{
+  struct collTable *obj = *(struct collTable **)luaL_checkudata(L, 1, "collTable");
+  const char *key = luaL_checkstring(L, 2);
+  (void)key;(void)obj;
+  // collPtrs[16] proxied via the index
+  return 0;
+}
+
+
+static int
+_lua_collTable_constructor(lua_State *L)
+{
+  // Allocate pointer-to-struct collTable in userdata
+  struct collTable **objp = lua_newuserdata(L, sizeof(struct collTable *));
+  *objp = malloc(sizeof(struct collTable));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(struct collTable));
+
+  // Set metatable
+  luaL_getmetatable(L, "collTable");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_collTable_index(lua_State *L)
+{
+  struct collTable *obj = *(struct collTable **)luaL_checkudata(L, 1, "collTable");
+  (void)obj;
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "collPtrs") == 0) {
+  return luaL_error(L, "Unsupported array type LONG (*)(struct VSprite *, struct VSprite *)");
+    return 1;
+  }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct collTable));
+    return 1;
+}
+
+  return 0;
+}
+
+static void
+_lua_gen_collTable_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "collPtrs");
+  lua_rawseti(L, -2, 1);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_collTable(lua_State *L) {
+  if (luaL_newmetatable(L, "collTable")) {
+    lua_pushcfunction(L, _lua_gen_collTable_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_collTable_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_collTable_constructor);
+    lua_setglobal(L, "collTable");
+    _lua_gen_collTable_install_keys(L);
+    lua_pushstring(L, "collTable");
     lua_setfield(L, -2, "__name");
   }
   lua_pop(L, 1);
@@ -30532,6 +31498,11 @@ _lua_gen_TmpRas_index(lua_State *L)
     lua_pushinteger(L, obj->Size);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct TmpRas));
+    return 1;
+}
+
   return 0;
 }
 
@@ -30676,6 +31647,11 @@ _lua_gen_ExtSprite_index(lua_State *L)
     lua_pushinteger(L, obj->es_flags);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct ExtSprite));
+    return 1;
+}
+
   return 0;
 }
 
@@ -30822,6 +31798,17 @@ _lua_DrawGList(lua_State* L)
   struct RastPort * rp = _lua_gen_checkRastPort(L, 1);
   struct ViewPort * vp = _lua_gen_checkViewPort(L, 2);
   DrawGList(rp, vp);
+  return 0;
+}
+
+static int
+_lua_InitGels(lua_State* L)
+{
+  (void)L;
+  struct VSprite * head = _lua_gen_checkVSprite(L, 1);
+  struct VSprite * tail = _lua_gen_checkVSprite(L, 2);
+  struct GelsInfo * gelsInfo = _lua_gen_checkGelsInfo(L, 3);
+  InitGels(head, tail, gelsInfo);
   return 0;
 }
 
@@ -32117,7 +33104,8 @@ _lua_gen_StringInfo_newindex(lua_State *L)
   }
   if (strcmp(key, "Extension") == 0) {
     // finder 1
-    obj->Extension = *(struct StringExtend **)luaL_checkudata(L, 3, "StringExtend");
+    //obj->Extension = *(struct StringExtend **)luaL_checkudata(L, 3, "StringExtend");
+    obj->Extension = (struct StringExtend *)_lua_gen_checkStringExtend(L, 3);
     return 0;
   }
   if (strcmp(key, "LongInt") == 0) {
@@ -32126,7 +33114,8 @@ _lua_gen_StringInfo_newindex(lua_State *L)
   }
   if (strcmp(key, "AltKeyMap") == 0) {
     // finder 1
-    obj->AltKeyMap = *(struct KeyMap **)luaL_checkudata(L, 3, "KeyMap");
+    //obj->AltKeyMap = *(struct KeyMap **)luaL_checkudata(L, 3, "KeyMap");
+    obj->AltKeyMap = (struct KeyMap *)_lua_gen_checkKeyMap(L, 3);
     return 0;
   }
   return 0;
@@ -32226,6 +33215,11 @@ _lua_gen_StringInfo_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct StringInfo));
+    return 1;
+}
+
   return 0;
 }
 
@@ -32282,7 +33276,8 @@ _lua_gen_StringExtend_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "Font") == 0) {
     // finder 1
-    obj->Font = *(struct TextFont **)luaL_checkudata(L, 3, "TextFont");
+    //obj->Font = *(struct TextFont **)luaL_checkudata(L, 3, "TextFont");
+    obj->Font = (struct TextFont *)_lua_gen_checkTextFont(L, 3);
     return 0;
   }
   // Pens[2] proxied via the index
@@ -32293,7 +33288,8 @@ _lua_gen_StringExtend_newindex(lua_State *L)
   }
   if (strcmp(key, "EditHook") == 0) {
     // finder 1
-    obj->EditHook = *(struct Hook **)luaL_checkudata(L, 3, "Hook");
+    //obj->EditHook = *(struct Hook **)luaL_checkudata(L, 3, "Hook");
+    obj->EditHook = (struct Hook *)_lua_gen_checkHook(L, 3);
     return 0;
   }
   if (strcmp(key, "WorkBuffer") == 0) {
@@ -32374,6 +33370,11 @@ _lua_gen_StringExtend_index(lua_State *L)
     _lua_gen_push_ULONG_array_proxy(L, obj->Reserved, 4);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct StringExtend));
+    return 1;
+}
+
   return 0;
 }
 
@@ -32418,12 +33419,14 @@ _lua_gen_IntuiMessage_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "ExecMessage.mn_Node.ln_Succ") == 0) {
     // finder 1
-    obj->ExecMessage.mn_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->ExecMessage.mn_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->ExecMessage.mn_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ExecMessage.mn_Node.ln_Pred") == 0) {
     // finder 1
-    obj->ExecMessage.mn_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    //obj->ExecMessage.mn_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->ExecMessage.mn_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
     return 0;
   }
   if (strcmp(key, "ExecMessage.mn_Node.ln_Type") == 0) {
@@ -32446,7 +33449,8 @@ _lua_gen_IntuiMessage_newindex(lua_State *L)
   }
   if (strcmp(key, "ExecMessage.mn_ReplyPort") == 0) {
     // finder 1
-    obj->ExecMessage.mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    //obj->ExecMessage.mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
+    obj->ExecMessage.mn_ReplyPort = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
   if (strcmp(key, "ExecMessage.mn_Length") == 0) {
@@ -32493,12 +33497,14 @@ _lua_gen_IntuiMessage_newindex(lua_State *L)
   }
   if (strcmp(key, "IDCMPWindow") == 0) {
     // finder 1
-    obj->IDCMPWindow = *(struct Window **)luaL_checkudata(L, 3, "Window");
+    //obj->IDCMPWindow = *(struct Window **)luaL_checkudata(L, 3, "Window");
+    obj->IDCMPWindow = (struct Window *)_lua_gen_checkWindow(L, 3);
     return 0;
   }
   if (strcmp(key, "SpecialLink") == 0) {
     // finder 1
-    obj->SpecialLink = *(struct IntuiMessage **)luaL_checkudata(L, 3, "IntuiMessage");
+    //obj->SpecialLink = *(struct IntuiMessage **)luaL_checkudata(L, 3, "IntuiMessage");
+    obj->SpecialLink = (struct IntuiMessage *)_lua_gen_checkIntuiMessage(L, 3);
     return 0;
   }
   return 0;
@@ -32637,6 +33643,11 @@ _lua_gen_IntuiMessage_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct IntuiMessage));
+    return 1;
+}
+
   return 0;
 }
 
@@ -32764,6 +33775,11 @@ _lua_gen_IBox_index(lua_State *L)
     lua_pushinteger(L, obj->Height);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct IBox));
+    return 1;
+}
+
   return 0;
 }
 
@@ -32806,12 +33822,14 @@ _lua_gen_ScreenBuffer_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "sb_BitMap") == 0) {
     // finder 1
-    obj->sb_BitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    //obj->sb_BitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    obj->sb_BitMap = (struct BitMap *)_lua_gen_checkBitMap(L, 3);
     return 0;
   }
   if (strcmp(key, "sb_DBufInfo") == 0) {
     // finder 1
-    obj->sb_DBufInfo = *(struct DBufInfo **)luaL_checkudata(L, 3, "DBufInfo");
+    //obj->sb_DBufInfo = *(struct DBufInfo **)luaL_checkudata(L, 3, "DBufInfo");
+    obj->sb_DBufInfo = (struct DBufInfo *)_lua_gen_checkDBufInfo(L, 3);
     return 0;
   }
   return 0;
@@ -32867,6 +33885,11 @@ _lua_gen_ScreenBuffer_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct ScreenBuffer));
+    return 1;
+}
+
   return 0;
 }
 
@@ -34208,16 +35231,12 @@ _lua_GT_GetGadgetAttrs(lua_State* L)
 }
 
 static int
-_lua_CreateTask(lua_State* L)
+_lua_DeleteTask(lua_State* L)
 {
   (void)L;
-  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
-  LONG pri = luaL_checkinteger(L, 2);
-  APTR initPC = lua_touserdata(L, 3);
-  ULONG stackSize = luaL_checkinteger(L, 4);
-  struct Task * _result = CreateTask(name, pri, initPC, stackSize);
-  _lua_gen_pushTask(L, _result);
-  return 1;
+  struct Task * task = _lua_gen_checkTask(L, 1);
+  DeleteTask(task);
+  return 0;
 }
 
 static int
@@ -34228,7 +35247,8 @@ _lua_gen_GadgetPtr_newindex(lua_State *L)
   (void)key;(void)obj;
   if (strcmp(key, "ptr") == 0) {
     // finder 1
-    obj->ptr = *(struct Gadget **)luaL_checkudata(L, 3, "Gadget");
+    //obj->ptr = *(struct Gadget **)luaL_checkudata(L, 3, "Gadget");
+    obj->ptr = (struct Gadget *)_lua_gen_checkGadget(L, 3);
     return 0;
   }
   return 0;
@@ -34277,6 +35297,11 @@ _lua_gen_GadgetPtr_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(GadgetPtr));
+    return 1;
+}
+
   return 0;
 }
 
@@ -34301,6 +35326,15 @@ _lua_gen_install_meta_GadgetPtr(lua_State *L) {
     lua_setfield(L, -2, "__name");
   }
   lua_pop(L, 1);
+}
+
+static int
+_lua_RemBob(lua_State* L)
+{
+  (void)L;
+  struct Bob * b = _lua_gen_checkBob(L, 1);
+  RemBob(b);
+  return 0;
 }
 
 static int
@@ -34872,6 +35906,54 @@ _lua_gen_install_defines(lua_State *L)
   lua_setglobal(L, "LVR_NORMALDISABLED");
   lua_pushinteger(L, LVR_SELECTEDDISABLED);
   lua_setglobal(L, "LVR_SELECTEDDISABLED");
+  lua_pushinteger(L, SUSERFLAGS);
+  lua_setglobal(L, "SUSERFLAGS");
+  lua_pushinteger(L, VSPRITE);
+  lua_setglobal(L, "VSPRITE");
+  lua_pushinteger(L, SAVEBACK);
+  lua_setglobal(L, "SAVEBACK");
+  lua_pushinteger(L, OVERLAY);
+  lua_setglobal(L, "OVERLAY");
+  lua_pushinteger(L, MUSTDRAW);
+  lua_setglobal(L, "MUSTDRAW");
+  lua_pushinteger(L, BACKSAVED);
+  lua_setglobal(L, "BACKSAVED");
+  lua_pushinteger(L, BOBUPDATE);
+  lua_setglobal(L, "BOBUPDATE");
+  lua_pushinteger(L, GELGONE);
+  lua_setglobal(L, "GELGONE");
+  lua_pushinteger(L, VSOVERFLOW);
+  lua_setglobal(L, "VSOVERFLOW");
+  lua_pushinteger(L, BUSERFLAGS);
+  lua_setglobal(L, "BUSERFLAGS");
+  lua_pushinteger(L, SAVEBOB);
+  lua_setglobal(L, "SAVEBOB");
+  lua_pushinteger(L, BOBISCOMP);
+  lua_setglobal(L, "BOBISCOMP");
+  lua_pushinteger(L, BWAITING);
+  lua_setglobal(L, "BWAITING");
+  lua_pushinteger(L, BDRAWN);
+  lua_setglobal(L, "BDRAWN");
+  lua_pushinteger(L, BOBSAWAY);
+  lua_setglobal(L, "BOBSAWAY");
+  lua_pushinteger(L, BOBNIX);
+  lua_setglobal(L, "BOBNIX");
+  lua_pushinteger(L, SAVEPRESERVE);
+  lua_setglobal(L, "SAVEPRESERVE");
+  lua_pushinteger(L, OUTSTEP);
+  lua_setglobal(L, "OUTSTEP");
+  lua_pushinteger(L, ANFRACSIZE);
+  lua_setglobal(L, "ANFRACSIZE");
+  lua_pushinteger(L, ANIMHALF);
+  lua_setglobal(L, "ANIMHALF");
+  lua_pushinteger(L, RINGTRIGGER);
+  lua_setglobal(L, "RINGTRIGGER");
+  lua_pushinteger(L, B2NORM);
+  lua_setglobal(L, "B2NORM");
+  lua_pushinteger(L, B2SWAP);
+  lua_setglobal(L, "B2SWAP");
+  lua_pushinteger(L, B2BOBBER);
+  lua_setglobal(L, "B2BOBBER");
   lua_pushinteger(L, DRI_VERSION);
   lua_setglobal(L, "DRI_VERSION");
   lua_pushinteger(L, DRIF_NEWLOOK);
@@ -35878,6 +36960,7 @@ _lua_gen_installGeneratedMetaTables(lua_State *L)
   _lua_gen_install_meta_RegionRectangle(L);
   _lua_gen_install_meta_AnimComp(L);
   _lua_gen_install_meta_DBufPacket(L);
+  _lua_gen_install_meta_collTable(L);
   _lua_gen_install_meta_TmpRas(L);
   _lua_gen_install_meta_ExtSprite(L);
   _lua_gen_install_meta_StringInfo(L);
@@ -36177,6 +37260,7 @@ _lua_gen_installGeneratedFunctions(lua_State *L)
   lua_register(L, "AddVSprite", _lua_AddVSprite);
   lua_register(L, "DoCollision", _lua_DoCollision);
   lua_register(L, "DrawGList", _lua_DrawGList);
+  lua_register(L, "InitGels", _lua_InitGels);
   lua_register(L, "InitMasks", _lua_InitMasks);
   lua_register(L, "RemVSprite", _lua_RemVSprite);
   lua_register(L, "SortGList", _lua_SortGList);
@@ -36416,7 +37500,8 @@ _lua_gen_installGeneratedFunctions(lua_State *L)
   lua_register(L, "ScaleGadgetRect", _lua_ScaleGadgetRect);
   lua_register(L, "GT_GetGadgetAttrsA", _lua_GT_GetGadgetAttrsA);
   lua_register(L, "GT_GetGadgetAttrs", _lua_GT_GetGadgetAttrs);
-  lua_register(L, "CreateTask", _lua_CreateTask);
+  lua_register(L, "DeleteTask", _lua_DeleteTask);
+  lua_register(L, "RemBob", _lua_RemBob);
   lua_register(L, "TO_CONST_STRPTR", _lua_TO_CONST_STRPTR);
   lua_register(L, "TO_IntuiMessage", _lua_TO_IntuiMessage);
 }

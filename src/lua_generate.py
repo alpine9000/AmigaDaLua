@@ -41,7 +41,8 @@ TYPE_CONFIG = {
     "AreaInfo": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "GelsInfo": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "Point": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": False},
-    
+    "collTable": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+
     #Dos
     "FileInfoBlock": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "InfoData":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
@@ -156,6 +157,10 @@ DEFINE_CONFIGS = [
     "GENERIC_KIND","BUTTON_KIND","CHECKBOX_KIND","INTEGER_KIND","LISTVIEW_KIND","MX_KIND","NUMBER_KIND","CYCLE_KIND","PALETTE_KIND","SCROLLER_KIND","SLIDER_KIND","STRING_KIND","TEXT_KIND","NUM_KINDS","ARROWIDCMP","BUTTONIDCMP","CHECKBOXIDCMP","INTEGERIDCMP","LISTVIEWIDCMP","MXIDCMP","NUMBERIDCMP","CYCLEIDCMP","PALETTEIDCMP","SCROLLERIDCMP","SLIDERIDCMP","STRINGIDCMP","TEXTIDCMP","PLACETEXT_LEFT","PLACETEXT_RIGHT","PLACETEXT_ABOVE","PLACETEXT_BELOW","PLACETEXT_IN","NG_HIGHLABEL","NG_GRIDLAYOUT","MENU_IMAGE","NM_TITLE","NM_ITEM","NM_SUB","IM_ITEM","IM_SUB","NM_END","NM_IGNORE","NM_BARLABEL","NM_MENUDISABLED","NM_ITEMDISABLED","NM_COMMANDSTRING","NM_FLAGMASK","NM_FLAGMASK_V39","GTMENU_TRIMMED","GTMENU_INVALID","GTMENU_NOMEM","MX_WIDTH","MX_HEIGHT","CHECKBOX_WIDTH","CHECKBOX_HEIGHT","GT_TagBase","GTVI_NewWindow","GTVI_NWTags","GT_Private0","GTCB_Checked","GTLV_Top","GTLV_Labels","GTLV_ReadOnly","GTLV_ScrollWidth","GTMX_Labels","GTMX_Active","GTTX_Text","GTTX_CopyText","GTNM_Number","GTCY_Labels","GTCY_Active","GTPA_Depth","GTPA_Color","GTPA_ColorOffset","GTPA_IndicatorWidth","GTPA_IndicatorHeight","GTSC_Top","GTSC_Total","GTSC_Visible","GTSC_Overlap","GTSL_Min","GTSL_Max","GTSL_Level","GTSL_MaxLevelLen","GTSL_LevelFormat","GTSL_LevelPlace","GTSL_DispFunc","GTST_String","GTST_MaxChars","GTIN_Number","GTIN_MaxChars","GTMN_TextAttr","GTMN_FrontPen","GTBB_Recessed","GT_VisualInfo","GTLV_ShowSelected","GTLV_Selected","GT_Reserved1","GTTX_Border","GTNM_Border","GTSC_Arrows","GTMN_Menu","GTMX_Spacing","GTMN_FullMenu","GTMN_SecondaryError","GT_Underscore","GTST_EditHook","GTIN_EditHook","GTMN_Checkmark","GTMN_AmigaKey","GTMN_NewLookMenus","GTCB_Scaled","GTMX_Scaled","GTPA_NumColors","GTMX_TitlePlace","GTTX_FrontPen","GTTX_BackPen","GTTX_Justification","GTNM_FrontPen","GTNM_BackPen","GTNM_Justification","GTNM_Format","GTNM_MaxNumberLen","GTBB_FrameType","GTLV_MakeVisible","GTLV_ItemHeight","GTSL_MaxPixelLen","GTSL_Justification","GTPA_ColorTable","GTLV_CallBack","GTLV_MaxPen","GTTX_Clipped","GTNM_Clipped","GTBB_reserved1","GTMN_reserved1","GTLV_Total","GTLV_Visible","GTBB_Scale","GTBB_Headline","GTBB_HeadlinePen","GTBB_HeadlineFont","GTVI_LeftBorder","GTVI_TopBorder","GTVI_AlignRight","GTVI_AlignBottom","GTVI_MinFontWidth","GTVI_MinFontHeight","GTMX_ScaledSpacing","GT_Reserved0","GTJ_LEFT","GTJ_RIGHT","GTJ_CENTER","BBFT_BUTTON","BBFT_RIDGE","BBFT_ICONDROPBOX","BBFT_DISPLAY","BBFT_CTXTFRAME","INTERWIDTH","INTERHEIGHT","NWAY_KIND","NWAYIDCMP","GTNW_Labels","GTNW_Active","GADTOOLBIT","GADTOOLMASK","LV_DRAW","LVCB_OK","LVCB_UNKNOWN","LVR_NORMAL","LVR_SELECTED","LVR_NORMALDISABLED","LVR_SELECTEDDISABLED",
 
 
+#gels.h
+"SUSERFLAGS","VSPRITE","SAVEBACK","OVERLAY","MUSTDRAW","BACKSAVED","BOBUPDATE","GELGONE","VSOVERFLOW","BUSERFLAGS","SAVEBOB","BOBISCOMP","BWAITING","BDRAWN","BOBSAWAY","BOBNIX","SAVEPRESERVE","OUTSTEP","ANFRACSIZE","ANIMHALF","RINGTRIGGER","B2NORM","B2SWAP","B2BOBBER",
+#"VUserStuff","BUserStuff","AUserStuff",
+
  #screens.h
 "DRI_VERSION","DRIF_NEWLOOK","DETAILPEN","BLOCKPEN","TEXTPEN","SHINEPEN","SHADOWPEN","FILLPEN","FILLTEXTPEN","BACKGROUNDPEN","HIGHLIGHTTEXTPEN","BARDETAILPEN","BARBLOCKPEN","BARTRIMPEN","BARCONTOURPEN","NUMDRIPENS","PEN_C3","PEN_C2","PEN_C1","PEN_C0","SCREENTYPE","WBENCHSCREEN","PUBLICSCREEN","CUSTOMSCREEN","SHOWTITLE","BEEPING","CUSTOMBITMAP","SCREENBEHIND","SCREENQUIET","SCREENHIRES","NS_EXTENDED","AUTOSCROLL","PENSHARED","STDSCREENHEIGHT","STDSCREENWIDTH","SA_Dummy","SA_Left","SA_Top","SA_Width","SA_Height","SA_Depth","SA_DetailPen","SA_BlockPen","SA_Title","SA_Colors","SA_ErrorCode","SA_Font","SA_SysFont","SA_Type","SA_BitMap","SA_PubName","SA_PubSig","SA_PubTask","SA_DisplayID","SA_DClip","SA_Overscan","SA_Obsolete1","SA_ShowTitle","SA_Behind","SA_Quiet","SA_AutoScroll","SA_Pens","SA_FullPalette","SA_ColorMapEntries","SA_Parent","SA_Draggable","SA_Exclusive","SA_SharePens","SA_BackFill","SA_Interleaved","SA_Colors32","SA_VideoControl","SA_FrontChild","SA_BackChild","SA_LikeWorkbench","SA_Reserved","SA_MinimizeISG","SA_OffScreenDragging","NSTAG_EXT_VPMODE","OSERR_NOMONITOR","OSERR_NOCHIPS","OSERR_NOMEM","OSERR_NOCHIPMEM","OSERR_PUBNOTUNIQUE","OSERR_UNKNOWNMODE","OSERR_TOODEEP","OSERR_ATTACHFAIL","OSERR_NOTAVAILABLE","OSERR_NORTGBITMAP","OSCAN_TEXT","OSCAN_STANDARD","OSCAN_MAX","OSCAN_VIDEO","PSNF_PRIVATE","MAXPUBSCREENNAME","SHANGHAI","POPPUBSCREEN","SDEPTH_TOFRONT","SDEPTH_TOBACK","SDEPTH_INFAMILY","SDEPTH_CHILDONLY","SPOS_RELATIVE","SPOS_ABSOLUTE","SPOS_MAKEVISIBLE","SPOS_FORCEDRAG","SB_SCREEN_BITMAP","SB_COPY_BITMAP",
 
@@ -184,7 +189,9 @@ FUNCTION_CONFIG = [
     "TO_CONST_STRPTR", "TO_IntuiMessage",
 
     #exec_lib.sfd
-    "AbortIO", "AddDevice", "AddHead", "AddHeadMinList", "AddIntServer", "AddLibrary", "AddMemHandler", "AddPort", "AddResource", "AddSemaphore", "AddTail", "AddTailMinList", "AddTask", "Alert", "AllocAbs", "AllocEntry", "AllocMem", "AllocPooled", "AllocSignal", "AllocTrap", "AllocVec", "Allocate", "AttemptSemaphore", "AttemptSemaphoreShared", "AvailMem", "CacheClearE", "CacheClearU", "CacheControl", "CachePostDMA", "CachePreDMA", "Cause", "CheckIO", "CloseDevice", "CloseLibrary", "ColdReboot", "CopyMem", "CopyMemQuick", "CreateTask", "CreateIORequest", "CreateMsgPort", "CreatePool", "Debug", "DeleteIORequest", "DeleteMsgPort", "DeletePool", "Disable", "Dispatch", "DoIO", "Enable", "Enqueue", "Exception", "ExecObsolete1", "ExecObsolete2", "ExecObsolete3", "ExecObsolete4", "ExecReserved04", "ExecReserved05", "ExecReserved06", "ExecReserved08", "ExecReserved10", "ExecReserved11", "ExecReserved12", "ExecReserved20", "ExecReserved21", "ExecReserved22", "ExecReserved23", "ExecReserved24", "ExecReserved25", "ExecReserved26", "ExecReserved27", "ExecReserved28", "ExecReserved29", "ExecReserved30", "ExitIntr", "FindName", "FindPort", "FindResident", "FindSemaphore", "FindTask", "Forbid", "FreeEntry", "FreeMem", "FreePooled", "FreeSignal", "FreeTrap", "FreeVec", "GetCC", "GetMsg", "InitCode", "InitResident", "InitSemaphore", "InitStruct", "NewMinList", "ObtainQuickVector", "ObtainSemaphore", "ObtainSemaphoreList", "ObtainSemaphoreShared", "OldOpenLibrary", "OpenLibrary", "OpenResource", "Permit", "Procure", "PutMsg", "RawIOInit", "RawMayGetChar", "RawPutChar", "ReadGayle", "ReleaseSemaphore", "ReleaseSemaphoreList", "RemDevice", "RemHead", "RemHeadMinList", "RemIntServer", "RemLibrary", "RemMemHandler", "RemPort", "RemResource", "RemSemaphore", "RemTail", "RemTailMinList", "RemTask", "Remove", "RemoveMinNode", "ReplyMsg", "Reschedule", "Schedule", "SendIO", "SetExcept", "SetSR", "SetSignal", "SetTaskPri", "Signal", "StackSwap", "SumKickData", "SumLibrary", "SuperState", "Switch", "TaggedOpenLibrary", "TypeOfMem", "UserState", "Vacate", "Wait", "WaitIO", "WaitPort",
+    # CreateTask
+    "DeleteTask",
+    "AbortIO", "AddDevice", "AddHead", "AddHeadMinList", "AddIntServer", "AddLibrary", "AddMemHandler", "AddPort", "AddResource", "AddSemaphore", "AddTail", "AddTailMinList", "AddTask", "Alert", "AllocAbs", "AllocEntry", "AllocMem", "AllocPooled", "AllocSignal", "AllocTrap", "AllocVec", "Allocate", "AttemptSemaphore", "AttemptSemaphoreShared", "AvailMem", "CacheClearE", "CacheClearU", "CacheControl", "CachePostDMA", "CachePreDMA", "Cause", "CheckIO", "CloseDevice", "CloseLibrary", "ColdReboot", "CopyMem", "CopyMemQuick", "CreateIORequest", "CreateMsgPort", "CreatePool", "Debug", "DeleteIORequest", "DeleteMsgPort", "DeletePool", "Disable", "Dispatch", "DoIO", "Enable", "Enqueue", "Exception", "ExecObsolete1", "ExecObsolete2", "ExecObsolete3", "ExecObsolete4", "ExecReserved04", "ExecReserved05", "ExecReserved06", "ExecReserved08", "ExecReserved10", "ExecReserved11", "ExecReserved12", "ExecReserved20", "ExecReserved21", "ExecReserved22", "ExecReserved23", "ExecReserved24", "ExecReserved25", "ExecReserved26", "ExecReserved27", "ExecReserved28", "ExecReserved29", "ExecReserved30", "ExitIntr", "FindName", "FindPort", "FindResident", "FindSemaphore", "FindTask", "Forbid", "FreeEntry", "FreeMem", "FreePooled", "FreeSignal", "FreeTrap", "FreeVec", "GetCC", "GetMsg", "InitCode", "InitResident", "InitSemaphore", "InitStruct", "NewMinList", "ObtainQuickVector", "ObtainSemaphore", "ObtainSemaphoreList", "ObtainSemaphoreShared", "OldOpenLibrary", "OpenLibrary", "OpenResource", "Permit", "Procure", "PutMsg", "RawIOInit", "RawMayGetChar", "RawPutChar", "ReadGayle", "ReleaseSemaphore", "ReleaseSemaphoreList", "RemDevice", "RemHead", "RemHeadMinList", "RemIntServer", "RemLibrary", "RemMemHandler", "RemPort", "RemResource", "RemSemaphore", "RemTail", "RemTailMinList", "RemTask", "Remove", "RemoveMinNode", "ReplyMsg", "Reschedule", "Schedule", "SendIO", "SetExcept", "SetSR", "SetSignal", "SetTaskPri", "Signal", "StackSwap", "SumKickData", "SumLibrary", "SuperState", "Switch", "TaggedOpenLibrary", "TypeOfMem", "UserState", "Vacate", "Wait", "WaitIO", "WaitPort",
 
      #dos_lib.sfd
      "AbortPkt", "AddBuffers", "AddDosEntry", "AddPart", "AddSegment", "AllocDosObject", "AllocDosObjectTagList", "AllocDosObjectTags", "AssignAdd", "AssignLate", "AssignLock", "AssignPath", "AttemptLockDosList", "ChangeMode", "CheckSignal", "ClearVec", "Cli", "CliInit", "CliInitNewcli", "CliInitRun", "Close", "CompareDates", "CreateDir", "CreateNewProc", "CreateNewProcTagList", "CreateNewProcTags", "CurrentDir", "DateStamp", "DateToStr", "Delay", "DeleteFile", "DeleteVar", "DeviceProc", "DoPkt0", "DoPkt1", "DoShellMethod", "DoShellMethodTagList", "DosGetString", "DosNameFromAnchor", "DupLock", "DupLockFromFH", "EndNotify", "ErrorOutput", "ExNext", "Examine", "ExamineFH", "Execute", "Exit", "ExtendedCli", "FGetC", "FGets", "FPrintf", "FPutC", "FPuts", "FRead", "FWrite", "FWritef", "Fault", "FilePart", "FindArg", "FindCliProc", "FindVar", "Flush", "Format", "FreeArgs", "FreeDeviceProc", "FreeDosEntry", "FreeDosObject", "GetArgStr", "GetConsoleTask", "GetCurrentDir", "GetCurrentDirName", "GetDeviceProc", "GetFileSysTask", "GetProgramDir", "GetProgramName", "GetPrompt", "GetVar", "Info", "Inhibit", "Input", "InternalRunCommand", "IoErr", "IsFileSystem", "IsInteractive", "LoadSeg", "Lock", "LockDosList", "LockRecords", "MakeDosEntry", "MakeLink", "MatchEnd", "MatchFirst", "MatchNext", "MatchPattern", "MatchPatternNoCase", "MaxCli", "NameFromFH", "NameFromLock", "NewLoadSeg", "NewLoadSegTagList", "NewLoadSegTags", "NextDosEntry", "NoReqLoadSeg", "Open", "OpenFromLock", "Output", "ParentDir", "ParentOfFH", "ParsePattern", "ParsePatternNoCase", "PathPart", "PrintFault", "Printf", "PutErrStr", "PutStr", "Read", "Relabel", "RemAssignList", "RemDosEntry", "RemSegment", "Rename", "ReplyPkt", "SameDevice", "SameLock", "ScanStackToken", "Seek", "SelectError", "SelectInput", "SelectOutput", "SetArgStr", "SetComment", "SetConsoleTask", "SetCurrentDirName", "SetFileDate", "SetFileSize", "SetFileSysTask", "SetIoErr", "SetMode", "SetOwner", "SetProgramDir", "SetProgramName", "SetPrompt", "SetProtection", "SetVBuf", "SetVar", "StartNotify", "StrToDate", "StrToLong", "System", "SystemTagList", "SystemTags", "UnGetC", "UnLoadSeg", "UnLock", "UnLockDosList", "UnLockRecord", "UnLockRecords", "VFPrintf", "VFWritef", "VPrintf", "VolumeRequestHook", "WaitForChar", "WaitPkt", "Write", "WriteChars",
@@ -198,7 +205,7 @@ FUNCTION_CONFIG = [
     # not working yet - "FreeRemember",
 
     #graphics_lib.sfd 
-    "AddBob", "AddDisplayInfo", "AddFont", "AddVSprite", "AllocBitMap", "AllocDBufInfo", "AllocRaster",  "AreaDraw", "AreaEnd", "AreaMove", "AskFont", "AskSoftStyle", "AttachPalExtra", "AttemptLockLayerRom", "BitMapScale", "BltClear", "CBump", "CMove", "CWait", "CalcIVG", "ChangeVPBitMap", "ClearEOL", "ClearRegion", "ClearScreen", "CloseFont", "CloseMonitor", "CoerceMode", "CopySBitMap", "DisownBlitter", "DisposeRegion", "DoCollision", "Draw", "DrawGList", "ExtendFont", "ExtendFontTags", "FindColor", "FindDisplayInfo", "Flood", "FreeBitMap", "FreeColorMap", "FreeCopList", "FreeCprList", "FreeDBufInfo", "FreeRaster", "FreeSprite", "FreeSpriteData", "FreeVPortCopLists", "GetAPen", "GetBPen", "GetBitMapAttr", "GetColorMap", "GetDrMd", "GetOutlinePen", "GetRGB32", "GetRGB4", "GetSprite", "GetVPModeID", "GfxAssociate", "GfxFree", "GfxInternal1", "GfxInternal2", "GfxInternal3", "GfxLookUp", "GfxNew", "GfxSpare1", "GfxSpare2", "InitGMasks", "InitMasks", "InitRastPort", "InitTmpRas", "InitVPort", "InitView", "LoadRGB32", "LoadRGB4", "LoadView", "LockLayerRom", "MakeVPort", "ModeNotAvailable", "Move", "MrgCop", "NewRegion", "NextDisplayInfo", "ObtainPen", "OpenFont", "OpenMonitor", "OwnBlitter", "PolyDraw", "QBSBlit", "QBlit", "ReadPixel", "ReleasePen", "RemFont", "RemVSprite", "ScalerDiv", "ScrollVPort", "SetABPenDrMd", "SetAPen", "SetBPen", "SetChipRev", "SetDefaultMonitor", "SetDrMd", "SetFont", "SetMaxPen", "SetOutlinePen", "SetRGB32", "SetRGB32CM", "SetRast", "SetWriteMask", "SortGList", "StripFont", "SyncSBitMap", "Text", "UCopperListInit", "UnlockLayerRom", "VBeamPos", "WaitBOVP", "WaitBlit", "WaitTOF", "WritePixel",
+    "AddBob", "RemBob","AddDisplayInfo", "AddFont", "AddVSprite", "AllocBitMap", "AllocDBufInfo", "AllocRaster",  "AreaDraw", "AreaEnd", "AreaMove", "AskFont", "AskSoftStyle", "AttachPalExtra", "AttemptLockLayerRom", "BitMapScale", "BltClear", "CBump", "CMove", "CWait", "CalcIVG", "ChangeVPBitMap", "ClearEOL", "ClearRegion", "ClearScreen", "CloseFont", "CloseMonitor", "CoerceMode", "CopySBitMap", "DisownBlitter", "DisposeRegion", "DoCollision", "Draw", "DrawGList", "ExtendFont", "ExtendFontTags", "FindColor", "FindDisplayInfo", "Flood", "FreeBitMap", "FreeColorMap", "FreeCopList", "FreeCprList", "FreeDBufInfo", "FreeRaster", "FreeSprite", "FreeSpriteData", "FreeVPortCopLists", "GetAPen", "GetBPen", "GetBitMapAttr", "GetColorMap", "GetDrMd", "GetOutlinePen", "GetRGB32", "GetRGB4", "GetSprite", "GetVPModeID", "GfxAssociate", "GfxFree", "GfxInternal1", "GfxInternal2", "GfxInternal3", "GfxLookUp", "GfxNew", "GfxSpare1", "GfxSpare2", "InitGMasks", "InitMasks", "InitRastPort", "InitTmpRas", "InitVPort", "InitView", "LoadRGB32", "LoadRGB4", "LoadView", "LockLayerRom", "MakeVPort", "ModeNotAvailable", "Move", "MrgCop", "NewRegion", "NextDisplayInfo", "ObtainPen", "OpenFont", "OpenMonitor", "OwnBlitter", "PolyDraw", "QBSBlit", "QBlit", "ReadPixel", "ReleasePen", "RemFont", "RemVSprite", "ScalerDiv", "ScrollVPort", "SetABPenDrMd", "SetAPen", "SetBPen", "SetChipRev", "SetDefaultMonitor", "SetDrMd", "SetFont", "SetMaxPen", "SetOutlinePen", "SetRGB32", "SetRGB32CM", "SetRast", "SetWriteMask", "SortGList", "StripFont", "SyncSBitMap", "Text", "UCopperListInit", "UnlockLayerRom", "VBeamPos", "WaitBOVP", "WaitBlit", "WaitTOF", "WritePixel", "InitGels",
 # not working yet = "Animate"
 ]
 
@@ -271,6 +278,7 @@ READ_TYPE_TO_LUA = {
     'TEXT': 'lua_pushstring',
     'ClassID': 'lua_pushstring',
     'void *': 'lua_pushlightuserdata',
+    'WORD **': 'lua_pushlightuserdata',
     'UWORD *': 'lua_pushlightuserdata',
     'PLANEPTR': 'lua_pushlightuserdata',
     'CONST_STRPTR': 'lua_pushstring',
@@ -296,7 +304,7 @@ READ_TYPE_TO_LUA = {
     'const UBYTE *': 'lua_pushlightuserdata',
     'PLANEPTR':  'lua_pushlightuserdata',
     'WORD': 'lua_pushinteger',
-    'WORD *': 'lua_pushlightuserdata',        
+    'WORD *': 'lua_pushlightuserdata',
     'UWORD': 'lua_pushinteger',
     'UWORD *': 'lua_pushlightuserdata',
     'const UWORD *': 'lua_pushlightuserdata',
@@ -347,7 +355,8 @@ WRITE_TYPE_FROM_LUA = {
     'const UBYTE *': 'lua_touserdata',
     'PLANEPTR' : 'lua_touserdata',
     'WORD': 'luaL_checkinteger',
-    'WORD *': 'lua_touserdata',            
+    'WORD *': 'lua_touserdata',
+    'WORD **': 'lua_touserdata',                
     'UWORD': 'luaL_checkinteger',
     'UWORD *': 'lua_touserdata',
     'const UWORD *': 'lua_touserdata',
@@ -556,6 +565,7 @@ def generate_lua_index(struct_name, type_name, fields, functors):
         ctype = normalize_pointer_decl(ctype)
         if not name:
             continue
+
         if size > 0:
             func_base = ctype.replace(" ", "_").replace("*", "p")
             print(f"  if (strcmp(key, \"{name}\") == 0) {{")
@@ -645,6 +655,10 @@ def generate_lua_index(struct_name, type_name, fields, functors):
                     print(f"    return luaL_error(L, \"Unsupported type {ctype} for field {name}\");")
                     print(f"  }}")
 
+    print(f"  if (strcmp(key, \"__size\") == 0) {{")
+    print(f"    lua_pushinteger(L, sizeof({type_name}));")
+    print(f"    return 1;")
+    print(f"}}\n")
     print("  return 0;\n}\n")
 
 
@@ -696,8 +710,10 @@ def generate_lua_newindex(struct_name, type_name, fields, functors):
     for name, ctype, c, size in fields:
         if not name:
             continue
-
+        
         ctype = normalize_pointer_decl(ctype)
+
+        
         if size > 0:
             print(f"  // {name}[{size}] proxied via the index")
         # char[] strings
@@ -766,8 +782,9 @@ def generate_lua_newindex(struct_name, type_name, fields, functors):
                     print("  }")
                 elif pointer_level == 1:
                     print(f"  if (strcmp(key, \"{name}\") == 0) {{")
-                    print(f"    // finder 1")                    
-                    print(f"    obj->{name} = *({base} **)luaL_checkudata(L, 3, \"{tag}\");")
+                    print(f"    // finder 1")
+                    print(f"    //obj->{name} = *({base} **)luaL_checkudata(L, 3, \"{tag}\");")
+                    print(f"    obj->{name} = ({base} *){get_lua_check(ctype)}(L, 3);")
                     print("    return 0;")
                     print("  }")
                 elif pointer_level == 2:
