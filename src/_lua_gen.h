@@ -6272,19 +6272,19 @@ _lua_gen_install_meta_DateStamp(lua_State *L) {
 typedef struct {
   UBYTE* data;
   uint16_t count;
-} lua_gen_wrapped_UBYTE_data_t;
+} lua_gen_wrapped_UBYTE_array_data_t;
 
-static int _lua_gen_wrapped_UBYTE_ptr_method(lua_State* L) {
-    lua_gen_wrapped_UBYTE_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_proxy");
+static int _lua_gen_wrapped_UBYTE_array_ptr_method(lua_State* L) {
+    lua_gen_wrapped_UBYTE_array_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_array_proxy");
     int index = luaL_checkinteger(L, 2);
     void* ptr = &wrapper->data[index - 1];
     lua_pushlightuserdata(L, ptr);
     return 1;
 }
 static int
-_lua_gen_wrapped_UBYTE_index(lua_State* L)
+_lua_gen_wrapped_UBYTE_array_index(lua_State* L)
 {
-  lua_gen_wrapped_UBYTE_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_proxy");
+  lua_gen_wrapped_UBYTE_array_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_array_proxy");
   if (lua_isinteger(L, 2)) {
     int index = lua_tointeger(L, 2);
     if (index < 1 || index > wrapper->count)
@@ -6302,9 +6302,9 @@ _lua_gen_wrapped_UBYTE_index(lua_State* L)
 }
 
 static int
-_lua_gen_wrapped_UBYTE_newindex(lua_State* L)
+_lua_gen_wrapped_UBYTE_array_newindex(lua_State* L)
 {
-  lua_gen_wrapped_UBYTE_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_proxy");
+  lua_gen_wrapped_UBYTE_array_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_array_proxy");
   if (!lua_isinteger(L, 2))
     return luaL_error(L, "only integer indices allowed");
   int index = lua_tointeger(L, 2);
@@ -6319,23 +6319,23 @@ static void
 _lua_gen_push_UBYTE_array_proxy(lua_State *L,  UBYTE *array, int count)
 {
 
-  lua_gen_wrapped_UBYTE_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_UBYTE_data_t));
+  lua_gen_wrapped_UBYTE_array_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_UBYTE_array_data_t));
   wrapper->data = array;
   wrapper->count = count;
 
-  if (luaL_newmetatable(L, "UBYTE_proxy")) {
+  if (luaL_newmetatable(L, "UBYTE_array_proxy")) {
     // Create method table
     lua_newtable(L);
-    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_ptr_method);
+    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_array_ptr_method);
     lua_setfield(L, -2, "ptr");
     lua_setfield(L, -2, "__methods");
 
     // __index handles both numeric and method lookup
-    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_index);
+    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_array_index);
     lua_setfield(L, -2, "__index");
 
     // __newindex for writing
-    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_newindex);
+    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_array_newindex);
     lua_setfield(L, -2, "__newindex");
   }
 
@@ -9872,19 +9872,19 @@ _lua_gen_install_meta_LocalVar(lua_State *L) {
 typedef struct {
   ULONG* data;
   uint16_t count;
-} lua_gen_wrapped_ULONG_data_t;
+} lua_gen_wrapped_ULONG_array_data_t;
 
-static int _lua_gen_wrapped_ULONG_ptr_method(lua_State* L) {
-    lua_gen_wrapped_ULONG_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_proxy");
+static int _lua_gen_wrapped_ULONG_array_ptr_method(lua_State* L) {
+    lua_gen_wrapped_ULONG_array_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_array_proxy");
     int index = luaL_checkinteger(L, 2);
     void* ptr = &wrapper->data[index - 1];
     lua_pushlightuserdata(L, ptr);
     return 1;
 }
 static int
-_lua_gen_wrapped_ULONG_index(lua_State* L)
+_lua_gen_wrapped_ULONG_array_index(lua_State* L)
 {
-  lua_gen_wrapped_ULONG_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_proxy");
+  lua_gen_wrapped_ULONG_array_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_array_proxy");
   if (lua_isinteger(L, 2)) {
     int index = lua_tointeger(L, 2);
     if (index < 1 || index > wrapper->count)
@@ -9902,9 +9902,9 @@ _lua_gen_wrapped_ULONG_index(lua_State* L)
 }
 
 static int
-_lua_gen_wrapped_ULONG_newindex(lua_State* L)
+_lua_gen_wrapped_ULONG_array_newindex(lua_State* L)
 {
-  lua_gen_wrapped_ULONG_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_proxy");
+  lua_gen_wrapped_ULONG_array_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_array_proxy");
   if (!lua_isinteger(L, 2))
     return luaL_error(L, "only integer indices allowed");
   int index = lua_tointeger(L, 2);
@@ -9919,23 +9919,23 @@ static void
 _lua_gen_push_ULONG_array_proxy(lua_State *L,  ULONG *array, int count)
 {
 
-  lua_gen_wrapped_ULONG_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_ULONG_data_t));
+  lua_gen_wrapped_ULONG_array_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_ULONG_array_data_t));
   wrapper->data = array;
   wrapper->count = count;
 
-  if (luaL_newmetatable(L, "ULONG_proxy")) {
+  if (luaL_newmetatable(L, "ULONG_array_proxy")) {
     // Create method table
     lua_newtable(L);
-    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_ptr_method);
+    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_array_ptr_method);
     lua_setfield(L, -2, "ptr");
     lua_setfield(L, -2, "__methods");
 
     // __index handles both numeric and method lookup
-    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_index);
+    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_array_index);
     lua_setfield(L, -2, "__index");
 
     // __newindex for writing
-    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_newindex);
+    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_array_newindex);
     lua_setfield(L, -2, "__newindex");
   }
 
@@ -12843,19 +12843,19 @@ _lua_gen_install_meta_Point(lua_State *L) {
 typedef struct {
   PLANEPTR* data;
   uint16_t count;
-} lua_gen_wrapped_PLANEPTR_data_t;
+} lua_gen_wrapped_PLANEPTR_array_data_t;
 
-static int _lua_gen_wrapped_PLANEPTR_ptr_method(lua_State* L) {
-    lua_gen_wrapped_PLANEPTR_data_t* wrapper = luaL_checkudata(L, 1, "PLANEPTR_proxy");
+static int _lua_gen_wrapped_PLANEPTR_array_ptr_method(lua_State* L) {
+    lua_gen_wrapped_PLANEPTR_array_data_t* wrapper = luaL_checkudata(L, 1, "PLANEPTR_array_proxy");
     int index = luaL_checkinteger(L, 2);
     void* ptr = &wrapper->data[index - 1];
     lua_pushlightuserdata(L, ptr);
     return 1;
 }
 static int
-_lua_gen_wrapped_PLANEPTR_index(lua_State* L)
+_lua_gen_wrapped_PLANEPTR_array_index(lua_State* L)
 {
-  lua_gen_wrapped_PLANEPTR_data_t* wrapper = luaL_checkudata(L, 1, "PLANEPTR_proxy");
+  lua_gen_wrapped_PLANEPTR_array_data_t* wrapper = luaL_checkudata(L, 1, "PLANEPTR_array_proxy");
   if (lua_isinteger(L, 2)) {
     int index = lua_tointeger(L, 2);
     if (index < 1 || index > wrapper->count)
@@ -12873,9 +12873,9 @@ _lua_gen_wrapped_PLANEPTR_index(lua_State* L)
 }
 
 static int
-_lua_gen_wrapped_PLANEPTR_newindex(lua_State* L)
+_lua_gen_wrapped_PLANEPTR_array_newindex(lua_State* L)
 {
-  lua_gen_wrapped_PLANEPTR_data_t* wrapper = luaL_checkudata(L, 1, "PLANEPTR_proxy");
+  lua_gen_wrapped_PLANEPTR_array_data_t* wrapper = luaL_checkudata(L, 1, "PLANEPTR_array_proxy");
   if (!lua_isinteger(L, 2))
     return luaL_error(L, "only integer indices allowed");
   int index = lua_tointeger(L, 2);
@@ -12890,23 +12890,23 @@ static void
 _lua_gen_push_PLANEPTR_array_proxy(lua_State *L,  PLANEPTR *array, int count)
 {
 
-  lua_gen_wrapped_PLANEPTR_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_PLANEPTR_data_t));
+  lua_gen_wrapped_PLANEPTR_array_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_PLANEPTR_array_data_t));
   wrapper->data = array;
   wrapper->count = count;
 
-  if (luaL_newmetatable(L, "PLANEPTR_proxy")) {
+  if (luaL_newmetatable(L, "PLANEPTR_array_proxy")) {
     // Create method table
     lua_newtable(L);
-    lua_pushcfunction(L, _lua_gen_wrapped_PLANEPTR_ptr_method);
+    lua_pushcfunction(L, _lua_gen_wrapped_PLANEPTR_array_ptr_method);
     lua_setfield(L, -2, "ptr");
     lua_setfield(L, -2, "__methods");
 
     // __index handles both numeric and method lookup
-    lua_pushcfunction(L, _lua_gen_wrapped_PLANEPTR_index);
+    lua_pushcfunction(L, _lua_gen_wrapped_PLANEPTR_array_index);
     lua_setfield(L, -2, "__index");
 
     // __newindex for writing
-    lua_pushcfunction(L, _lua_gen_wrapped_PLANEPTR_newindex);
+    lua_pushcfunction(L, _lua_gen_wrapped_PLANEPTR_array_newindex);
     lua_setfield(L, -2, "__newindex");
   }
 
@@ -13224,19 +13224,19 @@ _lua_gen_install_meta_ExtendedNode(lua_State *L) {
 typedef struct {
   ULONG ** data;
   uint16_t count;
-} lua_gen_wrapped_ULONG_p_data_t;
+} lua_gen_wrapped_ULONG_p_array_data_t;
 
-static int _lua_gen_wrapped_ULONG_p_ptr_method(lua_State* L) {
-    lua_gen_wrapped_ULONG_p_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_p_proxy");
+static int _lua_gen_wrapped_ULONG_p_array_ptr_method(lua_State* L) {
+    lua_gen_wrapped_ULONG_p_array_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_p_array_proxy");
     int index = luaL_checkinteger(L, 2);
     void* ptr = &wrapper->data[index - 1];
     lua_pushlightuserdata(L, ptr);
     return 1;
 }
 static int
-_lua_gen_wrapped_ULONG_p_index(lua_State* L)
+_lua_gen_wrapped_ULONG_p_array_index(lua_State* L)
 {
-  lua_gen_wrapped_ULONG_p_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_p_proxy");
+  lua_gen_wrapped_ULONG_p_array_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_p_array_proxy");
   if (lua_isinteger(L, 2)) {
     int index = lua_tointeger(L, 2);
     if (index < 1 || index > wrapper->count)
@@ -13254,9 +13254,9 @@ _lua_gen_wrapped_ULONG_p_index(lua_State* L)
 }
 
 static int
-_lua_gen_wrapped_ULONG_p_newindex(lua_State* L)
+_lua_gen_wrapped_ULONG_p_array_newindex(lua_State* L)
 {
-  lua_gen_wrapped_ULONG_p_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_p_proxy");
+  lua_gen_wrapped_ULONG_p_array_data_t* wrapper = luaL_checkudata(L, 1, "ULONG_p_array_proxy");
   if (!lua_isinteger(L, 2))
     return luaL_error(L, "only integer indices allowed");
   int index = lua_tointeger(L, 2);
@@ -13271,23 +13271,23 @@ static void
 _lua_gen_push_ULONG_p_array_proxy(lua_State *L,  ULONG * *array, int count)
 {
 
-  lua_gen_wrapped_ULONG_p_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_ULONG_p_data_t));
+  lua_gen_wrapped_ULONG_p_array_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_ULONG_p_array_data_t));
   wrapper->data = array;
   wrapper->count = count;
 
-  if (luaL_newmetatable(L, "ULONG_p_proxy")) {
+  if (luaL_newmetatable(L, "ULONG_p_array_proxy")) {
     // Create method table
     lua_newtable(L);
-    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_p_ptr_method);
+    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_p_array_ptr_method);
     lua_setfield(L, -2, "ptr");
     lua_setfield(L, -2, "__methods");
 
     // __index handles both numeric and method lookup
-    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_p_index);
+    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_p_array_index);
     lua_setfield(L, -2, "__index");
 
     // __newindex for writing
-    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_p_newindex);
+    lua_pushcfunction(L, _lua_gen_wrapped_ULONG_p_array_newindex);
     lua_setfield(L, -2, "__newindex");
   }
 
@@ -15848,19 +15848,19 @@ _lua_gen_install_meta_ViewPort(lua_State *L) {
 typedef struct {
   UWORD* data;
   uint16_t count;
-} lua_gen_wrapped_UWORD_data_t;
+} lua_gen_wrapped_UWORD_array_data_t;
 
-static int _lua_gen_wrapped_UWORD_ptr_method(lua_State* L) {
-    lua_gen_wrapped_UWORD_data_t* wrapper = luaL_checkudata(L, 1, "UWORD_proxy");
+static int _lua_gen_wrapped_UWORD_array_ptr_method(lua_State* L) {
+    lua_gen_wrapped_UWORD_array_data_t* wrapper = luaL_checkudata(L, 1, "UWORD_array_proxy");
     int index = luaL_checkinteger(L, 2);
     void* ptr = &wrapper->data[index - 1];
     lua_pushlightuserdata(L, ptr);
     return 1;
 }
 static int
-_lua_gen_wrapped_UWORD_index(lua_State* L)
+_lua_gen_wrapped_UWORD_array_index(lua_State* L)
 {
-  lua_gen_wrapped_UWORD_data_t* wrapper = luaL_checkudata(L, 1, "UWORD_proxy");
+  lua_gen_wrapped_UWORD_array_data_t* wrapper = luaL_checkudata(L, 1, "UWORD_array_proxy");
   if (lua_isinteger(L, 2)) {
     int index = lua_tointeger(L, 2);
     if (index < 1 || index > wrapper->count)
@@ -15878,9 +15878,9 @@ _lua_gen_wrapped_UWORD_index(lua_State* L)
 }
 
 static int
-_lua_gen_wrapped_UWORD_newindex(lua_State* L)
+_lua_gen_wrapped_UWORD_array_newindex(lua_State* L)
 {
-  lua_gen_wrapped_UWORD_data_t* wrapper = luaL_checkudata(L, 1, "UWORD_proxy");
+  lua_gen_wrapped_UWORD_array_data_t* wrapper = luaL_checkudata(L, 1, "UWORD_array_proxy");
   if (!lua_isinteger(L, 2))
     return luaL_error(L, "only integer indices allowed");
   int index = lua_tointeger(L, 2);
@@ -15895,23 +15895,23 @@ static void
 _lua_gen_push_UWORD_array_proxy(lua_State *L,  UWORD *array, int count)
 {
 
-  lua_gen_wrapped_UWORD_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_UWORD_data_t));
+  lua_gen_wrapped_UWORD_array_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_UWORD_array_data_t));
   wrapper->data = array;
   wrapper->count = count;
 
-  if (luaL_newmetatable(L, "UWORD_proxy")) {
+  if (luaL_newmetatable(L, "UWORD_array_proxy")) {
     // Create method table
     lua_newtable(L);
-    lua_pushcfunction(L, _lua_gen_wrapped_UWORD_ptr_method);
+    lua_pushcfunction(L, _lua_gen_wrapped_UWORD_array_ptr_method);
     lua_setfield(L, -2, "ptr");
     lua_setfield(L, -2, "__methods");
 
     // __index handles both numeric and method lookup
-    lua_pushcfunction(L, _lua_gen_wrapped_UWORD_index);
+    lua_pushcfunction(L, _lua_gen_wrapped_UWORD_array_index);
     lua_setfield(L, -2, "__index");
 
     // __newindex for writing
-    lua_pushcfunction(L, _lua_gen_wrapped_UWORD_newindex);
+    lua_pushcfunction(L, _lua_gen_wrapped_UWORD_array_newindex);
     lua_setfield(L, -2, "__newindex");
   }
 
@@ -16226,19 +16226,19 @@ _lua_gen_install_meta_View(lua_State *L) {
 typedef struct {
   APTR* data;
   uint16_t count;
-} lua_gen_wrapped_APTR_data_t;
+} lua_gen_wrapped_APTR_array_data_t;
 
-static int _lua_gen_wrapped_APTR_ptr_method(lua_State* L) {
-    lua_gen_wrapped_APTR_data_t* wrapper = luaL_checkudata(L, 1, "APTR_proxy");
+static int _lua_gen_wrapped_APTR_array_ptr_method(lua_State* L) {
+    lua_gen_wrapped_APTR_array_data_t* wrapper = luaL_checkudata(L, 1, "APTR_array_proxy");
     int index = luaL_checkinteger(L, 2);
     void* ptr = &wrapper->data[index - 1];
     lua_pushlightuserdata(L, ptr);
     return 1;
 }
 static int
-_lua_gen_wrapped_APTR_index(lua_State* L)
+_lua_gen_wrapped_APTR_array_index(lua_State* L)
 {
-  lua_gen_wrapped_APTR_data_t* wrapper = luaL_checkudata(L, 1, "APTR_proxy");
+  lua_gen_wrapped_APTR_array_data_t* wrapper = luaL_checkudata(L, 1, "APTR_array_proxy");
   if (lua_isinteger(L, 2)) {
     int index = lua_tointeger(L, 2);
     if (index < 1 || index > wrapper->count)
@@ -16256,9 +16256,9 @@ _lua_gen_wrapped_APTR_index(lua_State* L)
 }
 
 static int
-_lua_gen_wrapped_APTR_newindex(lua_State* L)
+_lua_gen_wrapped_APTR_array_newindex(lua_State* L)
 {
-  lua_gen_wrapped_APTR_data_t* wrapper = luaL_checkudata(L, 1, "APTR_proxy");
+  lua_gen_wrapped_APTR_array_data_t* wrapper = luaL_checkudata(L, 1, "APTR_array_proxy");
   if (!lua_isinteger(L, 2))
     return luaL_error(L, "only integer indices allowed");
   int index = lua_tointeger(L, 2);
@@ -16273,23 +16273,23 @@ static void
 _lua_gen_push_APTR_array_proxy(lua_State *L,  APTR *array, int count)
 {
 
-  lua_gen_wrapped_APTR_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_APTR_data_t));
+  lua_gen_wrapped_APTR_array_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_APTR_array_data_t));
   wrapper->data = array;
   wrapper->count = count;
 
-  if (luaL_newmetatable(L, "APTR_proxy")) {
+  if (luaL_newmetatable(L, "APTR_array_proxy")) {
     // Create method table
     lua_newtable(L);
-    lua_pushcfunction(L, _lua_gen_wrapped_APTR_ptr_method);
+    lua_pushcfunction(L, _lua_gen_wrapped_APTR_array_ptr_method);
     lua_setfield(L, -2, "ptr");
     lua_setfield(L, -2, "__methods");
 
     // __index handles both numeric and method lookup
-    lua_pushcfunction(L, _lua_gen_wrapped_APTR_index);
+    lua_pushcfunction(L, _lua_gen_wrapped_APTR_array_index);
     lua_setfield(L, -2, "__index");
 
     // __newindex for writing
-    lua_pushcfunction(L, _lua_gen_wrapped_APTR_newindex);
+    lua_pushcfunction(L, _lua_gen_wrapped_APTR_array_newindex);
     lua_setfield(L, -2, "__newindex");
   }
 
