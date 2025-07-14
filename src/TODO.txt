@@ -1,1 +1,3 @@
 o Generate errors on skipped index fields
+o arrays, function pointers
+o point star spaces

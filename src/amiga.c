@@ -3,12 +3,11 @@
 #include "amiga.h"
 
 #define countof(x) (sizeof(x) / sizeof(x[0]))
+
 static int
 _amiga_readVarTags(lua_State* L, struct TagItem* taglist, int maxTags, int argNum);
 static int _amiga_doTagList(lua_State *L, struct TagItem *tags,
                             uint16_t maxTags, uint16_t argNumber);
-static void
-_amiga_push_u16array_proxy(lua_State *L, uint16_t *array, int count);
 
 #undef NM_BARLABEL
 #define NM_BARLABEL ((uint32_t)(STRPTR)-1)
@@ -210,79 +209,6 @@ _amiga_getStringInfo(lua_State* L)
   return 1;
 }
 
-int lua_u16array_index(lua_State *L) {
-    uint16_t *array = lua_touserdata(L, lua_upvalueindex(1));
-    int count       = lua_tointeger(L, lua_upvalueindex(2));
-
-    // if key is not a number, let normal lookup proceed
-    if (!lua_isinteger(L, 2)) {
-        lua_getmetatable(L, 1);
-        lua_pushvalue(L, 2);
-        lua_rawget(L, -2);
-        return 1;
-    }
-    
-    int index = luaL_checkinteger(L, 2);
-    if (index < 1 || index > count)
-        return luaL_error(L, "index out of range (1..%d)", count);
-
-    lua_pushinteger(L, array[index - 1]);
-    return 1;
-}
-
-int lua_u16array_newindex(lua_State *L) {
-    uint16_t *array = lua_touserdata(L, lua_upvalueindex(1));
-    int count       = lua_tointeger(L, lua_upvalueindex(2));
-
-    int index = luaL_checkinteger(L, 2);
-    if (index < 1 || index > count)
-        return luaL_error(L, "index out of range (1..%d)", count);
-
-    uint16_t val = luaL_checkinteger(L, 3);
-
-    array[index-1] = val;
-    return 0;
-}
-
-static int
-_amiga_u16array_element_ptr(lua_State *L)
-{
-  uint16_t *array = lua_touserdata(L, lua_upvalueindex(1));
-  int count       = lua_tointeger(L, lua_upvalueindex(2));
-  
-  int index = luaL_checkinteger(L, 1);
-  if (index < 1 || index > count)
-    return luaL_error(L, "index out of range (1..%d)", count);
-  // Return as lightuserdata (raw pointer)
-  lua_pushlightuserdata(L, &array[index - 1]);
-  return 1;
-}
-
-static void
-_amiga_push_u16array_proxy(lua_State *L, uint16_t *array, int count)
-{
-    lua_newtable(L); // the proxy
-
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-
-    lua_pushcclosure(L, lua_u16array_index, 2);
-    lua_setfield(L, -2, "__index");
-
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-
-    lua_pushcclosure(L, lua_u16array_newindex, 2);
-    lua_setfield(L, -2, "__newindex");
-
-    lua_pushlightuserdata(L, array);
-    lua_pushinteger(L, count);
-    lua_pushcclosure(L, _amiga_u16array_element_ptr, 2);
-    lua_setfield(L, -2, "ptr");
-    
-    lua_setmetatable(L, -2);
-}
-
 
 static void
 _amiga_push_u16array_metatable(lua_State *L, uint16_t *array, int count) {
@@ -290,12 +216,12 @@ _amiga_push_u16array_metatable(lua_State *L, uint16_t *array, int count) {
 
     lua_pushlightuserdata(L, array);
     lua_pushinteger(L, count);
-    lua_pushcclosure(L, lua_u16array_index, 2);
+    lua_pushcclosure(L, _lua_gen_UWORD_array_index, 2);    
     lua_setfield(L, -2, "__index");
 
     lua_pushlightuserdata(L, array);
     lua_pushinteger(L, count);
-    lua_pushcclosure(L, lua_u16array_newindex, 2);
+    lua_pushcclosure(L, _lua_gen_UWORD_array_newindex, 2);    
     lua_setfield(L, -2, "__newindex");
 
     lua_setmetatable(L, -2);    
@@ -316,6 +242,40 @@ _amiga_create_u16array(lua_State *L) {
     return 1;
 }
 
+BSTR
+amiga_checkBSTR(lua_State *L, int index)
+{
+  size_t len;
+  const char *str = luaL_checklstring(L, index, &len);
+  if (len > 255)
+    luaL_error(L, "BSTR too long (max 255 characters)");
+  
+  // Allocate len + 1 (length prefix) + up to 3 extra bytes for 4-byte alignment
+  size_t total = len + 1 + 3;
+  UBYTE *raw = (UBYTE *)lua_newuserdata(L, total);
+  
+  // Align to next 4-byte boundary
+  uintptr_t aligned_addr = ((uintptr_t)raw + 3) & ~3;
+  UBYTE *bstr_ptr = (UBYTE *)aligned_addr;
+  
+  bstr_ptr[0] = (UBYTE)len;
+  memcpy(bstr_ptr + 1, str, len);
+  
+  return (BSTR)MKBADDR(bstr_ptr);
+}
+
+void
+amiga_pushBSTR(lua_State *L, BSTR bstr)
+{
+  if (!bstr) {
+    lua_pushnil(L);
+    return;
+  }
+  
+  UBYTE *real = BADDR(bstr);
+  UBYTE len = real[0];
+  lua_pushlstring(L, (const char *)(real + 1), len);
+} 
 void
 lua_install(lua_State* L)
 {

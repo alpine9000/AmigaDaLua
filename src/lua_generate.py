@@ -5,14 +5,19 @@ import re
 TYPE_CONFIG = {
     #AmigaDaLua custom types
     "GadgetPtr": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True},
-    #Too big
+    #Hardware    
     "Custom": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "AudChannel": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": False},
+    #Layers
+    "ClipRect": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "Layer_Info": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     #Graphics
     "Bob": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "DBufPacket": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "VSprite": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "AnimOb": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "AnimComp": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "bltnode": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
-#    "UCopList": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "SimpleSprite": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "Layer": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},        
     "TmpRas": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
@@ -21,11 +26,21 @@ TYPE_CONFIG = {
     "RegionRectangle": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "CopList": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "cprlist": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
-    "ColorMap": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},    
+    "copinit": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "ColorMap": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "PaletteExtra": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "ViewPortExtra": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "BitScaleArgs": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "MonitorSpec": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "SpecialMonitor": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "AnalogSignalInterval": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "ExtendedNode": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "GfxBase":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "ExtSprite": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
-    
+    "CopIns": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "AreaInfo": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "GelsInfo": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "Point": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": False},
     
     #Dos
     "FileInfoBlock": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
@@ -37,12 +52,16 @@ TYPE_CONFIG = {
     "Process": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "DevProc": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "DosList": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "AssignList": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "DateTime": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "Segment":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "AnchorPath": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "RDArgs":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "NotifyRequest": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "LocalVar":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "Unit":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "CSource": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "AChain":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     
     #Exec
     "Message": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
@@ -63,8 +82,11 @@ TYPE_CONFIG = {
     "SignalSemaphore": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "SemaphoreMessage": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "StackSwapStruct":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "SemaphoreRequest": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "MemChunk":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
 
     #Utility
+    "Tag": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},    
     "TagItem": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "Hook": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},    
     
@@ -74,7 +96,8 @@ TYPE_CONFIG = {
     "RastPort": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "IntuiMessage": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "View": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
-    "ViewPort": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "ViewPort" :{"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "ViewPortExtra": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "IntuiText": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "Screen": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "NewScreen": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
@@ -91,14 +114,21 @@ TYPE_CONFIG = {
     "Menu":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "MenuItem":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "BitMap":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
-    "DBufInfo":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},    
-    
+    "DBufInfo":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "IBox":   {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "ViewPort": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "RasInfo":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "Border":   {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "StringExtend": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "KeyMap": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+
     #GadTools
     "NewGadget": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
     "NewMenu":  {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
 
     #Devices
-    "InputEvent": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True},
+    "InputEvent": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": True,},
+    "TimeVal_Type": {"index": True, "newindex": True, "keys": True, "metainstall": True, "functors": False, "interface": True, "struct": False},
 }
 
 ENUM_CONFIG = []
@@ -154,7 +184,7 @@ FUNCTION_CONFIG = [
     "TO_CONST_STRPTR", "TO_IntuiMessage",
 
     #exec_lib.sfd
-    "AbortIO", "AddDevice", "AddHead", "AddHeadMinList", "AddIntServer", "AddLibrary", "AddMemHandler", "AddPort", "AddResource", "AddSemaphore", "AddTail", "AddTailMinList", "AddTask", "Alert", "AllocAbs", "AllocEntry", "AllocMem", "AllocPooled", "AllocSignal", "AllocTrap", "AllocVec", "Allocate", "AttemptSemaphore", "AttemptSemaphoreShared", "AvailMem", "CacheClearE", "CacheClearU", "CacheControl", "CachePostDMA", "CachePreDMA", "Cause", "CheckIO", "CloseDevice", "CloseLibrary", "ColdReboot", "CopyMem", "CopyMemQuick", "CreateIORequest", "CreateMsgPort", "CreatePool", "Debug", "DeleteIORequest", "DeleteMsgPort", "DeletePool", "Disable", "Dispatch", "DoIO", "Enable", "Enqueue", "Exception", "ExecObsolete1", "ExecObsolete2", "ExecObsolete3", "ExecObsolete4", "ExecReserved04", "ExecReserved05", "ExecReserved06", "ExecReserved08", "ExecReserved10", "ExecReserved11", "ExecReserved12", "ExecReserved20", "ExecReserved21", "ExecReserved22", "ExecReserved23", "ExecReserved24", "ExecReserved25", "ExecReserved26", "ExecReserved27", "ExecReserved28", "ExecReserved29", "ExecReserved30", "ExitIntr", "FindName", "FindPort", "FindResident", "FindSemaphore", "FindTask", "Forbid", "FreeEntry", "FreeMem", "FreePooled", "FreeSignal", "FreeTrap", "FreeVec", "GetCC", "GetMsg", "InitCode", "InitResident", "InitSemaphore", "InitStruct", "NewMinList", "ObtainQuickVector", "ObtainSemaphore", "ObtainSemaphoreList", "ObtainSemaphoreShared", "OldOpenLibrary", "OpenLibrary", "OpenResource", "Permit", "Procure", "PutMsg", "RawIOInit", "RawMayGetChar", "RawPutChar", "ReadGayle", "ReleaseSemaphore", "ReleaseSemaphoreList", "RemDevice", "RemHead", "RemHeadMinList", "RemIntServer", "RemLibrary", "RemMemHandler", "RemPort", "RemResource", "RemSemaphore", "RemTail", "RemTailMinList", "RemTask", "Remove", "RemoveMinNode", "ReplyMsg", "Reschedule", "Schedule", "SendIO", "SetExcept", "SetSR", "SetSignal", "SetTaskPri", "Signal", "StackSwap", "SumKickData", "SumLibrary", "SuperState", "Switch", "TaggedOpenLibrary", "TypeOfMem", "UserState", "Vacate", "Wait", "WaitIO", "WaitPort",
+    "AbortIO", "AddDevice", "AddHead", "AddHeadMinList", "AddIntServer", "AddLibrary", "AddMemHandler", "AddPort", "AddResource", "AddSemaphore", "AddTail", "AddTailMinList", "AddTask", "Alert", "AllocAbs", "AllocEntry", "AllocMem", "AllocPooled", "AllocSignal", "AllocTrap", "AllocVec", "Allocate", "AttemptSemaphore", "AttemptSemaphoreShared", "AvailMem", "CacheClearE", "CacheClearU", "CacheControl", "CachePostDMA", "CachePreDMA", "Cause", "CheckIO", "CloseDevice", "CloseLibrary", "ColdReboot", "CopyMem", "CopyMemQuick", "CreateTask", "CreateIORequest", "CreateMsgPort", "CreatePool", "Debug", "DeleteIORequest", "DeleteMsgPort", "DeletePool", "Disable", "Dispatch", "DoIO", "Enable", "Enqueue", "Exception", "ExecObsolete1", "ExecObsolete2", "ExecObsolete3", "ExecObsolete4", "ExecReserved04", "ExecReserved05", "ExecReserved06", "ExecReserved08", "ExecReserved10", "ExecReserved11", "ExecReserved12", "ExecReserved20", "ExecReserved21", "ExecReserved22", "ExecReserved23", "ExecReserved24", "ExecReserved25", "ExecReserved26", "ExecReserved27", "ExecReserved28", "ExecReserved29", "ExecReserved30", "ExitIntr", "FindName", "FindPort", "FindResident", "FindSemaphore", "FindTask", "Forbid", "FreeEntry", "FreeMem", "FreePooled", "FreeSignal", "FreeTrap", "FreeVec", "GetCC", "GetMsg", "InitCode", "InitResident", "InitSemaphore", "InitStruct", "NewMinList", "ObtainQuickVector", "ObtainSemaphore", "ObtainSemaphoreList", "ObtainSemaphoreShared", "OldOpenLibrary", "OpenLibrary", "OpenResource", "Permit", "Procure", "PutMsg", "RawIOInit", "RawMayGetChar", "RawPutChar", "ReadGayle", "ReleaseSemaphore", "ReleaseSemaphoreList", "RemDevice", "RemHead", "RemHeadMinList", "RemIntServer", "RemLibrary", "RemMemHandler", "RemPort", "RemResource", "RemSemaphore", "RemTail", "RemTailMinList", "RemTask", "Remove", "RemoveMinNode", "ReplyMsg", "Reschedule", "Schedule", "SendIO", "SetExcept", "SetSR", "SetSignal", "SetTaskPri", "Signal", "StackSwap", "SumKickData", "SumLibrary", "SuperState", "Switch", "TaggedOpenLibrary", "TypeOfMem", "UserState", "Vacate", "Wait", "WaitIO", "WaitPort",
 
      #dos_lib.sfd
      "AbortPkt", "AddBuffers", "AddDosEntry", "AddPart", "AddSegment", "AllocDosObject", "AllocDosObjectTagList", "AllocDosObjectTags", "AssignAdd", "AssignLate", "AssignLock", "AssignPath", "AttemptLockDosList", "ChangeMode", "CheckSignal", "ClearVec", "Cli", "CliInit", "CliInitNewcli", "CliInitRun", "Close", "CompareDates", "CreateDir", "CreateNewProc", "CreateNewProcTagList", "CreateNewProcTags", "CurrentDir", "DateStamp", "DateToStr", "Delay", "DeleteFile", "DeleteVar", "DeviceProc", "DoPkt0", "DoPkt1", "DoShellMethod", "DoShellMethodTagList", "DosGetString", "DosNameFromAnchor", "DupLock", "DupLockFromFH", "EndNotify", "ErrorOutput", "ExNext", "Examine", "ExamineFH", "Execute", "Exit", "ExtendedCli", "FGetC", "FGets", "FPrintf", "FPutC", "FPuts", "FRead", "FWrite", "FWritef", "Fault", "FilePart", "FindArg", "FindCliProc", "FindVar", "Flush", "Format", "FreeArgs", "FreeDeviceProc", "FreeDosEntry", "FreeDosObject", "GetArgStr", "GetConsoleTask", "GetCurrentDir", "GetCurrentDirName", "GetDeviceProc", "GetFileSysTask", "GetProgramDir", "GetProgramName", "GetPrompt", "GetVar", "Info", "Inhibit", "Input", "InternalRunCommand", "IoErr", "IsFileSystem", "IsInteractive", "LoadSeg", "Lock", "LockDosList", "LockRecords", "MakeDosEntry", "MakeLink", "MatchEnd", "MatchFirst", "MatchNext", "MatchPattern", "MatchPatternNoCase", "MaxCli", "NameFromFH", "NameFromLock", "NewLoadSeg", "NewLoadSegTagList", "NewLoadSegTags", "NextDosEntry", "NoReqLoadSeg", "Open", "OpenFromLock", "Output", "ParentDir", "ParentOfFH", "ParsePattern", "ParsePatternNoCase", "PathPart", "PrintFault", "Printf", "PutErrStr", "PutStr", "Read", "Relabel", "RemAssignList", "RemDosEntry", "RemSegment", "Rename", "ReplyPkt", "SameDevice", "SameLock", "ScanStackToken", "Seek", "SelectError", "SelectInput", "SelectOutput", "SetArgStr", "SetComment", "SetConsoleTask", "SetCurrentDirName", "SetFileDate", "SetFileSize", "SetFileSysTask", "SetIoErr", "SetMode", "SetOwner", "SetProgramDir", "SetProgramName", "SetPrompt", "SetProtection", "SetVBuf", "SetVar", "StartNotify", "StrToDate", "StrToLong", "System", "SystemTagList", "SystemTags", "UnGetC", "UnLoadSeg", "UnLock", "UnLockDosList", "UnLockRecord", "UnLockRecords", "VFPrintf", "VFWritef", "VPrintf", "VolumeRequestHook", "WaitForChar", "WaitPkt", "Write", "WriteChars",
@@ -234,27 +264,39 @@ READ_TYPE_TO_LUA = {
     'uint32_t': 'lua_pushinteger',
     'float': 'lua_pushnumber',
     'double': 'lua_pushnumber',
+    'BSTR': 'amiga_pushBSTR',
+    'char' : 'lua_pushnumber',
     'const char *': 'lua_pushstring',
     'char *': 'lua_pushstring',
-    'void *': 'lua_pushlightuserdata',    
+    'TEXT': 'lua_pushstring',
+    'ClassID': 'lua_pushstring',
+    'void *': 'lua_pushlightuserdata',
+    'UWORD *': 'lua_pushlightuserdata',
+    'PLANEPTR': 'lua_pushlightuserdata',
     'CONST_STRPTR': 'lua_pushstring',
     'STRPTR': 'lua_pushstring',
     'DisplayInfoHandle': 'lua_pushlightuserdata',
     'APTR': 'lua_pushlightuserdata',
+    'APTR *': 'lua_pushlightuserdata',    
     'CONST_APTR': 'lua_pushlightuserdata',
     'BPTR': 'lua_pushinteger',
     'LONG': 'lua_pushinteger',
     'LONG *': 'lua_pushlightuserdata',
     'const LONG *' : 'lua_pushlightuserdata',
-    'const ULONG *' : 'lua_pushlightuserdata',        
+    'const ULONG *' : 'lua_pushlightuserdata',
+    'unsigned long': 'lua_pushinteger',
+    'time_t': 'lua_pushinteger',
+    'suseconds_t': 'lua_pushinteger',        
     'ULONG': 'lua_pushinteger',
     'ULONG *': 'lua_pushlightuserdata',
     'BYTE': 'lua_pushinteger',
+    'BYTE *': 'lua_pushlightuserdata',
     'UBYTE': 'lua_pushinteger',
     'UBYTE *': 'lua_pushlightuserdata',
     'const UBYTE *': 'lua_pushlightuserdata',
     'PLANEPTR':  'lua_pushlightuserdata',
     'WORD': 'lua_pushinteger',
+    'WORD *': 'lua_pushlightuserdata',        
     'UWORD': 'lua_pushinteger',
     'UWORD *': 'lua_pushlightuserdata',
     'const UWORD *': 'lua_pushlightuserdata',
@@ -262,7 +304,7 @@ READ_TYPE_TO_LUA = {
     'BOOL': 'lua_pushboolean',
     'struct Gadget **': 'lua_pushGadgetPtr',
     'struct UCopList *': 'lua_pushlightuserdata',
-    'struct UCopList*':  'lua_pushlightuserdata',
+    'struct UCopList*': 'lua_pushlightuserdata',        
 }
 
 WRITE_TYPE_FROM_LUA = {
@@ -276,35 +318,46 @@ WRITE_TYPE_FROM_LUA = {
     'uint32_t': 'luaL_checkinteger',
     'float': 'luaL_checknumber',
     'double': 'luaL_checknumber',
+    'BSTR': 'amiga_checkBSTR',
+    'char': 'luaL_checknumber',    
     'char *': 'luaL_checkstring',
+    'TEXT': 'luaL_checkstring',
+    'ClassID': 'luaL_checkstring',
     'void *': 'lua_touserdata',
+    'UWORD *': 'lua_touserdata',    
+    'PLANEPTR': 'lua_touserdata',
     'CONST_STRPTR': 'amiga_checkConstNullableString',
     'STRPTR': 'amiga_checkNullableString',    
-    'LONG': 'luaL_checkinteger',
     'BPTR': 'luaL_checkinteger',
     'DisplayInfoHandle': 'lua_touserdata',
     'APTR': 'lua_touserdata',
+    'APTR *': 'lua_touserdata',    
     'CONST_APTR': 'lua_touserdata',    
     'LONG': 'luaL_checkinteger',
     'LONG *': 'lua_touserdata',            
     'const LONG *': 'lua_touserdata',
-    'const ULONG *': 'lua_touserdata',                
-    'ULONG': 'luaL_checkinteger',
-    'ULONG *': 'lua_touserdata',
+    'const ULONG *': 'lua_touserdata',
+    'time_t': 'luaL_checkinteger',
+    'suseconds_t': 'luaL_checkinteger',
+    'unsigned long': 'luaL_checkinteger',    
     'BYTE': 'luaL_checkinteger',
+    'BYTE *': 'lua_touserdata',    
     'UBYTE': 'luaL_checkinteger',
     'UBYTE *': 'lua_touserdata',
     'const UBYTE *': 'lua_touserdata',
     'PLANEPTR' : 'lua_touserdata',
     'WORD': 'luaL_checkinteger',
+    'WORD *': 'lua_touserdata',            
     'UWORD': 'luaL_checkinteger',
     'UWORD *': 'lua_touserdata',
     'const UWORD *': 'lua_touserdata',
-    'const WORD *': 'lua_touserdata',            
+    'const WORD *': 'lua_touserdata',
+    'ULONG': 'luaL_checkinteger',
+    'ULONG *': 'lua_touserdata',    
     'BOOL': 'luaL_checkboolean',    
     'struct Gadget **': 'amiga_checkGadgetPtr',
     'struct UCopList *': 'lua_touserdata',
-    'struct UCopList*':  'lua_touserdata',
+    'struct UCopList*': 'lua_touserdata',        
 }
 
 metainstall_types = []
@@ -317,6 +370,7 @@ newindexes = set()
 indexes = set()
 keys = set()
 metas = set()
+array_proxies = set()
 
 def parse_ctype(ctype):
     pointer_level = ctype.count('*')
@@ -338,13 +392,29 @@ def parse_ctype(ctype):
 def get_struct_fields(cursor):
     fields = []
     for c in cursor.get_children():
+            
         if c.kind == clang.cindex.CursorKind.FIELD_DECL:
-            typ = c.type
-            if typ.kind == clang.cindex.TypeKind.CONSTANTARRAY:
+            typ = c.type            
+            decl = c.type.get_declaration()
+            if decl.kind ==  clang.cindex.CursorKind.UNION_DECL or decl.kind ==  clang.cindex.CursorKind.STRUCT_DECL:
+                #print(f"// struct/union with members: {c.spelling}")
+                prefix = c.spelling
+                _fields = get_struct_fields(decl)
+                for f, t, _c, size in _fields:
+                    #print(f"// field -> {prefix} {f} ->{t}<- {_c.kind}")
+                    if not t.startswith("union (unnamed union at") and not t.startswith("struct (unnamed struct at"):
+                        fields.append((prefix + "." + f, t, _c, size))
+            elif typ.kind == clang.cindex.TypeKind.CONSTANTARRAY:
                 elem_type = typ.get_array_element_type().spelling
                 size = typ.element_count
                 if elem_type == "char":
-                    fields.append((c.spelling, f"char[{size}]", c))
+                    fields.append((c.spelling, f"char[{size}]", c, 0))
+                    continue
+                elif elem_type == "TEXT":
+                    fields.append((c.spelling, f"TEXT[{size}]", c, 0))
+                    continue
+                else:
+                    fields.append((c.spelling, elem_type, c, size))
                     continue
 
             # Handle function pointer: pointer to function type
@@ -358,9 +428,9 @@ def get_struct_fields(cursor):
                     arg_types = [arg.spelling for arg in pointee.argument_types()] \
                         if pointee.kind == clang.cindex.TypeKind.FUNCTIONPROTO else []
                     func_sig = f"{ret_type} (*)({', '.join(arg_types)})"
-                    fields.append((c.spelling, func_sig, c))
+                    fields.append((c.spelling, func_sig, c, 0))
                     continue
-
+                
             # Handle regular pointers and nested struct resolution
             pointer_level = 0
             t = typ
@@ -376,9 +446,102 @@ def get_struct_fields(cursor):
                     else:
                         base_type = tag                
             full_type = base_type + "*" * pointer_level
-            fields.append((c.spelling, full_type, c))
+            fields.append((c.spelling, full_type, c, 0))
 
+        elif c.kind == clang.cindex.CursorKind.UNION_DECL:
+            if c.spelling.startswith("union (anonymous at"):
+                for _c in c.get_children():                
+                    fields.extend(get_struct_fields(c))
+            
     return fields
+
+def normalize_pointer_decl(decl: str) -> str:
+    # Match: type, pointer stars, optional variable name
+    match = re.fullmatch(r'\s*(.+?)\s*(\*+)\s*(\w+)?\s*', decl)
+    
+    if match:
+        raw_type = match.group(1)
+        stars = match.group(2)
+        name = match.group(3) or ""
+
+        # Collapse internal whitespace (including tabs) in type
+        cleaned_type = ' '.join(raw_type.split())
+        result = f"{cleaned_type} {stars}{name}".strip()
+        return result
+
+    ret = decl.strip()
+    return ret
+
+def emit_array_proxy_c_code(ctype):
+    func_base = ctype.replace(" ", "_").replace("*", "p")
+    base, pointer_level, tag = parse_ctype(ctype)
+    if "struct" in ctype or "union" in ctype or tag in TYPE_CONFIG:    
+        return
+
+    print(f"static int")
+    print(f"_lua_gen_{func_base}_element_ptr(lua_State *L)")
+    print(f"{{")
+    print(f"   {ctype} *array = lua_touserdata(L, lua_upvalueindex(1));")
+    print(f"   int count       = lua_tointeger(L, lua_upvalueindex(2));\n");
+    print(f"   int index = luaL_checkinteger(L, 1);")
+    print(f"   if (index < 1 || index > count)")
+    print(f"     return luaL_error(L, \"index out of range (1..%d)\", count);")
+    print(f"   // Return as lightuserdata (raw pointer)")
+    print(f"   lua_pushlightuserdata(L, &array[index - 1]);")
+    print(f"return 1;")
+    print(f"}}\n")
+    
+    print(f"static int _lua_gen_{func_base}_array_index(lua_State *L)\n{{")
+    print(f"    {ctype} *arr = lua_touserdata(L, lua_upvalueindex(1));")
+    print( "    int count     = lua_tointeger(L, lua_upvalueindex(2));")
+    print(f"    // if key is not a number, let normal lookup proceed\n")
+
+    print(f"    if (!lua_isinteger(L, 2)) {{")
+    print(f"        lua_getmetatable(L, 1);")
+    print(f"        lua_pushvalue(L, 2);")
+    print(f"        lua_rawget(L, -2);")
+    print(f"        return 1;")
+    print(f"    }}\n")
+    print( "    int index     = luaL_checkinteger(L, 2);\n")    
+    print( "    if (index < 1 || index > count)")
+    print(f"        return luaL_error(L, \"index out of range (1..%d)\", count);")
+    print(f"    {get_lua_push(ctype)}(L, arr[index - 1]);")
+    print( "    return 1;")
+    print( "}\n")
+
+    print(f"static int _lua_gen_{func_base}_array_newindex(lua_State *L)\n{{")
+    print(f"    {ctype} *arr = lua_touserdata(L, lua_upvalueindex(1));")
+    print( "    int count     = lua_tointeger(L, lua_upvalueindex(2));")
+    print( "    int index     = luaL_checkinteger(L, 2);")
+    print( "    if (index < 1 || index > count)")
+    print(f"        return luaL_error(L, \"index out of range (1..%d)\", count);")
+#    print(f"    arr[index - 1] = ({ctype})luaL_checkinteger(L, 3);")
+    print(f"    arr[index - 1] = {get_lua_check(ctype)}(L,  3);")
+    print( "    return 0;")
+    print( "}\n")
+
+    print(f"static void _lua_gen_push_{func_base}_array_proxy(lua_State *L, {ctype} *array, int count)\n{{")
+    print( "    lua_newtable(L);\n")
+
+    print( "    lua_pushlightuserdata(L, array);")
+    print( "    lua_pushinteger(L, count);\n")
+    
+    print(f"    lua_pushcclosure(L, _lua_gen_{func_base}_array_index, 2);")
+    print( "    lua_setfield(L, -2, \"__index\");\n")
+
+    print( "    lua_pushlightuserdata(L, array);")
+    print( "    lua_pushinteger(L, count);\n")
+    
+    print(f"    lua_pushcclosure(L, _lua_gen_{func_base}_array_newindex, 2);")
+    print( "    lua_setfield(L, -2, \"__newindex\");\n")
+
+    print(f"    lua_pushlightuserdata(L, array);")
+    print(f"    lua_pushinteger(L, count);")
+    print(f"    lua_pushcclosure(L, _lua_gen_{func_base}_element_ptr, 2);")
+    print(f"    lua_setfield(L, -2, \"ptr\");")
+    
+    print( "    lua_setmetatable(L, -2);")
+    print( "}\n")
 
 def generate_lua_index(struct_name, type_name, fields, functors):
     if struct_name in indexes:
@@ -387,15 +550,33 @@ def generate_lua_index(struct_name, type_name, fields, functors):
         indexes.add(struct_name)    
     print(f"static int\n_lua_gen_{struct_name}_index(lua_State *L)\n{{")
     print(f"  {type_name} *obj = *({type_name} **)luaL_checkudata(L, 1, \"{struct_name}\");")
+    print(f"  (void)obj;")
     print("  const char *key = luaL_checkstring(L, 2);")
-    for name, ctype, c in fields:
+    for name, ctype, c, size in fields:        
+        ctype = normalize_pointer_decl(ctype)
         if not name:
             continue
-        if ctype.startswith("char["):
+        if size > 0:
+            func_base = ctype.replace(" ", "_").replace("*", "p")
+            print(f"  if (strcmp(key, \"{name}\") == 0) {{")
+            base, pointer_level, tag = parse_ctype(ctype)
+            if "struct" in ctype or "union" in ctype or tag in TYPE_CONFIG:                
+                print(f"  return luaL_error(L, \"Unsupported array type {ctype}\");")
+            else:
+                print(f"    _lua_gen_push_{func_base}_array_proxy(L, obj->{name}, {size});")
+            print(f"    return 1;")
+            print(f"  }}")
+            
+        elif ctype.startswith("char["):
             print(f"  if (strcmp(key, \"{name}\") == 0) {{")
             print(f"    lua_pushstring(L, obj->{name});")
             print("    return 1;")
             print("  }")
+        elif ctype.startswith("TEXT["):
+            print(f"  if (strcmp(key, \"{name}\") == 0) {{")
+            print(f"    lua_pushstring(L, obj->{name});")
+            print("    return 1;")
+            print("  }")            
         elif "(*)" in ctype and functors:
             if name not in FUNCTOR_SKIP:
                 # Function pointer: return the Lua callback reference if stored
@@ -446,19 +627,40 @@ def generate_lua_index(struct_name, type_name, fields, functors):
                     print("  }")
             else:
                 skipped = True
-                if c.kind == clang.cindex.CursorKind.FIELD_DECL:
-                    if c.type.kind == clang.cindex.TypeKind.CONSTANTARRAY:
-                        if c.type.get_array_element_type().spelling == "UWORD":
-                            print(f"  if (strcmp(key, \"{name}\") == 0) {{")
-                            print(f"    _amiga_push_u16array_proxy(L, obj->{name}, {c.type.get_array_size()});")
-                            print(f"    return 1;")
-                            print(f"  }}")                            
-                            skipped = False
+                #if c.kind == clang.cindex.CursorKind.FIELD_DECL:
+                #    if c.type.kind == clang.cindex.TypeKind.CONSTANTARRAY:
+                #        if c.type.get_array_element_type().spelling == "UWORD":
+                #            print(f"  if (strcmp(key, \"{name}\") == 0) {{")
+                #            print(f"    _amiga_push_u16array_proxy(L, obj->{name}, {c.type.get_array_size()});")
+                #            print(f"    return 1;")
+                #            print(f"  }}")                            
+                #            skipped = False
                 if skipped:
-                    print(f"// skipping {name} {ctype}")                            
+                    if ctype.startswith("union (unnamed union"):
+                        ctype = "unnamed union"
+                    if ctype.startswith("struct (unnamed struct"):
+                        ctype = "unnamed struct"                                                            
+                    print(f"  // Unsupported {name} {ctype}")
+                    print(f"  if (strcmp(key, \"{name}\") == 0) {{")                    
+                    print(f"    return luaL_error(L, \"Unsupported type {ctype} for field {name}\");")
+                    print(f"  }}")
 
     print("  return 0;\n}\n")
 
+
+def generate_array_externs(struct_name, type_name, fields):    
+    for name, ctype, c, size in fields:        
+        ctype = normalize_pointer_decl(ctype)
+        if not name:
+            continue
+        if size > 0:
+            func_base = ctype.replace(" ", "_").replace("*", "p")
+            if func_base in array_proxies:
+                continue
+            array_proxies.add(func_base)
+            emit_array_proxy_c_code(ctype)
+            
+    
 def generate_thunk_externs(struct_name, fields):
     for name, ctype in fields:
         if not name:
@@ -489,13 +691,17 @@ def generate_lua_newindex(struct_name, type_name, fields, functors):
     print(f"static int\n_lua_gen_{struct_name}_newindex(lua_State *L)\n{{")
     print(f"  {type_name} *obj = *({type_name} **)luaL_checkudata(L, 1, \"{struct_name}\");")
     print("  const char *key = luaL_checkstring(L, 2);")
+    print("  (void)key;(void)obj;");
 
-    for name, ctype, c in fields:
+    for name, ctype, c, size in fields:
         if not name:
             continue
 
+        ctype = normalize_pointer_decl(ctype)
+        if size > 0:
+            print(f"  // {name}[{size}] proxied via the index")
         # char[] strings
-        if ctype.startswith("char["):
+        elif ctype.startswith("char[") or ctype.startswith("TEXT["):
             print(f"  if (strcmp(key, \"{name}\") == 0) {{")
             print("    const char *s = luaL_checkstring(L, 3);")
             print(f"    strncpy(obj->{name}, s, sizeof(obj->{name}) - 1);")
@@ -571,6 +777,15 @@ def generate_lua_newindex(struct_name, type_name, fields, functors):
                     print(f"    *obj->{name} = val;")
                     print("    return 0;")
                     print("  }")
+            else:
+                if base.startswith("union (unnamed union"):
+                    base = "unnamed union"
+                if base.startswith("struct (unnamed struct"):
+                    base = "unnamed struct"                                    
+                print(f"  // Unsupported type {name} {base}")
+                print(f"  if (strcmp(key, \"{name}\") == 0) {{")
+                print(f"    return luaL_error(L, \"Unsupported type {base} for field {name}\");")
+                print(f"  }}")                
 
     print("  return 0;")
     print("}\n\n")
@@ -643,10 +858,11 @@ def generate_lua_keys_installer(struct_name, fields):
     print(f"static void\n_lua_gen_{struct_name}_install_keys(lua_State *L)\n{{")
     print("  lua_newtable(L);")
     index = 1
-    for name, ctype, c in fields:
+    for name, ctype, c, size in fields:
         if not name:
             continue
         base, _, tag = parse_ctype(ctype)
+        base = normalize_pointer_decl(base)        
         if (
             base in READ_TYPE_TO_LUA or
             base in TYPE_CONFIG or
@@ -712,6 +928,7 @@ def generate_thunks(thunk_metadata):
             base, pointer_level = parse_ctype(ctype)
 
             # Direct mappings for known primitive types
+            ctype = normalize_pointer_decl(ctype)            
             if ctype in READ_TYPE_TO_LUA:
                 #func = READ_TYPE_TO_LUA[ctype].replace("lua_push", "")  # e.g. "integer"
                 func = READ_TYPE_TO_LUA[ctype]
@@ -784,6 +1001,7 @@ def generate_lua_enum(node, underlying):
     enums.append(node.spelling)    
 
 def get_lua_check(ctype):
+    ctype = normalize_pointer_decl(ctype)            
     for base in TYPE_CONFIG:
         if f"struct {base} *" == ctype or f"const struct {base} *" == ctype or f"CONST struct {base} *" == ctype:
             return f"_lua_gen_check{base}"
@@ -793,13 +1011,14 @@ def get_lua_check(ctype):
     return WRITE_TYPE_FROM_LUA.get(ctype, f"error(3) - unsupported type {ctype}")
 
 def get_lua_push(ctype):
-    for base in TYPE_CONFIG:
-        if f"struct {base} *" == ctype:
+    ctype = normalize_pointer_decl(ctype)            
+    for base in TYPE_CONFIG:        
+        if f"struct {base} *" == ctype or f"const struct {base} *" == ctype or f"CONST struct {base} *" == ctype:            
             return f"_lua_gen_push{base}"
         tag = base[len("struct "):]
         if base == tag:
             return f"_lua_gen_push{base}"
-    return READ_TYPE_TO_LUA.get(ctype, f"error(4) - unsupported type {ctype}")
+    return READ_TYPE_TO_LUA.get(ctype, f"error(4) - unsupported type {ctype}<-")
 
 def _extract_function_pointer_signature(arg_type):
     canonical = arg_type.get_canonical()
@@ -1085,7 +1304,8 @@ def find_typedef_structs(cursor):
                 if process:
                     fields = get_struct_fields(struct_def)
                     config = TYPE_CONFIG[node.spelling]
-                    functors =  config.get("functors")         
+                    functors =  config.get("functors")
+                    generate_array_externs(node.spelling, typename, fields)
                     if config.get("newindex"):
                         if functors:
                             generate_thunk_externs(node.spelling, fields)

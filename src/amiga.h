@@ -1,5 +1,6 @@
 #undef __stdargs
 #define __stdargs
+
 #include <sys/types.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -13,18 +14,25 @@
 #include <proto/exec.h>
 #include <proto/intuition.h>
 #include <proto/gadtools.h>
+#include <graphics/rastport.h>
+#include <graphics/videocontrol.h>
+#include <graphics/copper.h>
 #include <intuition/intuition.h>
 #include <intuition/screens.h>
 #include <intuition/intuitionbase.h>
 #include <intuition/imageclass.h>
+#include <intuition/sghooks.h>
 #include <exec/libraries.h>
 #include <exec/types.h>
 #include <exec/execbase.h>
 #include <exec/ports.h>
 #include <exec/execbase.h>
-#include <graphics/rastport.h>
-#include <graphics/videocontrol.h>
 #include <libraries/gadtools.h>
+#include <libraries/keymap.h>
+
+#include <clib/alib_protos.h>
+
+#include <devices/timer.h>
 
 typedef struct {
   struct Gadget *ptr;
@@ -49,3 +57,9 @@ amiga_checkConstNullableString(lua_State *L, int stackIndex);
 
 char *
 amiga_checkNullableString(lua_State *L, int stackIndex);
+
+BSTR
+amiga_checkBSTR(lua_State *L, int stackIndex);
+
+void
+amiga_pushBSTR(lua_State *L, BSTR bstr);
