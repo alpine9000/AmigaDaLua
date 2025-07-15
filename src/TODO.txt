@@ -1,6 +1,2 @@
-o Generate errors on skipped index fields
-o arrays, function pointers
+o function pointers
 o point star spaces
-
-o luaL_newmetatable in array code needs check (if (luaL_newmetatable(L, "u16array_proxy")) {)
-p ptr(x) bleeds across instances - see _amiga_push_wrapped_u16array_metatable

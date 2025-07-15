@@ -10,13 +10,17 @@ _amiga_readVarTags(lua_State* L, struct TagItem* taglist, int maxTags, int argNu
 static int
 _amiga_doTagList(lua_State *L, struct TagItem *tags, uint16_t maxTags, uint16_t argNumber);
 
-void
-lua_install(lua_State* L);
+extern void
+lua_gen_install(lua_State *L);
+
+extern void
+lua_install(lua_State *L);
 
 void
-amiga_debug_print(const char *text);
+amiga_serialPrint(const char *text);
 
 #include "thunk.c"
+#include "thread.c"
 
 #undef NM_BARLABEL
 #define NM_BARLABEL ((uint32_t)(STRPTR)-1)
@@ -284,8 +288,45 @@ amiga_pushBSTR(lua_State *L, BSTR bstr)
 }
 
 
+static int32_t
+_amiga_hexChar(int16_t s)
+{
+  static const char _string_hex[] = {'A', 'B', 'C', 'D', 'E', 'F'};
+  int32_t c;
+
+  c = (s >= 0 && s <= 9) ? s + '0' : _string_hex[s - 10];
+  return c;
+}
+
+static char*
+_itoh(uint32_t n, uint16_t numChars)
+{
+  static char _string_buf[9];
+  uint32_t c;
+  char* ptr = &_string_buf[numChars];
+  *ptr = 0;
+  ptr--;
+  for (c = 1; c <= numChars; c++) {
+    *ptr = _amiga_hexChar(n & 0xf);
+    ptr--;
+    n = n >> 4;
+  }
+
+  return _string_buf;
+}
+
+
+static int
+_amiga_itoh(lua_State* L)
+{
+  int value = luaL_checkinteger(L, 1);
+  int numChars = luaL_checkinteger(L, 2);
+  lua_pushstring(L, _itoh(value, numChars));
+  return 1;
+}
+
 void
-amiga_debug_print(const char* text)
+amiga_serialPrint(const char* text)
 {
   extern struct Custom custom;
   custom.serper = 1;
@@ -299,12 +340,51 @@ amiga_debug_print(const char* text)
   }
 }
 
-int
-amiga_sprint(lua_State* L)    
+static int
+_amiga_serialPrint(lua_State* L)    
 {
   const char* msg = luaL_checkstring(L, 1);
-  amiga_debug_print(msg);
-  amiga_debug_print("\n");
+  amiga_serialPrint(msg);
+  amiga_serialPrint("\n");
+  return 0;
+}
+
+static int
+_amiga_createTask(lua_State* L)
+{
+  CONST_STRPTR name = amiga_checkConstNullableString(L, 1);
+  LONG pri = luaL_checkinteger(L, 2);
+  const char* expression = luaL_checkstring(L, 3);
+  APTR initPC = thread_make68000Thunk(L, expression);
+  ULONG stackSize = luaL_checkinteger(L, 4);
+  struct Task * _result = CreateTask(name, pri, initPC, stackSize);
+  _lua_gen_pushTask(L, _result);
+  return 1;
+}
+
+static int
+_amiga_makePtr(lua_State *L)
+{
+  uintptr_t addr = (uintptr_t)luaL_checknumber(L, 1);
+  void *ptr = (void *)addr;
+  lua_pushlightuserdata(L, ptr);
+  return 1;
+}
+
+static int
+_amiga_getLong(lua_State *L)
+{
+  long *ptr = (long *)lua_touserdata(L, 1);
+  lua_pushinteger(L, *ptr);
+  return 1;
+}
+
+static int
+_amiga_setLong(lua_State *L)
+{
+  long *ptr = (long *)lua_touserdata(L, 1);
+  long value = luaL_checkinteger(L, 2);
+  *ptr = value;
   return 0;
 }
 
@@ -320,8 +400,14 @@ lua_install(lua_State* L)
   
   lua_register(L, "NewGadgetList", _amiga_newGadgetPtr);
   lua_register(L, "GetPtr", _amiga_getPtr);
+  lua_register(L, "MakePtr", _amiga_makePtr);
+  lua_register(L, "GetLong", _amiga_getLong);
+  lua_register(L, "SetLong", _amiga_setLong);    
   lua_register(L, "GetGadget", _amiga_getGadget);
   lua_register(L, "GetStringInfo", _amiga_getStringInfo);
+  lua_register(L, "serial_print", _amiga_serialPrint);
+  lua_register(L, "itoh", _amiga_itoh);
+  lua_register(L, "CreateTask", _amiga_createTask);  
   
   lua_pushcfunction(L, _amiga_create_uint16_t_array);
   lua_setglobal(L, "CreateArrayUWORD");
@@ -329,7 +415,5 @@ lua_install(lua_State* L)
   lua_pushcfunction(L, _amiga_create_chip_uint16_t_array);
   lua_setglobal(L, "CreateChipArrayUWORD");
 
-  lua_pushcfunction(L, amiga_sprint);
-  lua_setglobal(L, "amiga_debug_print");
-    
+
 }

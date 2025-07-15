@@ -1,4 +1,3 @@
-
 --  The example program below shows the use of user Copper lists
 --    under Intuition.
 --
@@ -12,8 +11,6 @@
 
 --  Custom custom is a AmigaDaLua global
 
-package.path = "?.lua;" .. package.path 
-local Util = require("util")
 local screen = nil
 local window = nil
 local CINIT = UCopperListInit
@@ -114,11 +111,6 @@ function loadCopper()
    local viewPort
    local uCopList
 
-   local uCopTags = Util.TagList {   
-      VTAG_USERCLIP_SET = nil,
-      VTAG_END_CM = nil
-   }
-
    local spectrum = CreateArrayUWORD {
       0x0604, 0x0605, 0x0606, 0x0607, 0x0617, 0x0618, 0x0619,
       0x0629, 0x072a, 0x073b, 0x074b, 0x074c, 0x075d, 0x076e,
@@ -144,7 +136,7 @@ function loadCopper()
       --  Load in each color. 
       for i = 1, NUMCOLORS do
 	 CWAIT(uCopList, ((i-1)*scanlines_per_color), 0)
-	 CMOVE(uCopList, custom.color.ptr(1), spectrum[i])
+	 CMOVE(uCopList, custom.color:ptr(1), spectrum[i])
       end
       
       CEND(uCopList) --  End the Copper list
@@ -154,7 +146,6 @@ function loadCopper()
       viewPort.UCopIns = uCopList
       Permit()       --  Permit task switching again.       
       --  Enable user copper list clipping for this ViewPort.
-      --VideoControl(viewPort.ColorMap, uCopTags)
       VideoControlTags(viewPort.ColorMap,  VTAG_USERCLIP_SET, 0, VTAG_END_CM, 0)
    end      
    RethinkDisplay()       --  Display the new Copper list.    
