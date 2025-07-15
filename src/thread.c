@@ -129,5 +129,6 @@ thread_make68000Thunk(lua_State* L, const char* expression)
   code[11] = disp_addr & 0xFF;
 
   // Do we need to clear cache ? Probably ?
+  CacheClearU();
   return (thunk_t)code;
 }

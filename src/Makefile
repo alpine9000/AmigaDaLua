@@ -7,7 +7,7 @@
 PLAT= genertic
 COMPILER_PATH=/usr/local/amiga/bebbo/bin
 CC=$(COMPILER_PATH)/m68k-amigaos-gcc
-CFLAGS= -Os -Wall -Wextra -DLUA_COMPAT_5_3 $(SYSCFLAGS) $(MYCFLAGS) -std=gnu99 -noixemul -Wno-pointer-sign 
+CFLAGS=-Os -Wall -Wextra -DLUA_COMPAT_5_3 $(SYSCFLAGS) $(MYCFLAGS) -std=gnu99 -noixemul -Wno-pointer-sign -m68000 -ffast-math
 LDFLAGS= $(SYSLDFLAGS) $(MYLDFLAGS) -noixemul -s
 LIBS=-lm $(SYSLIBS) $(MYLIBS)
 
