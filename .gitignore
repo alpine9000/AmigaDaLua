@@ -9,3 +9,5 @@ build.sh
 src/liblua.a
 src/lua
 a.out
+src/__pycache__
+src/dos.lex

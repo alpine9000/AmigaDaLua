@@ -30,32 +30,34 @@
 #include <exec/execbase.h>
 #include <libraries/gadtools.h>
 #include <libraries/keymap.h>
-
 #include <clib/alib_protos.h>
-
 #include <devices/timer.h>
+
+#define countof(x) (sizeof(x) / sizeof(x[0]))
+
+int
+amiga_doTagList(lua_State *L, struct TagItem *tags, uint16_t maxTags, uint16_t argNumber);
+
+extern void
+lua_gen_install(lua_State *L);
+
+extern void
+lua_install(lua_State *L);
+
+void
+amiga_serialPrint(const char *text);
+
 
 typedef struct {
   struct Gadget *ptr;
 } GadgetPtr;
 
 #undef RemBob
-void
-RemBob(struct Bob* b)
-{
-  (b)->Flags |= BOBSAWAY;
-}
+void RemBob(struct Bob *b);
 
-CONST_STRPTR TO_CONST_STRPTR(void* data)
-{
-  return (CONST_STRPTR)data;
-}
+CONST_STRPTR TO_CONST_STRPTR(void *data);
 
-struct IntuiMessage* TO_IntuiMessage(struct Message* msg)
-{
-  return (struct IntuiMessage*)msg;
-}
-
+struct IntuiMessage* TO_IntuiMessage(struct Message* msg);
 
 struct Gadget **
 amiga_checkGadgetPtr(lua_State *L, int stackIndex);
@@ -71,3 +73,65 @@ amiga_checkBSTR(lua_State *L, int stackIndex);
 
 void
 amiga_pushBSTR(lua_State *L, BSTR bstr);
+
+int
+amiga_readVarTags(lua_State* L, struct TagItem* taglist, int maxTags, int argNum);
+
+void
+amiga_lua_install(lua_State* L, uint16_t extensions);
+
+typedef struct {
+  int   (*lua_type) (lua_State *L, int idx);
+  void  (*lua_setfield) (lua_State *L, int idx, const char *k);
+  void  (*lua_settable) (lua_State *L, int idx);
+  void  (*lua_settop) (lua_State *L, int idx);
+  void  (*lua_setglobal) (lua_State *L, const char *name);
+  int   (*lua_setmetatable) (lua_State *L, int objindex);    
+
+  int   (*lua_getmetatable) (lua_State *L, int objindex);  
+  int   (*lua_gettable) (lua_State *L, int idx);
+  int   (*lua_getfield) (lua_State *L, int idx, const char *k);  
+
+  int   (*lua_isinteger) (lua_State *L, int idx);  
+
+  lua_Integer (*lua_tointegerx) (lua_State *L, int idx, int *isnum);
+  void*       (*lua_touserdata) (lua_State *L, int idx);  
+  
+  int   (*lua_next) (lua_State *L, int idx);
+  void  (*lua_rotate) (lua_State *L, int idx, int n);
+  void  (*lua_rawseti) (lua_State *L, int idx, lua_Integer n);
+
+  void  (*lua_pushvalue) (lua_State *L, int idx);
+  void  (*lua_pushcclosure) (lua_State *L, lua_CFunction fn, int n);
+  void  (*lua_pushboolean) (lua_State *L, int b);
+  void  (*lua_pushlightuserdata) (lua_State *L, void *p);
+  void  (*lua_pushnil) (lua_State *L);
+  void  (*lua_pushinteger) (lua_State *L, lua_Integer n);  
+  const char *(*lua_pushstring) (lua_State *L, const char *s);  
+
+  void  (*lua_createtable) (lua_State *L, int narr, int nrec);  
+
+  int   (*luaL_newmetatable) (lua_State *L, const char *tname);
+  void* (*lua_newuserdatauv) (lua_State *L, size_t sz, int nuvalue);  
+  int   (*luaL_error) (lua_State *L, const char *fmt, ...);
+  const char *(*luaL_checklstring) (lua_State *L, int arg, size_t *l);
+  void *(*luaL_checkudata) (lua_State *L, int ud, const char *tname);
+  lua_Integer (*luaL_checkinteger) (lua_State *L, int arg);  
+  
+
+  const char * (*amiga_checkConstNullableString)(lua_State *L, int stackIndex);  
+  struct Gadget ** (*amiga_checkGadgetPtr)(lua_State *L, int stackIndex);
+  char * (*amiga_checkNullableString)(lua_State *L, int stackIndex);  
+  void (*amiga_pushBSTR)(lua_State *L, BSTR bstr);
+  BSTR (*amiga_checkBSTR)(lua_State *L, int stackIndex);  
+
+  void  (*DeleteTask)( struct Task *task );
+
+  char * (*strncpy)(char *, const char *, size_t);
+  int	 (*strcmp)(const char *, const char *);
+  void * (*malloc)(size_t __size);
+  void * (*memset)(void *b, int c, size_t len);
+  struct DosLibrary *DOSBase;
+  lua_State* L;
+} amiga_da_lua_bft_t;
+

@@ -78,7 +78,7 @@ _thread_dispatch(register thread_callback_t* cb asm("d0"))
   if (!L) return;
      
   luaL_openlibs(L);  
-  lua_install(L);
+  amiga_lua_install(L, 0);
   lua_gen_install(L);
 
   int status = luaL_loadstring(L, cb->script);

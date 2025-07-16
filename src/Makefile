@@ -39,6 +39,7 @@ BASE_O= $(CORE_O) $(LIB_O) $(MYOBJS)
 
 LUA_T=	lua
 LUA_O=	lua.o amiga.o
+LUA_G=  _lua_gen_dos.h _lua_gen.h
 
 LUAC_T=	luac
 LUAC_O=	luac.o
@@ -46,11 +47,15 @@ LUAC_O=	luac.o
 ALL_O= $(BASE_O) $(LUA_O) $(LUAC_O)
 ALL_T= $(LUA_A) $(LUA_T) $(LUAC_T)
 ALL_A= $(LUA_A)
+ALL_E= dos.lex
 
 # Targets start here.
 default: generic
 
-all:	$(ALL_T)
+dos.lex: extension_dos.c extension.h amiga.h _lua_gen_dos.h
+	$(CC) $(CLAGS)  -nostdlib  -nostartfiles -Wl,-e,_start extension_dos.c -o dos.lex
+
+all:	$(ALL_T) $(ALL_E)
 
 o:	$(ALL_O)
 
@@ -70,7 +75,7 @@ test:
 	./$(LUA_T) -v
 
 clean:
-	$(RM) $(ALL_T) $(ALL_O)
+	$(RM) $(ALL_T) $(ALL_E) $(ALL_O) $(LUA_G)
 
 depend:
 	@$(CC) $(CFLAGS) -MM l*.c
@@ -156,8 +161,12 @@ lparser.o:
 lcode.o:
 	$(CC) $(CFLAGS) $(CMCFLAGS) -c lcode.c
 
-_lua_gen.h: amiga.h lua_generate.py
-	python3 lua_generate.py amiga.h > _lua_gen.h
+_lua_gen.h: amiga.h lua_generate.py lua_all.py 
+	python3 lua_generate.py amiga.h lua_all > _lua_gen.h
+
+_lua_gen_dos.h: amiga.h lua_generate.py lua_dos.py
+	python3 lua_generate.py amiga.h lua_dos > _lua_gen_dos.h
+
 # DO NOT DELETE
 
 lapi.o: lapi.c lprefix.h lua.h luaconf.h lapi.h llimits.h lstate.h \

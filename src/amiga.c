@@ -1,23 +1,7 @@
 #include "lauxlib.h"
 #include "lualib.h"
+
 #include "amiga.h"
-
-#define countof(x) (sizeof(x) / sizeof(x[0]))
-
-static int
-_amiga_readVarTags(lua_State* L, struct TagItem* taglist, int maxTags, int argNum);
-
-static int
-_amiga_doTagList(lua_State *L, struct TagItem *tags, uint16_t maxTags, uint16_t argNumber);
-
-extern void
-lua_gen_install(lua_State *L);
-
-extern void
-lua_install(lua_State *L);
-
-void
-amiga_serialPrint(const char *text);
 
 #include "thunk.c"
 #include "thread.c"
@@ -26,9 +10,67 @@ amiga_serialPrint(const char *text);
 #define NM_BARLABEL ((uint32_t)(STRPTR)-1)
 
 #include "_lua_gen.h"
+amiga_da_lua_bft_t _bft = {
+  .lua_type = lua_type,
+  .lua_setfield = lua_setfield,
+  .lua_settable = lua_settable,
+  .lua_settop = lua_settop,
+  .lua_setglobal = lua_setglobal,
+  .lua_setmetatable = lua_setmetatable,
+  .lua_getmetatable = lua_getmetatable,
+  .lua_gettable = lua_gettable,
+  .lua_getfield = lua_getfield,
+  .lua_isinteger = lua_isinteger,
+  .lua_tointegerx = lua_tointegerx,
+  .lua_touserdata = lua_touserdata,
+  .lua_next = lua_next,
+  .lua_rotate = lua_rotate,
+  .lua_rawseti = lua_rawseti,
+  .lua_pushvalue = lua_pushvalue,
+  .lua_pushcclosure = lua_pushcclosure,
+  .lua_pushboolean = lua_pushboolean,
+  .lua_pushlightuserdata = lua_pushlightuserdata,
+  .lua_pushnil = lua_pushnil,
+  .lua_pushinteger = lua_pushinteger,
+  .lua_pushstring = lua_pushstring,
+  .lua_createtable = lua_createtable,
+  .luaL_newmetatable = luaL_newmetatable,
+  .lua_newuserdatauv = lua_newuserdatauv,
+  .luaL_error = luaL_error,
+  .luaL_checklstring = luaL_checklstring,
+  .luaL_checkudata = luaL_checkudata,
+  .luaL_checkinteger = luaL_checkinteger,
+  .amiga_checkConstNullableString = amiga_checkConstNullableString,
+  .amiga_checkGadgetPtr = amiga_checkGadgetPtr,
+  .amiga_checkNullableString = amiga_checkNullableString,
+  .amiga_pushBSTR = amiga_pushBSTR,
+  .amiga_checkBSTR = amiga_checkBSTR,
+  .DeleteTask = DeleteTask,
+  .strncpy = strncpy,
+  .strcmp = strcmp,
+  .malloc = malloc,
+  .memset = memset,
+  //  .DOSBase = DOSBase
+};
 
-static int
-_amiga_readVarTags(lua_State* L, struct TagItem* taglist, int maxTags, int argNum)
+void
+RemBob(struct Bob* b)
+{
+  (b)->Flags |= BOBSAWAY;
+}
+
+CONST_STRPTR TO_CONST_STRPTR(void* data)
+{
+  return (CONST_STRPTR)data;
+}
+
+struct IntuiMessage* TO_IntuiMessage(struct Message* msg)
+{
+  return (struct IntuiMessage*)msg;
+}
+
+int
+amiga_readVarTags(lua_State* L, struct TagItem* taglist, int maxTags, int argNum)
 {
   int nargs = lua_gettop(L);
   if ((nargs - (argNum-1)) % 2 != 0) {
@@ -77,8 +119,8 @@ _amiga_readVarTags(lua_State* L, struct TagItem* taglist, int maxTags, int argNu
   return LUA_OK;
 }
 
-static int
-_amiga_doTagList(lua_State* L, struct TagItem* tags, uint16_t maxTags, uint16_t argNumber)
+int
+amiga_doTagList(lua_State* L, struct TagItem* tags, uint16_t maxTags, uint16_t argNumber)
 {
   luaL_checktype(L, argNumber, LUA_TTABLE);
   
@@ -360,6 +402,7 @@ _amiga_createTask(lua_State* L)
   struct Task * _result = CreateTask(name, pri, initPC, stackSize);
   _lua_gen_pushTask(L, _result);
   return 1;
+  //return 0;
 }
 
 static int
@@ -388,8 +431,10 @@ _amiga_setLong(lua_State *L)
   return 0;
 }
 
+int (*entry)(register amiga_da_lua_bft_t *bft asm("a0"));
+
 void
-lua_install(lua_State* L)
+amiga_lua_install(lua_State* L, uint16_t extensions)
 {
   extern struct Custom custom;
   struct Custom **ud = (struct Custom **)lua_newuserdata(L, sizeof(struct Custom *));
@@ -415,5 +460,16 @@ lua_install(lua_State* L)
   lua_pushcfunction(L, _amiga_create_chip_uint16_t_array);
   lua_setglobal(L, "CreateChipArrayUWORD");
 
-
+  if (extensions) {
+    BPTR seglist = LoadSeg("dos.lex");
+    if (!seglist) {
+      printf("failed to load dos.lex\n");
+      return;
+    }
+    struct Segment *seg = (struct Segment *)BADDR(seglist);
+    entry = (void*)&seg->seg_UC;  
+    _bft.DOSBase = DOSBase;
+    _bft.L = L;
+    entry(&_bft);
+  }
 }

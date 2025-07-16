@@ -669,7 +669,7 @@ static int pmain (lua_State *L) {
 extern void
 lua_gen_install(lua_State *L);
 extern void
-lua_install(lua_State* L);
+amiga_lua_install(lua_State* L, uint16_t extensions);
 
 int main (int argc, char **argv) {
   int status, result;
@@ -683,7 +683,7 @@ int main (int argc, char **argv) {
   lua_pushinteger(L, argc);  /* 1st argument */
   lua_pushlightuserdata(L, argv); /* 2nd argument */
   lua_gen_install(L);
-  lua_install(L);
+  amiga_lua_install(L, 1);
   status = lua_pcall(L, 2, 1, 0);  /* do the call */
   result = lua_toboolean(L, -1);  /* get result */
   report(L, status);
