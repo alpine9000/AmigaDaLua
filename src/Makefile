@@ -39,13 +39,16 @@ BASE_O= $(CORE_O) $(LIB_O) $(MYOBJS)
 
 LUA_T=	lua
 LUA_O=	lua.o amiga.o
-LUA_G=  _lua_gen_dos.h _lua_gen.h
+LUA_t=  lua_big
+LUA_o=  lua.o amiga_big.o
+
+LUA_G=  _lua_gen_dos.h _lua_gen.h _lua_gen_big.h
 
 LUAC_T=	luac
 LUAC_O=	luac.o
 
-ALL_O= $(BASE_O) $(LUA_O) $(LUAC_O)
-ALL_T= $(LUA_A) $(LUA_T) $(LUAC_T)
+ALL_O= $(BASE_O) $(LUA_O) $(LUAC_O) $(LUA_o)
+ALL_T= $(LUA_A) $(LUA_T) $(LUAC_T) $(LUA_t)
 ALL_A= $(LUA_A)
 ALL_E= dos.lex
 
@@ -53,13 +56,19 @@ ALL_E= dos.lex
 default: generic
 
 dos.lex: extension_dos.c extension.h amiga.h _lua_gen_dos.h
-	$(CC) $(CLAGS)  -nostdlib  -nostartfiles -Wl,-e,_start extension_dos.c -o dos.lex
+	$(CC) $(CLAGS)  -nostdlib  -nostartfiles -Wl,-e,_start extension_dos.c -s -o dos.lex
 
-all:	$(ALL_T) $(ALL_E)
+all:	$(ALL_T) $(LUA_B) $(ALL_E)
 
 o:	$(ALL_O)
 
 a:	$(ALL_A)
+
+amiga.o: _lua_gen.h amiga.c amiga.h thunk.c thread.c
+	$(CC) -c $(CFLAGS)  amiga.c -o $@
+
+amiga_big.o: _lua_gen_big.h amiga.c amiga.h thunk.c thread.c
+	$(CC) -DAMIGA_BIG -c $(CFLAGS) amiga.c -o $@
 
 $(LUA_A): $(BASE_O)
 	$(AR) $@ $(BASE_O)
@@ -67,6 +76,10 @@ $(LUA_A): $(BASE_O)
 
 $(LUA_T): $(LUA_O) $(LUA_A)
 	$(CC) -o $@ $(LDFLAGS) $(LUA_O) $(LUA_A) $(LIBS)
+
+$(LUA_t): $(LUA_o) $(LUA_A)
+	$(CC) -o $@ $(LDFLAGS) $(LUA_o) $(LUA_A) $(LIBS)
+
 
 $(LUAC_T): $(LUAC_O) $(LUA_A)
 	$(CC) -o $@ $(LDFLAGS) $(LUAC_O) $(LUA_A) $(LIBS)
@@ -78,7 +91,7 @@ clean:
 	$(RM) $(ALL_T) $(ALL_E) $(ALL_O) $(LUA_G)
 
 depend:
-	@$(CC) $(CFLAGS) -MM l*.c
+	@$(CC) $(CFLAGS) -MM *.c
 
 echo:
 	@echo "PLAT= $(PLAT)"
@@ -161,6 +174,9 @@ lparser.o:
 lcode.o:
 	$(CC) $(CFLAGS) $(CMCFLAGS) -c lcode.c
 
+_lua_gen_big.h: amiga.h lua_generate.py lua_dos.py lua_all.py
+	python3 lua_generate.py amiga.h lua_all lua_dos  > _lua_gen_big.h
+
 _lua_gen.h: amiga.h lua_generate.py lua_all.py 
 	python3 lua_generate.py amiga.h lua_all > _lua_gen.h
 
@@ -169,6 +185,10 @@ _lua_gen_dos.h: amiga.h lua_generate.py lua_dos.py
 
 # DO NOT DELETE
 
+amiga.o: amiga.c lauxlib.h luaconf.h lua.h lualib.h amiga.h thunk.c \
+ thread.c _lua_gen.h
+extension_dos.o: extension_dos.c extension.h lauxlib.h luaconf.h lua.h \
+ lualib.h amiga.h _lua_gen_dos.h
 lapi.o: lapi.c lprefix.h lua.h luaconf.h lapi.h llimits.h lstate.h \
  lobject.h ltm.h lzio.h lmem.h ldebug.h ldo.h lfunc.h lgc.h lstring.h \
  ltable.h lundump.h lvm.h
@@ -232,6 +252,5 @@ lvm.o: lvm.c lprefix.h lua.h luaconf.h ldebug.h lstate.h lobject.h \
  ltable.h lvm.h ljumptab.h
 lzio.o: lzio.c lprefix.h lua.h luaconf.h llimits.h lmem.h lstate.h \
  lobject.h ltm.h lzio.h
-amiga.o: _lua_gen.h amiga.h thunk.c thread.c
-
-# (end of Makefile)
+thread.o: thread.c
+thunk.o: thunk.c

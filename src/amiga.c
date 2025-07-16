@@ -9,7 +9,12 @@
 #undef NM_BARLABEL
 #define NM_BARLABEL ((uint32_t)(STRPTR)-1)
 
+#ifdef AMIGA_BIG
+#include "_lua_gen_big.h"
+#else
 #include "_lua_gen.h"
+#endif
+
 amiga_da_lua_bft_t _bft = {
   .lua_type = lua_type,
   .lua_setfield = lua_setfield,
@@ -460,6 +465,7 @@ amiga_lua_install(lua_State* L, uint16_t extensions)
   lua_pushcfunction(L, _amiga_create_chip_uint16_t_array);
   lua_setglobal(L, "CreateChipArrayUWORD");
 
+#ifndef AMIGA_BIG  
   if (extensions) {
     BPTR seglist = LoadSeg("dos.lex");
     if (!seglist) {
@@ -472,4 +478,7 @@ amiga_lua_install(lua_State* L, uint16_t extensions)
     _bft.L = L;
     entry(&_bft);
   }
+#else
+  (void)extensions;
+#endif
 }
