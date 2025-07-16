@@ -670,6 +670,8 @@ extern void
 lua_gen_install(lua_State *L);
 extern void
 amiga_lua_install(lua_State* L, uint16_t extensions);
+extern void
+amiga_dtor(lua_State *L);    
 
 int main (int argc, char **argv) {
   int status, result;
@@ -687,6 +689,7 @@ int main (int argc, char **argv) {
   status = lua_pcall(L, 2, 1, 0);  /* do the call */
   result = lua_toboolean(L, -1);  /* get result */
   report(L, status);
+  amiga_dtor(L);  
   lua_close(L);
   return (result && status == LUA_OK) ? EXIT_SUCCESS : EXIT_FAILURE;
 }

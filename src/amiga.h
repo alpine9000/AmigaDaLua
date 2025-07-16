@@ -32,6 +32,7 @@
 #include <libraries/keymap.h>
 #include <clib/alib_protos.h>
 #include <devices/timer.h>
+#include "list.h"
 
 #define countof(x) (sizeof(x) / sizeof(x[0]))
 
@@ -132,6 +133,7 @@ typedef struct {
   void * (*malloc)(size_t __size);
   void * (*memset)(void *b, int c, size_t len);
   struct DosLibrary *DOSBase;
+  dll_t* seglists;
   lua_State* L;
 } amiga_da_lua_bft_t;
 

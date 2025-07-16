@@ -38,7 +38,7 @@ LIB_O=	lauxlib.o lbaselib.o lcorolib.o ldblib.o liolib.o lmathlib.o loadlib.o lo
 BASE_O= $(CORE_O) $(LIB_O) $(MYOBJS)
 
 LUA_T=	lua
-LUA_O=	lua.o amiga.o
+LUA_O=	lua.o amiga.o list.o
 LUA_t=  lua_big
 LUA_o=  lua.o amiga_big.o
 

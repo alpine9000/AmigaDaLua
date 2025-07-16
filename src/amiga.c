@@ -55,7 +55,8 @@ amiga_da_lua_bft_t _bft = {
   .strcmp = strcmp,
   .malloc = malloc,
   .memset = memset,
-  //  .DOSBase = DOSBase
+  .DOSBase = 0,
+  .seglists = 0,
 };
 
 void
@@ -439,6 +440,24 @@ _amiga_setLong(lua_State *L)
 int (*entry)(register amiga_da_lua_bft_t *bft asm("a0"));
 
 void
+amiga_dtor(lua_State *L)
+{
+  (void)L;
+
+#ifndef AMIGA_BIG    
+  dll_t* ptr = _bft.seglists;
+
+  while (ptr) {
+    BPTR seglist = (BPTR)ptr->data;
+    UnLoadSeg(seglist);
+    ptr = ptr->next;
+  }
+
+  dll_free(&_bft.seglists, 0);
+#endif
+}
+
+void
 amiga_lua_install(lua_State* L, uint16_t extensions)
 {
   extern struct Custom custom;
@@ -468,6 +487,7 @@ amiga_lua_install(lua_State* L, uint16_t extensions)
 #ifndef AMIGA_BIG  
   if (extensions) {
     BPTR seglist = LoadSeg("dos.lex");
+    dll_append(&_bft.seglists, (void*)seglist);
     if (!seglist) {
       printf("failed to load dos.lex\n");
       return;
