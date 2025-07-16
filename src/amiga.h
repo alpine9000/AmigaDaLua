@@ -56,9 +56,9 @@ typedef struct {
 #undef RemBob
 void RemBob(struct Bob *b);
 
-CONST_STRPTR TO_CONST_STRPTR(void *data);
+//CONST_STRPTR amiga_toCONST_STRPTR(void* data);
 
-struct IntuiMessage* TO_IntuiMessage(struct Message* msg);
+//struct IntuiMessage* amiga_toIntuiMessage(struct Message* msg);
 
 struct Gadget **
 amiga_checkGadgetPtr(lua_State *L, int stackIndex);
@@ -120,19 +120,34 @@ typedef struct {
   lua_Integer (*luaL_checkinteger) (lua_State *L, int arg);  
   
 
+  int (*amiga_doTagList)(lua_State *L, struct TagItem *tags, uint16_t maxTags, uint16_t argNumber);  
   const char * (*amiga_checkConstNullableString)(lua_State *L, int stackIndex);  
   struct Gadget ** (*amiga_checkGadgetPtr)(lua_State *L, int stackIndex);
   char * (*amiga_checkNullableString)(lua_State *L, int stackIndex);  
   void (*amiga_pushBSTR)(lua_State *L, BSTR bstr);
-  BSTR (*amiga_checkBSTR)(lua_State *L, int stackIndex);  
+  BSTR (*amiga_checkBSTR)(lua_State *L, int stackIndex);
+  //  struct IntuiMessage* (*amiga_toIntuiMessage)(struct Message* msg);
+  int (*amiga_readVarTags)(lua_State* L, struct TagItem* taglist, int maxTags, int argNum);  
 
+  
   void  (*DeleteTask)( struct Task *task );
 
   char * (*strncpy)(char *, const char *, size_t);
   int	 (*strcmp)(const char *, const char *);
   void * (*malloc)(size_t __size);
   void * (*memset)(void *b, int c, size_t len);
+  int    (*puts)(const char *s);
+  void   (*welcome)(const char* msg);
+  
+  //  int (*printf)(const char *format, ...);
+
   struct DosLibrary *DOSBase;
+  struct ExecBase* ExecBase;
+  struct GfxBase* GfxBase;
+  struct ExecBase* SysBase;
+  struct Library* GadToolsBase;
+  struct IntuitionBase* IntuitionBase;
+
   dll_t* seglists;
   lua_State* L;
 } amiga_da_lua_bft_t;

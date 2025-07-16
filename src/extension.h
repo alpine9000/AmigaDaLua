@@ -5,19 +5,16 @@
 
 amiga_da_lua_bft_t* _bft;
 
-__attribute__((used))
-int start(register amiga_da_lua_bft_t* bft asm("a0"))
-{
-  _bft = bft;
-  lua_gen_install(_bft->L);
-  return 0;
-}
 
 
 #define amiga_checkConstNullableString _bft->amiga_checkConstNullableString
 #define amiga_checkBSTR _bft->amiga_checkBSTR
 #define amiga_pushBSTR _bft->amiga_pushBSTR
 #define amiga_checkNullableString _bft->amiga_checkNullableString
+#define amiga_toIntuiMessage _bft->amiga_toIntuiMessage
+#define amiga_checkGadgetPtr _bft->amiga_checkGadgetPtr
+#define amiga_readVarTags _bft->amiga_readVarTags
+#define amiga_doTagList _bft->amiga_doTagList
 
 #define strncpy _bft->strncpy
 #define strcmp _bft->strcmp
@@ -58,7 +55,26 @@ int start(register amiga_da_lua_bft_t* bft asm("a0"))
 
 #undef DOS_BASE_NAME
 #define DOS_BASE_NAME _bft->DOSBase
+#define ExecBase _bft->ExecBase
+#define GfxBase _bft->GfxBase
+#define SysBase _bft->SysBase
+#define GadToolsBase _bft->GadToolsBase
+#define IntuitionBase _bft->IntuitionBase
 
+__attribute__ ((section (".entry")))
+int
+start(register amiga_da_lua_bft_t* bft asm("a0"))
+{
+  _bft = bft;
+  lua_gen_install(_bft->L);
+  return 0;
+}
+
+int
+puts(const char* s)
+{
+  return _bft->puts(s);
+}
 #define _AMIGA_LUA_EXTENSION
 
 //#include "thunk.c"

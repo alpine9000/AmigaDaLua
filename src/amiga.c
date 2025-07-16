@@ -15,48 +15,62 @@
 #include "_lua_gen.h"
 #endif
 
+
 amiga_da_lua_bft_t _bft = {
-  .lua_type = lua_type,
-  .lua_setfield = lua_setfield,
-  .lua_settable = lua_settable,
-  .lua_settop = lua_settop,
-  .lua_setglobal = lua_setglobal,
-  .lua_setmetatable = lua_setmetatable,
-  .lua_getmetatable = lua_getmetatable,
-  .lua_gettable = lua_gettable,
-  .lua_getfield = lua_getfield,
-  .lua_isinteger = lua_isinteger,
-  .lua_tointegerx = lua_tointegerx,
-  .lua_touserdata = lua_touserdata,
-  .lua_next = lua_next,
-  .lua_rotate = lua_rotate,
-  .lua_rawseti = lua_rawseti,
-  .lua_pushvalue = lua_pushvalue,
-  .lua_pushcclosure = lua_pushcclosure,
-  .lua_pushboolean = lua_pushboolean,
-  .lua_pushlightuserdata = lua_pushlightuserdata,
-  .lua_pushnil = lua_pushnil,
-  .lua_pushinteger = lua_pushinteger,
-  .lua_pushstring = lua_pushstring,
-  .lua_createtable = lua_createtable,
-  .luaL_newmetatable = luaL_newmetatable,
-  .lua_newuserdatauv = lua_newuserdatauv,
-  .luaL_error = luaL_error,
-  .luaL_checklstring = luaL_checklstring,
-  .luaL_checkudata = luaL_checkudata,
-  .luaL_checkinteger = luaL_checkinteger,
-  .amiga_checkConstNullableString = amiga_checkConstNullableString,
-  .amiga_checkGadgetPtr = amiga_checkGadgetPtr,
-  .amiga_checkNullableString = amiga_checkNullableString,
-  .amiga_pushBSTR = amiga_pushBSTR,
-  .amiga_checkBSTR = amiga_checkBSTR,
-  .DeleteTask = DeleteTask,
-  .strncpy = strncpy,
-  .strcmp = strcmp,
-  .malloc = malloc,
-  .memset = memset,
-  .DOSBase = 0,
-  .seglists = 0,
+    .lua_type = lua_type,
+    .lua_setfield = lua_setfield,
+    .lua_settable = lua_settable,
+    .lua_settop = lua_settop,
+    .lua_setglobal = lua_setglobal,
+    .lua_setmetatable = lua_setmetatable,
+    .lua_getmetatable = lua_getmetatable,
+    .lua_gettable = lua_gettable,
+    .lua_getfield = lua_getfield,
+    .lua_isinteger = lua_isinteger,
+    .lua_tointegerx = lua_tointegerx,
+    .lua_touserdata = lua_touserdata,
+    .lua_next = lua_next,
+    .lua_rotate = lua_rotate,
+    .lua_rawseti = lua_rawseti,
+    .lua_pushvalue = lua_pushvalue,
+    .lua_pushcclosure = lua_pushcclosure,
+    .lua_pushboolean = lua_pushboolean,
+    .lua_pushlightuserdata = lua_pushlightuserdata,
+    .lua_pushnil = lua_pushnil,
+    .lua_pushinteger = lua_pushinteger,
+    .lua_pushstring = lua_pushstring,
+    .lua_createtable = lua_createtable,
+    .luaL_newmetatable = luaL_newmetatable,
+    .lua_newuserdatauv = lua_newuserdatauv,
+    .luaL_error = luaL_error,
+    .luaL_checklstring = luaL_checklstring,
+    .luaL_checkudata = luaL_checkudata,
+    .luaL_checkinteger = luaL_checkinteger,
+
+    .amiga_checkConstNullableString = amiga_checkConstNullableString,
+    .amiga_checkGadgetPtr = amiga_checkGadgetPtr,
+    .amiga_checkNullableString = amiga_checkNullableString,
+    .amiga_pushBSTR = amiga_pushBSTR,
+    .amiga_checkBSTR = amiga_checkBSTR,
+    //.amiga_toIntuiMessage = amiga_toIntuiMessage,
+    .amiga_readVarTags = amiga_readVarTags,
+    .amiga_doTagList = amiga_doTagList,
+
+    .DeleteTask = DeleteTask,
+    .strncpy = strncpy,
+    .strcmp = strcmp,
+    .malloc = malloc,
+    .memset = memset,
+    .puts = puts,
+    
+    .DOSBase = 0,
+    .ExecBase = 0,
+    .GfxBase = 0,
+    .SysBase = 0,
+    .GadToolsBase = 0,
+    .IntuitionBase = 0,
+
+    .seglists = 0,
 };
 
 void
@@ -65,15 +79,17 @@ RemBob(struct Bob* b)
   (b)->Flags |= BOBSAWAY;
 }
 
-CONST_STRPTR TO_CONST_STRPTR(void* data)
+#if 0
+CONST_STRPTR amiga_toCONST_STRPTR(void* data)
 {
   return (CONST_STRPTR)data;
 }
 
-struct IntuiMessage* TO_IntuiMessage(struct Message* msg)
+struct IntuiMessage* amiga_toIntuiMessage(struct Message* msg)
 {
   return (struct IntuiMessage*)msg;
 }
+#endif
 
 int
 amiga_readVarTags(lua_State* L, struct TagItem* taglist, int maxTags, int argNum)
@@ -239,6 +255,19 @@ _amiga_getPtr(lua_State* L)
   return 1;
 }
 
+void
+_amiga_pushGadget(lua_State *L, void* obj)
+{
+  if (obj) {
+    void **ud = (void **)lua_newuserdata(L, sizeof(void *));
+    *ud = obj;
+    luaL_getmetatable(L, "Gadget");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
 static int
 _amiga_getGadget(lua_State* L)
 {
@@ -248,11 +277,23 @@ _amiga_getGadget(lua_State* L)
     return 0;
   }
   
-  struct Gadget* ptr = (struct Gadget*)raw;
-  _lua_gen_pushGadget(L, ptr);
+  _amiga_pushGadget(L, raw);
   return 1;
 }
 
+
+void
+_amiga_pushStringInfo(lua_State *L, void* obj)
+{
+  if (obj) {
+    void **ud = (void **)lua_newuserdata(L, sizeof(void *));
+    *ud = obj;
+    luaL_getmetatable(L, "StringInfo");
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
 
 static int
 _amiga_getStringInfo(lua_State* L)
@@ -263,8 +304,8 @@ _amiga_getStringInfo(lua_State* L)
     return 0;
   }
   
-  struct StringInfo* ptr = (struct StringInfo*)raw;
-  _lua_gen_pushStringInfo(L, ptr);
+  void* ptr = (void*)raw;
+  _amiga_pushStringInfo(L, ptr);
   return 1;
 }
 
@@ -457,6 +498,29 @@ amiga_dtor(lua_State *L)
 #endif
 }
 
+#ifndef AMIGA_BIG
+static void
+_amiga_loadExtenstion(lua_State* L, const char* extension)
+{
+  BPTR seglist = LoadSeg(extension);
+  dll_append(&_bft.seglists, (void*)seglist);
+  if (!seglist) {
+    printf("failed to load %s\n", extension);
+    return;
+  }
+  struct Segment *seg = (struct Segment *)BADDR(seglist);
+  entry = (void*)&seg->seg_UC;  
+  _bft.DOSBase = DOSBase;
+  _bft.ExecBase = SysBase;
+  _bft.GfxBase = GfxBase;
+  _bft.SysBase = SysBase;
+  _bft.GadToolsBase = GadToolsBase;
+  _bft.IntuitionBase = IntuitionBase;
+  _bft.L = L;
+  entry(&_bft);
+}
+#endif
+
 void
 amiga_lua_install(lua_State* L, uint16_t extensions)
 {
@@ -486,17 +550,8 @@ amiga_lua_install(lua_State* L, uint16_t extensions)
 
 #ifndef AMIGA_BIG  
   if (extensions) {
-    BPTR seglist = LoadSeg("dos.lex");
-    dll_append(&_bft.seglists, (void*)seglist);
-    if (!seglist) {
-      printf("failed to load dos.lex\n");
-      return;
-    }
-    struct Segment *seg = (struct Segment *)BADDR(seglist);
-    entry = (void*)&seg->seg_UC;  
-    _bft.DOSBase = DOSBase;
-    _bft.L = L;
-    entry(&_bft);
+    _amiga_loadExtenstion(L, "dos.lex");
+    _amiga_loadExtenstion(L, "intuition.lex");
   }
 #else
   (void)extensions;

@@ -42,7 +42,7 @@ LUA_O=	lua.o amiga.o list.o
 LUA_t=  lua_big
 LUA_o=  lua.o amiga_big.o
 
-LUA_G=  _lua_gen_dos.h _lua_gen.h _lua_gen_big.h
+LUA_G=  _lua_gen_dos.h _lua_gen_intuition.h _lua_gen.h _lua_gen_big.h
 
 LUAC_T=	luac
 LUAC_O=	luac.o
@@ -50,13 +50,18 @@ LUAC_O=	luac.o
 ALL_O= $(BASE_O) $(LUA_O) $(LUAC_O) $(LUA_o)
 ALL_T= $(LUA_A) $(LUA_T) $(LUAC_T) $(LUA_t)
 ALL_A= $(LUA_A)
-ALL_E= dos.lex
+ALL_E= dos.lex intuition.lex
+
+LAYOUT= -Wl,--section-start=.text.start=0x0
 
 # Targets start here.
 default: generic
 
 dos.lex: extension_dos.c extension.h amiga.h _lua_gen_dos.h
-	$(CC) $(CLAGS)  -nostdlib  -nostartfiles -Wl,-e,_start extension_dos.c -s -o dos.lex
+	$(CC) $(CFLAGS)  -nostdlib  -nostartfiles -Wl,-Textension.ld extension_dos.c -s -o dos.lex
+
+intuition.lex: extension_intuition.c extension.h amiga.h _lua_gen_intuition.h
+	$(CC) $(CFLAGS)  -nostdlib  -nostartfiles -Wl,-Textension.ld extension_intuition.c -s -o intuition.lex
 
 all:	$(ALL_T) $(LUA_B) $(ALL_E)
 
@@ -174,8 +179,8 @@ lparser.o:
 lcode.o:
 	$(CC) $(CFLAGS) $(CMCFLAGS) -c lcode.c
 
-_lua_gen_big.h: amiga.h lua_generate.py lua_dos.py lua_all.py
-	python3 lua_generate.py amiga.h lua_all lua_dos  > _lua_gen_big.h
+_lua_gen_big.h: amiga.h lua_generate.py lua_dos.py lua_intuition.py lua_all.py
+	python3 lua_generate.py amiga.h lua_all lua_dos lua_intuition > _lua_gen_big.h
 
 _lua_gen.h: amiga.h lua_generate.py lua_all.py 
 	python3 lua_generate.py amiga.h lua_all > _lua_gen.h
@@ -183,12 +188,17 @@ _lua_gen.h: amiga.h lua_generate.py lua_all.py
 _lua_gen_dos.h: amiga.h lua_generate.py lua_dos.py
 	python3 lua_generate.py amiga.h lua_dos > _lua_gen_dos.h
 
+_lua_gen_intuition.h: amiga.h lua_generate.py lua_intuition.py
+	python3 lua_generate.py amiga.h lua_intuition > _lua_gen_intuition.h
+
 # DO NOT DELETE
 
 amiga.o: amiga.c lauxlib.h luaconf.h lua.h lualib.h amiga.h thunk.c \
  thread.c _lua_gen.h
 extension_dos.o: extension_dos.c extension.h lauxlib.h luaconf.h lua.h \
  lualib.h amiga.h _lua_gen_dos.h
+extension_intuition.o: extension_intuition.c extension.h lauxlib.h luaconf.h lua.h \
+ lualib.h amiga.h _lua_gen_intuition.h
 lapi.o: lapi.c lprefix.h lua.h luaconf.h lapi.h llimits.h lstate.h \
  lobject.h ltm.h lzio.h lmem.h ldebug.h ldo.h lfunc.h lgc.h lstring.h \
  ltable.h lundump.h lvm.h
