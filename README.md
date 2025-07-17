@@ -285,6 +285,9 @@ The 'ENUM_CONFIG', 'FAKE_FUNCTION_CONFIG', 'BOOL_FUNCTION_CONFIG', 'FUNCTOR_SKIP
 ## Adding a new library
 
 1. Add the name of the library in the [src/Makefile](src/Makefile) using the `LUA_BINDINGS` variable - say for example `layers`
+```Makefile
+LUA_BINDINGS=dos exec graphics intuition layers
+```
 2. Create a new file `lua_layers.py` and configure the bindings
 3. Create a new file `bindings_layers.c` and include the following code
 
