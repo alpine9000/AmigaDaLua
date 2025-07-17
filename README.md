@@ -266,21 +266,21 @@ For each library, the bindings are configured in an associated python file:
 * [src/lua_graphics.py](src/lua_graphics.py) 
 * [src/lua_intuition.py](src/lua_intuition.py) 
 
-The 'TYPES' array is a list of 'structs' or 'typedefs' you with to bind.
+The `TYPES` array is a list of `structs` or `typedefs` you with to bind.
 
-The 'TYPE_CONFIG' array lets you optionally configure certain generation parameters for types specified in the 'TYPES' array. This is currently used to allow types to be referenced between libraries without whole bindings being generated in both.
+The `TYPE_CONFIG` array lets you optionally configure certain generation parameters for types specified in the `TYPES` array. This is currently used to allow types to be referenced between libraries without whole bindings being generated in both.
 
-The 'FUNCTION_CONFIG' array lists all the functions for which you wish to generate bindings.
+The `FUNCTION_CONFIG` array lists all the functions for which you wish to generate bindings.
 
-The 'DEFINE_CONFIGS' lists any #define or other constants for which you wish to generate bindings.
+The `DEFINE_CONFIGS` lists any #define or other constants for which you wish to generate bindings.
 
-The 'TAGS_FUNCTION_CONFIG' dictionary is a special case for functions with tag lists. You must specify the name of the function which takes a variable number of tags, and associate it with a function that takes a tag list. For example:
+The `TAGS_FUNCTION_CONFIG` dictionary is a special case for functions with tag lists. You must specify the name of the function which takes a variable number of tags, and associate it with a function that takes a tag list. For example:
 
 ```python
     { "name": "OpenWindowTags", "tagList": "OpenWindowTagList"},
 ```
 
-The 'ENUM_CONFIG', 'FAKE_FUNCTION_CONFIG', 'BOOL_FUNCTION_CONFIG', 'FUNCTOR_SKIP' arrays are not currently used by AmigaDaLua
+The `ENUM_CONFIG`, `FAKE_FUNCTION_CONFIG`, `BOOL_FUNCTION_CONFIG`, `FUNCTOR_SKIP` arrays are not currently used by AmigaDaLua
 
 ## Adding a new library
 
