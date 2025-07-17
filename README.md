@@ -31,8 +31,30 @@ There are two ways to access the Amiga NDK bindings in AmigaDaLua
 LoadBindings("exec")
 ```
 
-The bindings are currently very memory heavy, so `lua_big` is probably best for powerful Amigas only.
+When you load a binding, the corrensponding `.bindings` file must be available. For example `exec.bindings`
 
+Currently available bindings libraries:
+
+```lua
+LoadBindings("dos")
+LoadBindings("exec")
+LoadBindings("graphics")
+LoadBindings("intuition")
+```
+
+### Which bindings are included ?
+
+To get an idea of which symbols should have bindings see:
+
+* src/lua_all.py 
+* src/lua_dos.py 
+* src/lua_exec.py 
+* src/lua_graphics.py 
+* src/lua_intuition.py 
+
+They have been haphazardly automatically generated so symbols for these libraries may have been missed. More comprehensive documentation will follow.
+
+The bindings are currently very memory heavy, so `lua_big` is probably best for powerful Amigas only.
 
 ## Tags
 
@@ -172,3 +194,4 @@ NewGadgetList will create the equivalent of a pointer-to-pointer (`GadgetPtr`) f
    local gad = CreateContext(NewGadgetList())
    local glist = gad -- Lua slightly different way of keeping track of the glist
 ```	 
+
