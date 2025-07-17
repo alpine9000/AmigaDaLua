@@ -180,7 +180,7 @@ Use the special `:ptr()` array extension to get the address of an array element.
 
 ## Be careful with false, nil and 0
 
-Many AmigaOS functions will return `0`. It Lua this is not `== false` - Safest to use Amiga defined return value variables.
+Many AmigaOS functions will return `0`. In Lua this is not `== false` - Safest to use Amiga defined return value variables.
 
 Structure fields of real types or AmigaOS functions that return real types will be equal to `nil` when there is no value.
 
@@ -242,7 +242,7 @@ This also shows how to use tag lists with AmigaDaLua.
 
 [From RKM](http://amigadev.elowar.com/read/ADCD_2.1/Libraries_Manual_guide/node057B.html)  This example must be linked with animtools.c and includes the header files animtools.h and animtools_proto.h.  These files are listed at the end of the chapter.
 
-Shows how to usew a Bob under intuition.
+Shows how to use a Bob under intuition.
 
 ![Screenshot](examples/graphics/bob.png)
 
@@ -266,13 +266,13 @@ For each library, the bindings are configured in an associated python file:
 * [src/lua_graphics.py](src/lua_graphics.py) 
 * [src/lua_intuition.py](src/lua_intuition.py) 
 
-The `TYPES` array is a list of `structs` or `typedefs` you with to bind.
+The `TYPES` array is a list of `structs` or `typedefs` you wish to bind.
 
 The `TYPE_CONFIG` array lets you optionally configure certain generation parameters for types specified in the `TYPES` array. This is currently used to allow types to be referenced between libraries without whole bindings being generated in both.
 
 The `FUNCTION_CONFIG` array lists all the functions for which you wish to generate bindings.
 
-The `DEFINE_CONFIGS` lists any #define or other constants for which you wish to generate bindings.
+The `DEFINE_CONFIGS` lists any `#define` or other global variables for which you wish to generate bindings.
 
 The `TAGS_FUNCTION_CONFIG` dictionary is a special case for functions with tag lists. You must specify the name of the function which takes a variable number of tags, and associate it with a function that takes a tag list. For example:
 
@@ -289,6 +289,9 @@ The `ENUM_CONFIG`, `FAKE_FUNCTION_CONFIG`, `BOOL_FUNCTION_CONFIG`, `FUNCTOR_SKIP
 LUA_BINDINGS=dos exec graphics intuition layers
 ```
 2. Create a new file `lua_layers.py` and configure the bindings
+
+Two python programs `extract_defines.py` and `extract_from_sfd.py` might help you automatically extract the names of items to bind.
+
 3. Create a new file `bindings_layers.c` and include the following code
 
 ```C
