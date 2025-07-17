@@ -79,6 +79,9 @@ release: all
 	cp lua lua_big *.bindings $(RELEASE_ARTIFACT)
 	cp `find ../examples -name "*.lua"` $(RELEASE_ARTIFACT)
 	cp ../examples/dos/test.txt $(RELEASE_ARTIFACT)
+	cp ../README.md $(RELEASE_ARTIFACT)
+	cp ../LICENSE $(RELEASE_ARTIFACT)
+	cp -r ../doc $(RELEASE_ARTIFACT)/doc
 	lha a $(RELEASE_ARTIFACT).lha $(RELEASE_ARTIFACT)
 	rm -rf $(RELEASE_ARTIFACT)
 

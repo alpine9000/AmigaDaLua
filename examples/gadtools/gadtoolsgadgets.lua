@@ -48,7 +48,7 @@ end
 function handleGadgetEvent(win, gad, code, slider_level, my_gads)
    if gad.GadgetID == MYGAD_SLIDER then
       -- Sliders report their level in the IntuiMessage Code field: 
-      print("Slider at level %ld\n", code)
+      print("Slider at level", code)
       slider_level = code
    elseif gad.GadgetID == MYGAD_STRING1 then
       -- String gadgets report GADGETUP's
