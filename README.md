@@ -203,15 +203,29 @@ A selection of examples mainly taken from the Amiga RKM. Many examples have the 
 
 Reads a file uses Open/Read etc.
 
+![Screenshot](examples/dos/dos_simple.png)
+
 ### [Lua Coroutine](examples/lua/coroutine.lua)
+
+![Screenshot](examples/lua/coroutine.png)
 
 ### [Gadtools Gadgets](examples/gadtools/gadtoolsgadgets.lua)
 
+![Screenshot](examples/gadtools/gadtoolsgadgets.png)
+
 ### [TagLists](examples/gadtools/simplegtgadget-taglists.lua)
+
+![Screenshot](examples/gadtools/simplegtgadget-taglists.lua)
 
 ### [User Copper](examples/graphics/usercopper.lua)
 
+![Screenshot](examples/graphics/usercopper.png)
+
 ### [Graphics Bob](examples/graphics/bob.lua)
 
+![Screenshot](examples/graphics/bob.png)
+
 ### [Exec CreateTask](examples/exec/simpletask.lua)
+
+![Screenshot](Exec CreateTask](examples/exec/simpletask.png)
 
