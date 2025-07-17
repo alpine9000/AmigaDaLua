@@ -300,7 +300,7 @@ LUA_BINDINGS=dos exec graphics intuition layers
 
 ## Building
 
-1. Install bebbo's Amiga GCC (only tested with the gcc-6 branc)
+1. Install bebbo's Amiga GCC (only tested with the gcc-6 branch)
 2. Install the Amiga NDK
 3. Ensure you have `python3` to regenerate bindings files
 4. Install `python.clang.cindex` for parsing Amiga NDK via clang
