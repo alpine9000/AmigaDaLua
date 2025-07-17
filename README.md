@@ -134,8 +134,8 @@ If you are assigning a typed variable to something untyped (like a TAG or void *
 ```lua
 local screen = OpenScreenTags(nil,
                               SA_Overscan, OSCAN_STANDARD,
-		                      SA_Title, "User Copper List Example",
-			                  SA_Font, GetPtr(Topaz80))
+                              SA_Title, "User Copper List Example",
+                              SA_Font, GetPtr(Topaz80))
 ```
 
 ## Creating buffers
