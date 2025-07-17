@@ -52,13 +52,13 @@ To get an idea of which symbols should have bindings see:
 * src/lua_graphics.py 
 * src/lua_intuition.py 
 
-They have been haphazardly automatically generated so symbols for these libraries may have been missed. More comprehensive documentation will follow.
+They have been automatically generated so symbols for these libraries may have been missed. More comprehensive binding coverage and documentation will follow.
 
-The bindings are currently very memory heavy, so `lua_big` is probably best for powerful Amigas only.
+The bindings code is automatically generated and quite memory heavy
 
 ## Tags
 
-Functions that tag variable number of tags such as `OpenWindowTags` on the Amiga would require a TAG_END tag to indicate the end of the tag arguments. On AmigaDaLua this is not currently required/supported
+Functions that take a variable number of tags such as `OpenWindowTags` on the Amiga would require a TAG_END tag to indicate the end of the tag arguments. On AmigaDaLua this is not currently required/supported.
 
 ```lua
 mywin = OpenWindowTags(nil,
@@ -194,4 +194,24 @@ NewGadgetList will create the equivalent of a pointer-to-pointer (`GadgetPtr`) f
    local gad = CreateContext(NewGadgetList())
    local glist = gad -- Lua slightly different way of keeping track of the glist
 ```	 
+
+## Examples
+
+A selection of examples mainly taken from the Amiga RKM. Many examples have the original C code as a reference.
+
+### [DOS Simple](examples/dos/dos_simple.lua)
+
+Reads a file uses Open/Read etc.
+
+### [Lua Coroutine](examples/lua/coroutine.lua)
+
+### [Gadtools Gadgets](examples/gadtools/gadtoolsgadgets.lua)
+
+### [TagLists](examples/gadtools/simplegtgadget-taglists.lua)
+
+### [User Copper](examples/graphics/usercopper.lua)
+
+### [Graphics Bob](examples/graphics/bob.lua)
+
+### [Exec CreateTask](examples/exec/simpletask.lua)
 
