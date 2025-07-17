@@ -284,25 +284,25 @@ The 'ENUM_CONFIG', 'FAKE_FUNCTION_CONFIG', 'BOOL_FUNCTION_CONFIG', 'FUNCTOR_SKIP
 
 ## Adding a new library
 
-(1) Add the name of the library in the [src/Makefile](src/Makefile) using the `LUA_BINDINGS` variable - say for example `layers`
-(2) Create a new file `lua_layers.py` and configure the bindings
-(3) Create a new file `bindings_layers.c` and include the following code
+1. Add the name of the library in the [src/Makefile](src/Makefile) using the `LUA_BINDINGS` variable - say for example `layers`
+2. Create a new file `lua_layers.py` and configure the bindings
+3. Create a new file `bindings_layers.c` and include the following code
 
 ```C
 #include "bindings.h"
 #include "_lua_gen_layers.h"
 ```
 
-(4) `make` should now create a file `layers.bindings` as well as include all new bindings in `lua_big`
+4. `make` should now create a file `layers.bindings` as well as include all new bindings in `lua_big`
 
 ## Building
 
-(1) Install bebbo's Amiga GCC (only tested with the gcc-6 branc)
-(2) Install the Amiga NDK
-(3) Ensure you have `python3` to regenerate bindings files
-(4) Install `python.clang.cindex` for parsing Amiga NDK via clang
-(5) Install `clang` 
-(6) Edit [src/lua_generate.py](src/lua_generate.py) to correct the path to clang:
+1. Install bebbo's Amiga GCC (only tested with the gcc-6 branc)
+2. Install the Amiga NDK
+3. Ensure you have `python3` to regenerate bindings files
+4. Install `python.clang.cindex` for parsing Amiga NDK via clang
+5. Install `clang` 
+6. Edit [src/lua_generate.py](src/lua_generate.py) to correct the path to clang:
 
 ```python
 clang.cindex.Config.set_library_file('/opt/homebrew/opt/llvm/lib/libclang.dylib')
@@ -314,4 +314,4 @@ And to correct the include path to the NDK:
 tu = index.parse(header, args=['-x', 'c', '-I/usr/local/amiga/bebbo/m68k-amigaos/sys-include/', '-I/usr/local/amiga/bebbo/m68k-amigaos/ndk-includ\
 e'])
 ```
-(6) `make` should then build the lua command `lua`, the full bindings version `lua_big` the bindings files `*.bindings` as well as the lua compiler which at this stage is totally untested in AmigaDaLua `luac`
+7. `make` should then build the lua command `lua`, the full bindings version `lua_big` the bindings files `*.bindings` as well as the lua compiler which at this stage is totally untested in AmigaDaLua `luac`
