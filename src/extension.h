@@ -15,6 +15,8 @@ amiga_da_lua_bft_t* _bft;
 #define amiga_checkGadgetPtr _bft->amiga_checkGadgetPtr
 #define amiga_readVarTags _bft->amiga_readVarTags
 #define amiga_doTagList _bft->amiga_doTagList
+#define amiga_push_type _bft->amiga_push_type
+#define amiga_check_type _bft->amiga_check_type
 
 #define strncpy _bft->strncpy
 #define strcmp _bft->strcmp

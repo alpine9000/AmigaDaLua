@@ -5,6 +5,7 @@ TYPES = [
     #Devices
     "InputEvent",
     "TimeVal_Type",
+    "Unit",
 
     #Dos
     #"AChain",
@@ -106,7 +107,7 @@ TYPES = [
     #"MenuItem",
     #"NewScreen",
     #"NewWindow",    
-    #"RasInfo",
+    "RasInfo",
     "RastPort",
     #"Requester",
     "Screen",

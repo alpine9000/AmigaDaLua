@@ -1,18 +1,23 @@
 TYPES = [
+    #Required from other extensions
+    "Point",
+    "InputEvent",
+    "List",
+    "MsgPort",
+    "Message",
+    "Hook",
+    "MinNode",
+    "Layer",
+    "ClipRect",
+    "Layer_Info",
+    
     #AmigaDaLua custom types
     "GadgetPtr",
     
     #GadTools
     "NewGadget",
     "NewMenu",
-
-    #Required from other extensions
-    "Point",
-    "InputEvent",
-    "List",
-    "MsgPort",
-    "Message",    
-
+    
     #Intuition
     "BitMap",
     "Border",
@@ -45,19 +50,22 @@ TYPES = [
     "ViewPortExtra",
     "Window",
 
-    #Layers
-    "ClipRect",
-    "Layer_Info",
-
-    #Utility
-    "Hook",    
-    #"Tag",    
-    #"TagItem",    
 
 ]    
 
-TYPE_CONFIG = {
 
+TYPE_CONFIG = {
+    "InputEvent": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "MinNode": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "Message": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "MsgPort": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "Node": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "MinNode": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "MinList": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "List": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "Task": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "Tag": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "TagItem": {"newindex": False, "index": False, "keys": False, "metainstall": False},
 }
 
 ENUM_CONFIG = []

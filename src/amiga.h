@@ -81,7 +81,21 @@ amiga_readVarTags(lua_State* L, struct TagItem* taglist, int maxTags, int argNum
 void
 amiga_lua_install(lua_State* L, uint16_t extensions);
 
+void
+amiga_push_type(lua_State *L, void *o, const char *name);
+
+void *
+amiga_check_type(lua_State *L, int index, const char* name);
+
 typedef struct {
+  uint32_t version;
+
+  char * (*strncpy)(char *, const char *, size_t);
+  int	 (*strcmp)(const char *, const char *);
+  void * (*malloc)(size_t __size);
+  void * (*memset)(void *b, int c, size_t len);
+  int    (*puts)(const char *s);
+  
   int   (*lua_type) (lua_State *L, int idx);
   void  (*lua_setfield) (lua_State *L, int idx, const char *k);
   void  (*lua_settable) (lua_State *L, int idx);
@@ -126,18 +140,12 @@ typedef struct {
   char * (*amiga_checkNullableString)(lua_State *L, int stackIndex);  
   void (*amiga_pushBSTR)(lua_State *L, BSTR bstr);
   BSTR (*amiga_checkBSTR)(lua_State *L, int stackIndex);
-  //  struct IntuiMessage* (*amiga_toIntuiMessage)(struct Message* msg);
   int (*amiga_readVarTags)(lua_State* L, struct TagItem* taglist, int maxTags, int argNum);  
-
+  void (*amiga_push_type)(lua_State *L, void *o, const char *name);
+  void* (*amiga_check_type)(lua_State *L, int index, const char* name);  
   
   void  (*DeleteTask)( struct Task *task );
 
-  char * (*strncpy)(char *, const char *, size_t);
-  int	 (*strcmp)(const char *, const char *);
-  void * (*malloc)(size_t __size);
-  void * (*memset)(void *b, int c, size_t len);
-  int    (*puts)(const char *s);
-  void   (*welcome)(const char* msg);
   
   //  int (*printf)(const char *format, ...);
 

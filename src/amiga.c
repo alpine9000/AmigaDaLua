@@ -17,6 +17,7 @@
 
 
 amiga_da_lua_bft_t _bft = {
+  .version = 1,
     .lua_type = lua_type,
     .lua_setfield = lua_setfield,
     .lua_settable = lua_settable,
@@ -52,9 +53,10 @@ amiga_da_lua_bft_t _bft = {
     .amiga_checkNullableString = amiga_checkNullableString,
     .amiga_pushBSTR = amiga_pushBSTR,
     .amiga_checkBSTR = amiga_checkBSTR,
-    //.amiga_toIntuiMessage = amiga_toIntuiMessage,
     .amiga_readVarTags = amiga_readVarTags,
     .amiga_doTagList = amiga_doTagList,
+    .amiga_push_type = amiga_push_type,
+    .amiga_check_type = amiga_check_type,
 
     .DeleteTask = DeleteTask,
     .strncpy = strncpy,
@@ -244,6 +246,33 @@ amiga_checkGadgetPtr(lua_State* L, int stackIndex)
     return 0;
   }
   return &(*ud)->ptr;
+}
+
+void
+amiga_push_type(lua_State *L, void *obj, const char *name)
+{
+  if (obj) {
+    void **ud = lua_newuserdata(L, sizeof(void**));
+    *ud = obj;
+    luaL_getmetatable(L, name);
+    lua_setmetatable(L, -2);
+  } else {
+    lua_pushnil(L);
+  }
+}
+
+void *
+amiga_check_type(lua_State *L, int stackIndex, const char* name)
+{
+  if (!lua_isnoneornil(L, stackIndex)) {
+    void **ud = (void **)luaL_checkudata(L, stackIndex, name);
+    if (!ud) {
+      return 0;
+    }
+    return *ud;
+  } else {
+    return 0;
+   }  
 }
 
 static int

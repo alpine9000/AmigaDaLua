@@ -1,6 +1,15 @@
 TYPES = [
-    #Exec
+    #Referenced Types
+    "Message",
     "MsgPort",
+    "Node",
+    "MinNode",
+    "MinList",
+    "List",
+    "Task",
+    "Tag",    
+    "TagItem",    
+    
     #Dos
     "AChain",
     "AnchorPath",
@@ -21,15 +30,19 @@ TYPES = [
     "RecordLock",
     "Segment",
     "Unit",
-    
-    #Utility
-    #"Hook",    
-    "Tag",    
-    "TagItem",        
 ]    
 
-TYPE_CONFIG = {
 
+TYPE_CONFIG = {
+    "Message": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "MsgPort": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "Node": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "MinNode": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "MinList": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "List": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "Task": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "Tag": {"newindex": False, "index": False, "keys": False, "metainstall": False},
+    "TagItem": {"newindex": False, "index": False, "keys": False, "metainstall": False},
 }
 
 ENUM_CONFIG = []

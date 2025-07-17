@@ -1104,33 +1104,36 @@ def generate_lua_interface(node, spelling, type_):
     #type_spelling = f"{prefix}{spelling}
 
     type_spelling = node.type.spelling
-    
-    print(f"\nvoid")
-    print(f"_lua_gen_push{spelling}(lua_State *L, {type_spelling}* obj)");
-    print(f"{{")
-    print(f"  if (obj) {{")
-    print(f"    {type_spelling} **ud = ({type_spelling} **)lua_newuserdata(L, sizeof({type_spelling} *));")
-    print(f"    *ud = obj;")
-    print(f"    luaL_getmetatable(L, \"{spelling}\");")
-    print(f"    lua_setmetatable(L, -2);")
-    print(f"  }} else {{")
-    print(f"    lua_pushnil(L);")
-    print(f"  }}")
-    print(f"}}\n")
 
-    print(f"{type_spelling}*")
-    print(f"_lua_gen_check{spelling}(lua_State* L, int stackIndex)")
-    print(f"{{")
-    print(f"   if (!lua_isnoneornil(L, stackIndex)) {{")
-    print(f"      {type_spelling} **ud = ({type_spelling} **)luaL_checkudata(L, stackIndex, \"{spelling}\");")
-    print(f"      if (!ud) {{")
-    print(f"        return 0;")
-    print(f"      }}")
-    print(f"      return *ud;")
-    print(f"   }} else {{")
-    print(f"      return 0;");
-    print(f"   }}")
-    print(f"}}")
+    print(f"#define _lua_gen_push{spelling}(l, o) amiga_push_type(l, o, \"{spelling}\")\n")
+
+ #   print(f"\nvoid")
+ #   print(f"_lua_gen_push{spelling}(lua_State *L, {type_spelling}* obj)");
+ #   print(f"{{")
+ #   print(f"  if (obj) {{")
+ #   print(f"    {type_spelling} **ud = ({type_spelling} **)lua_newuserdata(L, sizeof({type_spelling} *));")
+ #   print(f"    *ud = obj;")
+ #   print(f"    luaL_getmetatable(L, \"{spelling}\");")
+ #   print(f"    lua_setmetatable(L, -2);")
+ #   print(f"  }} else {{")
+ #   print(f"    lua_pushnil(L);")
+ #   print(f"  }}")
+ #   print(f"}}\n")
+
+    print(f"#define _lua_gen_check{spelling}(l, i) amiga_check_type(l, i,  \"{spelling}\")\n")
+#    print(f"{type_spelling}*")
+#    print(f"_lua_gen_check{spelling}(lua_State* L, int stackIndex)")
+#    print(f"{{")
+#    print(f"   if (!lua_isnoneornil(L, stackIndex)) {{")
+#    print(f"      {type_spelling} **ud = ({type_spelling} **)luaL_checkudata(L, stackIndex, \"{spelling}\");")
+#    print(f"      if (!ud) {{")
+#    print(f"        return 0;")
+#    print(f"      }}")
+#    print(f"      return *ud;")
+#    print(f"   }} else {{")
+#    print(f"      return 0;");
+#    print(f"   }}")
+#    print(f"}}")
 
 def find_interfaces(cursor):    
     for node in cursor.get_children():
@@ -1249,14 +1252,15 @@ def main():
         sys.exit(1)
 
     header = sys.argv[1]
+    
 
+    count = len(sys.argv)-2
     for i in range(2, len(sys.argv)) :
         config = sys.argv[i]
         import importlib
     
         mod = importlib.import_module(config)
         TYPES.extend(mod.TYPES)
-        TYPE_CONFIG.update(mod.TYPE_CONFIG)
         ENUM_CONFIG.extend(mod.ENUM_CONFIG)
         DEFINE_CONFIGS.extend(mod.DEFINE_CONFIGS)
         FUNCTION_CONFIG.extend(mod.FUNCTION_CONFIG)
@@ -1265,6 +1269,9 @@ def main():
         FAKE_BOOL_FUNCTION_CONFIG.extend(mod.FAKE_BOOL_FUNCTION_CONFIG)
         BOOL_FUNCTION_CONFIG.extend(mod.BOOL_FUNCTION_CONFIG)
         FUNCTOR_SKIP.extend(mod.FUNCTOR_SKIP)
+
+        if count == 1:
+            TYPE_CONFIG.update(mod.TYPE_CONFIG)        
     
     
     index = clang.cindex.Index.create()
