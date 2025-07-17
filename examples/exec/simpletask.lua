@@ -1,3 +1,5 @@
+LoadBindings("exec")
+
 local STACK_SIZE = 128000
 
 -- Task name, pointers for allocated task struct and stack 
@@ -18,9 +20,10 @@ function main()
    -- task. We can pass in any Lua expression which can execute expressions/functions in this script
    -- in this case we pass in the address of our shared variable
    -- Note: the task has it's own Lua state - so nothing is shared
+
    
    task = CreateTask(simpletaskname,0, string.format("simpletask(%p)", sharedvar), STACK_SIZE)
-   
+
    if not task then
       cleanexit("Can't create task",RETURN_FAIL)
    end

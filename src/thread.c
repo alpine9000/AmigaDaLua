@@ -75,10 +75,13 @@ _thread_dispatch(register thread_callback_t* cb asm("d0"))
 {
   lua_State* L = luaL_newstate();
 
+  lua_pushboolean(L, 1);
+  lua_setfield(L, LUA_REGISTRYINDEX, "_isTask");
+  
   if (!L) return;
      
   luaL_openlibs(L);  
-  amiga_lua_install(L, 0);
+  amiga_lua_install(L);
   lua_gen_install(L);
 
   int status = luaL_loadstring(L, cb->script);

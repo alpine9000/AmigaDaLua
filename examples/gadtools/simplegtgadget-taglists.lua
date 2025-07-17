@@ -1,3 +1,7 @@
+LoadBindings("intuition")
+LoadBindings("graphics")
+LoadBindings("exec")
+
 print("Simple GadTools Gadget Example - see http://amigadev.elowar.com/read/ADCD_2.1/Libraries_Manual_guide/node0258.html")
 
 -- The example listed here shows how to use the NewGadget structure and

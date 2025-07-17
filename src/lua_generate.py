@@ -1227,7 +1227,7 @@ def generate_global_installer():
         print(f"  _lua_gen_install_enum_{enum_name}(L);")
     print("}\n")
 
-    print("static void\n_lua_gen_installGeneratedFunctions(lua_State *L)\n{")
+    print("static void\n_lua_gen_installGeneratedFunctions(lua_State *L)\n{(void)L;\n")
     for function_name in functions:
         print(f"  lua_register(L, \"{function_name}\", _lua_{function_name});")
     print("}\n")

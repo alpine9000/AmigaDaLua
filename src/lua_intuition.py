@@ -10,6 +10,8 @@ TYPES = [
     "Layer",
     "ClipRect",
     "Layer_Info",
+    "ColorMap",
+    "GelsInfo",
     
     #AmigaDaLua custom types
     "GadgetPtr",
@@ -49,12 +51,11 @@ TYPES = [
     "ViewPort",
     "ViewPortExtra",
     "Window",
-
-
 ]    
 
 
 TYPE_CONFIG = {
+    "GelsInfo": {"newindex": False, "index": False, "keys": False, "metainstall": False},    
     "InputEvent": {"newindex": False, "index": False, "keys": False, "metainstall": False},
     "MinNode": {"newindex": False, "index": False, "keys": False, "metainstall": False},
     "Message": {"newindex": False, "index": False, "keys": False, "metainstall": False},

@@ -1,881 +1,111 @@
 // generated with lua_generate.py - run: python3 lua_generate.py amiga.h > _lua_gen.h
+#define _lua_gen_pushTagItem(l, o) amiga_push_type(l, o, "TagItem")
 
-void
-_lua_gen_pushTagItem(lua_State *L, struct TagItem* obj)
-{
-  if (obj) {
-    struct TagItem **ud = (struct TagItem **)lua_newuserdata(L, sizeof(struct TagItem *));
-    *ud = obj;
-    luaL_getmetatable(L, "TagItem");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkTagItem(l, i) amiga_check_type(l, i,  "TagItem")
 
-struct TagItem*
-_lua_gen_checkTagItem(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct TagItem **ud = (struct TagItem **)luaL_checkudata(L, stackIndex, "TagItem");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushNode(l, o) amiga_push_type(l, o, "Node")
 
-void
-_lua_gen_pushMsgPort(lua_State *L, struct MsgPort* obj)
-{
-  if (obj) {
-    struct MsgPort **ud = (struct MsgPort **)lua_newuserdata(L, sizeof(struct MsgPort *));
-    *ud = obj;
-    luaL_getmetatable(L, "MsgPort");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkNode(l, i) amiga_check_type(l, i,  "Node")
 
-struct MsgPort*
-_lua_gen_checkMsgPort(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct MsgPort **ud = (struct MsgPort **)luaL_checkudata(L, stackIndex, "MsgPort");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushMinNode(l, o) amiga_push_type(l, o, "MinNode")
 
-void
-_lua_gen_pushDateStamp(lua_State *L, struct DateStamp* obj)
-{
-  if (obj) {
-    struct DateStamp **ud = (struct DateStamp **)lua_newuserdata(L, sizeof(struct DateStamp *));
-    *ud = obj;
-    luaL_getmetatable(L, "DateStamp");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkMinNode(l, i) amiga_check_type(l, i,  "MinNode")
 
-struct DateStamp*
-_lua_gen_checkDateStamp(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct DateStamp **ud = (struct DateStamp **)luaL_checkudata(L, stackIndex, "DateStamp");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushList(l, o) amiga_push_type(l, o, "List")
 
-void
-_lua_gen_pushFileInfoBlock(lua_State *L, struct FileInfoBlock* obj)
-{
-  if (obj) {
-    struct FileInfoBlock **ud = (struct FileInfoBlock **)lua_newuserdata(L, sizeof(struct FileInfoBlock *));
-    *ud = obj;
-    luaL_getmetatable(L, "FileInfoBlock");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkList(l, i) amiga_check_type(l, i,  "List")
 
-struct FileInfoBlock*
-_lua_gen_checkFileInfoBlock(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct FileInfoBlock **ud = (struct FileInfoBlock **)luaL_checkudata(L, stackIndex, "FileInfoBlock");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushMinList(l, o) amiga_push_type(l, o, "MinList")
 
-void
-_lua_gen_pushInfoData(lua_State *L, struct InfoData* obj)
-{
-  if (obj) {
-    struct InfoData **ud = (struct InfoData **)lua_newuserdata(L, sizeof(struct InfoData *));
-    *ud = obj;
-    luaL_getmetatable(L, "InfoData");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkMinList(l, i) amiga_check_type(l, i,  "MinList")
 
-struct InfoData*
-_lua_gen_checkInfoData(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct InfoData **ud = (struct InfoData **)luaL_checkudata(L, stackIndex, "InfoData");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushTask(l, o) amiga_push_type(l, o, "Task")
 
-void
-_lua_gen_pushProcess(lua_State *L, struct Process* obj)
-{
-  if (obj) {
-    struct Process **ud = (struct Process **)lua_newuserdata(L, sizeof(struct Process *));
-    *ud = obj;
-    luaL_getmetatable(L, "Process");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkTask(l, i) amiga_check_type(l, i,  "Task")
 
-struct Process*
-_lua_gen_checkProcess(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct Process **ud = (struct Process **)luaL_checkudata(L, stackIndex, "Process");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushMsgPort(l, o) amiga_push_type(l, o, "MsgPort")
 
-void
-_lua_gen_pushDosPacket(lua_State *L, struct DosPacket* obj)
-{
-  if (obj) {
-    struct DosPacket **ud = (struct DosPacket **)lua_newuserdata(L, sizeof(struct DosPacket *));
-    *ud = obj;
-    luaL_getmetatable(L, "DosPacket");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkMsgPort(l, i) amiga_check_type(l, i,  "MsgPort")
 
-struct DosPacket*
-_lua_gen_checkDosPacket(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct DosPacket **ud = (struct DosPacket **)luaL_checkudata(L, stackIndex, "DosPacket");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushMessage(l, o) amiga_push_type(l, o, "Message")
 
-void
-_lua_gen_pushSegment(lua_State *L, struct Segment* obj)
-{
-  if (obj) {
-    struct Segment **ud = (struct Segment **)lua_newuserdata(L, sizeof(struct Segment *));
-    *ud = obj;
-    luaL_getmetatable(L, "Segment");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkMessage(l, i) amiga_check_type(l, i,  "Message")
 
-struct Segment*
-_lua_gen_checkSegment(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct Segment **ud = (struct Segment **)luaL_checkudata(L, stackIndex, "Segment");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushDateStamp(l, o) amiga_push_type(l, o, "DateStamp")
 
-void
-_lua_gen_pushCommandLineInterface(lua_State *L, struct CommandLineInterface* obj)
-{
-  if (obj) {
-    struct CommandLineInterface **ud = (struct CommandLineInterface **)lua_newuserdata(L, sizeof(struct CommandLineInterface *));
-    *ud = obj;
-    luaL_getmetatable(L, "CommandLineInterface");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkDateStamp(l, i) amiga_check_type(l, i,  "DateStamp")
 
-struct CommandLineInterface*
-_lua_gen_checkCommandLineInterface(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct CommandLineInterface **ud = (struct CommandLineInterface **)luaL_checkudata(L, stackIndex, "CommandLineInterface");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushFileInfoBlock(l, o) amiga_push_type(l, o, "FileInfoBlock")
 
-void
-_lua_gen_pushDosList(lua_State *L, struct DosList* obj)
-{
-  if (obj) {
-    struct DosList **ud = (struct DosList **)lua_newuserdata(L, sizeof(struct DosList *));
-    *ud = obj;
-    luaL_getmetatable(L, "DosList");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkFileInfoBlock(l, i) amiga_check_type(l, i,  "FileInfoBlock")
 
-struct DosList*
-_lua_gen_checkDosList(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct DosList **ud = (struct DosList **)luaL_checkudata(L, stackIndex, "DosList");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushInfoData(l, o) amiga_push_type(l, o, "InfoData")
 
-void
-_lua_gen_pushAssignList(lua_State *L, struct AssignList* obj)
-{
-  if (obj) {
-    struct AssignList **ud = (struct AssignList **)lua_newuserdata(L, sizeof(struct AssignList *));
-    *ud = obj;
-    luaL_getmetatable(L, "AssignList");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkInfoData(l, i) amiga_check_type(l, i,  "InfoData")
 
-struct AssignList*
-_lua_gen_checkAssignList(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct AssignList **ud = (struct AssignList **)luaL_checkudata(L, stackIndex, "AssignList");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushProcess(l, o) amiga_push_type(l, o, "Process")
 
-void
-_lua_gen_pushDevProc(lua_State *L, struct DevProc* obj)
-{
-  if (obj) {
-    struct DevProc **ud = (struct DevProc **)lua_newuserdata(L, sizeof(struct DevProc *));
-    *ud = obj;
-    luaL_getmetatable(L, "DevProc");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkProcess(l, i) amiga_check_type(l, i,  "Process")
 
-struct DevProc*
-_lua_gen_checkDevProc(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct DevProc **ud = (struct DevProc **)luaL_checkudata(L, stackIndex, "DevProc");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushDosPacket(l, o) amiga_push_type(l, o, "DosPacket")
 
-void
-_lua_gen_pushRecordLock(lua_State *L, struct RecordLock* obj)
-{
-  if (obj) {
-    struct RecordLock **ud = (struct RecordLock **)lua_newuserdata(L, sizeof(struct RecordLock *));
-    *ud = obj;
-    luaL_getmetatable(L, "RecordLock");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkDosPacket(l, i) amiga_check_type(l, i,  "DosPacket")
 
-struct RecordLock*
-_lua_gen_checkRecordLock(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct RecordLock **ud = (struct RecordLock **)luaL_checkudata(L, stackIndex, "RecordLock");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushSegment(l, o) amiga_push_type(l, o, "Segment")
 
-void
-_lua_gen_pushCSource(lua_State *L, struct CSource* obj)
-{
-  if (obj) {
-    struct CSource **ud = (struct CSource **)lua_newuserdata(L, sizeof(struct CSource *));
-    *ud = obj;
-    luaL_getmetatable(L, "CSource");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkSegment(l, i) amiga_check_type(l, i,  "Segment")
 
-struct CSource*
-_lua_gen_checkCSource(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct CSource **ud = (struct CSource **)luaL_checkudata(L, stackIndex, "CSource");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushCommandLineInterface(l, o) amiga_push_type(l, o, "CommandLineInterface")
 
-void
-_lua_gen_pushRDArgs(lua_State *L, struct RDArgs* obj)
-{
-  if (obj) {
-    struct RDArgs **ud = (struct RDArgs **)lua_newuserdata(L, sizeof(struct RDArgs *));
-    *ud = obj;
-    luaL_getmetatable(L, "RDArgs");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkCommandLineInterface(l, i) amiga_check_type(l, i,  "CommandLineInterface")
 
-struct RDArgs*
-_lua_gen_checkRDArgs(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct RDArgs **ud = (struct RDArgs **)luaL_checkudata(L, stackIndex, "RDArgs");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushDosList(l, o) amiga_push_type(l, o, "DosList")
 
-void
-_lua_gen_pushAnchorPath(lua_State *L, struct AnchorPath* obj)
-{
-  if (obj) {
-    struct AnchorPath **ud = (struct AnchorPath **)lua_newuserdata(L, sizeof(struct AnchorPath *));
-    *ud = obj;
-    luaL_getmetatable(L, "AnchorPath");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkDosList(l, i) amiga_check_type(l, i,  "DosList")
 
-struct AnchorPath*
-_lua_gen_checkAnchorPath(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct AnchorPath **ud = (struct AnchorPath **)luaL_checkudata(L, stackIndex, "AnchorPath");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushAssignList(l, o) amiga_push_type(l, o, "AssignList")
 
-void
-_lua_gen_pushAChain(lua_State *L, struct AChain* obj)
-{
-  if (obj) {
-    struct AChain **ud = (struct AChain **)lua_newuserdata(L, sizeof(struct AChain *));
-    *ud = obj;
-    luaL_getmetatable(L, "AChain");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkAssignList(l, i) amiga_check_type(l, i,  "AssignList")
 
-struct AChain*
-_lua_gen_checkAChain(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct AChain **ud = (struct AChain **)luaL_checkudata(L, stackIndex, "AChain");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushDevProc(l, o) amiga_push_type(l, o, "DevProc")
 
-void
-_lua_gen_pushLocalVar(lua_State *L, struct LocalVar* obj)
-{
-  if (obj) {
-    struct LocalVar **ud = (struct LocalVar **)lua_newuserdata(L, sizeof(struct LocalVar *));
-    *ud = obj;
-    luaL_getmetatable(L, "LocalVar");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkDevProc(l, i) amiga_check_type(l, i,  "DevProc")
 
-struct LocalVar*
-_lua_gen_checkLocalVar(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct LocalVar **ud = (struct LocalVar **)luaL_checkudata(L, stackIndex, "LocalVar");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushRecordLock(l, o) amiga_push_type(l, o, "RecordLock")
 
-void
-_lua_gen_pushNotifyRequest(lua_State *L, struct NotifyRequest* obj)
-{
-  if (obj) {
-    struct NotifyRequest **ud = (struct NotifyRequest **)lua_newuserdata(L, sizeof(struct NotifyRequest *));
-    *ud = obj;
-    luaL_getmetatable(L, "NotifyRequest");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkRecordLock(l, i) amiga_check_type(l, i,  "RecordLock")
 
-struct NotifyRequest*
-_lua_gen_checkNotifyRequest(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct NotifyRequest **ud = (struct NotifyRequest **)luaL_checkudata(L, stackIndex, "NotifyRequest");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushCSource(l, o) amiga_push_type(l, o, "CSource")
 
-void
-_lua_gen_pushDateTime(lua_State *L, struct DateTime* obj)
-{
-  if (obj) {
-    struct DateTime **ud = (struct DateTime **)lua_newuserdata(L, sizeof(struct DateTime *));
-    *ud = obj;
-    luaL_getmetatable(L, "DateTime");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkCSource(l, i) amiga_check_type(l, i,  "CSource")
 
-struct DateTime*
-_lua_gen_checkDateTime(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct DateTime **ud = (struct DateTime **)luaL_checkudata(L, stackIndex, "DateTime");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
+#define _lua_gen_pushRDArgs(l, o) amiga_push_type(l, o, "RDArgs")
 
-void
-_lua_gen_pushUnit(lua_State *L, struct Unit* obj)
-{
-  if (obj) {
-    struct Unit **ud = (struct Unit **)lua_newuserdata(L, sizeof(struct Unit *));
-    *ud = obj;
-    luaL_getmetatable(L, "Unit");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
+#define _lua_gen_checkRDArgs(l, i) amiga_check_type(l, i,  "RDArgs")
 
-struct Unit*
-_lua_gen_checkUnit(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct Unit **ud = (struct Unit **)luaL_checkudata(L, stackIndex, "Unit");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-static int
-_lua_gen_TagItem_newindex(lua_State *L)
-{
-  struct TagItem *obj = *(struct TagItem **)luaL_checkudata(L, 1, "TagItem");
-  const char *key = luaL_checkstring(L, 2);
-  (void)key;(void)obj;
-  if (strcmp(key, "ti_Tag") == 0) {
-    // finder 0
-    Tag *val = *(Tag **)luaL_checkudata(L, 3, "Tag");
-    obj->ti_Tag = *val;
-    return 0;
-  }
-  if (strcmp(key, "ti_Data") == 0) {
-    obj->ti_Data = (ULONG)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  return 0;
-}
+#define _lua_gen_pushAnchorPath(l, o) amiga_push_type(l, o, "AnchorPath")
 
+#define _lua_gen_checkAnchorPath(l, i) amiga_check_type(l, i,  "AnchorPath")
 
-static int
-_lua_TagItem_constructor(lua_State *L)
-{
-  // Allocate pointer-to-struct TagItem in userdata
-  struct TagItem **objp = lua_newuserdata(L, sizeof(struct TagItem *));
-  *objp = malloc(sizeof(struct TagItem));
-  if (!*objp) return luaL_error(L, "out of memory");
-  memset(*objp, 0, sizeof(struct TagItem));
+#define _lua_gen_pushAChain(l, o) amiga_push_type(l, o, "AChain")
 
-  // Set metatable
-  luaL_getmetatable(L, "TagItem");
-  lua_setmetatable(L, -2);
+#define _lua_gen_checkAChain(l, i) amiga_check_type(l, i,  "AChain")
 
-  // If a table is passed, use __newindex to copy fields
-  if (lua_istable(L, 1)) {
-    lua_insert(L, 1); // move userdata below table
-    lua_pushnil(L); // first key
-    while (lua_next(L, 2) != 0) {
-      lua_pushvalue(L, -2); // copy key
-      lua_pushvalue(L, -2); // copy value
-      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
-      lua_pop(L, 1); // pop original value, keep key
-    }
-    lua_remove(L, 2); // remove table, leave userdata
-  }
+#define _lua_gen_pushLocalVar(l, o) amiga_push_type(l, o, "LocalVar")
 
-  return 1; // return userdata
-}
+#define _lua_gen_checkLocalVar(l, i) amiga_check_type(l, i,  "LocalVar")
 
-static int
-_lua_gen_TagItem_index(lua_State *L)
-{
-  struct TagItem *obj = *(struct TagItem **)luaL_checkudata(L, 1, "TagItem");
-  (void)obj;
-  const char *key = luaL_checkstring(L, 2);
-  if (strcmp(key, "ti_Tag") == 0) {
-    Tag **ud = (Tag **)lua_newuserdata(L, sizeof(Tag *));
-    *ud = (Tag*)&obj->ti_Tag;
-    luaL_getmetatable(L, "Tag");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "ti_Data") == 0) {
-    lua_pushinteger(L, obj->ti_Data);
-    return 1;
-  }
-  if (strcmp(key, "__size") == 0) {
-    lua_pushinteger(L, sizeof(struct TagItem));
-    return 1;
-}
+#define _lua_gen_pushNotifyRequest(l, o) amiga_push_type(l, o, "NotifyRequest")
 
-  return 0;
-}
+#define _lua_gen_checkNotifyRequest(l, i) amiga_check_type(l, i,  "NotifyRequest")
 
-static void
-_lua_gen_TagItem_install_keys(lua_State *L)
-{
-  lua_newtable(L);
-  lua_pushstring(L, "ti_Tag");
-  lua_rawseti(L, -2, 1);
-  lua_pushstring(L, "ti_Data");
-  lua_rawseti(L, -2, 2);
-  lua_setfield(L, -2, "__keys");
-}
+#define _lua_gen_pushDateTime(l, o) amiga_push_type(l, o, "DateTime")
 
-static void
-_lua_gen_install_meta_TagItem(lua_State *L) {
-  if (luaL_newmetatable(L, "TagItem")) {
-    lua_pushcfunction(L, _lua_gen_TagItem_index);
-    lua_setfield(L, -2, "__index");
-    lua_pushcfunction(L, _lua_gen_TagItem_newindex);
-    lua_setfield(L, -2, "__newindex");
-    lua_pushcfunction(L, _lua_TagItem_constructor);
-    lua_setglobal(L, "TagItem");
-    _lua_gen_TagItem_install_keys(L);
-    lua_pushstring(L, "TagItem");
-    lua_setfield(L, -2, "__name");
-  }
-  lua_pop(L, 1);
-}
+#define _lua_gen_checkDateTime(l, i) amiga_check_type(l, i,  "DateTime")
 
-static int
-_lua_gen_MsgPort_newindex(lua_State *L)
-{
-  struct MsgPort *obj = *(struct MsgPort **)luaL_checkudata(L, 1, "MsgPort");
-  const char *key = luaL_checkstring(L, 2);
-  (void)key;(void)obj;
-  // Unsupported type mp_Node.ln_Succ struct Node
-  if (strcmp(key, "mp_Node.ln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mp_Node.ln_Succ");
-  }
-  // Unsupported type mp_Node.ln_Pred struct Node
-  if (strcmp(key, "mp_Node.ln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mp_Node.ln_Pred");
-  }
-  if (strcmp(key, "mp_Node.ln_Type") == 0) {
-    obj->mp_Node.ln_Type = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "mp_Node.ln_Pri") == 0) {
-    obj->mp_Node.ln_Pri = (BYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "mp_Node.ln_Name") == 0) {
-    obj->mp_Node.ln_Name = (char *)luaL_checkstring(L, 3);
-    return 0;
-  }
-  // Unsupported type mp_Node struct Node
-  if (strcmp(key, "mp_Node") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mp_Node");
-  }
-  if (strcmp(key, "mp_Flags") == 0) {
-    obj->mp_Flags = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "mp_SigBit") == 0) {
-    obj->mp_SigBit = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "mp_SigTask") == 0) {
-    obj->mp_SigTask = (void *)lua_touserdata(L, 3);
-    return 0;
-  }
-  // Unsupported type mp_MsgList.lh_Head struct Node
-  if (strcmp(key, "mp_MsgList.lh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mp_MsgList.lh_Head");
-  }
-  // Unsupported type mp_MsgList.lh_Tail struct Node
-  if (strcmp(key, "mp_MsgList.lh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mp_MsgList.lh_Tail");
-  }
-  // Unsupported type mp_MsgList.lh_TailPred struct Node
-  if (strcmp(key, "mp_MsgList.lh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mp_MsgList.lh_TailPred");
-  }
-  if (strcmp(key, "mp_MsgList.lh_Type") == 0) {
-    obj->mp_MsgList.lh_Type = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "mp_MsgList.l_pad") == 0) {
-    obj->mp_MsgList.l_pad = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  // Unsupported type mp_MsgList struct List
-  if (strcmp(key, "mp_MsgList") == 0) {
-    return luaL_error(L, "Unsupported type struct List for field mp_MsgList");
-  }
-  return 0;
-}
+#define _lua_gen_pushUnit(l, o) amiga_push_type(l, o, "Unit")
 
-
-static int
-_lua_MsgPort_constructor(lua_State *L)
-{
-  // Allocate pointer-to-struct MsgPort in userdata
-  struct MsgPort **objp = lua_newuserdata(L, sizeof(struct MsgPort *));
-  *objp = malloc(sizeof(struct MsgPort));
-  if (!*objp) return luaL_error(L, "out of memory");
-  memset(*objp, 0, sizeof(struct MsgPort));
-
-  // Set metatable
-  luaL_getmetatable(L, "MsgPort");
-  lua_setmetatable(L, -2);
-
-  // If a table is passed, use __newindex to copy fields
-  if (lua_istable(L, 1)) {
-    lua_insert(L, 1); // move userdata below table
-    lua_pushnil(L); // first key
-    while (lua_next(L, 2) != 0) {
-      lua_pushvalue(L, -2); // copy key
-      lua_pushvalue(L, -2); // copy value
-      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
-      lua_pop(L, 1); // pop original value, keep key
-    }
-    lua_remove(L, 2); // remove table, leave userdata
-  }
-
-  return 1; // return userdata
-}
-
-static int
-_lua_gen_MsgPort_index(lua_State *L)
-{
-  struct MsgPort *obj = *(struct MsgPort **)luaL_checkudata(L, 1, "MsgPort");
-  (void)obj;
-  const char *key = luaL_checkstring(L, 2);
-  // Unsupported mp_Node.ln_Succ struct Node *
-  if (strcmp(key, "mp_Node.ln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field mp_Node.ln_Succ");
-  }
-  // Unsupported mp_Node.ln_Pred struct Node *
-  if (strcmp(key, "mp_Node.ln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field mp_Node.ln_Pred");
-  }
-  if (strcmp(key, "mp_Node.ln_Type") == 0) {
-    lua_pushinteger(L, obj->mp_Node.ln_Type);
-    return 1;
-  }
-  if (strcmp(key, "mp_Node.ln_Pri") == 0) {
-    lua_pushinteger(L, obj->mp_Node.ln_Pri);
-    return 1;
-  }
-  if (strcmp(key, "mp_Node.ln_Name") == 0) {
-    lua_pushstring(L, obj->mp_Node.ln_Name);
-    return 1;
-  }
-  // Unsupported mp_Node struct Node
-  if (strcmp(key, "mp_Node") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mp_Node");
-  }
-  if (strcmp(key, "mp_Flags") == 0) {
-    lua_pushinteger(L, obj->mp_Flags);
-    return 1;
-  }
-  if (strcmp(key, "mp_SigBit") == 0) {
-    lua_pushinteger(L, obj->mp_SigBit);
-    return 1;
-  }
-  if (strcmp(key, "mp_SigTask") == 0) {
-    lua_pushlightuserdata(L, obj->mp_SigTask);
-    return 1;
-  }
-  // Unsupported mp_MsgList.lh_Head struct Node *
-  if (strcmp(key, "mp_MsgList.lh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field mp_MsgList.lh_Head");
-  }
-  // Unsupported mp_MsgList.lh_Tail struct Node *
-  if (strcmp(key, "mp_MsgList.lh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field mp_MsgList.lh_Tail");
-  }
-  // Unsupported mp_MsgList.lh_TailPred struct Node *
-  if (strcmp(key, "mp_MsgList.lh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field mp_MsgList.lh_TailPred");
-  }
-  if (strcmp(key, "mp_MsgList.lh_Type") == 0) {
-    lua_pushinteger(L, obj->mp_MsgList.lh_Type);
-    return 1;
-  }
-  if (strcmp(key, "mp_MsgList.l_pad") == 0) {
-    lua_pushinteger(L, obj->mp_MsgList.l_pad);
-    return 1;
-  }
-  // Unsupported mp_MsgList struct List
-  if (strcmp(key, "mp_MsgList") == 0) {
-    return luaL_error(L, "Unsupported type struct List for field mp_MsgList");
-  }
-  if (strcmp(key, "__size") == 0) {
-    lua_pushinteger(L, sizeof(struct MsgPort));
-    return 1;
-}
-
-  return 0;
-}
-
-static void
-_lua_gen_MsgPort_install_keys(lua_State *L)
-{
-  lua_newtable(L);
-  lua_pushstring(L, "mp_Node.ln_Type");
-  lua_rawseti(L, -2, 1);
-  lua_pushstring(L, "mp_Node.ln_Pri");
-  lua_rawseti(L, -2, 2);
-  lua_pushstring(L, "mp_Node.ln_Name");
-  lua_rawseti(L, -2, 3);
-  lua_pushstring(L, "mp_Flags");
-  lua_rawseti(L, -2, 4);
-  lua_pushstring(L, "mp_SigBit");
-  lua_rawseti(L, -2, 5);
-  lua_pushstring(L, "mp_MsgList.lh_Type");
-  lua_rawseti(L, -2, 6);
-  lua_pushstring(L, "mp_MsgList.l_pad");
-  lua_rawseti(L, -2, 7);
-  lua_setfield(L, -2, "__keys");
-}
-
-static void
-_lua_gen_install_meta_MsgPort(lua_State *L) {
-  if (luaL_newmetatable(L, "MsgPort")) {
-    lua_pushcfunction(L, _lua_gen_MsgPort_index);
-    lua_setfield(L, -2, "__index");
-    lua_pushcfunction(L, _lua_gen_MsgPort_newindex);
-    lua_setfield(L, -2, "__newindex");
-    lua_pushcfunction(L, _lua_MsgPort_constructor);
-    lua_setglobal(L, "MsgPort");
-    _lua_gen_MsgPort_install_keys(L);
-    lua_pushstring(L, "MsgPort");
-    lua_setfield(L, -2, "__name");
-  }
-  lua_pop(L, 1);
-}
+#define _lua_gen_checkUnit(l, i) amiga_check_type(l, i,  "Unit")
 
 static int
 _lua_gen_Unit_newindex(lua_State *L)
@@ -883,13 +113,17 @@ _lua_gen_Unit_newindex(lua_State *L)
   struct Unit *obj = *(struct Unit **)luaL_checkudata(L, 1, "Unit");
   const char *key = luaL_checkstring(L, 2);
   (void)key;(void)obj;
-  // Unsupported type unit_MsgPort.mp_Node.ln_Succ struct Node
   if (strcmp(key, "unit_MsgPort.mp_Node.ln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field unit_MsgPort.mp_Node.ln_Succ");
+    // finder 1
+    //obj->unit_MsgPort.mp_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->unit_MsgPort.mp_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
-  // Unsupported type unit_MsgPort.mp_Node.ln_Pred struct Node
   if (strcmp(key, "unit_MsgPort.mp_Node.ln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field unit_MsgPort.mp_Node.ln_Pred");
+    // finder 1
+    //obj->unit_MsgPort.mp_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->unit_MsgPort.mp_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
   if (strcmp(key, "unit_MsgPort.mp_Node.ln_Type") == 0) {
     obj->unit_MsgPort.mp_Node.ln_Type = (UBYTE)luaL_checkinteger(L, 3);
@@ -903,9 +137,11 @@ _lua_gen_Unit_newindex(lua_State *L)
     obj->unit_MsgPort.mp_Node.ln_Name = (char *)luaL_checkstring(L, 3);
     return 0;
   }
-  // Unsupported type unit_MsgPort.mp_Node struct Node
   if (strcmp(key, "unit_MsgPort.mp_Node") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field unit_MsgPort.mp_Node");
+    // finder 0
+    struct Node *val = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->unit_MsgPort.mp_Node = *val;
+    return 0;
   }
   if (strcmp(key, "unit_MsgPort.mp_Flags") == 0) {
     obj->unit_MsgPort.mp_Flags = (UBYTE)luaL_checkinteger(L, 3);
@@ -919,17 +155,23 @@ _lua_gen_Unit_newindex(lua_State *L)
     obj->unit_MsgPort.mp_SigTask = (void *)lua_touserdata(L, 3);
     return 0;
   }
-  // Unsupported type unit_MsgPort.mp_MsgList.lh_Head struct Node
   if (strcmp(key, "unit_MsgPort.mp_MsgList.lh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field unit_MsgPort.mp_MsgList.lh_Head");
+    // finder 1
+    //obj->unit_MsgPort.mp_MsgList.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->unit_MsgPort.mp_MsgList.lh_Head = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
-  // Unsupported type unit_MsgPort.mp_MsgList.lh_Tail struct Node
   if (strcmp(key, "unit_MsgPort.mp_MsgList.lh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field unit_MsgPort.mp_MsgList.lh_Tail");
+    // finder 1
+    //obj->unit_MsgPort.mp_MsgList.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->unit_MsgPort.mp_MsgList.lh_Tail = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
-  // Unsupported type unit_MsgPort.mp_MsgList.lh_TailPred struct Node
   if (strcmp(key, "unit_MsgPort.mp_MsgList.lh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field unit_MsgPort.mp_MsgList.lh_TailPred");
+    // finder 1
+    //obj->unit_MsgPort.mp_MsgList.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->unit_MsgPort.mp_MsgList.lh_TailPred = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
   if (strcmp(key, "unit_MsgPort.mp_MsgList.lh_Type") == 0) {
     obj->unit_MsgPort.mp_MsgList.lh_Type = (UBYTE)luaL_checkinteger(L, 3);
@@ -939,9 +181,11 @@ _lua_gen_Unit_newindex(lua_State *L)
     obj->unit_MsgPort.mp_MsgList.l_pad = (UBYTE)luaL_checkinteger(L, 3);
     return 0;
   }
-  // Unsupported type unit_MsgPort.mp_MsgList struct List
   if (strcmp(key, "unit_MsgPort.mp_MsgList") == 0) {
-    return luaL_error(L, "Unsupported type struct List for field unit_MsgPort.mp_MsgList");
+    // finder 0
+    struct List *val = *(struct List **)luaL_checkudata(L, 3, "List");
+    obj->unit_MsgPort.mp_MsgList = *val;
+    return 0;
   }
   if (strcmp(key, "unit_MsgPort") == 0) {
     // finder 0
@@ -1000,13 +244,19 @@ _lua_gen_Unit_index(lua_State *L)
   struct Unit *obj = *(struct Unit **)luaL_checkudata(L, 1, "Unit");
   (void)obj;
   const char *key = luaL_checkstring(L, 2);
-  // Unsupported unit_MsgPort.mp_Node.ln_Succ struct Node *
   if (strcmp(key, "unit_MsgPort.mp_Node.ln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field unit_MsgPort.mp_Node.ln_Succ");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->unit_MsgPort.mp_Node.ln_Succ;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported unit_MsgPort.mp_Node.ln_Pred struct Node *
   if (strcmp(key, "unit_MsgPort.mp_Node.ln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field unit_MsgPort.mp_Node.ln_Pred");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->unit_MsgPort.mp_Node.ln_Pred;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "unit_MsgPort.mp_Node.ln_Type") == 0) {
     lua_pushinteger(L, obj->unit_MsgPort.mp_Node.ln_Type);
@@ -1020,9 +270,12 @@ _lua_gen_Unit_index(lua_State *L)
     lua_pushstring(L, obj->unit_MsgPort.mp_Node.ln_Name);
     return 1;
   }
-  // Unsupported unit_MsgPort.mp_Node struct Node
   if (strcmp(key, "unit_MsgPort.mp_Node") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field unit_MsgPort.mp_Node");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)&obj->unit_MsgPort.mp_Node;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "unit_MsgPort.mp_Flags") == 0) {
     lua_pushinteger(L, obj->unit_MsgPort.mp_Flags);
@@ -1036,17 +289,26 @@ _lua_gen_Unit_index(lua_State *L)
     lua_pushlightuserdata(L, obj->unit_MsgPort.mp_SigTask);
     return 1;
   }
-  // Unsupported unit_MsgPort.mp_MsgList.lh_Head struct Node *
   if (strcmp(key, "unit_MsgPort.mp_MsgList.lh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field unit_MsgPort.mp_MsgList.lh_Head");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->unit_MsgPort.mp_MsgList.lh_Head;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported unit_MsgPort.mp_MsgList.lh_Tail struct Node *
   if (strcmp(key, "unit_MsgPort.mp_MsgList.lh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field unit_MsgPort.mp_MsgList.lh_Tail");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->unit_MsgPort.mp_MsgList.lh_Tail;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported unit_MsgPort.mp_MsgList.lh_TailPred struct Node *
   if (strcmp(key, "unit_MsgPort.mp_MsgList.lh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field unit_MsgPort.mp_MsgList.lh_TailPred");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->unit_MsgPort.mp_MsgList.lh_TailPred;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "unit_MsgPort.mp_MsgList.lh_Type") == 0) {
     lua_pushinteger(L, obj->unit_MsgPort.mp_MsgList.lh_Type);
@@ -1056,9 +318,12 @@ _lua_gen_Unit_index(lua_State *L)
     lua_pushinteger(L, obj->unit_MsgPort.mp_MsgList.l_pad);
     return 1;
   }
-  // Unsupported unit_MsgPort.mp_MsgList struct List
   if (strcmp(key, "unit_MsgPort.mp_MsgList") == 0) {
-    return luaL_error(L, "Unsupported type struct List for field unit_MsgPort.mp_MsgList");
+    struct List **ud = (struct List **)lua_newuserdata(L, sizeof(struct List *));
+    *ud = (struct List*)&obj->unit_MsgPort.mp_MsgList;
+    luaL_getmetatable(L, "List");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "unit_MsgPort") == 0) {
     struct MsgPort **ud = (struct MsgPort **)lua_newuserdata(L, sizeof(struct MsgPort *));
@@ -1707,13 +972,17 @@ _lua_gen_Process_newindex(lua_State *L)
   struct Process *obj = *(struct Process **)luaL_checkudata(L, 1, "Process");
   const char *key = luaL_checkstring(L, 2);
   (void)key;(void)obj;
-  // Unsupported type pr_Task.tc_Node.ln_Succ struct Node
   if (strcmp(key, "pr_Task.tc_Node.ln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field pr_Task.tc_Node.ln_Succ");
+    // finder 1
+    //obj->pr_Task.tc_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_Task.tc_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
-  // Unsupported type pr_Task.tc_Node.ln_Pred struct Node
   if (strcmp(key, "pr_Task.tc_Node.ln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field pr_Task.tc_Node.ln_Pred");
+    // finder 1
+    //obj->pr_Task.tc_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_Task.tc_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
   if (strcmp(key, "pr_Task.tc_Node.ln_Type") == 0) {
     obj->pr_Task.tc_Node.ln_Type = (UBYTE)luaL_checkinteger(L, 3);
@@ -1727,9 +996,11 @@ _lua_gen_Process_newindex(lua_State *L)
     obj->pr_Task.tc_Node.ln_Name = (char *)luaL_checkstring(L, 3);
     return 0;
   }
-  // Unsupported type pr_Task.tc_Node struct Node
   if (strcmp(key, "pr_Task.tc_Node") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field pr_Task.tc_Node");
+    // finder 0
+    struct Node *val = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_Task.tc_Node = *val;
+    return 0;
   }
   if (strcmp(key, "pr_Task.tc_Flags") == 0) {
     obj->pr_Task.tc_Flags = (UBYTE)luaL_checkinteger(L, 3);
@@ -1807,17 +1078,23 @@ _lua_gen_Process_newindex(lua_State *L)
   if (strcmp(key, "pr_Task.tc_Launch") == 0) {
     return luaL_error(L, "Unsupported type void ()() for field pr_Task.tc_Launch");
   }
-  // Unsupported type pr_Task.tc_MemEntry.lh_Head struct Node
   if (strcmp(key, "pr_Task.tc_MemEntry.lh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field pr_Task.tc_MemEntry.lh_Head");
+    // finder 1
+    //obj->pr_Task.tc_MemEntry.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_Task.tc_MemEntry.lh_Head = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
-  // Unsupported type pr_Task.tc_MemEntry.lh_Tail struct Node
   if (strcmp(key, "pr_Task.tc_MemEntry.lh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field pr_Task.tc_MemEntry.lh_Tail");
+    // finder 1
+    //obj->pr_Task.tc_MemEntry.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_Task.tc_MemEntry.lh_Tail = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
-  // Unsupported type pr_Task.tc_MemEntry.lh_TailPred struct Node
   if (strcmp(key, "pr_Task.tc_MemEntry.lh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field pr_Task.tc_MemEntry.lh_TailPred");
+    // finder 1
+    //obj->pr_Task.tc_MemEntry.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_Task.tc_MemEntry.lh_TailPred = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
   if (strcmp(key, "pr_Task.tc_MemEntry.lh_Type") == 0) {
     obj->pr_Task.tc_MemEntry.lh_Type = (UBYTE)luaL_checkinteger(L, 3);
@@ -1827,25 +1104,33 @@ _lua_gen_Process_newindex(lua_State *L)
     obj->pr_Task.tc_MemEntry.l_pad = (UBYTE)luaL_checkinteger(L, 3);
     return 0;
   }
-  // Unsupported type pr_Task.tc_MemEntry struct List
   if (strcmp(key, "pr_Task.tc_MemEntry") == 0) {
-    return luaL_error(L, "Unsupported type struct List for field pr_Task.tc_MemEntry");
+    // finder 0
+    struct List *val = *(struct List **)luaL_checkudata(L, 3, "List");
+    obj->pr_Task.tc_MemEntry = *val;
+    return 0;
   }
   if (strcmp(key, "pr_Task.tc_UserData") == 0) {
     obj->pr_Task.tc_UserData = (APTR)lua_touserdata(L, 3);
     return 0;
   }
-  // Unsupported type pr_Task struct Task
   if (strcmp(key, "pr_Task") == 0) {
-    return luaL_error(L, "Unsupported type struct Task for field pr_Task");
+    // finder 0
+    struct Task *val = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->pr_Task = *val;
+    return 0;
   }
-  // Unsupported type pr_MsgPort.mp_Node.ln_Succ struct Node
   if (strcmp(key, "pr_MsgPort.mp_Node.ln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field pr_MsgPort.mp_Node.ln_Succ");
+    // finder 1
+    //obj->pr_MsgPort.mp_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_MsgPort.mp_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
-  // Unsupported type pr_MsgPort.mp_Node.ln_Pred struct Node
   if (strcmp(key, "pr_MsgPort.mp_Node.ln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field pr_MsgPort.mp_Node.ln_Pred");
+    // finder 1
+    //obj->pr_MsgPort.mp_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_MsgPort.mp_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
   if (strcmp(key, "pr_MsgPort.mp_Node.ln_Type") == 0) {
     obj->pr_MsgPort.mp_Node.ln_Type = (UBYTE)luaL_checkinteger(L, 3);
@@ -1859,9 +1144,11 @@ _lua_gen_Process_newindex(lua_State *L)
     obj->pr_MsgPort.mp_Node.ln_Name = (char *)luaL_checkstring(L, 3);
     return 0;
   }
-  // Unsupported type pr_MsgPort.mp_Node struct Node
   if (strcmp(key, "pr_MsgPort.mp_Node") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field pr_MsgPort.mp_Node");
+    // finder 0
+    struct Node *val = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_MsgPort.mp_Node = *val;
+    return 0;
   }
   if (strcmp(key, "pr_MsgPort.mp_Flags") == 0) {
     obj->pr_MsgPort.mp_Flags = (UBYTE)luaL_checkinteger(L, 3);
@@ -1875,17 +1162,23 @@ _lua_gen_Process_newindex(lua_State *L)
     obj->pr_MsgPort.mp_SigTask = (void *)lua_touserdata(L, 3);
     return 0;
   }
-  // Unsupported type pr_MsgPort.mp_MsgList.lh_Head struct Node
   if (strcmp(key, "pr_MsgPort.mp_MsgList.lh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field pr_MsgPort.mp_MsgList.lh_Head");
+    // finder 1
+    //obj->pr_MsgPort.mp_MsgList.lh_Head = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_MsgPort.mp_MsgList.lh_Head = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
-  // Unsupported type pr_MsgPort.mp_MsgList.lh_Tail struct Node
   if (strcmp(key, "pr_MsgPort.mp_MsgList.lh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field pr_MsgPort.mp_MsgList.lh_Tail");
+    // finder 1
+    //obj->pr_MsgPort.mp_MsgList.lh_Tail = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_MsgPort.mp_MsgList.lh_Tail = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
-  // Unsupported type pr_MsgPort.mp_MsgList.lh_TailPred struct Node
   if (strcmp(key, "pr_MsgPort.mp_MsgList.lh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field pr_MsgPort.mp_MsgList.lh_TailPred");
+    // finder 1
+    //obj->pr_MsgPort.mp_MsgList.lh_TailPred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->pr_MsgPort.mp_MsgList.lh_TailPred = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
   if (strcmp(key, "pr_MsgPort.mp_MsgList.lh_Type") == 0) {
     obj->pr_MsgPort.mp_MsgList.lh_Type = (UBYTE)luaL_checkinteger(L, 3);
@@ -1895,9 +1188,11 @@ _lua_gen_Process_newindex(lua_State *L)
     obj->pr_MsgPort.mp_MsgList.l_pad = (UBYTE)luaL_checkinteger(L, 3);
     return 0;
   }
-  // Unsupported type pr_MsgPort.mp_MsgList struct List
   if (strcmp(key, "pr_MsgPort.mp_MsgList") == 0) {
-    return luaL_error(L, "Unsupported type struct List for field pr_MsgPort.mp_MsgList");
+    // finder 0
+    struct List *val = *(struct List **)luaL_checkudata(L, 3, "List");
+    obj->pr_MsgPort.mp_MsgList = *val;
+    return 0;
   }
   if (strcmp(key, "pr_MsgPort") == 0) {
     // finder 0
@@ -1989,21 +1284,29 @@ _lua_gen_Process_newindex(lua_State *L)
     obj->pr_Arguments = (STRPTR)amiga_checkNullableString(L, 3);
     return 0;
   }
-  // Unsupported type pr_LocalVars.mlh_Head struct MinNode
   if (strcmp(key, "pr_LocalVars.mlh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field pr_LocalVars.mlh_Head");
+    // finder 1
+    //obj->pr_LocalVars.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->pr_LocalVars.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type pr_LocalVars.mlh_Tail struct MinNode
   if (strcmp(key, "pr_LocalVars.mlh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field pr_LocalVars.mlh_Tail");
+    // finder 1
+    //obj->pr_LocalVars.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->pr_LocalVars.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type pr_LocalVars.mlh_TailPred struct MinNode
   if (strcmp(key, "pr_LocalVars.mlh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field pr_LocalVars.mlh_TailPred");
+    // finder 1
+    //obj->pr_LocalVars.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->pr_LocalVars.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type pr_LocalVars struct MinList
   if (strcmp(key, "pr_LocalVars") == 0) {
-    return luaL_error(L, "Unsupported type struct MinList for field pr_LocalVars");
+    // finder 0
+    struct MinList *val = *(struct MinList **)luaL_checkudata(L, 3, "MinList");
+    obj->pr_LocalVars = *val;
+    return 0;
   }
   if (strcmp(key, "pr_ShellPrivate") == 0) {
     obj->pr_ShellPrivate = (ULONG)luaL_checkinteger(L, 3);
@@ -2052,13 +1355,19 @@ _lua_gen_Process_index(lua_State *L)
   struct Process *obj = *(struct Process **)luaL_checkudata(L, 1, "Process");
   (void)obj;
   const char *key = luaL_checkstring(L, 2);
-  // Unsupported pr_Task.tc_Node.ln_Succ struct Node *
   if (strcmp(key, "pr_Task.tc_Node.ln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field pr_Task.tc_Node.ln_Succ");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->pr_Task.tc_Node.ln_Succ;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported pr_Task.tc_Node.ln_Pred struct Node *
   if (strcmp(key, "pr_Task.tc_Node.ln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field pr_Task.tc_Node.ln_Pred");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->pr_Task.tc_Node.ln_Pred;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "pr_Task.tc_Node.ln_Type") == 0) {
     lua_pushinteger(L, obj->pr_Task.tc_Node.ln_Type);
@@ -2072,9 +1381,12 @@ _lua_gen_Process_index(lua_State *L)
     lua_pushstring(L, obj->pr_Task.tc_Node.ln_Name);
     return 1;
   }
-  // Unsupported pr_Task.tc_Node struct Node
   if (strcmp(key, "pr_Task.tc_Node") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field pr_Task.tc_Node");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)&obj->pr_Task.tc_Node;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "pr_Task.tc_Flags") == 0) {
     lua_pushinteger(L, obj->pr_Task.tc_Flags);
@@ -2152,17 +1464,26 @@ _lua_gen_Process_index(lua_State *L)
   if (strcmp(key, "pr_Task.tc_Launch") == 0) {
     return luaL_error(L, "Unsupported type void (*)() for field pr_Task.tc_Launch");
   }
-  // Unsupported pr_Task.tc_MemEntry.lh_Head struct Node *
   if (strcmp(key, "pr_Task.tc_MemEntry.lh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field pr_Task.tc_MemEntry.lh_Head");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->pr_Task.tc_MemEntry.lh_Head;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported pr_Task.tc_MemEntry.lh_Tail struct Node *
   if (strcmp(key, "pr_Task.tc_MemEntry.lh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field pr_Task.tc_MemEntry.lh_Tail");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->pr_Task.tc_MemEntry.lh_Tail;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported pr_Task.tc_MemEntry.lh_TailPred struct Node *
   if (strcmp(key, "pr_Task.tc_MemEntry.lh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field pr_Task.tc_MemEntry.lh_TailPred");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->pr_Task.tc_MemEntry.lh_TailPred;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "pr_Task.tc_MemEntry.lh_Type") == 0) {
     lua_pushinteger(L, obj->pr_Task.tc_MemEntry.lh_Type);
@@ -2172,25 +1493,37 @@ _lua_gen_Process_index(lua_State *L)
     lua_pushinteger(L, obj->pr_Task.tc_MemEntry.l_pad);
     return 1;
   }
-  // Unsupported pr_Task.tc_MemEntry struct List
   if (strcmp(key, "pr_Task.tc_MemEntry") == 0) {
-    return luaL_error(L, "Unsupported type struct List for field pr_Task.tc_MemEntry");
+    struct List **ud = (struct List **)lua_newuserdata(L, sizeof(struct List *));
+    *ud = (struct List*)&obj->pr_Task.tc_MemEntry;
+    luaL_getmetatable(L, "List");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "pr_Task.tc_UserData") == 0) {
     lua_pushlightuserdata(L, obj->pr_Task.tc_UserData);
     return 1;
   }
-  // Unsupported pr_Task struct Task
   if (strcmp(key, "pr_Task") == 0) {
-    return luaL_error(L, "Unsupported type struct Task for field pr_Task");
+    struct Task **ud = (struct Task **)lua_newuserdata(L, sizeof(struct Task *));
+    *ud = (struct Task*)&obj->pr_Task;
+    luaL_getmetatable(L, "Task");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported pr_MsgPort.mp_Node.ln_Succ struct Node *
   if (strcmp(key, "pr_MsgPort.mp_Node.ln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field pr_MsgPort.mp_Node.ln_Succ");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->pr_MsgPort.mp_Node.ln_Succ;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported pr_MsgPort.mp_Node.ln_Pred struct Node *
   if (strcmp(key, "pr_MsgPort.mp_Node.ln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field pr_MsgPort.mp_Node.ln_Pred");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->pr_MsgPort.mp_Node.ln_Pred;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "pr_MsgPort.mp_Node.ln_Type") == 0) {
     lua_pushinteger(L, obj->pr_MsgPort.mp_Node.ln_Type);
@@ -2204,9 +1537,12 @@ _lua_gen_Process_index(lua_State *L)
     lua_pushstring(L, obj->pr_MsgPort.mp_Node.ln_Name);
     return 1;
   }
-  // Unsupported pr_MsgPort.mp_Node struct Node
   if (strcmp(key, "pr_MsgPort.mp_Node") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field pr_MsgPort.mp_Node");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)&obj->pr_MsgPort.mp_Node;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "pr_MsgPort.mp_Flags") == 0) {
     lua_pushinteger(L, obj->pr_MsgPort.mp_Flags);
@@ -2220,17 +1556,26 @@ _lua_gen_Process_index(lua_State *L)
     lua_pushlightuserdata(L, obj->pr_MsgPort.mp_SigTask);
     return 1;
   }
-  // Unsupported pr_MsgPort.mp_MsgList.lh_Head struct Node *
   if (strcmp(key, "pr_MsgPort.mp_MsgList.lh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field pr_MsgPort.mp_MsgList.lh_Head");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->pr_MsgPort.mp_MsgList.lh_Head;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported pr_MsgPort.mp_MsgList.lh_Tail struct Node *
   if (strcmp(key, "pr_MsgPort.mp_MsgList.lh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field pr_MsgPort.mp_MsgList.lh_Tail");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->pr_MsgPort.mp_MsgList.lh_Tail;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported pr_MsgPort.mp_MsgList.lh_TailPred struct Node *
   if (strcmp(key, "pr_MsgPort.mp_MsgList.lh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field pr_MsgPort.mp_MsgList.lh_TailPred");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->pr_MsgPort.mp_MsgList.lh_TailPred;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "pr_MsgPort.mp_MsgList.lh_Type") == 0) {
     lua_pushinteger(L, obj->pr_MsgPort.mp_MsgList.lh_Type);
@@ -2240,9 +1585,12 @@ _lua_gen_Process_index(lua_State *L)
     lua_pushinteger(L, obj->pr_MsgPort.mp_MsgList.l_pad);
     return 1;
   }
-  // Unsupported pr_MsgPort.mp_MsgList struct List
   if (strcmp(key, "pr_MsgPort.mp_MsgList") == 0) {
-    return luaL_error(L, "Unsupported type struct List for field pr_MsgPort.mp_MsgList");
+    struct List **ud = (struct List **)lua_newuserdata(L, sizeof(struct List *));
+    *ud = (struct List*)&obj->pr_MsgPort.mp_MsgList;
+    luaL_getmetatable(L, "List");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "pr_MsgPort") == 0) {
     struct MsgPort **ud = (struct MsgPort **)lua_newuserdata(L, sizeof(struct MsgPort *));
@@ -2335,21 +1683,33 @@ _lua_gen_Process_index(lua_State *L)
     lua_pushstring(L, obj->pr_Arguments);
     return 1;
   }
-  // Unsupported pr_LocalVars.mlh_Head struct MinNode *
   if (strcmp(key, "pr_LocalVars.mlh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field pr_LocalVars.mlh_Head");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->pr_LocalVars.mlh_Head;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported pr_LocalVars.mlh_Tail struct MinNode *
   if (strcmp(key, "pr_LocalVars.mlh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field pr_LocalVars.mlh_Tail");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->pr_LocalVars.mlh_Tail;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported pr_LocalVars.mlh_TailPred struct MinNode *
   if (strcmp(key, "pr_LocalVars.mlh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field pr_LocalVars.mlh_TailPred");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->pr_LocalVars.mlh_TailPred;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported pr_LocalVars struct MinList
   if (strcmp(key, "pr_LocalVars") == 0) {
-    return luaL_error(L, "Unsupported type struct MinList for field pr_LocalVars");
+    struct MinList **ud = (struct MinList **)lua_newuserdata(L, sizeof(struct MinList *));
+    *ud = (struct MinList*)&obj->pr_LocalVars;
+    luaL_getmetatable(L, "MinList");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "pr_ShellPrivate") == 0) {
     lua_pushinteger(L, obj->pr_ShellPrivate);
@@ -2506,9 +1866,11 @@ _lua_gen_DosPacket_newindex(lua_State *L)
   struct DosPacket *obj = *(struct DosPacket **)luaL_checkudata(L, 1, "DosPacket");
   const char *key = luaL_checkstring(L, 2);
   (void)key;(void)obj;
-  // Unsupported type dp_Link struct Message
   if (strcmp(key, "dp_Link") == 0) {
-    return luaL_error(L, "Unsupported type struct Message for field dp_Link");
+    // finder 1
+    //obj->dp_Link = *(struct Message **)luaL_checkudata(L, 3, "Message");
+    obj->dp_Link = (struct Message *)_lua_gen_checkMessage(L, 3);
+    return 0;
   }
   if (strcmp(key, "dp_Port") == 0) {
     // finder 1
@@ -2595,9 +1957,12 @@ _lua_gen_DosPacket_index(lua_State *L)
   struct DosPacket *obj = *(struct DosPacket **)luaL_checkudata(L, 1, "DosPacket");
   (void)obj;
   const char *key = luaL_checkstring(L, 2);
-  // Unsupported dp_Link struct Message *
   if (strcmp(key, "dp_Link") == 0) {
-    return luaL_error(L, "Unsupported type struct Message * for field dp_Link");
+    struct Message **ud = (struct Message **)lua_newuserdata(L, sizeof(struct Message *));
+    *ud = (struct Message*)obj->dp_Link;
+    luaL_getmetatable(L, "Message");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "dp_Port") == 0) {
     struct MsgPort **ud = (struct MsgPort **)lua_newuserdata(L, sizeof(struct MsgPort *));
@@ -4567,13 +3932,17 @@ _lua_gen_LocalVar_newindex(lua_State *L)
   struct LocalVar *obj = *(struct LocalVar **)luaL_checkudata(L, 1, "LocalVar");
   const char *key = luaL_checkstring(L, 2);
   (void)key;(void)obj;
-  // Unsupported type lv_Node.ln_Succ struct Node
   if (strcmp(key, "lv_Node.ln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field lv_Node.ln_Succ");
+    // finder 1
+    //obj->lv_Node.ln_Succ = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->lv_Node.ln_Succ = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
-  // Unsupported type lv_Node.ln_Pred struct Node
   if (strcmp(key, "lv_Node.ln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field lv_Node.ln_Pred");
+    // finder 1
+    //obj->lv_Node.ln_Pred = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->lv_Node.ln_Pred = (struct Node *)_lua_gen_checkNode(L, 3);
+    return 0;
   }
   if (strcmp(key, "lv_Node.ln_Type") == 0) {
     obj->lv_Node.ln_Type = (UBYTE)luaL_checkinteger(L, 3);
@@ -4587,9 +3956,11 @@ _lua_gen_LocalVar_newindex(lua_State *L)
     obj->lv_Node.ln_Name = (char *)luaL_checkstring(L, 3);
     return 0;
   }
-  // Unsupported type lv_Node struct Node
   if (strcmp(key, "lv_Node") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field lv_Node");
+    // finder 0
+    struct Node *val = *(struct Node **)luaL_checkudata(L, 3, "Node");
+    obj->lv_Node = *val;
+    return 0;
   }
   if (strcmp(key, "lv_Flags") == 0) {
     obj->lv_Flags = (UWORD)luaL_checkinteger(L, 3);
@@ -4642,13 +4013,19 @@ _lua_gen_LocalVar_index(lua_State *L)
   struct LocalVar *obj = *(struct LocalVar **)luaL_checkudata(L, 1, "LocalVar");
   (void)obj;
   const char *key = luaL_checkstring(L, 2);
-  // Unsupported lv_Node.ln_Succ struct Node *
   if (strcmp(key, "lv_Node.ln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field lv_Node.ln_Succ");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->lv_Node.ln_Succ;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported lv_Node.ln_Pred struct Node *
   if (strcmp(key, "lv_Node.ln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field lv_Node.ln_Pred");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)obj->lv_Node.ln_Pred;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "lv_Node.ln_Type") == 0) {
     lua_pushinteger(L, obj->lv_Node.ln_Type);
@@ -4662,9 +4039,12 @@ _lua_gen_LocalVar_index(lua_State *L)
     lua_pushstring(L, obj->lv_Node.ln_Name);
     return 1;
   }
-  // Unsupported lv_Node struct Node
   if (strcmp(key, "lv_Node") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field lv_Node");
+    struct Node **ud = (struct Node **)lua_newuserdata(L, sizeof(struct Node *));
+    *ud = (struct Node*)&obj->lv_Node;
+    luaL_getmetatable(L, "Node");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "lv_Flags") == 0) {
     lua_pushinteger(L, obj->lv_Flags);
@@ -4822,9 +4202,11 @@ _lua_gen_NotifyRequest_newindex(lua_State *L)
     obj->nr_stuff.nr_Msg.nr_Port = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
     return 0;
   }
-  // Unsupported type nr_stuff.nr_Signal.nr_Task struct Task
   if (strcmp(key, "nr_stuff.nr_Signal.nr_Task") == 0) {
-    return luaL_error(L, "Unsupported type struct Task for field nr_stuff.nr_Signal.nr_Task");
+    // finder 1
+    //obj->nr_stuff.nr_Signal.nr_Task = *(struct Task **)luaL_checkudata(L, 3, "Task");
+    obj->nr_stuff.nr_Signal.nr_Task = (struct Task *)_lua_gen_checkTask(L, 3);
+    return 0;
   }
   if (strcmp(key, "nr_stuff.nr_Signal.nr_SignalNum") == 0) {
     obj->nr_stuff.nr_Signal.nr_SignalNum = (UBYTE)luaL_checkinteger(L, 3);
@@ -4908,9 +4290,12 @@ _lua_gen_NotifyRequest_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
-  // Unsupported nr_stuff.nr_Signal.nr_Task struct Task *
   if (strcmp(key, "nr_stuff.nr_Signal.nr_Task") == 0) {
-    return luaL_error(L, "Unsupported type struct Task * for field nr_stuff.nr_Signal.nr_Task");
+    struct Task **ud = (struct Task **)lua_newuserdata(L, sizeof(struct Task *));
+    *ud = (struct Task*)obj->nr_stuff.nr_Signal.nr_Task;
+    luaL_getmetatable(L, "Task");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "nr_stuff.nr_Signal.nr_SignalNum") == 0) {
     lua_pushinteger(L, obj->nr_stuff.nr_Signal.nr_SignalNum);
@@ -6840,20 +6225,6 @@ _lua_ScanStackToken(lua_State* L)
 static void
 _lua_gen_install_defines(lua_State *L)
 {
-  lua_pushinteger(L, TRUE);
-  lua_setglobal(L, "TRUE");
-  lua_pushinteger(L, ERROR_NO_FREE_STORE);
-  lua_setglobal(L, "ERROR_NO_FREE_STORE");
-  lua_pushinteger(L, RETURN_OK);
-  lua_setglobal(L, "RETURN_OK");
-  lua_pushinteger(L, MEMF_PUBLIC);
-  lua_setglobal(L, "MEMF_PUBLIC");
-  lua_pushinteger(L, MEMF_CLEAR);
-  lua_setglobal(L, "MEMF_CLEAR");
-  lua_pushinteger(L, MEMF_CHIP);
-  lua_setglobal(L, "MEMF_CHIP");
-  lua_pushinteger(L, MEMF_FAST);
-  lua_setglobal(L, "MEMF_FAST");
   lua_pushinteger(L, MODE_OLDFILE);
   lua_setglobal(L, "MODE_OLDFILE");
   lua_pushinteger(L, MODE_NEWFILE);
@@ -6869,8 +6240,6 @@ _lua_gen_install_defines(lua_State *L)
 static void
 _lua_gen_installGeneratedMetaTables(lua_State *L)
 {
-  _lua_gen_install_meta_TagItem(L);
-  _lua_gen_install_meta_MsgPort(L);
   _lua_gen_install_meta_Unit(L);
   _lua_gen_install_meta_DateStamp(L);
   _lua_gen_install_meta_FileInfoBlock(L);
@@ -6900,7 +6269,8 @@ _lua_gen_installGeneratedEnums(lua_State *L)
 
 static void
 _lua_gen_installGeneratedFunctions(lua_State *L)
-{
+{(void)L;
+
   lua_register(L, "Open", _lua_Open);
   lua_register(L, "Close", _lua_Close);
   lua_register(L, "Read", _lua_Read);

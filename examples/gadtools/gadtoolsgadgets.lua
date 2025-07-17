@@ -1,3 +1,7 @@
+LoadBindings("intuition")
+LoadBindings("graphics")
+LoadBindings("exec")
+
 print("Simple example of using a number of gadtools gadgets - see http://amigadev.elowar.com/read/ADCD_2.1/Libraries_Manual_guide/node0598.html")
 -- Simple example of using a number of gadtools gadgets.
 --
@@ -132,7 +136,6 @@ function createAllGadgets(gad, vi, topborder, slider_level, my_gads)
    ng.ng_GadgetID   = MYGAD_SLIDER
    ng.ng_Flags      = NG_HIGHLABEL   
    
-   
    gad = CreateGadget(SLIDER_KIND, gad, ng,
 		      GTSL_Min,         SLIDER_MIN,
 		      GTSL_Max,         SLIDER_MAX,
@@ -140,7 +143,7 @@ function createAllGadgets(gad, vi, topborder, slider_level, my_gads)
 		      GTSL_LevelFormat, "%2ld",
 		      GTSL_MaxLevelLen, 2,
 		      GT_Underscore,    '_')
-   
+
    my_gads[MYGAD_SLIDER] = gad
 
    ng.ng_TopEdge    = ng.ng_TopEdge + 20

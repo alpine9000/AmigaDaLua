@@ -1,1571 +1,179 @@
 // generated with lua_generate.py - run: python3 lua_generate.py amiga.h > _lua_gen.h
+#define _lua_gen_pushMinNode(l, o) amiga_push_type(l, o, "MinNode")
 
-void
-_lua_gen_pushList(lua_State *L, struct List* obj)
-{
-  if (obj) {
-    struct List **ud = (struct List **)lua_newuserdata(L, sizeof(struct List *));
-    *ud = obj;
-    luaL_getmetatable(L, "List");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct List*
-_lua_gen_checkList(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct List **ud = (struct List **)luaL_checkudata(L, stackIndex, "List");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushMsgPort(lua_State *L, struct MsgPort* obj)
-{
-  if (obj) {
-    struct MsgPort **ud = (struct MsgPort **)lua_newuserdata(L, sizeof(struct MsgPort *));
-    *ud = obj;
-    luaL_getmetatable(L, "MsgPort");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct MsgPort*
-_lua_gen_checkMsgPort(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct MsgPort **ud = (struct MsgPort **)luaL_checkudata(L, stackIndex, "MsgPort");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushMessage(lua_State *L, struct Message* obj)
-{
-  if (obj) {
-    struct Message **ud = (struct Message **)lua_newuserdata(L, sizeof(struct Message *));
-    *ud = obj;
-    luaL_getmetatable(L, "Message");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct Message*
-_lua_gen_checkMessage(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct Message **ud = (struct Message **)luaL_checkudata(L, stackIndex, "Message");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushHook(lua_State *L, struct Hook* obj)
-{
-  if (obj) {
-    struct Hook **ud = (struct Hook **)lua_newuserdata(L, sizeof(struct Hook *));
-    *ud = obj;
-    luaL_getmetatable(L, "Hook");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct Hook*
-_lua_gen_checkHook(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct Hook **ud = (struct Hook **)luaL_checkudata(L, stackIndex, "Hook");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushIClass(lua_State *L, struct IClass* obj)
-{
-  if (obj) {
-    struct IClass **ud = (struct IClass **)lua_newuserdata(L, sizeof(struct IClass *));
-    *ud = obj;
-    luaL_getmetatable(L, "IClass");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct IClass*
-_lua_gen_checkIClass(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct IClass **ud = (struct IClass **)luaL_checkudata(L, stackIndex, "IClass");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushPoint(lua_State *L, Point* obj)
-{
-  if (obj) {
-    Point **ud = (Point **)lua_newuserdata(L, sizeof(Point *));
-    *ud = obj;
-    luaL_getmetatable(L, "Point");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-Point*
-_lua_gen_checkPoint(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      Point **ud = (Point **)luaL_checkudata(L, stackIndex, "Point");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushBitMap(lua_State *L, struct BitMap* obj)
-{
-  if (obj) {
-    struct BitMap **ud = (struct BitMap **)lua_newuserdata(L, sizeof(struct BitMap *));
-    *ud = obj;
-    luaL_getmetatable(L, "BitMap");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct BitMap*
-_lua_gen_checkBitMap(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct BitMap **ud = (struct BitMap **)luaL_checkudata(L, stackIndex, "BitMap");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushView(lua_State *L, struct View* obj)
-{
-  if (obj) {
-    struct View **ud = (struct View **)lua_newuserdata(L, sizeof(struct View *));
-    *ud = obj;
-    luaL_getmetatable(L, "View");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct View*
-_lua_gen_checkView(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct View **ud = (struct View **)luaL_checkudata(L, stackIndex, "View");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushViewPort(lua_State *L, struct ViewPort* obj)
-{
-  if (obj) {
-    struct ViewPort **ud = (struct ViewPort **)lua_newuserdata(L, sizeof(struct ViewPort *));
-    *ud = obj;
-    luaL_getmetatable(L, "ViewPort");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct ViewPort*
-_lua_gen_checkViewPort(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct ViewPort **ud = (struct ViewPort **)luaL_checkudata(L, stackIndex, "ViewPort");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushViewPortExtra(lua_State *L, struct ViewPortExtra* obj)
-{
-  if (obj) {
-    struct ViewPortExtra **ud = (struct ViewPortExtra **)lua_newuserdata(L, sizeof(struct ViewPortExtra *));
-    *ud = obj;
-    luaL_getmetatable(L, "ViewPortExtra");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct ViewPortExtra*
-_lua_gen_checkViewPortExtra(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct ViewPortExtra **ud = (struct ViewPortExtra **)luaL_checkudata(L, stackIndex, "ViewPortExtra");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushRasInfo(lua_State *L, struct RasInfo* obj)
-{
-  if (obj) {
-    struct RasInfo **ud = (struct RasInfo **)lua_newuserdata(L, sizeof(struct RasInfo *));
-    *ud = obj;
-    luaL_getmetatable(L, "RasInfo");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct RasInfo*
-_lua_gen_checkRasInfo(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct RasInfo **ud = (struct RasInfo **)luaL_checkudata(L, stackIndex, "RasInfo");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushDBufInfo(lua_State *L, struct DBufInfo* obj)
-{
-  if (obj) {
-    struct DBufInfo **ud = (struct DBufInfo **)lua_newuserdata(L, sizeof(struct DBufInfo *));
-    *ud = obj;
-    luaL_getmetatable(L, "DBufInfo");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct DBufInfo*
-_lua_gen_checkDBufInfo(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct DBufInfo **ud = (struct DBufInfo **)luaL_checkudata(L, stackIndex, "DBufInfo");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushBorder(lua_State *L, struct Border* obj)
-{
-  if (obj) {
-    struct Border **ud = (struct Border **)lua_newuserdata(L, sizeof(struct Border *));
-    *ud = obj;
-    luaL_getmetatable(L, "Border");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct Border*
-_lua_gen_checkBorder(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct Border **ud = (struct Border **)luaL_checkudata(L, stackIndex, "Border");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushClipRect(lua_State *L, struct ClipRect* obj)
-{
-  if (obj) {
-    struct ClipRect **ud = (struct ClipRect **)lua_newuserdata(L, sizeof(struct ClipRect *));
-    *ud = obj;
-    luaL_getmetatable(L, "ClipRect");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct ClipRect*
-_lua_gen_checkClipRect(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct ClipRect **ud = (struct ClipRect **)luaL_checkudata(L, stackIndex, "ClipRect");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushDrawInfo(lua_State *L, struct DrawInfo* obj)
-{
-  if (obj) {
-    struct DrawInfo **ud = (struct DrawInfo **)lua_newuserdata(L, sizeof(struct DrawInfo *));
-    *ud = obj;
-    luaL_getmetatable(L, "DrawInfo");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct DrawInfo*
-_lua_gen_checkDrawInfo(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct DrawInfo **ud = (struct DrawInfo **)luaL_checkudata(L, stackIndex, "DrawInfo");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushGadget(lua_State *L, struct Gadget* obj)
-{
-  if (obj) {
-    struct Gadget **ud = (struct Gadget **)lua_newuserdata(L, sizeof(struct Gadget *));
-    *ud = obj;
-    luaL_getmetatable(L, "Gadget");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct Gadget*
-_lua_gen_checkGadget(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct Gadget **ud = (struct Gadget **)luaL_checkudata(L, stackIndex, "Gadget");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushGadgetInfo(lua_State *L, struct GadgetInfo* obj)
-{
-  if (obj) {
-    struct GadgetInfo **ud = (struct GadgetInfo **)lua_newuserdata(L, sizeof(struct GadgetInfo *));
-    *ud = obj;
-    luaL_getmetatable(L, "GadgetInfo");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct GadgetInfo*
-_lua_gen_checkGadgetInfo(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct GadgetInfo **ud = (struct GadgetInfo **)luaL_checkudata(L, stackIndex, "GadgetInfo");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushImage(lua_State *L, struct Image* obj)
-{
-  if (obj) {
-    struct Image **ud = (struct Image **)lua_newuserdata(L, sizeof(struct Image *));
-    *ud = obj;
-    luaL_getmetatable(L, "Image");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct Image*
-_lua_gen_checkImage(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct Image **ud = (struct Image **)luaL_checkudata(L, stackIndex, "Image");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushInputEvent(lua_State *L, struct InputEvent* obj)
-{
-  if (obj) {
-    struct InputEvent **ud = (struct InputEvent **)lua_newuserdata(L, sizeof(struct InputEvent *));
-    *ud = obj;
-    luaL_getmetatable(L, "InputEvent");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct InputEvent*
-_lua_gen_checkInputEvent(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct InputEvent **ud = (struct InputEvent **)luaL_checkudata(L, stackIndex, "InputEvent");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushIntuiText(lua_State *L, struct IntuiText* obj)
-{
-  if (obj) {
-    struct IntuiText **ud = (struct IntuiText **)lua_newuserdata(L, sizeof(struct IntuiText *));
-    *ud = obj;
-    luaL_getmetatable(L, "IntuiText");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct IntuiText*
-_lua_gen_checkIntuiText(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct IntuiText **ud = (struct IntuiText **)luaL_checkudata(L, stackIndex, "IntuiText");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushKeyMap(lua_State *L, struct KeyMap* obj)
-{
-  if (obj) {
-    struct KeyMap **ud = (struct KeyMap **)lua_newuserdata(L, sizeof(struct KeyMap *));
-    *ud = obj;
-    luaL_getmetatable(L, "KeyMap");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct KeyMap*
-_lua_gen_checkKeyMap(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct KeyMap **ud = (struct KeyMap **)luaL_checkudata(L, stackIndex, "KeyMap");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushLayer_Info(lua_State *L, struct Layer_Info* obj)
-{
-  if (obj) {
-    struct Layer_Info **ud = (struct Layer_Info **)lua_newuserdata(L, sizeof(struct Layer_Info *));
-    *ud = obj;
-    luaL_getmetatable(L, "Layer_Info");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct Layer_Info*
-_lua_gen_checkLayer_Info(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct Layer_Info **ud = (struct Layer_Info **)luaL_checkudata(L, stackIndex, "Layer_Info");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushMenu(lua_State *L, struct Menu* obj)
-{
-  if (obj) {
-    struct Menu **ud = (struct Menu **)lua_newuserdata(L, sizeof(struct Menu *));
-    *ud = obj;
-    luaL_getmetatable(L, "Menu");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct Menu*
-_lua_gen_checkMenu(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct Menu **ud = (struct Menu **)luaL_checkudata(L, stackIndex, "Menu");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushMenuItem(lua_State *L, struct MenuItem* obj)
-{
-  if (obj) {
-    struct MenuItem **ud = (struct MenuItem **)lua_newuserdata(L, sizeof(struct MenuItem *));
-    *ud = obj;
-    luaL_getmetatable(L, "MenuItem");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct MenuItem*
-_lua_gen_checkMenuItem(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct MenuItem **ud = (struct MenuItem **)luaL_checkudata(L, stackIndex, "MenuItem");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushNewGadget(lua_State *L, struct NewGadget* obj)
-{
-  if (obj) {
-    struct NewGadget **ud = (struct NewGadget **)lua_newuserdata(L, sizeof(struct NewGadget *));
-    *ud = obj;
-    luaL_getmetatable(L, "NewGadget");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct NewGadget*
-_lua_gen_checkNewGadget(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct NewGadget **ud = (struct NewGadget **)luaL_checkudata(L, stackIndex, "NewGadget");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushNewMenu(lua_State *L, struct NewMenu* obj)
-{
-  if (obj) {
-    struct NewMenu **ud = (struct NewMenu **)lua_newuserdata(L, sizeof(struct NewMenu *));
-    *ud = obj;
-    luaL_getmetatable(L, "NewMenu");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct NewMenu*
-_lua_gen_checkNewMenu(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct NewMenu **ud = (struct NewMenu **)luaL_checkudata(L, stackIndex, "NewMenu");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushNewScreen(lua_State *L, struct NewScreen* obj)
-{
-  if (obj) {
-    struct NewScreen **ud = (struct NewScreen **)lua_newuserdata(L, sizeof(struct NewScreen *));
-    *ud = obj;
-    luaL_getmetatable(L, "NewScreen");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct NewScreen*
-_lua_gen_checkNewScreen(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct NewScreen **ud = (struct NewScreen **)luaL_checkudata(L, stackIndex, "NewScreen");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushNewWindow(lua_State *L, struct NewWindow* obj)
-{
-  if (obj) {
-    struct NewWindow **ud = (struct NewWindow **)lua_newuserdata(L, sizeof(struct NewWindow *));
-    *ud = obj;
-    luaL_getmetatable(L, "NewWindow");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct NewWindow*
-_lua_gen_checkNewWindow(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct NewWindow **ud = (struct NewWindow **)luaL_checkudata(L, stackIndex, "NewWindow");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushRastPort(lua_State *L, struct RastPort* obj)
-{
-  if (obj) {
-    struct RastPort **ud = (struct RastPort **)lua_newuserdata(L, sizeof(struct RastPort *));
-    *ud = obj;
-    luaL_getmetatable(L, "RastPort");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct RastPort*
-_lua_gen_checkRastPort(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct RastPort **ud = (struct RastPort **)luaL_checkudata(L, stackIndex, "RastPort");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushRequester(lua_State *L, struct Requester* obj)
-{
-  if (obj) {
-    struct Requester **ud = (struct Requester **)lua_newuserdata(L, sizeof(struct Requester *));
-    *ud = obj;
-    luaL_getmetatable(L, "Requester");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct Requester*
-_lua_gen_checkRequester(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct Requester **ud = (struct Requester **)luaL_checkudata(L, stackIndex, "Requester");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushScreen(lua_State *L, struct Screen* obj)
-{
-  if (obj) {
-    struct Screen **ud = (struct Screen **)lua_newuserdata(L, sizeof(struct Screen *));
-    *ud = obj;
-    luaL_getmetatable(L, "Screen");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct Screen*
-_lua_gen_checkScreen(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct Screen **ud = (struct Screen **)luaL_checkudata(L, stackIndex, "Screen");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushTextAttr(lua_State *L, struct TextAttr* obj)
-{
-  if (obj) {
-    struct TextAttr **ud = (struct TextAttr **)lua_newuserdata(L, sizeof(struct TextAttr *));
-    *ud = obj;
-    luaL_getmetatable(L, "TextAttr");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct TextAttr*
-_lua_gen_checkTextAttr(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct TextAttr **ud = (struct TextAttr **)luaL_checkudata(L, stackIndex, "TextAttr");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushTextFont(lua_State *L, struct TextFont* obj)
-{
-  if (obj) {
-    struct TextFont **ud = (struct TextFont **)lua_newuserdata(L, sizeof(struct TextFont *));
-    *ud = obj;
-    luaL_getmetatable(L, "TextFont");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct TextFont*
-_lua_gen_checkTextFont(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct TextFont **ud = (struct TextFont **)luaL_checkudata(L, stackIndex, "TextFont");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushWindow(lua_State *L, struct Window* obj)
-{
-  if (obj) {
-    struct Window **ud = (struct Window **)lua_newuserdata(L, sizeof(struct Window *));
-    *ud = obj;
-    luaL_getmetatable(L, "Window");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct Window*
-_lua_gen_checkWindow(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct Window **ud = (struct Window **)luaL_checkudata(L, stackIndex, "Window");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushStringInfo(lua_State *L, struct StringInfo* obj)
-{
-  if (obj) {
-    struct StringInfo **ud = (struct StringInfo **)lua_newuserdata(L, sizeof(struct StringInfo *));
-    *ud = obj;
-    luaL_getmetatable(L, "StringInfo");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct StringInfo*
-_lua_gen_checkStringInfo(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct StringInfo **ud = (struct StringInfo **)luaL_checkudata(L, stackIndex, "StringInfo");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushIntuiMessage(lua_State *L, struct IntuiMessage* obj)
-{
-  if (obj) {
-    struct IntuiMessage **ud = (struct IntuiMessage **)lua_newuserdata(L, sizeof(struct IntuiMessage *));
-    *ud = obj;
-    luaL_getmetatable(L, "IntuiMessage");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct IntuiMessage*
-_lua_gen_checkIntuiMessage(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct IntuiMessage **ud = (struct IntuiMessage **)luaL_checkudata(L, stackIndex, "IntuiMessage");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushIBox(lua_State *L, struct IBox* obj)
-{
-  if (obj) {
-    struct IBox **ud = (struct IBox **)lua_newuserdata(L, sizeof(struct IBox *));
-    *ud = obj;
-    luaL_getmetatable(L, "IBox");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct IBox*
-_lua_gen_checkIBox(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct IBox **ud = (struct IBox **)luaL_checkudata(L, stackIndex, "IBox");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushScreenBuffer(lua_State *L, struct ScreenBuffer* obj)
-{
-  if (obj) {
-    struct ScreenBuffer **ud = (struct ScreenBuffer **)lua_newuserdata(L, sizeof(struct ScreenBuffer *));
-    *ud = obj;
-    luaL_getmetatable(L, "ScreenBuffer");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct ScreenBuffer*
-_lua_gen_checkScreenBuffer(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct ScreenBuffer **ud = (struct ScreenBuffer **)luaL_checkudata(L, stackIndex, "ScreenBuffer");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushStringExtend(lua_State *L, struct StringExtend* obj)
-{
-  if (obj) {
-    struct StringExtend **ud = (struct StringExtend **)lua_newuserdata(L, sizeof(struct StringExtend *));
-    *ud = obj;
-    luaL_getmetatable(L, "StringExtend");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-struct StringExtend*
-_lua_gen_checkStringExtend(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      struct StringExtend **ud = (struct StringExtend **)luaL_checkudata(L, stackIndex, "StringExtend");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-
-void
-_lua_gen_pushGadgetPtr(lua_State *L, GadgetPtr* obj)
-{
-  if (obj) {
-    GadgetPtr **ud = (GadgetPtr **)lua_newuserdata(L, sizeof(GadgetPtr *));
-    *ud = obj;
-    luaL_getmetatable(L, "GadgetPtr");
-    lua_setmetatable(L, -2);
-  } else {
-    lua_pushnil(L);
-  }
-}
-
-GadgetPtr*
-_lua_gen_checkGadgetPtr(lua_State* L, int stackIndex)
-{
-   if (!lua_isnoneornil(L, stackIndex)) {
-      GadgetPtr **ud = (GadgetPtr **)luaL_checkudata(L, stackIndex, "GadgetPtr");
-      if (!ud) {
-        return 0;
-      }
-      return *ud;
-   } else {
-      return 0;
-   }
-}
-static int
-_lua_gen_List_newindex(lua_State *L)
-{
-  struct List *obj = *(struct List **)luaL_checkudata(L, 1, "List");
-  const char *key = luaL_checkstring(L, 2);
-  (void)key;(void)obj;
-  // Unsupported type lh_Head struct Node
-  if (strcmp(key, "lh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field lh_Head");
-  }
-  // Unsupported type lh_Tail struct Node
-  if (strcmp(key, "lh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field lh_Tail");
-  }
-  // Unsupported type lh_TailPred struct Node
-  if (strcmp(key, "lh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field lh_TailPred");
-  }
-  if (strcmp(key, "lh_Type") == 0) {
-    obj->lh_Type = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "l_pad") == 0) {
-    obj->l_pad = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  return 0;
-}
-
-
-static int
-_lua_List_constructor(lua_State *L)
-{
-  // Allocate pointer-to-struct List in userdata
-  struct List **objp = lua_newuserdata(L, sizeof(struct List *));
-  *objp = malloc(sizeof(struct List));
-  if (!*objp) return luaL_error(L, "out of memory");
-  memset(*objp, 0, sizeof(struct List));
-
-  // Set metatable
-  luaL_getmetatable(L, "List");
-  lua_setmetatable(L, -2);
-
-  // If a table is passed, use __newindex to copy fields
-  if (lua_istable(L, 1)) {
-    lua_insert(L, 1); // move userdata below table
-    lua_pushnil(L); // first key
-    while (lua_next(L, 2) != 0) {
-      lua_pushvalue(L, -2); // copy key
-      lua_pushvalue(L, -2); // copy value
-      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
-      lua_pop(L, 1); // pop original value, keep key
-    }
-    lua_remove(L, 2); // remove table, leave userdata
-  }
-
-  return 1; // return userdata
-}
-
-static int
-_lua_gen_List_index(lua_State *L)
-{
-  struct List *obj = *(struct List **)luaL_checkudata(L, 1, "List");
-  (void)obj;
-  const char *key = luaL_checkstring(L, 2);
-  // Unsupported lh_Head struct Node *
-  if (strcmp(key, "lh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field lh_Head");
-  }
-  // Unsupported lh_Tail struct Node *
-  if (strcmp(key, "lh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field lh_Tail");
-  }
-  // Unsupported lh_TailPred struct Node *
-  if (strcmp(key, "lh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field lh_TailPred");
-  }
-  if (strcmp(key, "lh_Type") == 0) {
-    lua_pushinteger(L, obj->lh_Type);
-    return 1;
-  }
-  if (strcmp(key, "l_pad") == 0) {
-    lua_pushinteger(L, obj->l_pad);
-    return 1;
-  }
-  if (strcmp(key, "__size") == 0) {
-    lua_pushinteger(L, sizeof(struct List));
-    return 1;
-}
-
-  return 0;
-}
-
-static void
-_lua_gen_List_install_keys(lua_State *L)
-{
-  lua_newtable(L);
-  lua_pushstring(L, "lh_Type");
-  lua_rawseti(L, -2, 1);
-  lua_pushstring(L, "l_pad");
-  lua_rawseti(L, -2, 2);
-  lua_setfield(L, -2, "__keys");
-}
-
-static void
-_lua_gen_install_meta_List(lua_State *L) {
-  if (luaL_newmetatable(L, "List")) {
-    lua_pushcfunction(L, _lua_gen_List_index);
-    lua_setfield(L, -2, "__index");
-    lua_pushcfunction(L, _lua_gen_List_newindex);
-    lua_setfield(L, -2, "__newindex");
-    lua_pushcfunction(L, _lua_List_constructor);
-    lua_setglobal(L, "List");
-    _lua_gen_List_install_keys(L);
-    lua_pushstring(L, "List");
-    lua_setfield(L, -2, "__name");
-  }
-  lua_pop(L, 1);
-}
-
-static int
-_lua_gen_MsgPort_newindex(lua_State *L)
-{
-  struct MsgPort *obj = *(struct MsgPort **)luaL_checkudata(L, 1, "MsgPort");
-  const char *key = luaL_checkstring(L, 2);
-  (void)key;(void)obj;
-  // Unsupported type mp_Node.ln_Succ struct Node
-  if (strcmp(key, "mp_Node.ln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mp_Node.ln_Succ");
-  }
-  // Unsupported type mp_Node.ln_Pred struct Node
-  if (strcmp(key, "mp_Node.ln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mp_Node.ln_Pred");
-  }
-  if (strcmp(key, "mp_Node.ln_Type") == 0) {
-    obj->mp_Node.ln_Type = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "mp_Node.ln_Pri") == 0) {
-    obj->mp_Node.ln_Pri = (BYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "mp_Node.ln_Name") == 0) {
-    obj->mp_Node.ln_Name = (char *)luaL_checkstring(L, 3);
-    return 0;
-  }
-  // Unsupported type mp_Node struct Node
-  if (strcmp(key, "mp_Node") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mp_Node");
-  }
-  if (strcmp(key, "mp_Flags") == 0) {
-    obj->mp_Flags = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "mp_SigBit") == 0) {
-    obj->mp_SigBit = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "mp_SigTask") == 0) {
-    obj->mp_SigTask = (void *)lua_touserdata(L, 3);
-    return 0;
-  }
-  // Unsupported type mp_MsgList.lh_Head struct Node
-  if (strcmp(key, "mp_MsgList.lh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mp_MsgList.lh_Head");
-  }
-  // Unsupported type mp_MsgList.lh_Tail struct Node
-  if (strcmp(key, "mp_MsgList.lh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mp_MsgList.lh_Tail");
-  }
-  // Unsupported type mp_MsgList.lh_TailPred struct Node
-  if (strcmp(key, "mp_MsgList.lh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mp_MsgList.lh_TailPred");
-  }
-  if (strcmp(key, "mp_MsgList.lh_Type") == 0) {
-    obj->mp_MsgList.lh_Type = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "mp_MsgList.l_pad") == 0) {
-    obj->mp_MsgList.l_pad = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "mp_MsgList") == 0) {
-    // finder 0
-    struct List *val = *(struct List **)luaL_checkudata(L, 3, "List");
-    obj->mp_MsgList = *val;
-    return 0;
-  }
-  return 0;
-}
-
-
-static int
-_lua_MsgPort_constructor(lua_State *L)
-{
-  // Allocate pointer-to-struct MsgPort in userdata
-  struct MsgPort **objp = lua_newuserdata(L, sizeof(struct MsgPort *));
-  *objp = malloc(sizeof(struct MsgPort));
-  if (!*objp) return luaL_error(L, "out of memory");
-  memset(*objp, 0, sizeof(struct MsgPort));
-
-  // Set metatable
-  luaL_getmetatable(L, "MsgPort");
-  lua_setmetatable(L, -2);
-
-  // If a table is passed, use __newindex to copy fields
-  if (lua_istable(L, 1)) {
-    lua_insert(L, 1); // move userdata below table
-    lua_pushnil(L); // first key
-    while (lua_next(L, 2) != 0) {
-      lua_pushvalue(L, -2); // copy key
-      lua_pushvalue(L, -2); // copy value
-      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
-      lua_pop(L, 1); // pop original value, keep key
-    }
-    lua_remove(L, 2); // remove table, leave userdata
-  }
-
-  return 1; // return userdata
-}
-
-static int
-_lua_gen_MsgPort_index(lua_State *L)
-{
-  struct MsgPort *obj = *(struct MsgPort **)luaL_checkudata(L, 1, "MsgPort");
-  (void)obj;
-  const char *key = luaL_checkstring(L, 2);
-  // Unsupported mp_Node.ln_Succ struct Node *
-  if (strcmp(key, "mp_Node.ln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field mp_Node.ln_Succ");
-  }
-  // Unsupported mp_Node.ln_Pred struct Node *
-  if (strcmp(key, "mp_Node.ln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field mp_Node.ln_Pred");
-  }
-  if (strcmp(key, "mp_Node.ln_Type") == 0) {
-    lua_pushinteger(L, obj->mp_Node.ln_Type);
-    return 1;
-  }
-  if (strcmp(key, "mp_Node.ln_Pri") == 0) {
-    lua_pushinteger(L, obj->mp_Node.ln_Pri);
-    return 1;
-  }
-  if (strcmp(key, "mp_Node.ln_Name") == 0) {
-    lua_pushstring(L, obj->mp_Node.ln_Name);
-    return 1;
-  }
-  // Unsupported mp_Node struct Node
-  if (strcmp(key, "mp_Node") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mp_Node");
-  }
-  if (strcmp(key, "mp_Flags") == 0) {
-    lua_pushinteger(L, obj->mp_Flags);
-    return 1;
-  }
-  if (strcmp(key, "mp_SigBit") == 0) {
-    lua_pushinteger(L, obj->mp_SigBit);
-    return 1;
-  }
-  if (strcmp(key, "mp_SigTask") == 0) {
-    lua_pushlightuserdata(L, obj->mp_SigTask);
-    return 1;
-  }
-  // Unsupported mp_MsgList.lh_Head struct Node *
-  if (strcmp(key, "mp_MsgList.lh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field mp_MsgList.lh_Head");
-  }
-  // Unsupported mp_MsgList.lh_Tail struct Node *
-  if (strcmp(key, "mp_MsgList.lh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field mp_MsgList.lh_Tail");
-  }
-  // Unsupported mp_MsgList.lh_TailPred struct Node *
-  if (strcmp(key, "mp_MsgList.lh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field mp_MsgList.lh_TailPred");
-  }
-  if (strcmp(key, "mp_MsgList.lh_Type") == 0) {
-    lua_pushinteger(L, obj->mp_MsgList.lh_Type);
-    return 1;
-  }
-  if (strcmp(key, "mp_MsgList.l_pad") == 0) {
-    lua_pushinteger(L, obj->mp_MsgList.l_pad);
-    return 1;
-  }
-  if (strcmp(key, "mp_MsgList") == 0) {
-    struct List **ud = (struct List **)lua_newuserdata(L, sizeof(struct List *));
-    *ud = (struct List*)&obj->mp_MsgList;
-    luaL_getmetatable(L, "List");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "__size") == 0) {
-    lua_pushinteger(L, sizeof(struct MsgPort));
-    return 1;
-}
-
-  return 0;
-}
-
-static void
-_lua_gen_MsgPort_install_keys(lua_State *L)
-{
-  lua_newtable(L);
-  lua_pushstring(L, "mp_Node.ln_Type");
-  lua_rawseti(L, -2, 1);
-  lua_pushstring(L, "mp_Node.ln_Pri");
-  lua_rawseti(L, -2, 2);
-  lua_pushstring(L, "mp_Node.ln_Name");
-  lua_rawseti(L, -2, 3);
-  lua_pushstring(L, "mp_Flags");
-  lua_rawseti(L, -2, 4);
-  lua_pushstring(L, "mp_SigBit");
-  lua_rawseti(L, -2, 5);
-  lua_pushstring(L, "mp_MsgList.lh_Type");
-  lua_rawseti(L, -2, 6);
-  lua_pushstring(L, "mp_MsgList.l_pad");
-  lua_rawseti(L, -2, 7);
-  lua_setfield(L, -2, "__keys");
-}
-
-static void
-_lua_gen_install_meta_MsgPort(lua_State *L) {
-  if (luaL_newmetatable(L, "MsgPort")) {
-    lua_pushcfunction(L, _lua_gen_MsgPort_index);
-    lua_setfield(L, -2, "__index");
-    lua_pushcfunction(L, _lua_gen_MsgPort_newindex);
-    lua_setfield(L, -2, "__newindex");
-    lua_pushcfunction(L, _lua_MsgPort_constructor);
-    lua_setglobal(L, "MsgPort");
-    _lua_gen_MsgPort_install_keys(L);
-    lua_pushstring(L, "MsgPort");
-    lua_setfield(L, -2, "__name");
-  }
-  lua_pop(L, 1);
-}
-
-static int
-_lua_gen_Message_newindex(lua_State *L)
-{
-  struct Message *obj = *(struct Message **)luaL_checkudata(L, 1, "Message");
-  const char *key = luaL_checkstring(L, 2);
-  (void)key;(void)obj;
-  // Unsupported type mn_Node.ln_Succ struct Node
-  if (strcmp(key, "mn_Node.ln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mn_Node.ln_Succ");
-  }
-  // Unsupported type mn_Node.ln_Pred struct Node
-  if (strcmp(key, "mn_Node.ln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mn_Node.ln_Pred");
-  }
-  if (strcmp(key, "mn_Node.ln_Type") == 0) {
-    obj->mn_Node.ln_Type = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "mn_Node.ln_Pri") == 0) {
-    obj->mn_Node.ln_Pri = (BYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "mn_Node.ln_Name") == 0) {
-    obj->mn_Node.ln_Name = (char *)luaL_checkstring(L, 3);
-    return 0;
-  }
-  // Unsupported type mn_Node struct Node
-  if (strcmp(key, "mn_Node") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mn_Node");
-  }
-  if (strcmp(key, "mn_ReplyPort") == 0) {
-    // finder 1
-    //obj->mn_ReplyPort = *(struct MsgPort **)luaL_checkudata(L, 3, "MsgPort");
-    obj->mn_ReplyPort = (struct MsgPort *)_lua_gen_checkMsgPort(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "mn_Length") == 0) {
-    obj->mn_Length = (UWORD)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  return 0;
-}
-
-
-static int
-_lua_Message_constructor(lua_State *L)
-{
-  // Allocate pointer-to-struct Message in userdata
-  struct Message **objp = lua_newuserdata(L, sizeof(struct Message *));
-  *objp = malloc(sizeof(struct Message));
-  if (!*objp) return luaL_error(L, "out of memory");
-  memset(*objp, 0, sizeof(struct Message));
-
-  // Set metatable
-  luaL_getmetatable(L, "Message");
-  lua_setmetatable(L, -2);
-
-  // If a table is passed, use __newindex to copy fields
-  if (lua_istable(L, 1)) {
-    lua_insert(L, 1); // move userdata below table
-    lua_pushnil(L); // first key
-    while (lua_next(L, 2) != 0) {
-      lua_pushvalue(L, -2); // copy key
-      lua_pushvalue(L, -2); // copy value
-      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
-      lua_pop(L, 1); // pop original value, keep key
-    }
-    lua_remove(L, 2); // remove table, leave userdata
-  }
-
-  return 1; // return userdata
-}
-
-static int
-_lua_gen_Message_index(lua_State *L)
-{
-  struct Message *obj = *(struct Message **)luaL_checkudata(L, 1, "Message");
-  (void)obj;
-  const char *key = luaL_checkstring(L, 2);
-  // Unsupported mn_Node.ln_Succ struct Node *
-  if (strcmp(key, "mn_Node.ln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field mn_Node.ln_Succ");
-  }
-  // Unsupported mn_Node.ln_Pred struct Node *
-  if (strcmp(key, "mn_Node.ln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct Node * for field mn_Node.ln_Pred");
-  }
-  if (strcmp(key, "mn_Node.ln_Type") == 0) {
-    lua_pushinteger(L, obj->mn_Node.ln_Type);
-    return 1;
-  }
-  if (strcmp(key, "mn_Node.ln_Pri") == 0) {
-    lua_pushinteger(L, obj->mn_Node.ln_Pri);
-    return 1;
-  }
-  if (strcmp(key, "mn_Node.ln_Name") == 0) {
-    lua_pushstring(L, obj->mn_Node.ln_Name);
-    return 1;
-  }
-  // Unsupported mn_Node struct Node
-  if (strcmp(key, "mn_Node") == 0) {
-    return luaL_error(L, "Unsupported type struct Node for field mn_Node");
-  }
-  if (strcmp(key, "mn_ReplyPort") == 0) {
-    struct MsgPort **ud = (struct MsgPort **)lua_newuserdata(L, sizeof(struct MsgPort *));
-    *ud = (struct MsgPort*)obj->mn_ReplyPort;
-    luaL_getmetatable(L, "MsgPort");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "mn_Length") == 0) {
-    lua_pushinteger(L, obj->mn_Length);
-    return 1;
-  }
-  if (strcmp(key, "__size") == 0) {
-    lua_pushinteger(L, sizeof(struct Message));
-    return 1;
-}
-
-  return 0;
-}
-
-static void
-_lua_gen_Message_install_keys(lua_State *L)
-{
-  lua_newtable(L);
-  lua_pushstring(L, "mn_Node.ln_Type");
-  lua_rawseti(L, -2, 1);
-  lua_pushstring(L, "mn_Node.ln_Pri");
-  lua_rawseti(L, -2, 2);
-  lua_pushstring(L, "mn_Node.ln_Name");
-  lua_rawseti(L, -2, 3);
-  lua_pushstring(L, "mn_Length");
-  lua_rawseti(L, -2, 4);
-  lua_setfield(L, -2, "__keys");
-}
-
-static void
-_lua_gen_install_meta_Message(lua_State *L) {
-  if (luaL_newmetatable(L, "Message")) {
-    lua_pushcfunction(L, _lua_gen_Message_index);
-    lua_setfield(L, -2, "__index");
-    lua_pushcfunction(L, _lua_gen_Message_newindex);
-    lua_setfield(L, -2, "__newindex");
-    lua_pushcfunction(L, _lua_Message_constructor);
-    lua_setglobal(L, "Message");
-    _lua_gen_Message_install_keys(L);
-    lua_pushstring(L, "Message");
-    lua_setfield(L, -2, "__name");
-  }
-  lua_pop(L, 1);
-}
+#define _lua_gen_checkMinNode(l, i) amiga_check_type(l, i,  "MinNode")
+
+#define _lua_gen_pushList(l, o) amiga_push_type(l, o, "List")
+
+#define _lua_gen_checkList(l, i) amiga_check_type(l, i,  "List")
+
+#define _lua_gen_pushMsgPort(l, o) amiga_push_type(l, o, "MsgPort")
+
+#define _lua_gen_checkMsgPort(l, i) amiga_check_type(l, i,  "MsgPort")
+
+#define _lua_gen_pushMessage(l, o) amiga_push_type(l, o, "Message")
+
+#define _lua_gen_checkMessage(l, i) amiga_check_type(l, i,  "Message")
+
+#define _lua_gen_pushHook(l, o) amiga_push_type(l, o, "Hook")
+
+#define _lua_gen_checkHook(l, i) amiga_check_type(l, i,  "Hook")
+
+#define _lua_gen_pushIClass(l, o) amiga_push_type(l, o, "IClass")
+
+#define _lua_gen_checkIClass(l, i) amiga_check_type(l, i,  "IClass")
+
+#define _lua_gen_pushPoint(l, o) amiga_push_type(l, o, "Point")
+
+#define _lua_gen_checkPoint(l, i) amiga_check_type(l, i,  "Point")
+
+#define _lua_gen_pushBitMap(l, o) amiga_push_type(l, o, "BitMap")
+
+#define _lua_gen_checkBitMap(l, i) amiga_check_type(l, i,  "BitMap")
+
+#define _lua_gen_pushView(l, o) amiga_push_type(l, o, "View")
+
+#define _lua_gen_checkView(l, i) amiga_check_type(l, i,  "View")
+
+#define _lua_gen_pushViewPort(l, o) amiga_push_type(l, o, "ViewPort")
+
+#define _lua_gen_checkViewPort(l, i) amiga_check_type(l, i,  "ViewPort")
+
+#define _lua_gen_pushViewPortExtra(l, o) amiga_push_type(l, o, "ViewPortExtra")
+
+#define _lua_gen_checkViewPortExtra(l, i) amiga_check_type(l, i,  "ViewPortExtra")
+
+#define _lua_gen_pushRasInfo(l, o) amiga_push_type(l, o, "RasInfo")
+
+#define _lua_gen_checkRasInfo(l, i) amiga_check_type(l, i,  "RasInfo")
+
+#define _lua_gen_pushColorMap(l, o) amiga_push_type(l, o, "ColorMap")
+
+#define _lua_gen_checkColorMap(l, i) amiga_check_type(l, i,  "ColorMap")
+
+#define _lua_gen_pushDBufInfo(l, o) amiga_push_type(l, o, "DBufInfo")
+
+#define _lua_gen_checkDBufInfo(l, i) amiga_check_type(l, i,  "DBufInfo")
+
+#define _lua_gen_pushBorder(l, o) amiga_push_type(l, o, "Border")
+
+#define _lua_gen_checkBorder(l, i) amiga_check_type(l, i,  "Border")
+
+#define _lua_gen_pushClipRect(l, o) amiga_push_type(l, o, "ClipRect")
+
+#define _lua_gen_checkClipRect(l, i) amiga_check_type(l, i,  "ClipRect")
+
+#define _lua_gen_pushDrawInfo(l, o) amiga_push_type(l, o, "DrawInfo")
+
+#define _lua_gen_checkDrawInfo(l, i) amiga_check_type(l, i,  "DrawInfo")
+
+#define _lua_gen_pushGadget(l, o) amiga_push_type(l, o, "Gadget")
+
+#define _lua_gen_checkGadget(l, i) amiga_check_type(l, i,  "Gadget")
+
+#define _lua_gen_pushGadgetInfo(l, o) amiga_push_type(l, o, "GadgetInfo")
+
+#define _lua_gen_checkGadgetInfo(l, i) amiga_check_type(l, i,  "GadgetInfo")
+
+#define _lua_gen_pushGelsInfo(l, o) amiga_push_type(l, o, "GelsInfo")
+
+#define _lua_gen_checkGelsInfo(l, i) amiga_check_type(l, i,  "GelsInfo")
+
+#define _lua_gen_pushImage(l, o) amiga_push_type(l, o, "Image")
+
+#define _lua_gen_checkImage(l, i) amiga_check_type(l, i,  "Image")
+
+#define _lua_gen_pushInputEvent(l, o) amiga_push_type(l, o, "InputEvent")
+
+#define _lua_gen_checkInputEvent(l, i) amiga_check_type(l, i,  "InputEvent")
+
+#define _lua_gen_pushIntuiText(l, o) amiga_push_type(l, o, "IntuiText")
+
+#define _lua_gen_checkIntuiText(l, i) amiga_check_type(l, i,  "IntuiText")
+
+#define _lua_gen_pushKeyMap(l, o) amiga_push_type(l, o, "KeyMap")
+
+#define _lua_gen_checkKeyMap(l, i) amiga_check_type(l, i,  "KeyMap")
+
+#define _lua_gen_pushLayer(l, o) amiga_push_type(l, o, "Layer")
+
+#define _lua_gen_checkLayer(l, i) amiga_check_type(l, i,  "Layer")
+
+#define _lua_gen_pushLayer_Info(l, o) amiga_push_type(l, o, "Layer_Info")
+
+#define _lua_gen_checkLayer_Info(l, i) amiga_check_type(l, i,  "Layer_Info")
+
+#define _lua_gen_pushMenu(l, o) amiga_push_type(l, o, "Menu")
+
+#define _lua_gen_checkMenu(l, i) amiga_check_type(l, i,  "Menu")
+
+#define _lua_gen_pushMenuItem(l, o) amiga_push_type(l, o, "MenuItem")
+
+#define _lua_gen_checkMenuItem(l, i) amiga_check_type(l, i,  "MenuItem")
+
+#define _lua_gen_pushNewGadget(l, o) amiga_push_type(l, o, "NewGadget")
+
+#define _lua_gen_checkNewGadget(l, i) amiga_check_type(l, i,  "NewGadget")
+
+#define _lua_gen_pushNewMenu(l, o) amiga_push_type(l, o, "NewMenu")
+
+#define _lua_gen_checkNewMenu(l, i) amiga_check_type(l, i,  "NewMenu")
+
+#define _lua_gen_pushNewScreen(l, o) amiga_push_type(l, o, "NewScreen")
+
+#define _lua_gen_checkNewScreen(l, i) amiga_check_type(l, i,  "NewScreen")
+
+#define _lua_gen_pushNewWindow(l, o) amiga_push_type(l, o, "NewWindow")
+
+#define _lua_gen_checkNewWindow(l, i) amiga_check_type(l, i,  "NewWindow")
+
+#define _lua_gen_pushRastPort(l, o) amiga_push_type(l, o, "RastPort")
+
+#define _lua_gen_checkRastPort(l, i) amiga_check_type(l, i,  "RastPort")
+
+#define _lua_gen_pushRequester(l, o) amiga_push_type(l, o, "Requester")
+
+#define _lua_gen_checkRequester(l, i) amiga_check_type(l, i,  "Requester")
+
+#define _lua_gen_pushScreen(l, o) amiga_push_type(l, o, "Screen")
+
+#define _lua_gen_checkScreen(l, i) amiga_check_type(l, i,  "Screen")
+
+#define _lua_gen_pushTextAttr(l, o) amiga_push_type(l, o, "TextAttr")
+
+#define _lua_gen_checkTextAttr(l, i) amiga_check_type(l, i,  "TextAttr")
+
+#define _lua_gen_pushTextFont(l, o) amiga_push_type(l, o, "TextFont")
+
+#define _lua_gen_checkTextFont(l, i) amiga_check_type(l, i,  "TextFont")
+
+#define _lua_gen_pushWindow(l, o) amiga_push_type(l, o, "Window")
+
+#define _lua_gen_checkWindow(l, i) amiga_check_type(l, i,  "Window")
+
+#define _lua_gen_pushStringInfo(l, o) amiga_push_type(l, o, "StringInfo")
+
+#define _lua_gen_checkStringInfo(l, i) amiga_check_type(l, i,  "StringInfo")
+
+#define _lua_gen_pushIntuiMessage(l, o) amiga_push_type(l, o, "IntuiMessage")
+
+#define _lua_gen_checkIntuiMessage(l, i) amiga_check_type(l, i,  "IntuiMessage")
+
+#define _lua_gen_pushIBox(l, o) amiga_push_type(l, o, "IBox")
+
+#define _lua_gen_checkIBox(l, i) amiga_check_type(l, i,  "IBox")
+
+#define _lua_gen_pushScreenBuffer(l, o) amiga_push_type(l, o, "ScreenBuffer")
+
+#define _lua_gen_checkScreenBuffer(l, i) amiga_check_type(l, i,  "ScreenBuffer")
+
+#define _lua_gen_pushStringExtend(l, o) amiga_push_type(l, o, "StringExtend")
+
+#define _lua_gen_checkStringExtend(l, i) amiga_check_type(l, i,  "StringExtend")
+
+#define _lua_gen_pushGadgetPtr(l, o) amiga_push_type(l, o, "GadgetPtr")
+
+#define _lua_gen_checkGadgetPtr(l, i) amiga_check_type(l, i,  "GadgetPtr")
 
 static int
 _lua_gen_Hook_newindex(lua_State *L)
@@ -1573,17 +181,23 @@ _lua_gen_Hook_newindex(lua_State *L)
   struct Hook *obj = *(struct Hook **)luaL_checkudata(L, 1, "Hook");
   const char *key = luaL_checkstring(L, 2);
   (void)key;(void)obj;
-  // Unsupported type h_MinNode.mln_Succ struct MinNode
   if (strcmp(key, "h_MinNode.mln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field h_MinNode.mln_Succ");
+    // finder 1
+    //obj->h_MinNode.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->h_MinNode.mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type h_MinNode.mln_Pred struct MinNode
   if (strcmp(key, "h_MinNode.mln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field h_MinNode.mln_Pred");
+    // finder 1
+    //obj->h_MinNode.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->h_MinNode.mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type h_MinNode struct MinNode
   if (strcmp(key, "h_MinNode") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field h_MinNode");
+    // finder 0
+    struct MinNode *val = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->h_MinNode = *val;
+    return 0;
   }
   // Unsupported type h_Entry ULONG ()()
   if (strcmp(key, "h_Entry") == 0) {
@@ -1636,17 +250,26 @@ _lua_gen_Hook_index(lua_State *L)
   struct Hook *obj = *(struct Hook **)luaL_checkudata(L, 1, "Hook");
   (void)obj;
   const char *key = luaL_checkstring(L, 2);
-  // Unsupported h_MinNode.mln_Succ struct MinNode *
   if (strcmp(key, "h_MinNode.mln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field h_MinNode.mln_Succ");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->h_MinNode.mln_Succ;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported h_MinNode.mln_Pred struct MinNode *
   if (strcmp(key, "h_MinNode.mln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field h_MinNode.mln_Pred");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->h_MinNode.mln_Pred;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported h_MinNode struct MinNode
   if (strcmp(key, "h_MinNode") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field h_MinNode");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)&obj->h_MinNode;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   // Unsupported h_Entry ULONG (*)()
   if (strcmp(key, "h_Entry") == 0) {
@@ -1800,9 +423,11 @@ _lua_gen_GadgetInfo_newindex(lua_State *L)
     obj->gi_RastPort = (struct RastPort *)_lua_gen_checkRastPort(L, 3);
     return 0;
   }
-  // Unsupported type gi_Layer struct Layer
   if (strcmp(key, "gi_Layer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer for field gi_Layer");
+    // finder 1
+    //obj->gi_Layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->gi_Layer = (struct Layer *)_lua_gen_checkLayer(L, 3);
+    return 0;
   }
   if (strcmp(key, "gi_Domain.Left") == 0) {
     obj->gi_Domain.Left = (WORD)luaL_checkinteger(L, 3);
@@ -1912,9 +537,12 @@ _lua_gen_GadgetInfo_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
-  // Unsupported gi_Layer struct Layer *
   if (strcmp(key, "gi_Layer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer * for field gi_Layer");
+    struct Layer **ud = (struct Layer **)lua_newuserdata(L, sizeof(struct Layer *));
+    *ud = (struct Layer*)obj->gi_Layer;
+    luaL_getmetatable(L, "Layer");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "gi_Domain.Left") == 0) {
     lua_pushinteger(L, obj->gi_Domain.Left);
@@ -2013,17 +641,23 @@ _lua_gen_IClass_newindex(lua_State *L)
   struct IClass *obj = *(struct IClass **)luaL_checkudata(L, 1, "IClass");
   const char *key = luaL_checkstring(L, 2);
   (void)key;(void)obj;
-  // Unsupported type cl_Dispatcher.h_MinNode.mln_Succ struct MinNode
   if (strcmp(key, "cl_Dispatcher.h_MinNode.mln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field cl_Dispatcher.h_MinNode.mln_Succ");
+    // finder 1
+    //obj->cl_Dispatcher.h_MinNode.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->cl_Dispatcher.h_MinNode.mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type cl_Dispatcher.h_MinNode.mln_Pred struct MinNode
   if (strcmp(key, "cl_Dispatcher.h_MinNode.mln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field cl_Dispatcher.h_MinNode.mln_Pred");
+    // finder 1
+    //obj->cl_Dispatcher.h_MinNode.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->cl_Dispatcher.h_MinNode.mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type cl_Dispatcher.h_MinNode struct MinNode
   if (strcmp(key, "cl_Dispatcher.h_MinNode") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field cl_Dispatcher.h_MinNode");
+    // finder 0
+    struct MinNode *val = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->cl_Dispatcher.h_MinNode = *val;
+    return 0;
   }
   // Unsupported type cl_Dispatcher.h_Entry ULONG ()()
   if (strcmp(key, "cl_Dispatcher.h_Entry") == 0) {
@@ -2120,17 +754,26 @@ _lua_gen_IClass_index(lua_State *L)
   struct IClass *obj = *(struct IClass **)luaL_checkudata(L, 1, "IClass");
   (void)obj;
   const char *key = luaL_checkstring(L, 2);
-  // Unsupported cl_Dispatcher.h_MinNode.mln_Succ struct MinNode *
   if (strcmp(key, "cl_Dispatcher.h_MinNode.mln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field cl_Dispatcher.h_MinNode.mln_Succ");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->cl_Dispatcher.h_MinNode.mln_Succ;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported cl_Dispatcher.h_MinNode.mln_Pred struct MinNode *
   if (strcmp(key, "cl_Dispatcher.h_MinNode.mln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field cl_Dispatcher.h_MinNode.mln_Pred");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->cl_Dispatcher.h_MinNode.mln_Pred;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported cl_Dispatcher.h_MinNode struct MinNode
   if (strcmp(key, "cl_Dispatcher.h_MinNode") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field cl_Dispatcher.h_MinNode");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)&obj->cl_Dispatcher.h_MinNode;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   // Unsupported cl_Dispatcher.h_Entry ULONG (*)()
   if (strcmp(key, "cl_Dispatcher.h_Entry") == 0) {
@@ -2557,9 +1200,11 @@ _lua_gen_ViewPort_newindex(lua_State *L)
     obj->Next = (struct ViewPort *)_lua_gen_checkViewPort(L, 3);
     return 0;
   }
-  // Unsupported type ColorMap struct ColorMap
   if (strcmp(key, "ColorMap") == 0) {
-    return luaL_error(L, "Unsupported type struct ColorMap for field ColorMap");
+    // finder 1
+    //obj->ColorMap = *(struct ColorMap **)luaL_checkudata(L, 3, "ColorMap");
+    obj->ColorMap = (struct ColorMap *)_lua_gen_checkColorMap(L, 3);
+    return 0;
   }
   // Unsupported type DspIns struct CopList
   if (strcmp(key, "DspIns") == 0) {
@@ -2657,9 +1302,12 @@ _lua_gen_ViewPort_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
-  // Unsupported ColorMap struct ColorMap *
   if (strcmp(key, "ColorMap") == 0) {
-    return luaL_error(L, "Unsupported type struct ColorMap * for field ColorMap");
+    struct ColorMap **ud = (struct ColorMap **)lua_newuserdata(L, sizeof(struct ColorMap *));
+    *ud = (struct ColorMap*)obj->ColorMap;
+    luaL_getmetatable(L, "ColorMap");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   // Unsupported DspIns struct CopList *
   if (strcmp(key, "DspIns") == 0) {
@@ -2887,6 +1535,284 @@ _lua_gen_install_meta_View(lua_State *L) {
     lua_setglobal(L, "View");
     _lua_gen_View_install_keys(L);
     lua_pushstring(L, "View");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
+static int
+_lua_gen_ColorMap_newindex(lua_State *L)
+{
+  struct ColorMap *obj = *(struct ColorMap **)luaL_checkudata(L, 1, "ColorMap");
+  const char *key = luaL_checkstring(L, 2);
+  (void)key;(void)obj;
+  if (strcmp(key, "Flags") == 0) {
+    obj->Flags = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Type") == 0) {
+    obj->Type = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Count") == 0) {
+    obj->Count = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ColorTable") == 0) {
+    obj->ColorTable = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "cm_vpe") == 0) {
+    // finder 1
+    //obj->cm_vpe = *(struct ViewPortExtra **)luaL_checkudata(L, 3, "ViewPortExtra");
+    obj->cm_vpe = (struct ViewPortExtra *)_lua_gen_checkViewPortExtra(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "LowColorBits") == 0) {
+    obj->LowColorBits = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "TransparencyPlane") == 0) {
+    obj->TransparencyPlane = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "SpriteResolution") == 0) {
+    obj->SpriteResolution = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "SpriteResDefault") == 0) {
+    obj->SpriteResDefault = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "AuxFlags") == 0) {
+    obj->AuxFlags = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "cm_vp") == 0) {
+    // finder 1
+    //obj->cm_vp = *(struct ViewPort **)luaL_checkudata(L, 3, "ViewPort");
+    obj->cm_vp = (struct ViewPort *)_lua_gen_checkViewPort(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "NormalDisplayInfo") == 0) {
+    obj->NormalDisplayInfo = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "CoerceDisplayInfo") == 0) {
+    obj->CoerceDisplayInfo = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  // Unsupported type cm_batch_items struct TagItem
+  if (strcmp(key, "cm_batch_items") == 0) {
+    return luaL_error(L, "Unsupported type struct TagItem for field cm_batch_items");
+  }
+  if (strcmp(key, "VPModeID") == 0) {
+    obj->VPModeID = (ULONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  // Unsupported type PalExtra struct PaletteExtra
+  if (strcmp(key, "PalExtra") == 0) {
+    return luaL_error(L, "Unsupported type struct PaletteExtra for field PalExtra");
+  }
+  if (strcmp(key, "SpriteBase_Even") == 0) {
+    obj->SpriteBase_Even = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "SpriteBase_Odd") == 0) {
+    obj->SpriteBase_Odd = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Bp_0_base") == 0) {
+    obj->Bp_0_base = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Bp_1_base") == 0) {
+    obj->Bp_1_base = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  return 0;
+}
+
+
+static int
+_lua_ColorMap_constructor(lua_State *L)
+{
+  // Allocate pointer-to-struct ColorMap in userdata
+  struct ColorMap **objp = lua_newuserdata(L, sizeof(struct ColorMap *));
+  *objp = malloc(sizeof(struct ColorMap));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(struct ColorMap));
+
+  // Set metatable
+  luaL_getmetatable(L, "ColorMap");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_ColorMap_index(lua_State *L)
+{
+  struct ColorMap *obj = *(struct ColorMap **)luaL_checkudata(L, 1, "ColorMap");
+  (void)obj;
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "Flags") == 0) {
+    lua_pushinteger(L, obj->Flags);
+    return 1;
+  }
+  if (strcmp(key, "Type") == 0) {
+    lua_pushinteger(L, obj->Type);
+    return 1;
+  }
+  if (strcmp(key, "Count") == 0) {
+    lua_pushinteger(L, obj->Count);
+    return 1;
+  }
+  if (strcmp(key, "ColorTable") == 0) {
+    lua_pushlightuserdata(L, obj->ColorTable);
+    return 1;
+  }
+  if (strcmp(key, "cm_vpe") == 0) {
+    struct ViewPortExtra **ud = (struct ViewPortExtra **)lua_newuserdata(L, sizeof(struct ViewPortExtra *));
+    *ud = (struct ViewPortExtra*)obj->cm_vpe;
+    luaL_getmetatable(L, "ViewPortExtra");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "LowColorBits") == 0) {
+    lua_pushlightuserdata(L, obj->LowColorBits);
+    return 1;
+  }
+  if (strcmp(key, "TransparencyPlane") == 0) {
+    lua_pushinteger(L, obj->TransparencyPlane);
+    return 1;
+  }
+  if (strcmp(key, "SpriteResolution") == 0) {
+    lua_pushinteger(L, obj->SpriteResolution);
+    return 1;
+  }
+  if (strcmp(key, "SpriteResDefault") == 0) {
+    lua_pushinteger(L, obj->SpriteResDefault);
+    return 1;
+  }
+  if (strcmp(key, "AuxFlags") == 0) {
+    lua_pushinteger(L, obj->AuxFlags);
+    return 1;
+  }
+  if (strcmp(key, "cm_vp") == 0) {
+    struct ViewPort **ud = (struct ViewPort **)lua_newuserdata(L, sizeof(struct ViewPort *));
+    *ud = (struct ViewPort*)obj->cm_vp;
+    luaL_getmetatable(L, "ViewPort");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "NormalDisplayInfo") == 0) {
+    lua_pushlightuserdata(L, obj->NormalDisplayInfo);
+    return 1;
+  }
+  if (strcmp(key, "CoerceDisplayInfo") == 0) {
+    lua_pushlightuserdata(L, obj->CoerceDisplayInfo);
+    return 1;
+  }
+  // Unsupported cm_batch_items struct TagItem *
+  if (strcmp(key, "cm_batch_items") == 0) {
+    return luaL_error(L, "Unsupported type struct TagItem * for field cm_batch_items");
+  }
+  if (strcmp(key, "VPModeID") == 0) {
+    lua_pushinteger(L, obj->VPModeID);
+    return 1;
+  }
+  // Unsupported PalExtra struct PaletteExtra *
+  if (strcmp(key, "PalExtra") == 0) {
+    return luaL_error(L, "Unsupported type struct PaletteExtra * for field PalExtra");
+  }
+  if (strcmp(key, "SpriteBase_Even") == 0) {
+    lua_pushinteger(L, obj->SpriteBase_Even);
+    return 1;
+  }
+  if (strcmp(key, "SpriteBase_Odd") == 0) {
+    lua_pushinteger(L, obj->SpriteBase_Odd);
+    return 1;
+  }
+  if (strcmp(key, "Bp_0_base") == 0) {
+    lua_pushinteger(L, obj->Bp_0_base);
+    return 1;
+  }
+  if (strcmp(key, "Bp_1_base") == 0) {
+    lua_pushinteger(L, obj->Bp_1_base);
+    return 1;
+  }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct ColorMap));
+    return 1;
+}
+
+  return 0;
+}
+
+static void
+_lua_gen_ColorMap_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "Flags");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "Type");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "Count");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "ColorTable");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "LowColorBits");
+  lua_rawseti(L, -2, 5);
+  lua_pushstring(L, "TransparencyPlane");
+  lua_rawseti(L, -2, 6);
+  lua_pushstring(L, "SpriteResolution");
+  lua_rawseti(L, -2, 7);
+  lua_pushstring(L, "SpriteResDefault");
+  lua_rawseti(L, -2, 8);
+  lua_pushstring(L, "AuxFlags");
+  lua_rawseti(L, -2, 9);
+  lua_pushstring(L, "NormalDisplayInfo");
+  lua_rawseti(L, -2, 10);
+  lua_pushstring(L, "CoerceDisplayInfo");
+  lua_rawseti(L, -2, 11);
+  lua_pushstring(L, "VPModeID");
+  lua_rawseti(L, -2, 12);
+  lua_pushstring(L, "SpriteBase_Even");
+  lua_rawseti(L, -2, 13);
+  lua_pushstring(L, "SpriteBase_Odd");
+  lua_rawseti(L, -2, 14);
+  lua_pushstring(L, "Bp_0_base");
+  lua_rawseti(L, -2, 15);
+  lua_pushstring(L, "Bp_1_base");
+  lua_rawseti(L, -2, 16);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_ColorMap(lua_State *L) {
+  if (luaL_newmetatable(L, "ColorMap")) {
+    lua_pushcfunction(L, _lua_gen_ColorMap_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_ColorMap_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_ColorMap_constructor);
+    lua_setglobal(L, "ColorMap");
+    _lua_gen_ColorMap_install_keys(L);
+    lua_pushstring(L, "ColorMap");
     lua_setfield(L, -2, "__name");
   }
   lua_pop(L, 1);
@@ -4728,221 +3654,6 @@ _lua_gen_install_meta_Image(lua_State *L) {
 }
 
 static int
-_lua_gen_InputEvent_newindex(lua_State *L)
-{
-  struct InputEvent *obj = *(struct InputEvent **)luaL_checkudata(L, 1, "InputEvent");
-  const char *key = luaL_checkstring(L, 2);
-  (void)key;(void)obj;
-  if (strcmp(key, "ie_NextEvent") == 0) {
-    // finder 1
-    //obj->ie_NextEvent = *(struct InputEvent **)luaL_checkudata(L, 3, "InputEvent");
-    obj->ie_NextEvent = (struct InputEvent *)_lua_gen_checkInputEvent(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "ie_Class") == 0) {
-    obj->ie_Class = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "ie_SubClass") == 0) {
-    obj->ie_SubClass = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "ie_Code") == 0) {
-    obj->ie_Code = (UWORD)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "ie_Qualifier") == 0) {
-    obj->ie_Qualifier = (UWORD)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "ie_position.ie_xy.ie_x") == 0) {
-    obj->ie_position.ie_xy.ie_x = (WORD)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "ie_position.ie_xy.ie_y") == 0) {
-    obj->ie_position.ie_xy.ie_y = (WORD)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "ie_position.ie_addr") == 0) {
-    obj->ie_position.ie_addr = (APTR)lua_touserdata(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "ie_position.ie_dead.ie_prev1DownCode") == 0) {
-    obj->ie_position.ie_dead.ie_prev1DownCode = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "ie_position.ie_dead.ie_prev1DownQual") == 0) {
-    obj->ie_position.ie_dead.ie_prev1DownQual = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "ie_position.ie_dead.ie_prev2DownCode") == 0) {
-    obj->ie_position.ie_dead.ie_prev2DownCode = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  if (strcmp(key, "ie_position.ie_dead.ie_prev2DownQual") == 0) {
-    obj->ie_position.ie_dead.ie_prev2DownQual = (UBYTE)luaL_checkinteger(L, 3);
-    return 0;
-  }
-  // Unsupported type ie_position unnamed union
-  if (strcmp(key, "ie_position") == 0) {
-    return luaL_error(L, "Unsupported type unnamed union for field ie_position");
-  }
-  // Unsupported type ie_TimeStamp TimeVal_Type
-  if (strcmp(key, "ie_TimeStamp") == 0) {
-    return luaL_error(L, "Unsupported type TimeVal_Type for field ie_TimeStamp");
-  }
-  return 0;
-}
-
-
-static int
-_lua_InputEvent_constructor(lua_State *L)
-{
-  // Allocate pointer-to-struct InputEvent in userdata
-  struct InputEvent **objp = lua_newuserdata(L, sizeof(struct InputEvent *));
-  *objp = malloc(sizeof(struct InputEvent));
-  if (!*objp) return luaL_error(L, "out of memory");
-  memset(*objp, 0, sizeof(struct InputEvent));
-
-  // Set metatable
-  luaL_getmetatable(L, "InputEvent");
-  lua_setmetatable(L, -2);
-
-  // If a table is passed, use __newindex to copy fields
-  if (lua_istable(L, 1)) {
-    lua_insert(L, 1); // move userdata below table
-    lua_pushnil(L); // first key
-    while (lua_next(L, 2) != 0) {
-      lua_pushvalue(L, -2); // copy key
-      lua_pushvalue(L, -2); // copy value
-      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
-      lua_pop(L, 1); // pop original value, keep key
-    }
-    lua_remove(L, 2); // remove table, leave userdata
-  }
-
-  return 1; // return userdata
-}
-
-static int
-_lua_gen_InputEvent_index(lua_State *L)
-{
-  struct InputEvent *obj = *(struct InputEvent **)luaL_checkudata(L, 1, "InputEvent");
-  (void)obj;
-  const char *key = luaL_checkstring(L, 2);
-  if (strcmp(key, "ie_NextEvent") == 0) {
-    struct InputEvent **ud = (struct InputEvent **)lua_newuserdata(L, sizeof(struct InputEvent *));
-    *ud = (struct InputEvent*)obj->ie_NextEvent;
-    luaL_getmetatable(L, "InputEvent");
-    lua_setmetatable(L, -2);
-    return 1;
-  }
-  if (strcmp(key, "ie_Class") == 0) {
-    lua_pushinteger(L, obj->ie_Class);
-    return 1;
-  }
-  if (strcmp(key, "ie_SubClass") == 0) {
-    lua_pushinteger(L, obj->ie_SubClass);
-    return 1;
-  }
-  if (strcmp(key, "ie_Code") == 0) {
-    lua_pushinteger(L, obj->ie_Code);
-    return 1;
-  }
-  if (strcmp(key, "ie_Qualifier") == 0) {
-    lua_pushinteger(L, obj->ie_Qualifier);
-    return 1;
-  }
-  if (strcmp(key, "ie_position.ie_xy.ie_x") == 0) {
-    lua_pushinteger(L, obj->ie_position.ie_xy.ie_x);
-    return 1;
-  }
-  if (strcmp(key, "ie_position.ie_xy.ie_y") == 0) {
-    lua_pushinteger(L, obj->ie_position.ie_xy.ie_y);
-    return 1;
-  }
-  if (strcmp(key, "ie_position.ie_addr") == 0) {
-    lua_pushlightuserdata(L, obj->ie_position.ie_addr);
-    return 1;
-  }
-  if (strcmp(key, "ie_position.ie_dead.ie_prev1DownCode") == 0) {
-    lua_pushinteger(L, obj->ie_position.ie_dead.ie_prev1DownCode);
-    return 1;
-  }
-  if (strcmp(key, "ie_position.ie_dead.ie_prev1DownQual") == 0) {
-    lua_pushinteger(L, obj->ie_position.ie_dead.ie_prev1DownQual);
-    return 1;
-  }
-  if (strcmp(key, "ie_position.ie_dead.ie_prev2DownCode") == 0) {
-    lua_pushinteger(L, obj->ie_position.ie_dead.ie_prev2DownCode);
-    return 1;
-  }
-  if (strcmp(key, "ie_position.ie_dead.ie_prev2DownQual") == 0) {
-    lua_pushinteger(L, obj->ie_position.ie_dead.ie_prev2DownQual);
-    return 1;
-  }
-  // Unsupported ie_position unnamed union
-  if (strcmp(key, "ie_position") == 0) {
-    return luaL_error(L, "Unsupported type unnamed union for field ie_position");
-  }
-  // Unsupported ie_TimeStamp TimeVal_Type
-  if (strcmp(key, "ie_TimeStamp") == 0) {
-    return luaL_error(L, "Unsupported type TimeVal_Type for field ie_TimeStamp");
-  }
-  if (strcmp(key, "__size") == 0) {
-    lua_pushinteger(L, sizeof(struct InputEvent));
-    return 1;
-}
-
-  return 0;
-}
-
-static void
-_lua_gen_InputEvent_install_keys(lua_State *L)
-{
-  lua_newtable(L);
-  lua_pushstring(L, "ie_Class");
-  lua_rawseti(L, -2, 1);
-  lua_pushstring(L, "ie_SubClass");
-  lua_rawseti(L, -2, 2);
-  lua_pushstring(L, "ie_Code");
-  lua_rawseti(L, -2, 3);
-  lua_pushstring(L, "ie_Qualifier");
-  lua_rawseti(L, -2, 4);
-  lua_pushstring(L, "ie_position.ie_xy.ie_x");
-  lua_rawseti(L, -2, 5);
-  lua_pushstring(L, "ie_position.ie_xy.ie_y");
-  lua_rawseti(L, -2, 6);
-  lua_pushstring(L, "ie_position.ie_addr");
-  lua_rawseti(L, -2, 7);
-  lua_pushstring(L, "ie_position.ie_dead.ie_prev1DownCode");
-  lua_rawseti(L, -2, 8);
-  lua_pushstring(L, "ie_position.ie_dead.ie_prev1DownQual");
-  lua_rawseti(L, -2, 9);
-  lua_pushstring(L, "ie_position.ie_dead.ie_prev2DownCode");
-  lua_rawseti(L, -2, 10);
-  lua_pushstring(L, "ie_position.ie_dead.ie_prev2DownQual");
-  lua_rawseti(L, -2, 11);
-  lua_setfield(L, -2, "__keys");
-}
-
-static void
-_lua_gen_install_meta_InputEvent(lua_State *L) {
-  if (luaL_newmetatable(L, "InputEvent")) {
-    lua_pushcfunction(L, _lua_gen_InputEvent_index);
-    lua_setfield(L, -2, "__index");
-    lua_pushcfunction(L, _lua_gen_InputEvent_newindex);
-    lua_setfield(L, -2, "__newindex");
-    lua_pushcfunction(L, _lua_InputEvent_constructor);
-    lua_setglobal(L, "InputEvent");
-    _lua_gen_InputEvent_install_keys(L);
-    lua_pushstring(L, "InputEvent");
-    lua_setfield(L, -2, "__name");
-  }
-  lua_pop(L, 1);
-}
-
-static int
 _lua_gen_IntuiText_newindex(lua_State *L)
 {
   struct IntuiText *obj = *(struct IntuiText **)luaL_checkudata(L, 1, "IntuiText");
@@ -5260,15 +3971,704 @@ _lua_gen_install_meta_KeyMap(lua_State *L) {
   lua_pop(L, 1);
 }
 
+typedef struct {
+  UBYTE* data;
+  uint16_t count;
+} lua_gen_wrapped_UBYTE_array_data_t;
+
+static int _lua_gen_wrapped_UBYTE_array_ptr_method(lua_State* L) {
+    lua_gen_wrapped_UBYTE_array_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_array_proxy");
+    int index = luaL_checkinteger(L, 2);
+    void* ptr = &wrapper->data[index - 1];
+    lua_pushlightuserdata(L, ptr);
+    return 1;
+}
+static int
+_lua_gen_wrapped_UBYTE_array_index(lua_State* L)
+{
+  lua_gen_wrapped_UBYTE_array_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_array_proxy");
+  if (lua_isinteger(L, 2)) {
+    int index = lua_tointeger(L, 2);
+    if (index < 1 || index > wrapper->count)
+      return luaL_error(L, "index out of range (1..%d)", wrapper->count);
+    lua_pushinteger(L, wrapper->data[index - 1]);
+    return 1;
+  }
+
+  // Not a numeric key? Try methods
+  lua_getmetatable(L, 1);
+  lua_getfield(L, -1, "__methods");
+  lua_pushvalue(L, 2);
+  lua_gettable(L, -2);
+  return 1;
+}
+
+static int
+_lua_gen_wrapped_UBYTE_array_newindex(lua_State* L)
+{
+  lua_gen_wrapped_UBYTE_array_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_array_proxy");
+  if (!lua_isinteger(L, 2))
+    return luaL_error(L, "only integer indices allowed");
+  int index = lua_tointeger(L, 2);
+  if (index < 1 || index > wrapper->count)
+    return luaL_error(L, "index out of range (1..%d)", wrapper->count);
+  UBYTE value = luaL_checkinteger(L,  3);
+  wrapper->data[index - 1] = value;
+  return 0;
+}
+
+static void
+_lua_gen_push_UBYTE_array_proxy(lua_State *L,  UBYTE *array, int count)
+{
+
+  lua_gen_wrapped_UBYTE_array_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_UBYTE_array_data_t));
+  wrapper->data = array;
+  wrapper->count = count;
+
+  if (luaL_newmetatable(L, "UBYTE_array_proxy")) {
+    // Create method table
+    lua_newtable(L);
+    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_array_ptr_method);
+    lua_setfield(L, -2, "ptr");
+    lua_setfield(L, -2, "__methods");
+
+    // __index handles both numeric and method lookup
+    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_array_index);
+    lua_setfield(L, -2, "__index");
+
+    // __newindex for writing
+    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_array_newindex);
+    lua_setfield(L, -2, "__newindex");
+  }
+
+  lua_setmetatable(L, -2);  // assign to userdata
+
+}
+static int
+_lua_gen_Layer_newindex(lua_State *L)
+{
+  struct Layer *obj = *(struct Layer **)luaL_checkudata(L, 1, "Layer");
+  const char *key = luaL_checkstring(L, 2);
+  (void)key;(void)obj;
+  if (strcmp(key, "front") == 0) {
+    // finder 1
+    //obj->front = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->front = (struct Layer *)_lua_gen_checkLayer(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "back") == 0) {
+    // finder 1
+    //obj->back = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->back = (struct Layer *)_lua_gen_checkLayer(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "ClipRect") == 0) {
+    // finder 1
+    //obj->ClipRect = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->ClipRect = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "rp") == 0) {
+    // finder 1
+    //obj->rp = *(struct RastPort **)luaL_checkudata(L, 3, "RastPort");
+    obj->rp = (struct RastPort *)_lua_gen_checkRastPort(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "bounds.MinX") == 0) {
+    obj->bounds.MinX = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "bounds.MinY") == 0) {
+    obj->bounds.MinY = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "bounds.MaxX") == 0) {
+    obj->bounds.MaxX = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "bounds.MaxY") == 0) {
+    obj->bounds.MaxY = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  // Unsupported type bounds struct Rectangle
+  if (strcmp(key, "bounds") == 0) {
+    return luaL_error(L, "Unsupported type struct Rectangle for field bounds");
+  }
+  if (strcmp(key, "nlink") == 0) {
+    // finder 1
+    //obj->nlink = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->nlink = (struct Layer *)_lua_gen_checkLayer(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "priority") == 0) {
+    obj->priority = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Flags") == 0) {
+    obj->Flags = (UWORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "SuperBitMap") == 0) {
+    // finder 1
+    //obj->SuperBitMap = *(struct BitMap **)luaL_checkudata(L, 3, "BitMap");
+    obj->SuperBitMap = (struct BitMap *)_lua_gen_checkBitMap(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "SuperClipRect") == 0) {
+    // finder 1
+    //obj->SuperClipRect = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->SuperClipRect = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Window") == 0) {
+    obj->Window = (APTR)lua_touserdata(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Scroll_X") == 0) {
+    obj->Scroll_X = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Scroll_Y") == 0) {
+    obj->Scroll_Y = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "OnScreen") == 0) {
+    // finder 1
+    //obj->OnScreen = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->OnScreen = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "OffScreen") == 0) {
+    // finder 1
+    //obj->OffScreen = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->OffScreen = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Backup") == 0) {
+    // finder 1
+    //obj->Backup = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->Backup = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "SuperSaveClipRects") == 0) {
+    // finder 1
+    //obj->SuperSaveClipRects = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->SuperSaveClipRects = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Undamaged") == 0) {
+    // finder 1
+    //obj->Undamaged = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->Undamaged = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "LayerInfo") == 0) {
+    // finder 1
+    //obj->LayerInfo = *(struct Layer_Info **)luaL_checkudata(L, 3, "Layer_Info");
+    obj->LayerInfo = (struct Layer_Info *)_lua_gen_checkLayer_Info(L, 3);
+    return 0;
+  }
+  // Unsupported type Lock.ss_Link.ln_Succ struct Node
+  if (strcmp(key, "Lock.ss_Link.ln_Succ") == 0) {
+    return luaL_error(L, "Unsupported type struct Node for field Lock.ss_Link.ln_Succ");
+  }
+  // Unsupported type Lock.ss_Link.ln_Pred struct Node
+  if (strcmp(key, "Lock.ss_Link.ln_Pred") == 0) {
+    return luaL_error(L, "Unsupported type struct Node for field Lock.ss_Link.ln_Pred");
+  }
+  if (strcmp(key, "Lock.ss_Link.ln_Type") == 0) {
+    obj->Lock.ss_Link.ln_Type = (UBYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Lock.ss_Link.ln_Pri") == 0) {
+    obj->Lock.ss_Link.ln_Pri = (BYTE)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Lock.ss_Link.ln_Name") == 0) {
+    obj->Lock.ss_Link.ln_Name = (char *)luaL_checkstring(L, 3);
+    return 0;
+  }
+  // Unsupported type Lock.ss_Link struct Node
+  if (strcmp(key, "Lock.ss_Link") == 0) {
+    return luaL_error(L, "Unsupported type struct Node for field Lock.ss_Link");
+  }
+  if (strcmp(key, "Lock.ss_NestCount") == 0) {
+    obj->Lock.ss_NestCount = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Lock.ss_WaitQueue.mlh_Head") == 0) {
+    // finder 1
+    //obj->Lock.ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_WaitQueue.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Lock.ss_WaitQueue.mlh_Tail") == 0) {
+    // finder 1
+    //obj->Lock.ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_WaitQueue.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Lock.ss_WaitQueue.mlh_TailPred") == 0) {
+    // finder 1
+    //obj->Lock.ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_WaitQueue.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
+  }
+  // Unsupported type Lock.ss_WaitQueue struct MinList
+  if (strcmp(key, "Lock.ss_WaitQueue") == 0) {
+    return luaL_error(L, "Unsupported type struct MinList for field Lock.ss_WaitQueue");
+  }
+  if (strcmp(key, "Lock.ss_MultipleLink.sr_Link.mln_Succ") == 0) {
+    // finder 1
+    //obj->Lock.ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_MultipleLink.sr_Link.mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Lock.ss_MultipleLink.sr_Link.mln_Pred") == 0) {
+    // finder 1
+    //obj->Lock.ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_MultipleLink.sr_Link.mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Lock.ss_MultipleLink.sr_Link") == 0) {
+    // finder 0
+    struct MinNode *val = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_MultipleLink.sr_Link = *val;
+    return 0;
+  }
+  // Unsupported type Lock.ss_MultipleLink.sr_Waiter struct Task
+  if (strcmp(key, "Lock.ss_MultipleLink.sr_Waiter") == 0) {
+    return luaL_error(L, "Unsupported type struct Task for field Lock.ss_MultipleLink.sr_Waiter");
+  }
+  // Unsupported type Lock.ss_MultipleLink struct SemaphoreRequest
+  if (strcmp(key, "Lock.ss_MultipleLink") == 0) {
+    return luaL_error(L, "Unsupported type struct SemaphoreRequest for field Lock.ss_MultipleLink");
+  }
+  // Unsupported type Lock.ss_Owner struct Task
+  if (strcmp(key, "Lock.ss_Owner") == 0) {
+    return luaL_error(L, "Unsupported type struct Task for field Lock.ss_Owner");
+  }
+  if (strcmp(key, "Lock.ss_QueueCount") == 0) {
+    obj->Lock.ss_QueueCount = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  // Unsupported type Lock struct SignalSemaphore
+  if (strcmp(key, "Lock") == 0) {
+    return luaL_error(L, "Unsupported type struct SignalSemaphore for field Lock");
+  }
+  if (strcmp(key, "BackFill") == 0) {
+    // finder 1
+    //obj->BackFill = *(struct Hook **)luaL_checkudata(L, 3, "Hook");
+    obj->BackFill = (struct Hook *)_lua_gen_checkHook(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "reserved1") == 0) {
+    obj->reserved1 = (ULONG)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  // Unsupported type ClipRegion struct Region
+  if (strcmp(key, "ClipRegion") == 0) {
+    return luaL_error(L, "Unsupported type struct Region for field ClipRegion");
+  }
+  if (strcmp(key, "clipped") == 0) {
+    // finder 1
+    //obj->clipped = *(struct ClipRect **)luaL_checkudata(L, 3, "ClipRect");
+    obj->clipped = (struct ClipRect *)_lua_gen_checkClipRect(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Width") == 0) {
+    obj->Width = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  if (strcmp(key, "Height") == 0) {
+    obj->Height = (WORD)luaL_checkinteger(L, 3);
+    return 0;
+  }
+  // reserved2[18] proxied via the index
+  // Unsupported type DamageList struct Region
+  if (strcmp(key, "DamageList") == 0) {
+    return luaL_error(L, "Unsupported type struct Region for field DamageList");
+  }
+  return 0;
+}
+
+
+static int
+_lua_Layer_constructor(lua_State *L)
+{
+  // Allocate pointer-to-struct Layer in userdata
+  struct Layer **objp = lua_newuserdata(L, sizeof(struct Layer *));
+  *objp = malloc(sizeof(struct Layer));
+  if (!*objp) return luaL_error(L, "out of memory");
+  memset(*objp, 0, sizeof(struct Layer));
+
+  // Set metatable
+  luaL_getmetatable(L, "Layer");
+  lua_setmetatable(L, -2);
+
+  // If a table is passed, use __newindex to copy fields
+  if (lua_istable(L, 1)) {
+    lua_insert(L, 1); // move userdata below table
+    lua_pushnil(L); // first key
+    while (lua_next(L, 2) != 0) {
+      lua_pushvalue(L, -2); // copy key
+      lua_pushvalue(L, -2); // copy value
+      lua_settable(L, 1);   // userdata[key] = value (via __newindex)
+      lua_pop(L, 1); // pop original value, keep key
+    }
+    lua_remove(L, 2); // remove table, leave userdata
+  }
+
+  return 1; // return userdata
+}
+
+static int
+_lua_gen_Layer_index(lua_State *L)
+{
+  struct Layer *obj = *(struct Layer **)luaL_checkudata(L, 1, "Layer");
+  (void)obj;
+  const char *key = luaL_checkstring(L, 2);
+  if (strcmp(key, "front") == 0) {
+    struct Layer **ud = (struct Layer **)lua_newuserdata(L, sizeof(struct Layer *));
+    *ud = (struct Layer*)obj->front;
+    luaL_getmetatable(L, "Layer");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "back") == 0) {
+    struct Layer **ud = (struct Layer **)lua_newuserdata(L, sizeof(struct Layer *));
+    *ud = (struct Layer*)obj->back;
+    luaL_getmetatable(L, "Layer");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "ClipRect") == 0) {
+    struct ClipRect **ud = (struct ClipRect **)lua_newuserdata(L, sizeof(struct ClipRect *));
+    *ud = (struct ClipRect*)obj->ClipRect;
+    luaL_getmetatable(L, "ClipRect");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "rp") == 0) {
+    struct RastPort **ud = (struct RastPort **)lua_newuserdata(L, sizeof(struct RastPort *));
+    *ud = (struct RastPort*)obj->rp;
+    luaL_getmetatable(L, "RastPort");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "bounds.MinX") == 0) {
+    lua_pushinteger(L, obj->bounds.MinX);
+    return 1;
+  }
+  if (strcmp(key, "bounds.MinY") == 0) {
+    lua_pushinteger(L, obj->bounds.MinY);
+    return 1;
+  }
+  if (strcmp(key, "bounds.MaxX") == 0) {
+    lua_pushinteger(L, obj->bounds.MaxX);
+    return 1;
+  }
+  if (strcmp(key, "bounds.MaxY") == 0) {
+    lua_pushinteger(L, obj->bounds.MaxY);
+    return 1;
+  }
+  // Unsupported bounds struct Rectangle
+  if (strcmp(key, "bounds") == 0) {
+    return luaL_error(L, "Unsupported type struct Rectangle for field bounds");
+  }
+  if (strcmp(key, "nlink") == 0) {
+    struct Layer **ud = (struct Layer **)lua_newuserdata(L, sizeof(struct Layer *));
+    *ud = (struct Layer*)obj->nlink;
+    luaL_getmetatable(L, "Layer");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "priority") == 0) {
+    lua_pushinteger(L, obj->priority);
+    return 1;
+  }
+  if (strcmp(key, "Flags") == 0) {
+    lua_pushinteger(L, obj->Flags);
+    return 1;
+  }
+  if (strcmp(key, "SuperBitMap") == 0) {
+    struct BitMap **ud = (struct BitMap **)lua_newuserdata(L, sizeof(struct BitMap *));
+    *ud = (struct BitMap*)obj->SuperBitMap;
+    luaL_getmetatable(L, "BitMap");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "SuperClipRect") == 0) {
+    struct ClipRect **ud = (struct ClipRect **)lua_newuserdata(L, sizeof(struct ClipRect *));
+    *ud = (struct ClipRect*)obj->SuperClipRect;
+    luaL_getmetatable(L, "ClipRect");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "Window") == 0) {
+    lua_pushlightuserdata(L, obj->Window);
+    return 1;
+  }
+  if (strcmp(key, "Scroll_X") == 0) {
+    lua_pushinteger(L, obj->Scroll_X);
+    return 1;
+  }
+  if (strcmp(key, "Scroll_Y") == 0) {
+    lua_pushinteger(L, obj->Scroll_Y);
+    return 1;
+  }
+  if (strcmp(key, "OnScreen") == 0) {
+    struct ClipRect **ud = (struct ClipRect **)lua_newuserdata(L, sizeof(struct ClipRect *));
+    *ud = (struct ClipRect*)obj->OnScreen;
+    luaL_getmetatable(L, "ClipRect");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "OffScreen") == 0) {
+    struct ClipRect **ud = (struct ClipRect **)lua_newuserdata(L, sizeof(struct ClipRect *));
+    *ud = (struct ClipRect*)obj->OffScreen;
+    luaL_getmetatable(L, "ClipRect");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "Backup") == 0) {
+    struct ClipRect **ud = (struct ClipRect **)lua_newuserdata(L, sizeof(struct ClipRect *));
+    *ud = (struct ClipRect*)obj->Backup;
+    luaL_getmetatable(L, "ClipRect");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "SuperSaveClipRects") == 0) {
+    struct ClipRect **ud = (struct ClipRect **)lua_newuserdata(L, sizeof(struct ClipRect *));
+    *ud = (struct ClipRect*)obj->SuperSaveClipRects;
+    luaL_getmetatable(L, "ClipRect");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "Undamaged") == 0) {
+    struct ClipRect **ud = (struct ClipRect **)lua_newuserdata(L, sizeof(struct ClipRect *));
+    *ud = (struct ClipRect*)obj->Undamaged;
+    luaL_getmetatable(L, "ClipRect");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "LayerInfo") == 0) {
+    struct Layer_Info **ud = (struct Layer_Info **)lua_newuserdata(L, sizeof(struct Layer_Info *));
+    *ud = (struct Layer_Info*)obj->LayerInfo;
+    luaL_getmetatable(L, "Layer_Info");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  // Unsupported Lock.ss_Link.ln_Succ struct Node *
+  if (strcmp(key, "Lock.ss_Link.ln_Succ") == 0) {
+    return luaL_error(L, "Unsupported type struct Node * for field Lock.ss_Link.ln_Succ");
+  }
+  // Unsupported Lock.ss_Link.ln_Pred struct Node *
+  if (strcmp(key, "Lock.ss_Link.ln_Pred") == 0) {
+    return luaL_error(L, "Unsupported type struct Node * for field Lock.ss_Link.ln_Pred");
+  }
+  if (strcmp(key, "Lock.ss_Link.ln_Type") == 0) {
+    lua_pushinteger(L, obj->Lock.ss_Link.ln_Type);
+    return 1;
+  }
+  if (strcmp(key, "Lock.ss_Link.ln_Pri") == 0) {
+    lua_pushinteger(L, obj->Lock.ss_Link.ln_Pri);
+    return 1;
+  }
+  if (strcmp(key, "Lock.ss_Link.ln_Name") == 0) {
+    lua_pushstring(L, obj->Lock.ss_Link.ln_Name);
+    return 1;
+  }
+  // Unsupported Lock.ss_Link struct Node
+  if (strcmp(key, "Lock.ss_Link") == 0) {
+    return luaL_error(L, "Unsupported type struct Node for field Lock.ss_Link");
+  }
+  if (strcmp(key, "Lock.ss_NestCount") == 0) {
+    lua_pushinteger(L, obj->Lock.ss_NestCount);
+    return 1;
+  }
+  if (strcmp(key, "Lock.ss_WaitQueue.mlh_Head") == 0) {
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->Lock.ss_WaitQueue.mlh_Head;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "Lock.ss_WaitQueue.mlh_Tail") == 0) {
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->Lock.ss_WaitQueue.mlh_Tail;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "Lock.ss_WaitQueue.mlh_TailPred") == 0) {
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->Lock.ss_WaitQueue.mlh_TailPred;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  // Unsupported Lock.ss_WaitQueue struct MinList
+  if (strcmp(key, "Lock.ss_WaitQueue") == 0) {
+    return luaL_error(L, "Unsupported type struct MinList for field Lock.ss_WaitQueue");
+  }
+  if (strcmp(key, "Lock.ss_MultipleLink.sr_Link.mln_Succ") == 0) {
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->Lock.ss_MultipleLink.sr_Link.mln_Succ;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "Lock.ss_MultipleLink.sr_Link.mln_Pred") == 0) {
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->Lock.ss_MultipleLink.sr_Link.mln_Pred;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "Lock.ss_MultipleLink.sr_Link") == 0) {
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)&obj->Lock.ss_MultipleLink.sr_Link;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  // Unsupported Lock.ss_MultipleLink.sr_Waiter struct Task *
+  if (strcmp(key, "Lock.ss_MultipleLink.sr_Waiter") == 0) {
+    return luaL_error(L, "Unsupported type struct Task * for field Lock.ss_MultipleLink.sr_Waiter");
+  }
+  // Unsupported Lock.ss_MultipleLink struct SemaphoreRequest
+  if (strcmp(key, "Lock.ss_MultipleLink") == 0) {
+    return luaL_error(L, "Unsupported type struct SemaphoreRequest for field Lock.ss_MultipleLink");
+  }
+  // Unsupported Lock.ss_Owner struct Task *
+  if (strcmp(key, "Lock.ss_Owner") == 0) {
+    return luaL_error(L, "Unsupported type struct Task * for field Lock.ss_Owner");
+  }
+  if (strcmp(key, "Lock.ss_QueueCount") == 0) {
+    lua_pushinteger(L, obj->Lock.ss_QueueCount);
+    return 1;
+  }
+  // Unsupported Lock struct SignalSemaphore
+  if (strcmp(key, "Lock") == 0) {
+    return luaL_error(L, "Unsupported type struct SignalSemaphore for field Lock");
+  }
+  if (strcmp(key, "BackFill") == 0) {
+    struct Hook **ud = (struct Hook **)lua_newuserdata(L, sizeof(struct Hook *));
+    *ud = (struct Hook*)obj->BackFill;
+    luaL_getmetatable(L, "Hook");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "reserved1") == 0) {
+    lua_pushinteger(L, obj->reserved1);
+    return 1;
+  }
+  // Unsupported ClipRegion struct Region *
+  if (strcmp(key, "ClipRegion") == 0) {
+    return luaL_error(L, "Unsupported type struct Region * for field ClipRegion");
+  }
+  if (strcmp(key, "clipped") == 0) {
+    struct ClipRect **ud = (struct ClipRect **)lua_newuserdata(L, sizeof(struct ClipRect *));
+    *ud = (struct ClipRect*)obj->clipped;
+    luaL_getmetatable(L, "ClipRect");
+    lua_setmetatable(L, -2);
+    return 1;
+  }
+  if (strcmp(key, "Width") == 0) {
+    lua_pushinteger(L, obj->Width);
+    return 1;
+  }
+  if (strcmp(key, "Height") == 0) {
+    lua_pushinteger(L, obj->Height);
+    return 1;
+  }
+  if (strcmp(key, "reserved2") == 0) {
+    _lua_gen_push_UBYTE_array_proxy(L, obj->reserved2, 18);
+    return 1;
+  }
+  // Unsupported DamageList struct Region *
+  if (strcmp(key, "DamageList") == 0) {
+    return luaL_error(L, "Unsupported type struct Region * for field DamageList");
+  }
+  if (strcmp(key, "__size") == 0) {
+    lua_pushinteger(L, sizeof(struct Layer));
+    return 1;
+}
+
+  return 0;
+}
+
+static void
+_lua_gen_Layer_install_keys(lua_State *L)
+{
+  lua_newtable(L);
+  lua_pushstring(L, "bounds.MinX");
+  lua_rawseti(L, -2, 1);
+  lua_pushstring(L, "bounds.MinY");
+  lua_rawseti(L, -2, 2);
+  lua_pushstring(L, "bounds.MaxX");
+  lua_rawseti(L, -2, 3);
+  lua_pushstring(L, "bounds.MaxY");
+  lua_rawseti(L, -2, 4);
+  lua_pushstring(L, "priority");
+  lua_rawseti(L, -2, 5);
+  lua_pushstring(L, "Flags");
+  lua_rawseti(L, -2, 6);
+  lua_pushstring(L, "Window");
+  lua_rawseti(L, -2, 7);
+  lua_pushstring(L, "Scroll_X");
+  lua_rawseti(L, -2, 8);
+  lua_pushstring(L, "Scroll_Y");
+  lua_rawseti(L, -2, 9);
+  lua_pushstring(L, "Lock.ss_Link.ln_Type");
+  lua_rawseti(L, -2, 10);
+  lua_pushstring(L, "Lock.ss_Link.ln_Pri");
+  lua_rawseti(L, -2, 11);
+  lua_pushstring(L, "Lock.ss_Link.ln_Name");
+  lua_rawseti(L, -2, 12);
+  lua_pushstring(L, "Lock.ss_NestCount");
+  lua_rawseti(L, -2, 13);
+  lua_pushstring(L, "Lock.ss_QueueCount");
+  lua_rawseti(L, -2, 14);
+  lua_pushstring(L, "reserved1");
+  lua_rawseti(L, -2, 15);
+  lua_pushstring(L, "Width");
+  lua_rawseti(L, -2, 16);
+  lua_pushstring(L, "Height");
+  lua_rawseti(L, -2, 17);
+  lua_pushstring(L, "reserved2");
+  lua_rawseti(L, -2, 18);
+  lua_setfield(L, -2, "__keys");
+}
+
+static void
+_lua_gen_install_meta_Layer(lua_State *L) {
+  if (luaL_newmetatable(L, "Layer")) {
+    lua_pushcfunction(L, _lua_gen_Layer_index);
+    lua_setfield(L, -2, "__index");
+    lua_pushcfunction(L, _lua_gen_Layer_newindex);
+    lua_setfield(L, -2, "__newindex");
+    lua_pushcfunction(L, _lua_Layer_constructor);
+    lua_setglobal(L, "Layer");
+    _lua_gen_Layer_install_keys(L);
+    lua_pushstring(L, "Layer");
+    lua_setfield(L, -2, "__name");
+  }
+  lua_pop(L, 1);
+}
+
 static int
 _lua_gen_Layer_Info_newindex(lua_State *L)
 {
   struct Layer_Info *obj = *(struct Layer_Info **)luaL_checkudata(L, 1, "Layer_Info");
   const char *key = luaL_checkstring(L, 2);
   (void)key;(void)obj;
-  // Unsupported type top_layer struct Layer
   if (strcmp(key, "top_layer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer for field top_layer");
+    // finder 1
+    //obj->top_layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->top_layer = (struct Layer *)_lua_gen_checkLayer(L, 3);
+    return 0;
   }
   if (strcmp(key, "resPtr1") == 0) {
     obj->resPtr1 = (void *)lua_touserdata(L, 3);
@@ -5332,33 +4732,45 @@ _lua_gen_Layer_Info_newindex(lua_State *L)
     obj->Lock.ss_NestCount = (WORD)luaL_checkinteger(L, 3);
     return 0;
   }
-  // Unsupported type Lock.ss_WaitQueue.mlh_Head struct MinNode
   if (strcmp(key, "Lock.ss_WaitQueue.mlh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field Lock.ss_WaitQueue.mlh_Head");
+    // finder 1
+    //obj->Lock.ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_WaitQueue.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type Lock.ss_WaitQueue.mlh_Tail struct MinNode
   if (strcmp(key, "Lock.ss_WaitQueue.mlh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field Lock.ss_WaitQueue.mlh_Tail");
+    // finder 1
+    //obj->Lock.ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_WaitQueue.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type Lock.ss_WaitQueue.mlh_TailPred struct MinNode
   if (strcmp(key, "Lock.ss_WaitQueue.mlh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field Lock.ss_WaitQueue.mlh_TailPred");
+    // finder 1
+    //obj->Lock.ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_WaitQueue.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
   // Unsupported type Lock.ss_WaitQueue struct MinList
   if (strcmp(key, "Lock.ss_WaitQueue") == 0) {
     return luaL_error(L, "Unsupported type struct MinList for field Lock.ss_WaitQueue");
   }
-  // Unsupported type Lock.ss_MultipleLink.sr_Link.mln_Succ struct MinNode
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Link.mln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field Lock.ss_MultipleLink.sr_Link.mln_Succ");
+    // finder 1
+    //obj->Lock.ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_MultipleLink.sr_Link.mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type Lock.ss_MultipleLink.sr_Link.mln_Pred struct MinNode
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Link.mln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field Lock.ss_MultipleLink.sr_Link.mln_Pred");
+    // finder 1
+    //obj->Lock.ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_MultipleLink.sr_Link.mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type Lock.ss_MultipleLink.sr_Link struct MinNode
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Link") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field Lock.ss_MultipleLink.sr_Link");
+    // finder 0
+    struct MinNode *val = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->Lock.ss_MultipleLink.sr_Link = *val;
+    return 0;
   }
   // Unsupported type Lock.ss_MultipleLink.sr_Waiter struct Task
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Waiter") == 0) {
@@ -5380,17 +4792,23 @@ _lua_gen_Layer_Info_newindex(lua_State *L)
   if (strcmp(key, "Lock") == 0) {
     return luaL_error(L, "Unsupported type struct SignalSemaphore for field Lock");
   }
-  // Unsupported type gs_Head.mlh_Head struct MinNode
   if (strcmp(key, "gs_Head.mlh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field gs_Head.mlh_Head");
+    // finder 1
+    //obj->gs_Head.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->gs_Head.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type gs_Head.mlh_Tail struct MinNode
   if (strcmp(key, "gs_Head.mlh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field gs_Head.mlh_Tail");
+    // finder 1
+    //obj->gs_Head.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->gs_Head.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type gs_Head.mlh_TailPred struct MinNode
   if (strcmp(key, "gs_Head.mlh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field gs_Head.mlh_TailPred");
+    // finder 1
+    //obj->gs_Head.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->gs_Head.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
   // Unsupported type gs_Head struct MinList
   if (strcmp(key, "gs_Head") == 0) {
@@ -5473,9 +4891,12 @@ _lua_gen_Layer_Info_index(lua_State *L)
   struct Layer_Info *obj = *(struct Layer_Info **)luaL_checkudata(L, 1, "Layer_Info");
   (void)obj;
   const char *key = luaL_checkstring(L, 2);
-  // Unsupported top_layer struct Layer *
   if (strcmp(key, "top_layer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer * for field top_layer");
+    struct Layer **ud = (struct Layer **)lua_newuserdata(L, sizeof(struct Layer *));
+    *ud = (struct Layer*)obj->top_layer;
+    luaL_getmetatable(L, "Layer");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "resPtr1") == 0) {
     lua_pushlightuserdata(L, obj->resPtr1);
@@ -5540,33 +4961,51 @@ _lua_gen_Layer_Info_index(lua_State *L)
     lua_pushinteger(L, obj->Lock.ss_NestCount);
     return 1;
   }
-  // Unsupported Lock.ss_WaitQueue.mlh_Head struct MinNode *
   if (strcmp(key, "Lock.ss_WaitQueue.mlh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field Lock.ss_WaitQueue.mlh_Head");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->Lock.ss_WaitQueue.mlh_Head;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported Lock.ss_WaitQueue.mlh_Tail struct MinNode *
   if (strcmp(key, "Lock.ss_WaitQueue.mlh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field Lock.ss_WaitQueue.mlh_Tail");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->Lock.ss_WaitQueue.mlh_Tail;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported Lock.ss_WaitQueue.mlh_TailPred struct MinNode *
   if (strcmp(key, "Lock.ss_WaitQueue.mlh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field Lock.ss_WaitQueue.mlh_TailPred");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->Lock.ss_WaitQueue.mlh_TailPred;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   // Unsupported Lock.ss_WaitQueue struct MinList
   if (strcmp(key, "Lock.ss_WaitQueue") == 0) {
     return luaL_error(L, "Unsupported type struct MinList for field Lock.ss_WaitQueue");
   }
-  // Unsupported Lock.ss_MultipleLink.sr_Link.mln_Succ struct MinNode *
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Link.mln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field Lock.ss_MultipleLink.sr_Link.mln_Succ");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->Lock.ss_MultipleLink.sr_Link.mln_Succ;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported Lock.ss_MultipleLink.sr_Link.mln_Pred struct MinNode *
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Link.mln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field Lock.ss_MultipleLink.sr_Link.mln_Pred");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->Lock.ss_MultipleLink.sr_Link.mln_Pred;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported Lock.ss_MultipleLink.sr_Link struct MinNode
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Link") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field Lock.ss_MultipleLink.sr_Link");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)&obj->Lock.ss_MultipleLink.sr_Link;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   // Unsupported Lock.ss_MultipleLink.sr_Waiter struct Task *
   if (strcmp(key, "Lock.ss_MultipleLink.sr_Waiter") == 0) {
@@ -5588,17 +5027,26 @@ _lua_gen_Layer_Info_index(lua_State *L)
   if (strcmp(key, "Lock") == 0) {
     return luaL_error(L, "Unsupported type struct SignalSemaphore for field Lock");
   }
-  // Unsupported gs_Head.mlh_Head struct MinNode *
   if (strcmp(key, "gs_Head.mlh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field gs_Head.mlh_Head");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->gs_Head.mlh_Head;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported gs_Head.mlh_Tail struct MinNode *
   if (strcmp(key, "gs_Head.mlh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field gs_Head.mlh_Tail");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->gs_Head.mlh_Tail;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported gs_Head.mlh_TailPred struct MinNode *
   if (strcmp(key, "gs_Head.mlh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field gs_Head.mlh_TailPred");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->gs_Head.mlh_TailPred;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   // Unsupported gs_Head struct MinList
   if (strcmp(key, "gs_Head") == 0) {
@@ -6907,79 +6355,6 @@ _lua_gen_install_meta_NewWindow(lua_State *L) {
 }
 
 typedef struct {
-  UBYTE* data;
-  uint16_t count;
-} lua_gen_wrapped_UBYTE_array_data_t;
-
-static int _lua_gen_wrapped_UBYTE_array_ptr_method(lua_State* L) {
-    lua_gen_wrapped_UBYTE_array_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_array_proxy");
-    int index = luaL_checkinteger(L, 2);
-    void* ptr = &wrapper->data[index - 1];
-    lua_pushlightuserdata(L, ptr);
-    return 1;
-}
-static int
-_lua_gen_wrapped_UBYTE_array_index(lua_State* L)
-{
-  lua_gen_wrapped_UBYTE_array_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_array_proxy");
-  if (lua_isinteger(L, 2)) {
-    int index = lua_tointeger(L, 2);
-    if (index < 1 || index > wrapper->count)
-      return luaL_error(L, "index out of range (1..%d)", wrapper->count);
-    lua_pushinteger(L, wrapper->data[index - 1]);
-    return 1;
-  }
-
-  // Not a numeric key? Try methods
-  lua_getmetatable(L, 1);
-  lua_getfield(L, -1, "__methods");
-  lua_pushvalue(L, 2);
-  lua_gettable(L, -2);
-  return 1;
-}
-
-static int
-_lua_gen_wrapped_UBYTE_array_newindex(lua_State* L)
-{
-  lua_gen_wrapped_UBYTE_array_data_t* wrapper = luaL_checkudata(L, 1, "UBYTE_array_proxy");
-  if (!lua_isinteger(L, 2))
-    return luaL_error(L, "only integer indices allowed");
-  int index = lua_tointeger(L, 2);
-  if (index < 1 || index > wrapper->count)
-    return luaL_error(L, "index out of range (1..%d)", wrapper->count);
-  UBYTE value = luaL_checkinteger(L,  3);
-  wrapper->data[index - 1] = value;
-  return 0;
-}
-
-static void
-_lua_gen_push_UBYTE_array_proxy(lua_State *L,  UBYTE *array, int count)
-{
-
-  lua_gen_wrapped_UBYTE_array_data_t* wrapper = lua_newuserdata(L, sizeof(lua_gen_wrapped_UBYTE_array_data_t));
-  wrapper->data = array;
-  wrapper->count = count;
-
-  if (luaL_newmetatable(L, "UBYTE_array_proxy")) {
-    // Create method table
-    lua_newtable(L);
-    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_array_ptr_method);
-    lua_setfield(L, -2, "ptr");
-    lua_setfield(L, -2, "__methods");
-
-    // __index handles both numeric and method lookup
-    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_array_index);
-    lua_setfield(L, -2, "__index");
-
-    // __newindex for writing
-    lua_pushcfunction(L, _lua_gen_wrapped_UBYTE_array_newindex);
-    lua_setfield(L, -2, "__newindex");
-  }
-
-  lua_setmetatable(L, -2);  // assign to userdata
-
-}
-typedef struct {
   UWORD* data;
   uint16_t count;
 } lua_gen_wrapped_UWORD_array_data_t;
@@ -7058,9 +6433,11 @@ _lua_gen_RastPort_newindex(lua_State *L)
   struct RastPort *obj = *(struct RastPort **)luaL_checkudata(L, 1, "RastPort");
   const char *key = luaL_checkstring(L, 2);
   (void)key;(void)obj;
-  // Unsupported type Layer struct Layer
   if (strcmp(key, "Layer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer for field Layer");
+    // finder 1
+    //obj->Layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->Layer = (struct Layer *)_lua_gen_checkLayer(L, 3);
+    return 0;
   }
   if (strcmp(key, "BitMap") == 0) {
     // finder 1
@@ -7080,9 +6457,11 @@ _lua_gen_RastPort_newindex(lua_State *L)
   if (strcmp(key, "AreaInfo") == 0) {
     return luaL_error(L, "Unsupported type struct AreaInfo for field AreaInfo");
   }
-  // Unsupported type GelsInfo struct GelsInfo
   if (strcmp(key, "GelsInfo") == 0) {
-    return luaL_error(L, "Unsupported type struct GelsInfo for field GelsInfo");
+    // finder 1
+    //obj->GelsInfo = *(struct GelsInfo **)luaL_checkudata(L, 3, "GelsInfo");
+    obj->GelsInfo = (struct GelsInfo *)_lua_gen_checkGelsInfo(L, 3);
+    return 0;
   }
   if (strcmp(key, "Mask") == 0) {
     obj->Mask = (UBYTE)luaL_checkinteger(L, 3);
@@ -7217,9 +6596,12 @@ _lua_gen_RastPort_index(lua_State *L)
   struct RastPort *obj = *(struct RastPort **)luaL_checkudata(L, 1, "RastPort");
   (void)obj;
   const char *key = luaL_checkstring(L, 2);
-  // Unsupported Layer struct Layer *
   if (strcmp(key, "Layer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer * for field Layer");
+    struct Layer **ud = (struct Layer **)lua_newuserdata(L, sizeof(struct Layer *));
+    *ud = (struct Layer*)obj->Layer;
+    luaL_getmetatable(L, "Layer");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "BitMap") == 0) {
     struct BitMap **ud = (struct BitMap **)lua_newuserdata(L, sizeof(struct BitMap *));
@@ -7240,9 +6622,12 @@ _lua_gen_RastPort_index(lua_State *L)
   if (strcmp(key, "AreaInfo") == 0) {
     return luaL_error(L, "Unsupported type struct AreaInfo * for field AreaInfo");
   }
-  // Unsupported GelsInfo struct GelsInfo *
   if (strcmp(key, "GelsInfo") == 0) {
-    return luaL_error(L, "Unsupported type struct GelsInfo * for field GelsInfo");
+    struct GelsInfo **ud = (struct GelsInfo **)lua_newuserdata(L, sizeof(struct GelsInfo *));
+    *ud = (struct GelsInfo*)obj->GelsInfo;
+    luaL_getmetatable(L, "GelsInfo");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "Mask") == 0) {
     lua_pushinteger(L, obj->Mask);
@@ -7496,9 +6881,11 @@ _lua_gen_Requester_newindex(lua_State *L)
     obj->BackFill = (UBYTE)luaL_checkinteger(L, 3);
     return 0;
   }
-  // Unsupported type ReqLayer struct Layer
   if (strcmp(key, "ReqLayer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer for field ReqLayer");
+    // finder 1
+    //obj->ReqLayer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->ReqLayer = (struct Layer *)_lua_gen_checkLayer(L, 3);
+    return 0;
   }
   // ReqPad1[32] proxied via the index
   if (strcmp(key, "ImageBMap") == 0) {
@@ -7619,9 +7006,12 @@ _lua_gen_Requester_index(lua_State *L)
     lua_pushinteger(L, obj->BackFill);
     return 1;
   }
-  // Unsupported ReqLayer struct Layer *
   if (strcmp(key, "ReqLayer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer * for field ReqLayer");
+    struct Layer **ud = (struct Layer **)lua_newuserdata(L, sizeof(struct Layer *));
+    *ud = (struct Layer*)obj->ReqLayer;
+    luaL_getmetatable(L, "Layer");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "ReqPad1") == 0) {
     _lua_gen_push_UBYTE_array_proxy(L, obj->ReqPad1, 32);
@@ -7805,9 +7195,11 @@ _lua_gen_Screen_newindex(lua_State *L)
     obj->ViewPort.Next = (struct ViewPort *)_lua_gen_checkViewPort(L, 3);
     return 0;
   }
-  // Unsupported type ViewPort.ColorMap struct ColorMap
   if (strcmp(key, "ViewPort.ColorMap") == 0) {
-    return luaL_error(L, "Unsupported type struct ColorMap for field ViewPort.ColorMap");
+    // finder 1
+    //obj->ViewPort.ColorMap = *(struct ColorMap **)luaL_checkudata(L, 3, "ColorMap");
+    obj->ViewPort.ColorMap = (struct ColorMap *)_lua_gen_checkColorMap(L, 3);
+    return 0;
   }
   // Unsupported type ViewPort.DspIns struct CopList
   if (strcmp(key, "ViewPort.DspIns") == 0) {
@@ -7865,9 +7257,11 @@ _lua_gen_Screen_newindex(lua_State *L)
     obj->ViewPort = *val;
     return 0;
   }
-  // Unsupported type RastPort.Layer struct Layer
   if (strcmp(key, "RastPort.Layer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer for field RastPort.Layer");
+    // finder 1
+    //obj->RastPort.Layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->RastPort.Layer = (struct Layer *)_lua_gen_checkLayer(L, 3);
+    return 0;
   }
   if (strcmp(key, "RastPort.BitMap") == 0) {
     // finder 1
@@ -7887,9 +7281,11 @@ _lua_gen_Screen_newindex(lua_State *L)
   if (strcmp(key, "RastPort.AreaInfo") == 0) {
     return luaL_error(L, "Unsupported type struct AreaInfo for field RastPort.AreaInfo");
   }
-  // Unsupported type RastPort.GelsInfo struct GelsInfo
   if (strcmp(key, "RastPort.GelsInfo") == 0) {
-    return luaL_error(L, "Unsupported type struct GelsInfo for field RastPort.GelsInfo");
+    // finder 1
+    //obj->RastPort.GelsInfo = *(struct GelsInfo **)luaL_checkudata(L, 3, "GelsInfo");
+    obj->RastPort.GelsInfo = (struct GelsInfo *)_lua_gen_checkGelsInfo(L, 3);
+    return 0;
   }
   if (strcmp(key, "RastPort.Mask") == 0) {
     obj->RastPort.Mask = (UBYTE)luaL_checkinteger(L, 3);
@@ -8018,9 +7414,11 @@ _lua_gen_Screen_newindex(lua_State *L)
     obj->BitMap = *val;
     return 0;
   }
-  // Unsupported type LayerInfo.top_layer struct Layer
   if (strcmp(key, "LayerInfo.top_layer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer for field LayerInfo.top_layer");
+    // finder 1
+    //obj->LayerInfo.top_layer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->LayerInfo.top_layer = (struct Layer *)_lua_gen_checkLayer(L, 3);
+    return 0;
   }
   if (strcmp(key, "LayerInfo.resPtr1") == 0) {
     obj->LayerInfo.resPtr1 = (void *)lua_touserdata(L, 3);
@@ -8084,33 +7482,45 @@ _lua_gen_Screen_newindex(lua_State *L)
     obj->LayerInfo.Lock.ss_NestCount = (WORD)luaL_checkinteger(L, 3);
     return 0;
   }
-  // Unsupported type LayerInfo.Lock.ss_WaitQueue.mlh_Head struct MinNode
   if (strcmp(key, "LayerInfo.Lock.ss_WaitQueue.mlh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field LayerInfo.Lock.ss_WaitQueue.mlh_Head");
+    // finder 1
+    //obj->LayerInfo.Lock.ss_WaitQueue.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.Lock.ss_WaitQueue.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type LayerInfo.Lock.ss_WaitQueue.mlh_Tail struct MinNode
   if (strcmp(key, "LayerInfo.Lock.ss_WaitQueue.mlh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field LayerInfo.Lock.ss_WaitQueue.mlh_Tail");
+    // finder 1
+    //obj->LayerInfo.Lock.ss_WaitQueue.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.Lock.ss_WaitQueue.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type LayerInfo.Lock.ss_WaitQueue.mlh_TailPred struct MinNode
   if (strcmp(key, "LayerInfo.Lock.ss_WaitQueue.mlh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field LayerInfo.Lock.ss_WaitQueue.mlh_TailPred");
+    // finder 1
+    //obj->LayerInfo.Lock.ss_WaitQueue.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.Lock.ss_WaitQueue.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
   // Unsupported type LayerInfo.Lock.ss_WaitQueue struct MinList
   if (strcmp(key, "LayerInfo.Lock.ss_WaitQueue") == 0) {
     return luaL_error(L, "Unsupported type struct MinList for field LayerInfo.Lock.ss_WaitQueue");
   }
-  // Unsupported type LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Succ struct MinNode
   if (strcmp(key, "LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Succ");
+    // finder 1
+    //obj->LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Succ = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Succ = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Pred struct MinNode
   if (strcmp(key, "LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Pred");
+    // finder 1
+    //obj->LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Pred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Pred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type LayerInfo.Lock.ss_MultipleLink.sr_Link struct MinNode
   if (strcmp(key, "LayerInfo.Lock.ss_MultipleLink.sr_Link") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field LayerInfo.Lock.ss_MultipleLink.sr_Link");
+    // finder 0
+    struct MinNode *val = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.Lock.ss_MultipleLink.sr_Link = *val;
+    return 0;
   }
   // Unsupported type LayerInfo.Lock.ss_MultipleLink.sr_Waiter struct Task
   if (strcmp(key, "LayerInfo.Lock.ss_MultipleLink.sr_Waiter") == 0) {
@@ -8132,17 +7542,23 @@ _lua_gen_Screen_newindex(lua_State *L)
   if (strcmp(key, "LayerInfo.Lock") == 0) {
     return luaL_error(L, "Unsupported type struct SignalSemaphore for field LayerInfo.Lock");
   }
-  // Unsupported type LayerInfo.gs_Head.mlh_Head struct MinNode
   if (strcmp(key, "LayerInfo.gs_Head.mlh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field LayerInfo.gs_Head.mlh_Head");
+    // finder 1
+    //obj->LayerInfo.gs_Head.mlh_Head = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.gs_Head.mlh_Head = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type LayerInfo.gs_Head.mlh_Tail struct MinNode
   if (strcmp(key, "LayerInfo.gs_Head.mlh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field LayerInfo.gs_Head.mlh_Tail");
+    // finder 1
+    //obj->LayerInfo.gs_Head.mlh_Tail = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.gs_Head.mlh_Tail = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
-  // Unsupported type LayerInfo.gs_Head.mlh_TailPred struct MinNode
   if (strcmp(key, "LayerInfo.gs_Head.mlh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field LayerInfo.gs_Head.mlh_TailPred");
+    // finder 1
+    //obj->LayerInfo.gs_Head.mlh_TailPred = *(struct MinNode **)luaL_checkudata(L, 3, "MinNode");
+    obj->LayerInfo.gs_Head.mlh_TailPred = (struct MinNode *)_lua_gen_checkMinNode(L, 3);
+    return 0;
   }
   // Unsupported type LayerInfo.gs_Head struct MinList
   if (strcmp(key, "LayerInfo.gs_Head") == 0) {
@@ -8210,9 +7626,11 @@ _lua_gen_Screen_newindex(lua_State *L)
     obj->SaveColor0 = (UWORD)luaL_checkinteger(L, 3);
     return 0;
   }
-  // Unsupported type BarLayer struct Layer
   if (strcmp(key, "BarLayer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer for field BarLayer");
+    // finder 1
+    //obj->BarLayer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->BarLayer = (struct Layer *)_lua_gen_checkLayer(L, 3);
+    return 0;
   }
   if (strcmp(key, "ExtData") == 0) {
     obj->ExtData = (UBYTE *)lua_touserdata(L, 3);
@@ -8361,9 +7779,12 @@ _lua_gen_Screen_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
-  // Unsupported ViewPort.ColorMap struct ColorMap *
   if (strcmp(key, "ViewPort.ColorMap") == 0) {
-    return luaL_error(L, "Unsupported type struct ColorMap * for field ViewPort.ColorMap");
+    struct ColorMap **ud = (struct ColorMap **)lua_newuserdata(L, sizeof(struct ColorMap *));
+    *ud = (struct ColorMap*)obj->ViewPort.ColorMap;
+    luaL_getmetatable(L, "ColorMap");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   // Unsupported ViewPort.DspIns struct CopList *
   if (strcmp(key, "ViewPort.DspIns") == 0) {
@@ -8423,9 +7844,12 @@ _lua_gen_Screen_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
-  // Unsupported RastPort.Layer struct Layer *
   if (strcmp(key, "RastPort.Layer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer * for field RastPort.Layer");
+    struct Layer **ud = (struct Layer **)lua_newuserdata(L, sizeof(struct Layer *));
+    *ud = (struct Layer*)obj->RastPort.Layer;
+    luaL_getmetatable(L, "Layer");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "RastPort.BitMap") == 0) {
     struct BitMap **ud = (struct BitMap **)lua_newuserdata(L, sizeof(struct BitMap *));
@@ -8446,9 +7870,12 @@ _lua_gen_Screen_index(lua_State *L)
   if (strcmp(key, "RastPort.AreaInfo") == 0) {
     return luaL_error(L, "Unsupported type struct AreaInfo * for field RastPort.AreaInfo");
   }
-  // Unsupported RastPort.GelsInfo struct GelsInfo *
   if (strcmp(key, "RastPort.GelsInfo") == 0) {
-    return luaL_error(L, "Unsupported type struct GelsInfo * for field RastPort.GelsInfo");
+    struct GelsInfo **ud = (struct GelsInfo **)lua_newuserdata(L, sizeof(struct GelsInfo *));
+    *ud = (struct GelsInfo*)obj->RastPort.GelsInfo;
+    luaL_getmetatable(L, "GelsInfo");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "RastPort.Mask") == 0) {
     lua_pushinteger(L, obj->RastPort.Mask);
@@ -8595,9 +8022,12 @@ _lua_gen_Screen_index(lua_State *L)
     lua_setmetatable(L, -2);
     return 1;
   }
-  // Unsupported LayerInfo.top_layer struct Layer *
   if (strcmp(key, "LayerInfo.top_layer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer * for field LayerInfo.top_layer");
+    struct Layer **ud = (struct Layer **)lua_newuserdata(L, sizeof(struct Layer *));
+    *ud = (struct Layer*)obj->LayerInfo.top_layer;
+    luaL_getmetatable(L, "Layer");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "LayerInfo.resPtr1") == 0) {
     lua_pushlightuserdata(L, obj->LayerInfo.resPtr1);
@@ -8662,33 +8092,51 @@ _lua_gen_Screen_index(lua_State *L)
     lua_pushinteger(L, obj->LayerInfo.Lock.ss_NestCount);
     return 1;
   }
-  // Unsupported LayerInfo.Lock.ss_WaitQueue.mlh_Head struct MinNode *
   if (strcmp(key, "LayerInfo.Lock.ss_WaitQueue.mlh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field LayerInfo.Lock.ss_WaitQueue.mlh_Head");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->LayerInfo.Lock.ss_WaitQueue.mlh_Head;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported LayerInfo.Lock.ss_WaitQueue.mlh_Tail struct MinNode *
   if (strcmp(key, "LayerInfo.Lock.ss_WaitQueue.mlh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field LayerInfo.Lock.ss_WaitQueue.mlh_Tail");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->LayerInfo.Lock.ss_WaitQueue.mlh_Tail;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported LayerInfo.Lock.ss_WaitQueue.mlh_TailPred struct MinNode *
   if (strcmp(key, "LayerInfo.Lock.ss_WaitQueue.mlh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field LayerInfo.Lock.ss_WaitQueue.mlh_TailPred");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->LayerInfo.Lock.ss_WaitQueue.mlh_TailPred;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   // Unsupported LayerInfo.Lock.ss_WaitQueue struct MinList
   if (strcmp(key, "LayerInfo.Lock.ss_WaitQueue") == 0) {
     return luaL_error(L, "Unsupported type struct MinList for field LayerInfo.Lock.ss_WaitQueue");
   }
-  // Unsupported LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Succ struct MinNode *
   if (strcmp(key, "LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Succ") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Succ");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Succ;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Pred struct MinNode *
   if (strcmp(key, "LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Pred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Pred");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->LayerInfo.Lock.ss_MultipleLink.sr_Link.mln_Pred;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported LayerInfo.Lock.ss_MultipleLink.sr_Link struct MinNode
   if (strcmp(key, "LayerInfo.Lock.ss_MultipleLink.sr_Link") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode for field LayerInfo.Lock.ss_MultipleLink.sr_Link");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)&obj->LayerInfo.Lock.ss_MultipleLink.sr_Link;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   // Unsupported LayerInfo.Lock.ss_MultipleLink.sr_Waiter struct Task *
   if (strcmp(key, "LayerInfo.Lock.ss_MultipleLink.sr_Waiter") == 0) {
@@ -8710,17 +8158,26 @@ _lua_gen_Screen_index(lua_State *L)
   if (strcmp(key, "LayerInfo.Lock") == 0) {
     return luaL_error(L, "Unsupported type struct SignalSemaphore for field LayerInfo.Lock");
   }
-  // Unsupported LayerInfo.gs_Head.mlh_Head struct MinNode *
   if (strcmp(key, "LayerInfo.gs_Head.mlh_Head") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field LayerInfo.gs_Head.mlh_Head");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->LayerInfo.gs_Head.mlh_Head;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported LayerInfo.gs_Head.mlh_Tail struct MinNode *
   if (strcmp(key, "LayerInfo.gs_Head.mlh_Tail") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field LayerInfo.gs_Head.mlh_Tail");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->LayerInfo.gs_Head.mlh_Tail;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
-  // Unsupported LayerInfo.gs_Head.mlh_TailPred struct MinNode *
   if (strcmp(key, "LayerInfo.gs_Head.mlh_TailPred") == 0) {
-    return luaL_error(L, "Unsupported type struct MinNode * for field LayerInfo.gs_Head.mlh_TailPred");
+    struct MinNode **ud = (struct MinNode **)lua_newuserdata(L, sizeof(struct MinNode *));
+    *ud = (struct MinNode*)obj->LayerInfo.gs_Head.mlh_TailPred;
+    luaL_getmetatable(L, "MinNode");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   // Unsupported LayerInfo.gs_Head struct MinList
   if (strcmp(key, "LayerInfo.gs_Head") == 0) {
@@ -8791,9 +8248,12 @@ _lua_gen_Screen_index(lua_State *L)
     lua_pushinteger(L, obj->SaveColor0);
     return 1;
   }
-  // Unsupported BarLayer struct Layer *
   if (strcmp(key, "BarLayer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer * for field BarLayer");
+    struct Layer **ud = (struct Layer **)lua_newuserdata(L, sizeof(struct Layer *));
+    *ud = (struct Layer*)obj->BarLayer;
+    luaL_getmetatable(L, "Layer");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "ExtData") == 0) {
     lua_pushlightuserdata(L, obj->ExtData);
@@ -9628,9 +9088,11 @@ _lua_gen_Window_newindex(lua_State *L)
     obj->UserData = (BYTE *)lua_touserdata(L, 3);
     return 0;
   }
-  // Unsupported type WLayer struct Layer
   if (strcmp(key, "WLayer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer for field WLayer");
+    // finder 1
+    //obj->WLayer = *(struct Layer **)luaL_checkudata(L, 3, "Layer");
+    obj->WLayer = (struct Layer *)_lua_gen_checkLayer(L, 3);
+    return 0;
   }
   if (strcmp(key, "IFont") == 0) {
     // finder 1
@@ -9907,9 +9369,12 @@ _lua_gen_Window_index(lua_State *L)
     lua_pushlightuserdata(L, obj->UserData);
     return 1;
   }
-  // Unsupported WLayer struct Layer *
   if (strcmp(key, "WLayer") == 0) {
-    return luaL_error(L, "Unsupported type struct Layer * for field WLayer");
+    struct Layer **ud = (struct Layer **)lua_newuserdata(L, sizeof(struct Layer *));
+    *ud = (struct Layer*)obj->WLayer;
+    luaL_getmetatable(L, "Layer");
+    lua_setmetatable(L, -2);
+    return 1;
   }
   if (strcmp(key, "IFont") == 0) {
     struct TextFont **ud = (struct TextFont **)lua_newuserdata(L, sizeof(struct TextFont *));
@@ -13191,9 +12656,6 @@ _lua_gen_install_defines(lua_State *L)
 static void
 _lua_gen_installGeneratedMetaTables(lua_State *L)
 {
-  _lua_gen_install_meta_List(L);
-  _lua_gen_install_meta_MsgPort(L);
-  _lua_gen_install_meta_Message(L);
   _lua_gen_install_meta_Hook(L);
   _lua_gen_install_meta_GadgetInfo(L);
   _lua_gen_install_meta_IClass(L);
@@ -13201,6 +12663,7 @@ _lua_gen_installGeneratedMetaTables(lua_State *L)
   _lua_gen_install_meta_BitMap(L);
   _lua_gen_install_meta_ViewPort(L);
   _lua_gen_install_meta_View(L);
+  _lua_gen_install_meta_ColorMap(L);
   _lua_gen_install_meta_RasInfo(L);
   _lua_gen_install_meta_ViewPortExtra(L);
   _lua_gen_install_meta_DBufInfo(L);
@@ -13209,9 +12672,9 @@ _lua_gen_installGeneratedMetaTables(lua_State *L)
   _lua_gen_install_meta_DrawInfo(L);
   _lua_gen_install_meta_Gadget(L);
   _lua_gen_install_meta_Image(L);
-  _lua_gen_install_meta_InputEvent(L);
   _lua_gen_install_meta_IntuiText(L);
   _lua_gen_install_meta_KeyMap(L);
+  _lua_gen_install_meta_Layer(L);
   _lua_gen_install_meta_Layer_Info(L);
   _lua_gen_install_meta_Menu(L);
   _lua_gen_install_meta_MenuItem(L);
@@ -13241,7 +12704,8 @@ _lua_gen_installGeneratedEnums(lua_State *L)
 
 static void
 _lua_gen_installGeneratedFunctions(lua_State *L)
-{
+{(void)L;
+
   lua_register(L, "OpenIntuition", _lua_OpenIntuition);
   lua_register(L, "Intuition", _lua_Intuition);
   lua_register(L, "ClearDMRequest", _lua_ClearDMRequest);

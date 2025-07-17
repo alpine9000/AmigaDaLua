@@ -15,64 +15,70 @@
 #include "_lua_gen.h"
 #endif
 
+int __fixdfsi(double A);
+double __floatsidf(int I);
 
 amiga_da_lua_bft_t _bft = {
-  .version = 1,
-    .lua_type = lua_type,
-    .lua_setfield = lua_setfield,
-    .lua_settable = lua_settable,
-    .lua_settop = lua_settop,
-    .lua_setglobal = lua_setglobal,
-    .lua_setmetatable = lua_setmetatable,
-    .lua_getmetatable = lua_getmetatable,
-    .lua_gettable = lua_gettable,
-    .lua_getfield = lua_getfield,
-    .lua_isinteger = lua_isinteger,
-    .lua_tointegerx = lua_tointegerx,
-    .lua_touserdata = lua_touserdata,
-    .lua_next = lua_next,
-    .lua_rotate = lua_rotate,
-    .lua_rawseti = lua_rawseti,
-    .lua_pushvalue = lua_pushvalue,
-    .lua_pushcclosure = lua_pushcclosure,
-    .lua_pushboolean = lua_pushboolean,
-    .lua_pushlightuserdata = lua_pushlightuserdata,
-    .lua_pushnil = lua_pushnil,
-    .lua_pushinteger = lua_pushinteger,
-    .lua_pushstring = lua_pushstring,
-    .lua_createtable = lua_createtable,
-    .luaL_newmetatable = luaL_newmetatable,
-    .lua_newuserdatauv = lua_newuserdatauv,
-    .luaL_error = luaL_error,
-    .luaL_checklstring = luaL_checklstring,
-    .luaL_checkudata = luaL_checkudata,
-    .luaL_checkinteger = luaL_checkinteger,
+  .version = AMIGA_DA_LUA_BFT_VERSION,
+  .lua_type = lua_type,
+  .lua_setfield = lua_setfield,
+  .lua_settable = lua_settable,
+  .lua_settop = lua_settop,
+  .lua_setglobal = lua_setglobal,
+  .lua_setmetatable = lua_setmetatable,
+  .lua_getmetatable = lua_getmetatable,
+  .lua_gettable = lua_gettable,
+  .lua_getfield = lua_getfield,
+  .lua_isinteger = lua_isinteger,
+  .lua_tointegerx = lua_tointegerx,
+  .lua_touserdata = lua_touserdata,
+  .lua_next = lua_next,
+  .lua_rotate = lua_rotate,
+  .lua_rawseti = lua_rawseti,
+  .lua_pushvalue = lua_pushvalue,
+  .lua_pushcclosure = lua_pushcclosure,
+  .lua_pushboolean = lua_pushboolean,
+  .lua_pushlightuserdata = lua_pushlightuserdata,
+  .lua_pushnil = lua_pushnil,
+  .lua_pushinteger = lua_pushinteger,
+  .lua_pushstring = lua_pushstring,
+  .lua_pushnumber = lua_pushnumber,
+  .lua_createtable = lua_createtable,
+  .luaL_newmetatable = luaL_newmetatable,
+  .lua_newuserdatauv = lua_newuserdatauv,
+  .luaL_error = luaL_error,
+  .luaL_checklstring = luaL_checklstring,
+  .luaL_checkudata = luaL_checkudata,
+  .luaL_checkinteger = luaL_checkinteger,
+  .luaL_checknumber = luaL_checknumber,
+  
+  .amiga_checkConstNullableString = amiga_checkConstNullableString,
+  .amiga_checkGadgetPtr = amiga_checkGadgetPtr,
+  .amiga_checkNullableString = amiga_checkNullableString,
+  .amiga_pushBSTR = amiga_pushBSTR,
+  .amiga_checkBSTR = amiga_checkBSTR,
+  .amiga_readVarTags = amiga_readVarTags,
+  .amiga_doTagList = amiga_doTagList,
+  .amiga_push_type = amiga_push_type,
+  .amiga_check_type = amiga_check_type,
+  
+  .strncpy = strncpy,
+  .strcmp = strcmp,
+  .malloc = malloc,
+  .memset = memset,
+  .puts = puts,
 
-    .amiga_checkConstNullableString = amiga_checkConstNullableString,
-    .amiga_checkGadgetPtr = amiga_checkGadgetPtr,
-    .amiga_checkNullableString = amiga_checkNullableString,
-    .amiga_pushBSTR = amiga_pushBSTR,
-    .amiga_checkBSTR = amiga_checkBSTR,
-    .amiga_readVarTags = amiga_readVarTags,
-    .amiga_doTagList = amiga_doTagList,
-    .amiga_push_type = amiga_push_type,
-    .amiga_check_type = amiga_check_type,
-
-    .DeleteTask = DeleteTask,
-    .strncpy = strncpy,
-    .strcmp = strcmp,
-    .malloc = malloc,
-    .memset = memset,
-    .puts = puts,
-    
-    .DOSBase = 0,
-    .ExecBase = 0,
-    .GfxBase = 0,
-    .SysBase = 0,
-    .GadToolsBase = 0,
-    .IntuitionBase = 0,
-
-    .seglists = 0,
+  .RemBob = RemBob,
+  .DeleteTask = DeleteTask,
+  
+  .DOSBase = 0,
+  .ExecBase = 0,
+  .GfxBase = 0,
+  .SysBase = 0,
+  .GadToolsBase = 0,
+  .IntuitionBase = 0,
+  
+  .seglists = 0,
 };
 
 void
@@ -476,7 +482,9 @@ _amiga_createTask(lua_State* L)
   APTR initPC = thread_make68000Thunk(L, expression);
   ULONG stackSize = luaL_checkinteger(L, 4);
   struct Task * _result = CreateTask(name, pri, initPC, stackSize);
-  _lua_gen_pushTask(L, _result);
+
+  amiga_push_type(L, _result, "Task");
+
   return 1;
   //return 0;
 }
@@ -527,15 +535,16 @@ amiga_dtor(lua_State *L)
 #endif
 }
 
+
 #ifndef AMIGA_BIG
-static void
-_amiga_loadExtenstion(lua_State* L, const char* extension)
+static int
+_amiga_loadBindingFile(lua_State* L, const char* bindings)
 {
-  BPTR seglist = LoadSeg(extension);
+  BPTR seglist = LoadSeg(bindings);
   dll_append(&_bft.seglists, (void*)seglist);
   if (!seglist) {
-    printf("failed to load %s\n", extension);
-    return;
+    printf("failed to load %s\n", bindings);
+    return 0;
   }
   struct Segment *seg = (struct Segment *)BADDR(seglist);
   entry = (void*)&seg->seg_UC;  
@@ -545,13 +554,53 @@ _amiga_loadExtenstion(lua_State* L, const char* extension)
   _bft.SysBase = SysBase;
   _bft.GadToolsBase = GadToolsBase;
   _bft.IntuitionBase = IntuitionBase;
+  _bft.__fixdfsi = __fixdfsi;
+  _bft.__floatsidf = __floatsidf;
   _bft.L = L;
-  entry(&_bft);
+  return entry(&_bft);
 }
+
+static int
+_amiga_loadBindings(lua_State *L)
+{
+  lua_getfield(L, LUA_REGISTRYINDEX, "_isTask");
+  int isTask = 0;
+  if (!lua_isnil(L, -1)) {
+    isTask = lua_toboolean(L, -1);
+  }
+  lua_pop(L, 1);
+
+  if (isTask) {
+    return 1;
+  }
+  
+  const char* extension = ".bindings";
+  const char* name = luaL_checkstring(L, 1);
+  char* fullName = malloc(strlen(name) + strlen(extension) + 1);
+  strcpy(fullName, name);
+  strcat(fullName, extension);
+  int loaded = _amiga_loadBindingFile(L, fullName);
+  free(fullName);
+  lua_pushboolean(L, loaded);
+  return 1;
+}
+
+#else
+
+static int
+_amiga_loadBindings(lua_State *L)
+{
+  lua_pushboolean(L, 1);
+  return 1;
+}
+
 #endif
 
+
+
+
 void
-amiga_lua_install(lua_State* L, uint16_t extensions)
+amiga_lua_install(lua_State* L)
 {
   extern struct Custom custom;
   struct Custom **ud = (struct Custom **)lua_newuserdata(L, sizeof(struct Custom *));
@@ -569,20 +618,12 @@ amiga_lua_install(lua_State* L, uint16_t extensions)
   lua_register(L, "GetStringInfo", _amiga_getStringInfo);
   lua_register(L, "serial_print", _amiga_serialPrint);
   lua_register(L, "itoh", _amiga_itoh);
-  lua_register(L, "CreateTask", _amiga_createTask);  
+  lua_register(L, "CreateTask", _amiga_createTask);
+  lua_register(L, "LoadBindings", _amiga_loadBindings);
   
   lua_pushcfunction(L, _amiga_create_uint16_t_array);
   lua_setglobal(L, "CreateArrayUWORD");
 
   lua_pushcfunction(L, _amiga_create_chip_uint16_t_array);
   lua_setglobal(L, "CreateChipArrayUWORD");
-
-#ifndef AMIGA_BIG  
-  if (extensions) {
-    _amiga_loadExtenstion(L, "dos.lex");
-    _amiga_loadExtenstion(L, "intuition.lex");
-  }
-#else
-  (void)extensions;
-#endif
 }

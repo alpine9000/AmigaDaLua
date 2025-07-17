@@ -11,6 +11,10 @@
 
 --  Custom custom is a AmigaDaLua global
 
+LoadBindings("intuition")
+LoadBindings("graphics")
+LoadBindings("exec")
+
 local screen = nil
 local window = nil
 local CINIT = UCopperListInit

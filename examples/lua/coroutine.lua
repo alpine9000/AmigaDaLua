@@ -1,3 +1,5 @@
+print("\nTest Lua coroutines...\n")
+
 function task(name)
   for i = 1, 3 do
     print(name .. " iteration " .. i)
@@ -15,3 +17,6 @@ while true do
     break
   end
 end
+
+print("\nPress RETURN to continue...")
+io.read()

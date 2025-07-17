@@ -30,6 +30,7 @@ amiga_da_lua_bft_t* _bft;
 #define luaL_checklstring _bft->luaL_checklstring
 #define luaL_checkudata _bft->luaL_checkudata
 #define luaL_checkinteger _bft->luaL_checkinteger
+#define luaL_checknumber _bft->luaL_checknumber
 #define lua_createtable _bft->lua_createtable
 
 #define lua_isinteger _bft->lua_isinteger
@@ -40,6 +41,7 @@ amiga_da_lua_bft_t* _bft;
 #define lua_pushlightuserdata _bft->lua_pushlightuserdata
 #define lua_pushstring _bft->lua_pushstring
 #define lua_pushinteger _bft->lua_pushinteger
+#define lua_pushnumber _bft->lua_pushnumber
 
 #define lua_getmetatable _bft->lua_getmetatable
 #define lua_gettable _bft->lua_gettable
@@ -55,6 +57,9 @@ amiga_da_lua_bft_t* _bft;
 #define lua_tointegerx _bft->lua_tointegerx
 #define lua_touserdata _bft->lua_touserdata
 
+#define RemBob _bft->RemBob
+#define DeleteTask _bft->DeleteTask
+
 #undef DOS_BASE_NAME
 #define DOS_BASE_NAME _bft->DOSBase
 #define ExecBase _bft->ExecBase
@@ -68,15 +73,20 @@ int
 start(register amiga_da_lua_bft_t* bft asm("a0"))
 {
   _bft = bft;
+  if (_bft->version != AMIGA_DA_LUA_BFT_VERSION) {
+    _bft->puts("BFT version mismatch - bindings not installed\n");    
+    return 0;
+  }
   lua_gen_install(_bft->L);
-  return 0;
+  return 1;
 }
 
-int
-puts(const char* s)
-{
-  return _bft->puts(s);
-}
+int puts(const char *s) { return _bft->puts(s); }
+
+int __fixdfsi(double a) { return _bft->__fixdfsi(a); }
+
+double __floatsidf (int I) { return _bft->__floatsidf(I); }
+
 #define _AMIGA_LUA_EXTENSION
 
 //#include "thunk.c"

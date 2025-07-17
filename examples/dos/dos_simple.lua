@@ -1,8 +1,12 @@
-print("Simple DOS example in Lua")
+LoadBindings("dos")
+LoadBindings("exec")
+
+print("\nSimple DOS example in Lua that reads text from a file")
 
 local filename = "test.txt"
 local BUFSIZE = 512
 
+print("\nLoading " .. filename.. "...\n")
 local fh = Open(filename, MODE_OLDFILE)
 
 if fh == 0 then
@@ -12,6 +16,8 @@ end
 
 local buffer = AllocMem(BUFSIZE, MEMF_PUBLIC|MEMF_CLEAR)
 
+print("Contents of file")
+print("================")
 local done = false
 while not done do
    local bytes = Read(fh, buffer, BUFSIZE)
@@ -20,9 +26,10 @@ while not done do
       done = true
    end
 end
+print("================")
 
 FreeMem(buffer, BUFSIZE)
 Close(fh)
 
-print("Press RETURN to continue...")
+print("\nPress RETURN to continue...")
 io.read()

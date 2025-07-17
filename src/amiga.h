@@ -79,13 +79,16 @@ int
 amiga_readVarTags(lua_State* L, struct TagItem* taglist, int maxTags, int argNum);
 
 void
-amiga_lua_install(lua_State* L, uint16_t extensions);
+amiga_lua_install(lua_State* L);
 
 void
 amiga_push_type(lua_State *L, void *o, const char *name);
 
 void *
 amiga_check_type(lua_State *L, int index, const char* name);
+
+#define AMIGA_DA_LUA_BFT_VERSION 1
+
 
 typedef struct {
   uint32_t version;
@@ -95,6 +98,9 @@ typedef struct {
   void * (*malloc)(size_t __size);
   void * (*memset)(void *b, int c, size_t len);
   int    (*puts)(const char *s);
+
+  int    (*__fixdfsi)(double A);
+  double (*__floatsidf)(int I);
   
   int   (*lua_type) (lua_State *L, int idx);
   void  (*lua_setfield) (lua_State *L, int idx, const char *k);
@@ -121,8 +127,9 @@ typedef struct {
   void  (*lua_pushboolean) (lua_State *L, int b);
   void  (*lua_pushlightuserdata) (lua_State *L, void *p);
   void  (*lua_pushnil) (lua_State *L);
-  void  (*lua_pushinteger) (lua_State *L, lua_Integer n);  
-  const char *(*lua_pushstring) (lua_State *L, const char *s);  
+  void  (*lua_pushinteger) (lua_State *L, lua_Integer n);
+  void  (*lua_pushnumber) (lua_State *L, lua_Number n);    
+  const char *(*lua_pushstring) (lua_State *L, const char *s);
 
   void  (*lua_createtable) (lua_State *L, int narr, int nrec);  
 
@@ -131,7 +138,8 @@ typedef struct {
   int   (*luaL_error) (lua_State *L, const char *fmt, ...);
   const char *(*luaL_checklstring) (lua_State *L, int arg, size_t *l);
   void *(*luaL_checkudata) (lua_State *L, int ud, const char *tname);
-  lua_Integer (*luaL_checkinteger) (lua_State *L, int arg);  
+  lua_Integer (*luaL_checkinteger) (lua_State *L, int arg);
+  lua_Number (*luaL_checknumber) (lua_State *L, int arg);
   
 
   int (*amiga_doTagList)(lua_State *L, struct TagItem *tags, uint16_t maxTags, uint16_t argNumber);  
@@ -143,11 +151,9 @@ typedef struct {
   int (*amiga_readVarTags)(lua_State* L, struct TagItem* taglist, int maxTags, int argNum);  
   void (*amiga_push_type)(lua_State *L, void *o, const char *name);
   void* (*amiga_check_type)(lua_State *L, int index, const char* name);  
-  
-  void  (*DeleteTask)( struct Task *task );
 
-  
-  //  int (*printf)(const char *format, ...);
+  void (*RemBob)(struct Bob* b);
+  void (*DeleteTask)( struct Task *task );
 
   struct DosLibrary *DOSBase;
   struct ExecBase* ExecBase;
