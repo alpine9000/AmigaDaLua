@@ -215,7 +215,7 @@ Reads a file uses Open/Read etc.
 
 ### [TagLists](examples/gadtools/simplegtgadget-taglists.lua)
 
-![Screenshot](examples/gadtools/simplegtgadget-taglists.lua)
+![Screenshot](examples/gadtools/simplegtgadget-taglists.png)
 
 ### [User Copper](examples/graphics/usercopper.lua)
 
@@ -227,5 +227,5 @@ Reads a file uses Open/Read etc.
 
 ### [Exec CreateTask](examples/exec/simpletask.lua)
 
-![Screenshot](Exec CreateTask](examples/exec/simpletask.png)
+![Screenshot](examples/exec/simpletask.png)
 
