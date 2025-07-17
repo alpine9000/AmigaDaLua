@@ -201,31 +201,50 @@ A selection of examples mainly taken from the Amiga RKM. Many examples have the 
 
 ### [DOS Simple](examples/dos/dos_simple.lua)
 
-Reads a file uses Open/Read etc.
+Reads a file uses Open/Read/Write/Output etc.
 
 ![Screenshot](examples/dos/dos_simple.png)
 
 ### [Lua Coroutine](examples/lua/coroutine.lua)
 
+Basic example of Lua coroutines
+
 ![Screenshot](examples/lua/coroutine.png)
 
 ### [Gadtools Gadgets](examples/gadtools/gadtoolsgadgets.lua)
+
+[From RKM](http://amigadev.elowar.com/read/ADCD_2.1/Libraries_Manual_guide/node0598.html) Simple example of using a number of gadtools gadgets.
+Here's a working example showing how to set up and use a linked list of GadTools gadgets complete with keyboard shortcuts.
 
 ![Screenshot](examples/gadtools/gadtoolsgadgets.png)
 
 ### [TagLists](examples/gadtools/simplegtgadget-taglists.lua)
 
+[From RKM](http://www.amigadev.elowar.com/read/ADCD_2.1/Libraries_Manual_guide/node0599.html) The example listed here shows how to use the NewGadget structure and the GadTools library functions discussed above to create a simple button gadget.
+
+This also shows how to use tag lists with AmigaDaLua.
+
 ![Screenshot](examples/gadtools/simplegtgadget-taglists.png)
 
 ### [User Copper](examples/graphics/usercopper.lua)
+
+[From RKM](http://amigadev.elowar.com/read/ADCD_2.1/Libraries_Manual_guide/node059E.html) The example program below shows the use of user Copper lists under Intuition.
 
 ![Screenshot](examples/graphics/usercopper.png)
 
 ### [Graphics Bob](examples/graphics/bob.lua)
 
+[From RKM](http://amigadev.elowar.com/read/ADCD_2.1/Libraries_Manual_guide/node057B.html)  This example must be linked with animtools.c and includes the header files animtools.h and animtools_proto.h.  These files are listed at the end of the chapter.
+
+Shows how to usew a Bob under intuition.
+
 ![Screenshot](examples/graphics/bob.png)
 
 ### [Exec CreateTask](examples/exec/simpletask.lua)
+
+[From RKM](http://amigadev.elowar.com/read/ADCD_2.1/Libraries_Manual_guide/node058F.html) Uses the amiga.lib function CreateTask() to create a simple subtask.  See the Includes and Autodocs manual for CreateTask() source code.
+
+This is a little funky under Lua - remember don't use Dos functions inside a Task!
 
 ![Screenshot](examples/exec/simpletask.png)
 
