@@ -11,6 +11,8 @@ CFLAGS=-Os -Wall -Wextra -DLUA_COMPAT_5_3 $(SYSCFLAGS) $(MYCFLAGS) -std=gnu99 -n
 LDFLAGS= $(SYSLDFLAGS) $(MYLDFLAGS) -noixemul -s
 LIBS=-lm $(SYSLIBS) $(MYLIBS)
 
+RELEASE_ARTIFACT=AmigaDaLua-0.01
+
 AR= $(COMPILER_PATH)/m68k-amigaos-ar rcu
 RANLIB= $(COMPILER_PATH)/m68k-amigaos-ranlib
 RM= rm -f
@@ -74,6 +76,15 @@ all:	$(ALL_T) $(LUA_B) $(ALL_E)
 o:	$(ALL_O)
 
 a:	$(ALL_A)
+
+release: all
+	rm -rf $(RELEASE_ARTIFACT)
+	mkdir $(RELEASE_ARTIFACT)
+	cp lua lua_big *.bindings $(RELEASE_ARTIFACT)
+	cp `find ../examples -name "*.lua"` $(RELEASE_ARTIFACT)
+	cp ../examples/dos/test.txt $(RELEASE_ARTIFACT)
+	lha a $(RELEASE_ARTIFACT).lha $(RELEASE_ARTIFACT)
+	rm -rf $(RELEASE_ARTIFACT)
 
 amiga.o: _lua_gen.h amiga.c amiga.h thunk.c thread.c
 	$(CC) -c $(CFLAGS)  amiga.c -o $@

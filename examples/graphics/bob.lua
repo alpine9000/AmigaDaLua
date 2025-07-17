@@ -1,3 +1,7 @@
+LoadBindings("intuition")
+LoadBindings("graphics")
+LoadBindings("exec")
+
 -- This example must be linked with animtools.c and includes the header
 -- files animtools.h and animtools_proto.h.  These files are listed at
 -- the end of the chapter.

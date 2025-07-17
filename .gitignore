@@ -13,3 +13,4 @@ src/__pycache__
 src/dos.lex
 src/lua_big
 src/*.bindings
+*.lha
