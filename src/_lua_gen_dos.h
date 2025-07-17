@@ -1,4 +1,3 @@
-// generated with lua_generate.py - run: python3 lua_generate.py amiga.h > _lua_gen.h
 #define _lua_gen_pushTagItem(l, o) amiga_push_type(l, o, "TagItem")
 
 #define _lua_gen_checkTagItem(l, i) amiga_check_type(l, i,  "TagItem")

@@ -2,6 +2,8 @@ import sys
 import clang.cindex
 import re
 
+clang.cindex.Config.set_library_file('/opt/homebrew/opt/llvm/lib/libclang.dylib')
+
 TYPES = []    
 TYPE_CONFIG = {}
 ENUM_CONFIG = []
@@ -38,7 +40,6 @@ FUNCTOR_SKIP = []
 #BOOL_FUNCTION_CONFIG.extend(lua_dos.BOOL_FUNCTION_CONFIG)
 #FUNCTOR_SKIP.extend(lua_dos.FUNCTOR_SKIP)
 
-clang.cindex.Config.set_library_file('/opt/homebrew/opt/llvm/lib/libclang.dylib')
 
 READ_TYPE_TO_LUA = {
     'int': 'lua_pushinteger',
@@ -1276,8 +1277,6 @@ def main():
     
     index = clang.cindex.Index.create()
     tu = index.parse(header, args=['-x', 'c', '-I/usr/local/amiga/bebbo/m68k-amigaos/sys-include/', '-I/usr/local/amiga/bebbo/m68k-amigaos/ndk-include'])
-    print("// generated with lua_generate.py - run: python3 lua_generate.py amiga.h > _lua_gen.h")
-
     find_interfaces(tu.cursor)
     find_typedef_structs(tu.cursor)
     generate_lua_defines()

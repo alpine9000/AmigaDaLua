@@ -44,7 +44,12 @@ LUA_O=	lua.o amiga.o list.o
 LUA_t=  lua_big
 LUA_o=  lua.o amiga_big.o
 
-LUA_G=  _lua_gen_dos.h _lua_gen_exec.h _lua_gen_graphics.h _lua_gen_intuition.h _lua_gen.h _lua_gen_big.h
+LUA_BINDINGS=dos exec graphics intuition
+LUA_BINDINGS_HEADERS=$(addsuffix .h, $(addprefix _lua_gen_,$(LUA_BINDINGS)))
+LUA_BINDINGS_PY=$(addsuffix .py, $(addprefix lua_,$(LUA_BINDINGS)))
+LUA_BINDINGS_PY_MODS=$(addprefix lua_,$(LUA_BINDINGS))
+
+LUA_G=  _lua_gen.h _lua_gen_big.h $(LUA_BINDINGS_HEADERS)
 
 LUAC_T=	luac
 LUAC_O=	luac.o
@@ -52,24 +57,15 @@ LUAC_O=	luac.o
 ALL_O= $(BASE_O) $(LUA_O) $(LUAC_O) $(LUA_o)
 ALL_T= $(LUA_A) $(LUA_T) $(LUAC_T) $(LUA_t)
 ALL_A= $(LUA_A)
-ALL_E= dos.bindings exec.bindings graphics.bindings intuition.bindings
+ALL_E= $(addsuffix .bindings, $(LUA_BINDINGS))
 
 LAYOUT= -Wl,--section-start=.text.start=0x0
 
 # Targets start here.
 default: generic
 
-dos.bindings: bindings_dos.c bindings.h amiga.h _lua_gen_dos.h
-	$(CC) $(CFLAGS)  -nostdlib  -nostartfiles -Wl,-Tbindings.ld bindings_dos.c -s -o dos.bindings
-
-exec.bindings: bindings_exec.c bindings.h amiga.h _lua_gen_exec.h
-	$(CC) $(CFLAGS)  -nostdlib  -nostartfiles -Wl,-Tbindings.ld bindings_exec.c -s -o exec.bindings
-
-graphics.bindings: bindings_graphics.c bindings.h amiga.h _lua_gen_graphics.h
-	$(CC) $(CFLAGS)  -nostdlib  -nostartfiles -Wl,-Tbindings.ld bindings_graphics.c -s -o graphics.bindings
-
-intuition.bindings: bindings_intuition.c bindings.h amiga.h _lua_gen_intuition.h
-	$(CC) $(CFLAGS)  -nostdlib  -nostartfiles -Wl,-Tbindings.ld bindings_intuition.c -s -o intuition.bindings
+%.bindings: bindings_%.c bindings.h amiga.h _lua_gen_%.h
+	$(CC) $(CFLAGS) -nostdlib -nostartfiles -Wl,-Tbindings.ld $< -s -o $@
 
 all:	$(ALL_T) $(LUA_B) $(ALL_E)
 
@@ -196,36 +192,27 @@ lparser.o:
 lcode.o:
 	$(CC) $(CFLAGS) $(CMCFLAGS) -c lcode.c
 
-_lua_gen_big.h: amiga.h lua_generate.py lua_dos.py lua_exec.py lua_graphics.py lua_intuition.py lua_all.py
-	python3 lua_generate.py amiga.h lua_all lua_dos lua_exec lua_graphics lua_intuition > _lua_gen_big.h
+_lua_gen_big.h: amiga.h lua_generate.py $(LUA_BINDINGS_PY) lua_all.py
+	python3 lua_generate.py amiga.h lua_all $(LUA_BINDINGS_PY_MODS) > _lua_gen_big.h
 
-_lua_gen.h: amiga.h lua_generate.py lua_all.py 
+_lua_gen.h: amiga.h lua_generate.py lua_all.py $(LUA_BINDINGS_PY)
 	python3 lua_generate.py amiga.h lua_all > _lua_gen.h
 
-_lua_gen_dos.h: amiga.h lua_generate.py lua_dos.py
-	python3 lua_generate.py amiga.h lua_dos > _lua_gen_dos.h
-
-_lua_gen_exec.h: amiga.h lua_generate.py lua_exec.py
-	python3 lua_generate.py amiga.h lua_exec > _lua_gen_exec.h
-
-_lua_gen_graphics.h: amiga.h lua_generate.py lua_graphics.py
-	python3 lua_generate.py amiga.h lua_graphics > _lua_gen_graphics.h
-
-_lua_gen_intuition.h: amiga.h lua_generate.py lua_intuition.py
-	python3 lua_generate.py amiga.h lua_intuition > _lua_gen_intuition.h
+_lua_gen_%.h: amiga.h lua_generate.py lua_%.py
+	python3 lua_generate.py amiga.h lua_$* > _lua_gen_$*.h
 
 # DO NOT DELETE
 
-amiga.o: amiga.c lauxlib.h luaconf.h lua.h lualib.h amiga.h thunk.c \
- thread.c _lua_gen.h
+amiga.o: amiga.c lauxlib.h luaconf.h lua.h lualib.h amiga.h list.h \
+ thunk.c thread.c _lua_gen.h
 bindings_dos.o: bindings_dos.c bindings.h lauxlib.h luaconf.h lua.h \
- lualib.h amiga.h _lua_gen_dos.h
+ lualib.h amiga.h list.h _lua_gen_dos.h
 bindings_exec.o: bindings_exec.c bindings.h lauxlib.h luaconf.h lua.h \
- lualib.h amiga.h _lua_gen_exec.h
-bindings_graphics.o: bindings_graphics.c bindings.h lauxlib.h luaconf.h lua.h \
- lualib.h amiga.h _lua_gen_graphics.h
-bindings_intuition.o: bindings_intuition.c bindings.h lauxlib.h luaconf.h lua.h \
- lualib.h amiga.h _lua_gen_intuition.h
+ lualib.h amiga.h list.h _lua_gen_exec.h
+bindings_graphics.o: bindings_graphics.c bindings.h lauxlib.h luaconf.h \
+ lua.h lualib.h amiga.h list.h _lua_gen_graphics.h
+bindings_intuition.o: bindings_intuition.c bindings.h lauxlib.h luaconf.h \
+ lua.h lualib.h amiga.h list.h _lua_gen_intuition.h
 lapi.o: lapi.c lprefix.h lua.h luaconf.h lapi.h llimits.h lstate.h \
  lobject.h ltm.h lzio.h lmem.h ldebug.h ldo.h lfunc.h lgc.h lstring.h \
  ltable.h lundump.h lvm.h
@@ -251,6 +238,7 @@ lgc.o: lgc.c lprefix.h lua.h luaconf.h ldebug.h lstate.h lobject.h \
  llimits.h ltm.h lzio.h lmem.h ldo.h lfunc.h lgc.h lstring.h ltable.h
 linit.o: linit.c lprefix.h lua.h luaconf.h lualib.h lauxlib.h
 liolib.o: liolib.c lprefix.h lua.h luaconf.h lauxlib.h lualib.h
+list.o: list.c list.h
 llex.o: llex.c lprefix.h lua.h luaconf.h lctype.h llimits.h ldebug.h \
  lstate.h lobject.h ltm.h lzio.h lmem.h ldo.h lgc.h llex.h lparser.h \
  lstring.h ltable.h
