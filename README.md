@@ -12,6 +12,14 @@ further information about Lua, see doc/readme.html.
 
 # AmigaDaLua - Lua with Amiga NDK Bindings
 
+### Stack
+
+AmigaDaLua and Lua in general uses a large stack. Set the stack on your shell before running.
+
+```bash
+CLI>stack 256000
+```
+
 ## Bindings
 
 There are two ways to access the Amiga NDK bindings in AmigaDaLua
@@ -25,29 +33,28 @@ LoadBindings("exec")
 
 The bindings are currently very memory heavy, so `lua_big` is probably best for powerful Amigas only.
 
-## Some LUA/Amiga gotches
 
-### Tags
+## Tags
 
 Functions that tag variable number of tags such as `OpenWindowTags` on the Amiga would require a TAG_END tag to indicate the end of the tag arguments. On AmigaDaLua this is not currently required/supported
 
 ```lua
- mywin = OpenWindowTags(nil,
-                        WA_Title,         "GadTools Gadget Demo (Lua)",
-                        WA_Gadgets,       GetPtr(glist),
-                        WA_AutoAdjust,    true,
-                        WA_Width,         400,
-                        WA_MinWidth,      50,
-                        WA_InnerHeight,   140,
-                        WA_MinHeight,     50,
-                        WA_DragBar,       true,
-                        WA_DepthGadget,   true,
-                        WA_Activate,      true,
-                        WA_CloseGadget,   true,
-                        WA_SizeGadget,    true,
-                        WA_SimpleRefresh, true,
-                        WA_IDCMP, IDCMP_CLOSEWINDOW | IDCMP_REFRESHWINDOW | IDCMP_VANILLAKEY | SLIDERIDCMP | STRINGIDCMP | BUTTONIDCMP,
-                        WA_PubScreen, GetPtr(mysc))
+mywin = OpenWindowTags(nil,
+                       WA_Title,         "GadTools Gadget Demo (Lua)",
+                       WA_Gadgets,       GetPtr(glist),
+                       WA_AutoAdjust,    true,
+                       WA_Width,         400,
+                       WA_MinWidth,      50,
+                       WA_InnerHeight,   140,
+                       WA_MinHeight,     50,
+                       WA_DragBar,       true,
+                       WA_DepthGadget,   true,
+                       WA_Activate,      true,
+                       WA_CloseGadget,   true,
+                       WA_SizeGadget,    true,
+                       WA_SimpleRefresh, true,
+                       WA_IDCMP, IDCMP_CLOSEWINDOW | IDCMP_REFRESHWINDOW | IDCMP_VANILLAKEY | SLIDERIDCMP | STRINGIDCMP | BUTTONIDCMP,
+                       WA_PubScreen, GetPtr(mysc))
 ```
 
 Creating a TagList requires Lua utility code (found in util.lua). Again, no need for TAG_END.
@@ -76,7 +83,6 @@ local mywin = OpenWindowTagList(nil, tags)
 To create a variable of TextAttr type you can create it inline as follows:
 
 ```lua
-
 local Topaz80 = TextAttr {
    ta_Name = "topaz.font",
    ta_YSize = 8,
@@ -104,11 +110,10 @@ local ng = NewGadget {
 If you are assigning a typed variable to something untyped (like a TAG or void *) you must use the `GetPtr` function to convert the type to a pointer.
 
 ```lua
-
 local screen = OpenScreenTags(nil,
-      			      SA_Overscan, OSCAN_STANDARD,
-			      SA_Title,    "User Copper List Example",
-			      SA_Font,     GetPtr(Topaz80))
+                              SA_Overscan, OSCAN_STANDARD,
+		                      SA_Title, "User Copper List Example",
+			                  SA_Font, GetPtr(Topaz80))
 ```
 
 ## Creating buffers
@@ -118,13 +123,13 @@ local screen = OpenScreenTags(nil,
 AmigaDaLua has some special types for creating arrays of words. Note: these arrays are indexed as Lua arrays (1 based index)
 
 ```lua
-   local spectrum = CreateArrayUWORD {
-      0x0604, 0x0605, 0x0606, 0x0607, 0x0617, 0x0618, 0x0619,
-      0x0629, 0x072a, 0x073b, 0x074b, 0x074c, 0x075d, 0x076e,
-      0x077e, 0x088f, 0x07af, 0x06cf, 0x05ff, 0x04fb, 0x04f7,
-      0x03f3, 0x07f2, 0x0bf1, 0x0ff0, 0x0fc0, 0x0ea0, 0x0e80,
-      0x0e60, 0x0d40, 0x0d20, 0x0d00
-   }
+local spectrum = CreateArrayUWORD {
+    0x0604, 0x0605, 0x0606, 0x0607, 0x0617, 0x0618, 0x0619,
+    0x0629, 0x072a, 0x073b, 0x074b, 0x074c, 0x075d, 0x076e,
+    0x077e, 0x088f, 0x07af, 0x06cf, 0x05ff, 0x04fb, 0x04f7,
+    0x03f3, 0x07f2, 0x0bf1, 0x0ff0, 0x0fc0, 0x0ea0, 0x0e80,
+    0x0e60, 0x0d40, 0x0d20, 0x0d00
+}
 ```
 
 If you need to create the array in chip ram, use `CreateChipArrayUWORD`
@@ -134,16 +139,18 @@ If you need to create the array in chip ram, use `CreateChipArrayUWORD`
 Amiga examples might use a static buffer to store data, the easiest way to do this in AmigaDaLua is to use AllocMem
 
 ```C
-char buffer[1024]
+/* C example */
+char buffer[1024];
 ```
 
 ```lua
+-- Easiest to do this with AllocMem in AmigaDaLua
 local buffer = AllocMem(1024, MEMF_PUBLIC)
 ```
 
 ## Getting the address of an array element
 
-Use the special :ptr() array extension to get the address of an array element. Note: array indexes are 1 indexed.
+Use the special `:ptr()` array extension to get the address of an array element. Note: array indexes are 1 indexed.
 
 ```lua
  CMOVE(uCopList, custom.color:ptr(1), spectrum[i])
@@ -151,15 +158,15 @@ Use the special :ptr() array extension to get the address of an array element. N
 
 ## Be careful with false, nil and 0
 
-Many AmigaOS functions will return 0. It Lua this is not == false - Safest to use Amiga defined return value variables.
+Many AmigaOS functions will return `0`. It Lua this is not `== false` - Safest to use Amiga defined return value variables.
 
-Structure fields of real types or AmigaOS functions that return real types will be equal to nil when there is no value.
+Structure fields of real types or AmigaOS functions that return real types will be equal to `nil` when there is no value.
 
 ## GadgetLists
 
 ### NewGadgetList
 
-NewGadgetList will create the equivalent of a pointer-to-pointer (GadgetPtr) for use with CreateContext(). Once the context is created you can use the returned gadget as a pointer to the gadget list.
+NewGadgetList will create the equivalent of a pointer-to-pointer (`GadgetPtr`) for use with `CreateContext()`. Once the context is created you can use the returned gadget as a pointer to the gadget list.
 
 ```lua
    local gad = CreateContext(NewGadgetList())
